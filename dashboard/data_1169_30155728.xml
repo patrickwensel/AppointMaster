@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pie>
+  <slice title="Website (forms)
+Combined ammout " url="javascript:loadCampaignDetail(0,'1',false)" description="click for detail"  pull_out="true"  > 225 892</slice>
+  <slice title="Website (phone) Direct
+Combined ammout " url="javascript:loadCampaignDetail(1,'2',false)" description="click for detail"   > 474 888</slice>
+  <slice title="Radio
+Combined ammout " url="javascript:loadCampaignDetail(2,'3',false)" description="click for detail"   > 175 249</slice>
+  <slice title="Website (phone)
+Combined ammout " url="javascript:loadCampaignDetail(3,'4',false)" description="click for detail"   > 243 835</slice>
+  <slice title="Referral Flier
+Combined ammout " url="javascript:loadCampaignDetail(4,'5',false)" description="click for detail"   >0</slice>
+  <slice title="NP Care Cards
+Combined ammout " url="javascript:loadCampaignDetail(5,'6',false)" description="click for detail"   > 245 206</slice>
+  <slice title="Patient Referral
+Combined ammout " url="javascript:loadCampaignDetail(6,'8',false)" description="click for detail"   > 29 576</slice>
+  <slice title="Insurance Referral
+Combined ammout " url="javascript:loadCampaignDetail(7,'9',false)" description="click for detail"   > 26 529</slice>
+  <slice title="Other Manual Leads
+Combined ammout " url="javascript:loadCampaignDetail(8,'10',false)" description="click for detail"   > 22 847</slice>
+  <slice title="Google
+Combined ammout " url="javascript:loadCampaignDetail(9,'11',false)" description="click for detail"   > 67 146</slice>
+</pie>
+

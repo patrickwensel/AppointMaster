@@ -1,0 +1,52 @@
+﻿<html>
+<head>
+  <script type="text/javascript" src="sound/jquery.min.js"></script>
+  <script type="text/javascript" src="sound/jquery.jplayer.min.js"></script>
+  <script type="text/javascript" src="sound/audio.js"></script>
+</head>
+<body onload="createPlayer();">
+
+
+<h2>PROI Dashboard Sound Pop-up Testing</h2>
+<a href="#" onclick="playURL('http://localpatient.voicefiles.avangardsolutions.com/1145/20121213112121-1145-1283614167.mp3'); return false;">test play UR -LPIL</a>
+<br>
+<a href="#" onclick="playURL('http://www.largesound.com/ashborytour/sound/brobob.mp3'); return false;">test play Music</a>
+<br>
+<a href="#" onclick="playURL('http://robtowns.com/music/blind_willie.mp3'); return false;">test Guitare</a>
+
+<img src="images/rewind.png" id="restart_01" onclick="restart();" style="display:none" title="Restart"/>
+<img src="images/listen.gif" id="play_01" onclick="play('01','http://www.largesound.com/ashborytour/sound/brobob.mp3'); return false;"  title="Play" />
+<img src="images/stop.png" id="pause_01" onclick="pause();" style="display:none"  title="Pause"/>
+
+<br /><br />
+
+<img src="images/rewind.png" id="restart_02" style="display:none" onclick="restart();"  title="Restart"/>
+<img src="images/listen.gif" id="play_02" onclick="playPause('02','http://robtowns.com/music/blind_willie.mp3'); return false;"  title="Play" />
+<img src="images/stop.png" id="pause_02" onclick="pause();" style="display:none"  title="Pause"/>
+
+
+
+<br><br><br>
+
+
+
+  <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+
+  <div id="jp_container_1" class="jp-audio">
+
+
+<div id="soundPlayer" style="display:none; width:200px; height:50px; position:absolute; top:50%; left:50%; border:solid 1px green; background-color:#226600; font-family:Arial; ">
+	<div style="position:relative;left:180px;top:0px;"><a style="color:yellow;" href="javascript:closePlayer();">X</a></div>
+	<div style="font-size:12px; padding:10px; color:white; font-weight:bold">
+	<a style="color:white;" href="javascript:play();">play</a>
+	<a style="color:white;" href="javascript:pause();">pause</a>
+	<a style="color:white;" href="javascript:stop();">stop</a>
+	</div>
+</div>
+
+
+
+<br>
+
+</body>
+</html>

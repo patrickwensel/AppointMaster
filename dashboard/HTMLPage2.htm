@@ -1,0 +1,1731 @@
+﻿<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <title>Dash Board</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/popups.css">
+    <link rel="stylesheet" href="css/practiceroi.css">
+    <link rel="stylesheet" href="css/easybox.css">
+
+    <script type="text/javascript" src="sound/jquery.min.js"></script>
+
+    <script type="text/javascript" src="sound/jquery.jplayer.min.js"></script>
+
+    <script type="text/javascript" src="sound/audio.js"></script>
+
+    <script type="text/javascript" src="js/Ajaxcalls.js"></script>
+
+    <script type="text/javascript" src="js/general.js"></script>
+
+    <script type="text/javascript">
+        function loadAM() {
+            closeApptDetailDetail();
+            document.getElementById("popUpSound").style.display = 'none';
+            initialSelectCampaign();
+            createPlayer();
+        }
+        function reloadData() {
+            //alert('Reload of graph + Leads results (right side), may have to reload the all page actually!');
+            var ctrl = document.getElementById("period");
+            var DBctrl = document.getElementById("DB");
+            var TPCtrl = document.getElementById("displayMode");
+            if (ctrl) {
+                var period = ctrl.selectedIndex;
+                var db = DBctrl.innerHTML;
+                var tp = TPCtrl.selectedIndex;
+                window.location.href = 'dashboard.aspx?db=' + db + '&p=' + period + "&TP=" + tp;
+            }
+        }
+
+        function initialSelectCampaign() {
+            var Cmpctrl = document.getElementById("firstCampaign");
+            if (Cmpctrl) {
+                var campId = Cmpctrl.innerHTML;
+                loadCampaignDetail(0, campId, false);
+            }
+
+        }
+
+    </script>
+
+</head>
+<body onload="loadAM()">
+    <form name="Form1" method="post" action="dashboard.aspx?p=4&amp;message=" id="Form1">
+    <div>
+        <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJODk0NTU1MzAwD2QWAgIBD2QWDAIBDw8WAh4EVGV4dAUyPHNwYW4gdGl0bGU9J0FjY291bnQgIzExMzUnPkJyYWQgRHVyaGFtIERNRDwvc3Bhbj5kZAIHDw8WAh8ABalYPGRpdiBpZD0ibGFyZ2UtbnVtYmVycyI+DQo8ZGl2IGNsYXNzPSJsYXJnZS1kYXJrIj4NCjxkaXYgY2xhc3M9ImxhcmdlLXRvcCI+NjAwIEs8L2Rpdj4NCjxkaXYgY2xhc3M9ImxhcmdlLWJvdHRvbSI+UGxhbjwvZGl2Pg0KPC9kaXY+DQo8ZGl2IGNsYXNzPSJsYXJnZS1saWdodCI+DQo8ZGl2IGNsYXNzPSJsYXJnZS10b3AiPjQxNDwvZGl2Pg0KPGRpdiBjbGFzcz0ibGFyZ2UtYm90dG9tIj5MRUFEUzwvZGl2Pg0KPC9kaXY+DQo8ZGl2IGNsYXNzPSJsYXJnZS1saWdodCI+DQo8ZGl2IGNsYXNzPSJsYXJnZS10b3AiPjI1PC9kaXY+DQo8ZGl2IGNsYXNzPSJsYXJnZS1ib3R0b20iPlBBVElFTlRTPC9kaXY+DQo8L2Rpdj4NCjxkaXYgY2xhc3M9ImxhcmdlLWxpZ2h0Ij4NCjxkaXYgY2xhc3M9ImxhcmdlLXRvcCI+NiAlPC9kaXY+DQo8ZGl2IGNsYXNzPSJsYXJnZS1ib3R0b20iPkNPTlZFUlNJT048L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8ZGl2IGlkPSJjYW1wYWlnbi1zdW1tYXJpZXMiPg0KPGRpdiBpZD0ic3VtbWFyeS1jaGFydC1jb250YWluZXItd2l0aC10aXRsZSI+DQo8ZGl2IGlkPSJzdW1tYXJ5LWNoYXJ0LXRpdGxlIj5Db21iaW5lZCBCcmVha2Rvd248L2Rpdj4NCjxkaXYgaWQ9InN1bW1hcnktY2hhcnQtY29udGFpbmVyIj4NCjxkaXYgaWQ9InN1bW1hcnktY2hhcnQiPjwvZGl2PjwvZGl2Pg0KPC9kaXY+DQo8ZGl2IGNsYXNzPSJDYW1wYWlnbi10YWJsZXMtd3JhcHBlciI+PHRhYmxlIGNsYXNzPSJwcmFjdGljZXJvaS1zdW1tYXJ5LXRhYmxlIiA+DQo8dGJvZHk+DQo8dHIgY2xhc3M9InByYWN0aWNlcm9pLXN1bW1hcnktaGVhZGVyIj4NCjx0ZCBzdHlsZT0id2lkdGg6MzJweDsiID48L3RkPg0KPCEtLSBubyB0aXRsZSwgdGhlIGNvbHVtbiBmb3IgdGhlIGNvbG9yZWQgZG90IC0tPg0KPHRkIHN0eWxlPSJ3aWR0aDoxOTVweDsiID5DYW1wYWlnbjwvdGQ+DQo8dGQgc3R5bGU9IndpZHRoOjcycHg7IiBjbGFzcz0iY2VudGVyIj5MZWFkczwvdGQ+DQo8dGQgc3R5bGU9IndpZHRoOjc2cHg7IiBjbGFzcz0iY2VudGVyIj5QYXRpZW50czwvdGQ+DQo8dGQgc3R5bGU9IndpZHRoOjczcHg7IiBjbGFzcz0iY2VudGVyIj5Db252ZXJzaW9uPC90ZD4NCjx0ZCBzdHlsZT0id2lkdGg6ODJweDsiIGNsYXNzPSJyaWdodCI+Q29tYmluZWQ8L3RkPg0KPHRkPjwvdGQ+DQo8L3RyPg0KPC90YWJsZT4NCjxkaXYgY2xhc3M9IlNjcm9sbENhbXBhaWducyIgaWQ9InNjcm9sbGluZy1jYW1wYWlnbi1kaXYiPg0KPHRhYmxlIGNsYXNzPSJwcmFjdGljZXJvaS1zdW1tYXJ5LXRhYmxlLWluc2lkZSIgaWQ9IkxlYWRUYWJsZVRhYmxlIj4NCjx0ciBjbGFzcz0icHJhY3RpY2Vyb2ktc3VtbWFyeS1yb3ciIGlkPSJsZWFkdGFibGVSb3cwIiAgb25jbGljaz0iamF2YXNjcmlwdDpsb2FkQ2FtcGFpZ25EZXRhaWwoMCwgJzEnLHRydWUpIiB0aXRsZT0iTWFudWFsIExlYWQiPjx0ZCBzdHlsZT0id2lkdGg6MzJweDtjb2xvcjojNDQ3MWE2IiBjbGFzcz0iY29sb3Jkb3QiID4mYnVsbDs8L3RkPjx0ZCBzdHlsZT0id2lkdGg6MTM1cHg7IiAgdGl0bGU9J0lEIDEnPk1hbnVhbCBMZWFkPC90ZD48dGQgc3R5bGU9IndpZHRoOjcycHg7IiAgYWxpZ249J3JpZ2h0Jz4zNDwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3NnB4OyIgIGFsaWduPSdyaWdodCc+NTwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3M3B4OyIgIGFsaWduPSdyaWdodCc+MTUgJTwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo4MnB4OyIgIGFsaWduPSdyaWdodCc+PGI+JDgyLDE5NDwvYj48L3RkPjwvdHI+PHRyIGNsYXNzPSJwcmFjdGljZXJvaS1zdW1tYXJ5LXJvdyIgaWQ9ImxlYWR0YWJsZVJvdzEiICBvbmNsaWNrPSJqYXZhc2NyaXB0OmxvYWRDYW1wYWlnbkRldGFpbCgxLCAnMicsdHJ1ZSkiIHRpdGxlPSJPbmxpbmUgTGVhZCA1Ij48dGQgc3R5bGU9IndpZHRoOjMycHg7Y29sb3I6I2E4NDU0MiIgY2xhc3M9ImNvbG9yZG90IiA+JmJ1bGw7PC90ZD48dGQgc3R5bGU9IndpZHRoOjEzNXB4OyIgIHRpdGxlPSdJRCAyJz5PbmxpbmUgTGVhZCA1PC90ZD48dGQgc3R5bGU9IndpZHRoOjcycHg7IiAgYWxpZ249J3JpZ2h0Jz42PC90ZD48dGQgc3R5bGU9IndpZHRoOjc2cHg7IiAgYWxpZ249J3JpZ2h0Jz4wPC90ZD48dGQgc3R5bGU9IndpZHRoOjczcHg7IiAgYWxpZ249J3JpZ2h0Jz4wICU8L3RkPjx0ZCBzdHlsZT0id2lkdGg6ODJweDsiICBhbGlnbj0ncmlnaHQnPjxiPiQwPC9iPjwvdGQ+PC90cj48dHIgY2xhc3M9InByYWN0aWNlcm9pLXN1bW1hcnktcm93IiBpZD0ibGVhZHRhYmxlUm93MiIgIG9uY2xpY2s9ImphdmFzY3JpcHQ6bG9hZENhbXBhaWduRGV0YWlsKDIsICczJyx0cnVlKSIgdGl0bGU9Ik9ubGluZSBMZWFkIDIiPjx0ZCBzdHlsZT0id2lkdGg6MzJweDtjb2xvcjojODhhNDRjIiBjbGFzcz0iY29sb3Jkb3QiID4mYnVsbDs8L3RkPjx0ZCBzdHlsZT0id2lkdGg6MTM1cHg7IiAgdGl0bGU9J0lEIDMnPk9ubGluZSBMZWFkIDI8L3RkPjx0ZCBzdHlsZT0id2lkdGg6NzJweDsiICBhbGlnbj0ncmlnaHQnPjMxPC90ZD48dGQgc3R5bGU9IndpZHRoOjc2cHg7IiAgYWxpZ249J3JpZ2h0Jz4zPC90ZD48dGQgc3R5bGU9IndpZHRoOjczcHg7IiAgYWxpZ249J3JpZ2h0Jz4xMCAlPC90ZD48dGQgc3R5bGU9IndpZHRoOjgycHg7IiAgYWxpZ249J3JpZ2h0Jz48Yj4kNjgsMTUxPC9iPjwvdGQ+PC90cj48dHIgY2xhc3M9InByYWN0aWNlcm9pLXN1bW1hcnktcm93IiBpZD0ibGVhZHRhYmxlUm93MyIgIG9uY2xpY2s9ImphdmFzY3JpcHQ6bG9hZENhbXBhaWduRGV0YWlsKDMsICc0Jyx0cnVlKSIgdGl0bGU9Ik9ubGluZSBMZWFkIFRNSiI+PHRkIHN0eWxlPSJ3aWR0aDozMnB4O2NvbG9yOiM3MTU3OGYiIGNsYXNzPSJjb2xvcmRvdCIgPiZidWxsOzwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDoxMzVweDsiICB0aXRsZT0nSUQgNCc+T25saW5lIExlYWQgVE1KPC90ZD48dGQgc3R5bGU9IndpZHRoOjcycHg7IiAgYWxpZ249J3JpZ2h0Jz4xPC90ZD48dGQgc3R5bGU9IndpZHRoOjc2cHg7IiAgYWxpZ249J3JpZ2h0Jz4wPC90ZD48dGQgc3R5bGU9IndpZHRoOjczcHg7IiAgYWxpZ249J3JpZ2h0Jz4wICU8L3RkPjx0ZCBzdHlsZT0id2lkdGg6ODJweDsiICBhbGlnbj0ncmlnaHQnPjxiPiQwPC9iPjwvdGQ+PC90cj48dHIgY2xhc3M9InByYWN0aWNlcm9pLXN1bW1hcnktcm93IiBpZD0ibGVhZHRhYmxlUm93NCIgIG9uY2xpY2s9ImphdmFzY3JpcHQ6bG9hZENhbXBhaWduRGV0YWlsKDQsICc1Jyx0cnVlKSIgdGl0bGU9Ik9ubGluZSBMZWFkIDc3Ij48dGQgc3R5bGU9IndpZHRoOjMycHg7Y29sb3I6IzNmOTZhZSIgY2xhc3M9ImNvbG9yZG90IiA+JmJ1bGw7PC90ZD48dGQgc3R5bGU9IndpZHRoOjEzNXB4OyIgIHRpdGxlPSdJRCA1Jz5PbmxpbmUgTGVhZCA3NzwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3MnB4OyIgIGFsaWduPSdyaWdodCc+MzwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3NnB4OyIgIGFsaWduPSdyaWdodCc+MDwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3M3B4OyIgIGFsaWduPSdyaWdodCc+MCAlPC90ZD48dGQgc3R5bGU9IndpZHRoOjgycHg7IiAgYWxpZ249J3JpZ2h0Jz48Yj4kMDwvYj48L3RkPjwvdHI+PHRyIGNsYXNzPSJwcmFjdGljZXJvaS1zdW1tYXJ5LXJvdyIgaWQ9ImxlYWR0YWJsZVJvdzUiICBvbmNsaWNrPSJqYXZhc2NyaXB0OmxvYWRDYW1wYWlnbkRldGFpbCg1LCAnNicsdHJ1ZSkiIHRpdGxlPSJPbmxpbmUgTGVhZCAxIj48dGQgc3R5bGU9IndpZHRoOjMycHg7Y29sb3I6I2Q5ODIzYiIgY2xhc3M9ImNvbG9yZG90IiA+JmJ1bGw7PC90ZD48dGQgc3R5bGU9IndpZHRoOjEzNXB4OyIgIHRpdGxlPSdJRCA2Jz5PbmxpbmUgTGVhZCAxPC90ZD48dGQgc3R5bGU9IndpZHRoOjcycHg7IiAgYWxpZ249J3JpZ2h0Jz4yNDwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3NnB4OyIgIGFsaWduPSdyaWdodCc+NDwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3M3B4OyIgIGFsaWduPSdyaWdodCc+MTcgJTwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo4MnB4OyIgIGFsaWduPSdyaWdodCc+PGI+JDYyLDM2OTwvYj48L3RkPjwvdHI+PHRyIGNsYXNzPSJwcmFjdGljZXJvaS1zdW1tYXJ5LXJvdyIgaWQ9ImxlYWR0YWJsZVJvdzYiICBvbmNsaWNrPSJqYXZhc2NyaXB0OmxvYWRDYW1wYWlnbkRldGFpbCg2LCAnNycsdHJ1ZSkiIHRpdGxlPSJPbmxpbmUgTGVhZCAzIj48dGQgc3R5bGU9IndpZHRoOjMycHg7Y29sb3I6IzZBRjlDNCIgY2xhc3M9ImNvbG9yZG90IiA+JmJ1bGw7PC90ZD48dGQgc3R5bGU9IndpZHRoOjEzNXB4OyIgIHRpdGxlPSdJRCA3Jz5PbmxpbmUgTGVhZCAzPC90ZD48dGQgc3R5bGU9IndpZHRoOjcycHg7IiAgYWxpZ249J3JpZ2h0Jz41NjwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3NnB4OyIgIGFsaWduPSdyaWdodCc+MjwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3M3B4OyIgIGFsaWduPSdyaWdodCc+NCAlPC90ZD48dGQgc3R5bGU9IndpZHRoOjgycHg7IiAgYWxpZ249J3JpZ2h0Jz48Yj4kMTgsNTg1PC9iPjwvdGQ+PC90cj48dHIgY2xhc3M9InByYWN0aWNlcm9pLXN1bW1hcnktcm93IiBpZD0ibGVhZHRhYmxlUm93NyIgIG9uY2xpY2s9ImphdmFzY3JpcHQ6bG9hZENhbXBhaWduRGV0YWlsKDcsICc4Jyx0cnVlKSIgdGl0bGU9IkNhbXBhaWduIDE5MTIyMjY3MDc2Ij48dGQgc3R5bGU9IndpZHRoOjMycHg7Y29sb3I6IzQ0NzFhNiIgY2xhc3M9ImNvbG9yZG90IiA+JmJ1bGw7PC90ZD48dGQgc3R5bGU9IndpZHRoOjEzNXB4OyIgIHRpdGxlPSdJRCA4Jz5DYW1wYWlnbiAxOTEyMjI2NzA3NjwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3MnB4OyIgIGFsaWduPSdyaWdodCc+MTAzPC90ZD48dGQgc3R5bGU9IndpZHRoOjc2cHg7IiAgYWxpZ249J3JpZ2h0Jz43PC90ZD48dGQgc3R5bGU9IndpZHRoOjczcHg7IiAgYWxpZ249J3JpZ2h0Jz43ICU8L3RkPjx0ZCBzdHlsZT0id2lkdGg6ODJweDsiICBhbGlnbj0ncmlnaHQnPjxiPiQyNjYsMDc3PC9iPjwvdGQ+PC90cj48dHIgY2xhc3M9InByYWN0aWNlcm9pLXN1bW1hcnktcm93IiBpZD0ibGVhZHRhYmxlUm93OCIgIG9uY2xpY2s9ImphdmFzY3JpcHQ6bG9hZENhbXBhaWduRGV0YWlsKDgsICc5Jyx0cnVlKSIgdGl0bGU9IkNhbXBhaWduIDE5MTIyMjY3MDg5Ij48dGQgc3R5bGU9IndpZHRoOjMycHg7Y29sb3I6I2E4NDU0MiIgY2xhc3M9ImNvbG9yZG90IiA+JmJ1bGw7PC90ZD48dGQgc3R5bGU9IndpZHRoOjEzNXB4OyIgIHRpdGxlPSdJRCA5Jz5DYW1wYWlnbiAxOTEyMjI2NzA4OTwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3MnB4OyIgIGFsaWduPSdyaWdodCc+NjwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3NnB4OyIgIGFsaWduPSdyaWdodCc+MDwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3M3B4OyIgIGFsaWduPSdyaWdodCc+MCAlPC90ZD48dGQgc3R5bGU9IndpZHRoOjgycHg7IiAgYWxpZ249J3JpZ2h0Jz48Yj4kMDwvYj48L3RkPjwvdHI+PHRyIGNsYXNzPSJwcmFjdGljZXJvaS1zdW1tYXJ5LXJvdyIgaWQ9ImxlYWR0YWJsZVJvdzkiICBvbmNsaWNrPSJqYXZhc2NyaXB0OmxvYWRDYW1wYWlnbkRldGFpbCg5LCAnMTAnLHRydWUpIiB0aXRsZT0iT25saW5lIExlYWQgMTgiPjx0ZCBzdHlsZT0id2lkdGg6MzJweDtjb2xvcjojNzE1NzhmIiBjbGFzcz0iY29sb3Jkb3QiID4mYnVsbDs8L3RkPjx0ZCBzdHlsZT0id2lkdGg6MTM1cHg7IiAgdGl0bGU9J0lEIDEwJz5PbmxpbmUgTGVhZCAxODwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3MnB4OyIgIGFsaWduPSdyaWdodCc+MjwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3NnB4OyIgIGFsaWduPSdyaWdodCc+MDwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3M3B4OyIgIGFsaWduPSdyaWdodCc+MCAlPC90ZD48dGQgc3R5bGU9IndpZHRoOjgycHg7IiAgYWxpZ249J3JpZ2h0Jz48Yj4kMDwvYj48L3RkPjwvdHI+PHRyIGNsYXNzPSJwcmFjdGljZXJvaS1zdW1tYXJ5LXJvdyIgaWQ9ImxlYWR0YWJsZVJvdzEwIiAgb25jbGljaz0iamF2YXNjcmlwdDpsb2FkQ2FtcGFpZ25EZXRhaWwoMTAsICcxMScsdHJ1ZSkiIHRpdGxlPSJPbmxpbmUgTGVhZCAxMiI+PHRkIHN0eWxlPSJ3aWR0aDozMnB4O2NvbG9yOiMzZjk2YWUiIGNsYXNzPSJjb2xvcmRvdCIgPiZidWxsOzwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDoxMzVweDsiICB0aXRsZT0nSUQgMTEnPk9ubGluZSBMZWFkIDEyPC90ZD48dGQgc3R5bGU9IndpZHRoOjcycHg7IiAgYWxpZ249J3JpZ2h0Jz4yPC90ZD48dGQgc3R5bGU9IndpZHRoOjc2cHg7IiAgYWxpZ249J3JpZ2h0Jz4wPC90ZD48dGQgc3R5bGU9IndpZHRoOjczcHg7IiAgYWxpZ249J3JpZ2h0Jz4wICU8L3RkPjx0ZCBzdHlsZT0id2lkdGg6ODJweDsiICBhbGlnbj0ncmlnaHQnPjxiPiQwPC9iPjwvdGQ+PC90cj48dHIgY2xhc3M9InByYWN0aWNlcm9pLXN1bW1hcnktcm93IiBpZD0ibGVhZHRhYmxlUm93MTEiICBvbmNsaWNrPSJqYXZhc2NyaXB0OmxvYWRDYW1wYWlnbkRldGFpbCgxMSwgJzEyJyx0cnVlKSIgdGl0bGU9IkNhbXBhaWduIDE5MTI3MjE3OTE4Ij48dGQgc3R5bGU9IndpZHRoOjMycHg7Y29sb3I6I2Q5ODIzYiIgY2xhc3M9ImNvbG9yZG90IiA+JmJ1bGw7PC90ZD48dGQgc3R5bGU9IndpZHRoOjEzNXB4OyIgIHRpdGxlPSdJRCAxMic+Q2FtcGFpZ24gMTkxMjcyMTc5MTg8L3RkPjx0ZCBzdHlsZT0id2lkdGg6NzJweDsiICBhbGlnbj0ncmlnaHQnPjEyNjwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3NnB4OyIgIGFsaWduPSdyaWdodCc+MjwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3M3B4OyIgIGFsaWduPSdyaWdodCc+MiAlPC90ZD48dGQgc3R5bGU9IndpZHRoOjgycHg7IiAgYWxpZ249J3JpZ2h0Jz48Yj4kOTQsNzczPC9iPjwvdGQ+PC90cj48dHIgY2xhc3M9InByYWN0aWNlcm9pLXN1bW1hcnktcm93IiBpZD0ibGVhZHRhYmxlUm93MTIiICBvbmNsaWNrPSJqYXZhc2NyaXB0OmxvYWRDYW1wYWlnbkRldGFpbCgxMiwgJzEzJyx0cnVlKSIgdGl0bGU9Ik9ubGluZSBMZWFkIDE1Ij48dGQgc3R5bGU9IndpZHRoOjMycHg7Y29sb3I6IzZBRjlDNCIgY2xhc3M9ImNvbG9yZG90IiA+JmJ1bGw7PC90ZD48dGQgc3R5bGU9IndpZHRoOjEzNXB4OyIgIHRpdGxlPSdJRCAxMyc+T25saW5lIExlYWQgMTU8L3RkPjx0ZCBzdHlsZT0id2lkdGg6NzJweDsiICBhbGlnbj0ncmlnaHQnPjE8L3RkPjx0ZCBzdHlsZT0id2lkdGg6NzZweDsiICBhbGlnbj0ncmlnaHQnPjA8L3RkPjx0ZCBzdHlsZT0id2lkdGg6NzNweDsiICBhbGlnbj0ncmlnaHQnPjAgJTwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo4MnB4OyIgIGFsaWduPSdyaWdodCc+PGI+JDA8L2I+PC90ZD48L3RyPjx0ciBjbGFzcz0icHJhY3RpY2Vyb2ktc3VtbWFyeS1yb3ciIGlkPSJsZWFkdGFibGVSb3cxMyIgIG9uY2xpY2s9ImphdmFzY3JpcHQ6bG9hZENhbXBhaWduRGV0YWlsKDEzLCAnMTQnLHRydWUpIiB0aXRsZT0iT25saW5lIExlYWQgNyI+PHRkIHN0eWxlPSJ3aWR0aDozMnB4O2NvbG9yOiM0NDcxYTYiIGNsYXNzPSJjb2xvcmRvdCIgPiZidWxsOzwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDoxMzVweDsiICB0aXRsZT0nSUQgMTQnPk9ubGluZSBMZWFkIDc8L3RkPjx0ZCBzdHlsZT0id2lkdGg6NzJweDsiICBhbGlnbj0ncmlnaHQnPjU8L3RkPjx0ZCBzdHlsZT0id2lkdGg6NzZweDsiICBhbGlnbj0ncmlnaHQnPjA8L3RkPjx0ZCBzdHlsZT0id2lkdGg6NzNweDsiICBhbGlnbj0ncmlnaHQnPjAgJTwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo4MnB4OyIgIGFsaWduPSdyaWdodCc+PGI+JDA8L2I+PC90ZD48L3RyPjx0ciBjbGFzcz0icHJhY3RpY2Vyb2ktc3VtbWFyeS1yb3ciIGlkPSJsZWFkdGFibGVSb3cxNCIgIG9uY2xpY2s9ImphdmFzY3JpcHQ6bG9hZENhbXBhaWduRGV0YWlsKDE0LCAnMTUnLHRydWUpIiB0aXRsZT0iT25saW5lIExlYWQgOCI+PHRkIHN0eWxlPSJ3aWR0aDozMnB4O2NvbG9yOiNhODQ1NDIiIGNsYXNzPSJjb2xvcmRvdCIgPiZidWxsOzwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDoxMzVweDsiICB0aXRsZT0nSUQgMTUnPk9ubGluZSBMZWFkIDg8L3RkPjx0ZCBzdHlsZT0id2lkdGg6NzJweDsiICBhbGlnbj0ncmlnaHQnPjM8L3RkPjx0ZCBzdHlsZT0id2lkdGg6NzZweDsiICBhbGlnbj0ncmlnaHQnPjA8L3RkPjx0ZCBzdHlsZT0id2lkdGg6NzNweDsiICBhbGlnbj0ncmlnaHQnPjAgJTwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo4MnB4OyIgIGFsaWduPSdyaWdodCc+PGI+JDA8L2I+PC90ZD48L3RyPjx0ciBjbGFzcz0icHJhY3RpY2Vyb2ktc3VtbWFyeS1yb3ciIGlkPSJsZWFkdGFibGVSb3cxNSIgIG9uY2xpY2s9ImphdmFzY3JpcHQ6bG9hZENhbXBhaWduRGV0YWlsKDE1LCAnMTYnLHRydWUpIiB0aXRsZT0iT25saW5lIExlYWQgNCI+PHRkIHN0eWxlPSJ3aWR0aDozMnB4O2NvbG9yOiM4OGE0NGMiIGNsYXNzPSJjb2xvcmRvdCIgPiZidWxsOzwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDoxMzVweDsiICB0aXRsZT0nSUQgMTYnPk9ubGluZSBMZWFkIDQ8L3RkPjx0ZCBzdHlsZT0id2lkdGg6NzJweDsiICBhbGlnbj0ncmlnaHQnPjI8L3RkPjx0ZCBzdHlsZT0id2lkdGg6NzZweDsiICBhbGlnbj0ncmlnaHQnPjA8L3RkPjx0ZCBzdHlsZT0id2lkdGg6NzNweDsiICBhbGlnbj0ncmlnaHQnPjAgJTwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo4MnB4OyIgIGFsaWduPSdyaWdodCc+PGI+JDA8L2I+PC90ZD48L3RyPjx0ciBjbGFzcz0icHJhY3RpY2Vyb2ktc3VtbWFyeS1yb3ciIGlkPSJsZWFkdGFibGVSb3cxNiIgIG9uY2xpY2s9ImphdmFzY3JpcHQ6bG9hZENhbXBhaWduRGV0YWlsKDE2LCAnMTcnLHRydWUpIiB0aXRsZT0iT25saW5lIExlYWQgMTEiPjx0ZCBzdHlsZT0id2lkdGg6MzJweDtjb2xvcjojNzE1NzhmIiBjbGFzcz0iY29sb3Jkb3QiID4mYnVsbDs8L3RkPjx0ZCBzdHlsZT0id2lkdGg6MTM1cHg7IiAgdGl0bGU9J0lEIDE3Jz5PbmxpbmUgTGVhZCAxMTwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3MnB4OyIgIGFsaWduPSdyaWdodCc+MjwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3NnB4OyIgIGFsaWduPSdyaWdodCc+MTwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3M3B4OyIgIGFsaWduPSdyaWdodCc+NTAgJTwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo4MnB4OyIgIGFsaWduPSdyaWdodCc+PGI+JDEsMDU5PC9iPjwvdGQ+PC90cj48dHIgY2xhc3M9InByYWN0aWNlcm9pLXN1bW1hcnktcm93IiBpZD0ibGVhZHRhYmxlUm93MTciICBvbmNsaWNrPSJqYXZhc2NyaXB0OmxvYWRDYW1wYWlnbkRldGFpbCgxNywgJzE4Jyx0cnVlKSIgdGl0bGU9Ik9ubGluZSBMZWFkIDE3Ij48dGQgc3R5bGU9IndpZHRoOjMycHg7Y29sb3I6IzNmOTZhZSIgY2xhc3M9ImNvbG9yZG90IiA+JmJ1bGw7PC90ZD48dGQgc3R5bGU9IndpZHRoOjEzNXB4OyIgIHRpdGxlPSdJRCAxOCc+T25saW5lIExlYWQgMTc8L3RkPjx0ZCBzdHlsZT0id2lkdGg6NzJweDsiICBhbGlnbj0ncmlnaHQnPjM8L3RkPjx0ZCBzdHlsZT0id2lkdGg6NzZweDsiICBhbGlnbj0ncmlnaHQnPjE8L3RkPjx0ZCBzdHlsZT0id2lkdGg6NzNweDsiICBhbGlnbj0ncmlnaHQnPjMzICU8L3RkPjx0ZCBzdHlsZT0id2lkdGg6ODJweDsiICBhbGlnbj0ncmlnaHQnPjxiPiQ3LDIwMDwvYj48L3RkPjwvdHI+PHRyIGNsYXNzPSJwcmFjdGljZXJvaS1zdW1tYXJ5LXJvdyIgaWQ9ImxlYWR0YWJsZVJvdzE4IiAgb25jbGljaz0iamF2YXNjcmlwdDpsb2FkQ2FtcGFpZ25EZXRhaWwoMTgsICcxOScsdHJ1ZSkiIHRpdGxlPSJPbmxpbmUgTGVhZCAxNiI+PHRkIHN0eWxlPSJ3aWR0aDozMnB4O2NvbG9yOiNkOTgyM2IiIGNsYXNzPSJjb2xvcmRvdCIgPiZidWxsOzwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDoxMzVweDsiICB0aXRsZT0nSUQgMTknPk9ubGluZSBMZWFkIDE2PC90ZD48dGQgc3R5bGU9IndpZHRoOjcycHg7IiAgYWxpZ249J3JpZ2h0Jz4xPC90ZD48dGQgc3R5bGU9IndpZHRoOjc2cHg7IiAgYWxpZ249J3JpZ2h0Jz4wPC90ZD48dGQgc3R5bGU9IndpZHRoOjczcHg7IiAgYWxpZ249J3JpZ2h0Jz4wICU8L3RkPjx0ZCBzdHlsZT0id2lkdGg6ODJweDsiICBhbGlnbj0ncmlnaHQnPjxiPiQwPC9iPjwvdGQ+PC90cj48dHIgY2xhc3M9InByYWN0aWNlcm9pLXN1bW1hcnktcm93IiBpZD0ibGVhZHRhYmxlUm93MTkiICBvbmNsaWNrPSJqYXZhc2NyaXB0OmxvYWRDYW1wYWlnbkRldGFpbCgxOSwgJzIwJyx0cnVlKSIgdGl0bGU9Ik9ubGluZSBMZWFkIDYiPjx0ZCBzdHlsZT0id2lkdGg6MzJweDtjb2xvcjojNkFGOUM0IiBjbGFzcz0iY29sb3Jkb3QiID4mYnVsbDs8L3RkPjx0ZCBzdHlsZT0id2lkdGg6MTM1cHg7IiAgdGl0bGU9J0lEIDIwJz5PbmxpbmUgTGVhZCA2PC90ZD48dGQgc3R5bGU9IndpZHRoOjcycHg7IiAgYWxpZ249J3JpZ2h0Jz4yPC90ZD48dGQgc3R5bGU9IndpZHRoOjc2cHg7IiAgYWxpZ249J3JpZ2h0Jz4wPC90ZD48dGQgc3R5bGU9IndpZHRoOjczcHg7IiAgYWxpZ249J3JpZ2h0Jz4wICU8L3RkPjx0ZCBzdHlsZT0id2lkdGg6ODJweDsiICBhbGlnbj0ncmlnaHQnPjxiPiQwPC9iPjwvdGQ+PC90cj48dHIgY2xhc3M9InByYWN0aWNlcm9pLXN1bW1hcnktcm93IiBpZD0ibGVhZHRhYmxlUm93MjAiICBvbmNsaWNrPSJqYXZhc2NyaXB0OmxvYWRDYW1wYWlnbkRldGFpbCgyMCwgJzIxJyx0cnVlKSIgdGl0bGU9Ik9ubGluZSBMZWFkIDkiPjx0ZCBzdHlsZT0id2lkdGg6MzJweDtjb2xvcjojNDQ3MWE2IiBjbGFzcz0iY29sb3Jkb3QiID4mYnVsbDs8L3RkPjx0ZCBzdHlsZT0id2lkdGg6MTM1cHg7IiAgdGl0bGU9J0lEIDIxJz5PbmxpbmUgTGVhZCA5PC90ZD48dGQgc3R5bGU9IndpZHRoOjcycHg7IiAgYWxpZ249J3JpZ2h0Jz4xPC90ZD48dGQgc3R5bGU9IndpZHRoOjc2cHg7IiAgYWxpZ249J3JpZ2h0Jz4wPC90ZD48dGQgc3R5bGU9IndpZHRoOjczcHg7IiAgYWxpZ249J3JpZ2h0Jz4wICU8L3RkPjx0ZCBzdHlsZT0id2lkdGg6ODJweDsiICBhbGlnbj0ncmlnaHQnPjxiPiQwPC9iPjwvdGQ+PC90cj48L3RhYmxlPjwvZGl2Pjx0YWJsZSBjbGFzcz0icHJhY3RpY2Vyb2ktc3VtbWFyeS10YWJsZSIgPg0KPHRyIGNsYXNzPSJwcmFjdGljZXJvaS1zdW1tYXJ5LWhlYWRlciI+DQo8dGQgIHN0eWxlPSJ3aWR0aDozMnB4OyIgPjwvdGQ+DQo8dGQgc3R5bGU9IndpZHRoOjE5NXB4OyIgPlRvdGFsPC90ZD4NCjx0ZCBzdHlsZT0id2lkdGg6NzJweDsiIGNsYXNzPSJjZW50ZXIiPjQxNDwvdGQ+DQo8dGQgc3R5bGU9IndpZHRoOjc2cHg7IiBjbGFzcz0iY2VudGVyIj4yNTwvdGQ+DQo8dGQgc3R5bGU9IndpZHRoOjczcHg7IiBjbGFzcz0iY2VudGVyIj42ICU8L3RkPg0KPHRkIHN0eWxlPSJ3aWR0aDo4MnB4OyIgY2xhc3M9InJpZ2h0Ij42MDAsNDA4LjAwPC90ZD4NCjx0ZD48L3RkPg0KPC90cj48L3RhYmxlPjwvZGl2PjwvZGl2PmRkAgkPDxYCHwAFBDExMzVkZAILDw8WAh8ABQgxMTEyMjQyMmRkAg8PDxYCHwAFATFkZAIRDw8WAh8AZWRkZPwZb73awDAVPxjdd/wgeBZBStmR" />
+    </div>
+    <div>
+        <input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWCQLVj8WABQK75/GfCwLYwruzAQKl1paZCALM5umSCAK25rnUDgL615ODCwK019GjAwKt8f6mB/lC8lAPX3Ng6KYTiVmNgpMMSBTS" />
+    </div>
+    <!-- saved from url=(0013)about:internet -->
+    <!-- amcharts script-->
+    <!-- swf object (version 2.2) is used to detect if flash is installed and include swf in the page -->
+
+    <script type="text/javascript" src="amcharts/flash/swfobject.js"></script>
+
+    <script type="text/javascript" src="amcharts/javascript/amcharts.js"></script>
+
+    <script type="text/javascript" src="amcharts/javascript/amfallback.js"></script>
+
+    <script type="text/javascript" src="amcharts/javascript/raphael.js"></script>
+
+    <!-- chart is placed in this div. if you have more than one chart on a page, give unique id for each div -->
+    <div id="screenBackGround">
+    </div>
+    <div id="center-column">
+        <div id="header">
+            <div id="header-title">
+                Practice ROI</div>
+            <div id="header-practice">
+                <span id="AccountName"><span title='Account #1135'>Brad Durham DMD</span></span></div>
+        </div>
+        <div id="toolbar">
+            <div id="toolbar-buttons">
+                <a class="lightbox" title="Campaign Settings" data-width="600" data-height="400"
+                    href="campaignNames.aspx">
+                    <img style="padding: 0 5px 0 0;" src="images/settings.png" /></a> <a href="login.aspx?logout=1">
+                        <img src="images/logout.png" /></a></div>
+            <div style="margin-top: 5px">
+                <label>
+                    LEADS PERIOD</label>
+                <select name="period" id="period" onchange="reloadData()">
+                    <option value="Last week">Last week</option>
+                    <option value="Last month">Last month</option>
+                    <option value="Year to date">Year to date</option>
+                    <option value="Last year">Last year</option>
+                    <option selected="selected" value="All">All</option>
+                </select>
+                <label>
+                    AMOUNTS DISPLAYED</label>
+                <select name="displayMode" id="displayMode" onchange="reloadData()">
+                    <option value="Production">Production</option>
+                    <option selected="selected" value="Plan">Plan</option>
+                    <option value="Combined">Combined</option>
+                </select>
+            </div>
+        </div>
+        <span id="leadTable" class="LeadTable">
+            <div id="large-numbers">
+                <div class="large-dark">
+                    <div class="large-top">
+                        600 K</div>
+                    <div class="large-bottom">
+                        Plan</div>
+                </div>
+                <div class="large-light">
+                    <div class="large-top">
+                        414</div>
+                    <div class="large-bottom">
+                        LEADS</div>
+                </div>
+                <div class="large-light">
+                    <div class="large-top">
+                        25</div>
+                    <div class="large-bottom">
+                        PATIENTS</div>
+                </div>
+                <div class="large-light">
+                    <div class="large-top">
+                        6 %</div>
+                    <div class="large-bottom">
+                        CONVERSION</div>
+                </div>
+            </div>
+            <div id="campaign-summaries">
+                <div id="summary-chart-container-with-title">
+                    <div id="summary-chart-title">
+                        Combined Breakdown</div>
+                    <div id="summary-chart-container">
+                        <div id="summary-chart">
+                        </div>
+                    </div>
+                </div>
+                <div class="Campaign-tables-wrapper">
+                    <table class="practiceroi-summary-table">
+                        <tbody>
+                            <tr class="practiceroi-summary-header">
+                                <td style="width: 32px;">
+                                </td>
+                                <!-- no title, the column for the colored dot -->
+                                <td style="width: 195px;">
+                                    Campaign
+                                </td>
+                                <td style="width: 72px;" class="center">
+                                    Leads
+                                </td>
+                                <td style="width: 76px;" class="center">
+                                    Patients
+                                </td>
+                                <td style="width: 73px;" class="center">
+                                    Conversion
+                                </td>
+                                <td style="width: 82px;" class="right">
+                                    Combined
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                    </table>
+                    <div class="ScrollCampaigns" id="scrolling-campaign-div">
+                        <table class="practiceroi-summary-table-inside" id="LeadTableTable">
+                            <tr class="practiceroi-summary-row" id="leadtableRow0" onclick="javascript:loadCampaignDetail(0, '1',true)"
+                                title="Manual Lead">
+                                <td style="width: 32px; color: #4471a6" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 135px;" title='ID 1'>
+                                    Manual Lead
+                                </td>
+                                <td style="width: 72px;" align='right'>
+                                    34
+                                </td>
+                                <td style="width: 76px;" align='right'>
+                                    5
+                                </td>
+                                <td style="width: 73px;" align='right'>
+                                    15 %
+                                </td>
+                                <td style="width: 82px;" align='right'>
+                                    <b>$82,194</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow1" onclick="javascript:loadCampaignDetail(1, '2',true)"
+                                title="Online Lead 5">
+                                <td style="width: 32px; color: #a84542" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 135px;" title='ID 2'>
+                                    Online Lead 5
+                                </td>
+                                <td style="width: 72px;" align='right'>
+                                    6
+                                </td>
+                                <td style="width: 76px;" align='right'>
+                                    0
+                                </td>
+                                <td style="width: 73px;" align='right'>
+                                    0 %
+                                </td>
+                                <td style="width: 82px;" align='right'>
+                                    <b>$0</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow2" onclick="javascript:loadCampaignDetail(2, '3',true)"
+                                title="Online Lead 2">
+                                <td style="width: 32px; color: #88a44c" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 135px;" title='ID 3'>
+                                    Online Lead 2
+                                </td>
+                                <td style="width: 72px;" align='right'>
+                                    31
+                                </td>
+                                <td style="width: 76px;" align='right'>
+                                    3
+                                </td>
+                                <td style="width: 73px;" align='right'>
+                                    10 %
+                                </td>
+                                <td style="width: 82px;" align='right'>
+                                    <b>$68,151</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow3" onclick="javascript:loadCampaignDetail(3, '4',true)"
+                                title="Online Lead TMJ">
+                                <td style="width: 32px; color: #71578f" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 135px;" title='ID 4'>
+                                    Online Lead TMJ
+                                </td>
+                                <td style="width: 72px;" align='right'>
+                                    1
+                                </td>
+                                <td style="width: 76px;" align='right'>
+                                    0
+                                </td>
+                                <td style="width: 73px;" align='right'>
+                                    0 %
+                                </td>
+                                <td style="width: 82px;" align='right'>
+                                    <b>$0</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow4" onclick="javascript:loadCampaignDetail(4, '5',true)"
+                                title="Online Lead 77">
+                                <td style="width: 32px; color: #3f96ae" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 135px;" title='ID 5'>
+                                    Online Lead 77
+                                </td>
+                                <td style="width: 72px;" align='right'>
+                                    3
+                                </td>
+                                <td style="width: 76px;" align='right'>
+                                    0
+                                </td>
+                                <td style="width: 73px;" align='right'>
+                                    0 %
+                                </td>
+                                <td style="width: 82px;" align='right'>
+                                    <b>$0</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow5" onclick="javascript:loadCampaignDetail(5, '6',true)"
+                                title="Online Lead 1">
+                                <td style="width: 32px; color: #d9823b" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 135px;" title='ID 6'>
+                                    Online Lead 1
+                                </td>
+                                <td style="width: 72px;" align='right'>
+                                    24
+                                </td>
+                                <td style="width: 76px;" align='right'>
+                                    4
+                                </td>
+                                <td style="width: 73px;" align='right'>
+                                    17 %
+                                </td>
+                                <td style="width: 82px;" align='right'>
+                                    <b>$62,369</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow6" onclick="javascript:loadCampaignDetail(6, '7',true)"
+                                title="Online Lead 3">
+                                <td style="width: 32px; color: #6AF9C4" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 135px;" title='ID 7'>
+                                    Online Lead 3
+                                </td>
+                                <td style="width: 72px;" align='right'>
+                                    56
+                                </td>
+                                <td style="width: 76px;" align='right'>
+                                    2
+                                </td>
+                                <td style="width: 73px;" align='right'>
+                                    4 %
+                                </td>
+                                <td style="width: 82px;" align='right'>
+                                    <b>$18,585</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow7" onclick="javascript:loadCampaignDetail(7, '8',true)"
+                                title="Campaign 19122267076">
+                                <td style="width: 32px; color: #4471a6" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 135px;" title='ID 8'>
+                                    Campaign 19122267076
+                                </td>
+                                <td style="width: 72px;" align='right'>
+                                    103
+                                </td>
+                                <td style="width: 76px;" align='right'>
+                                    7
+                                </td>
+                                <td style="width: 73px;" align='right'>
+                                    7 %
+                                </td>
+                                <td style="width: 82px;" align='right'>
+                                    <b>$266,077</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow8" onclick="javascript:loadCampaignDetail(8, '9',true)"
+                                title="Campaign 19122267089">
+                                <td style="width: 32px; color: #a84542" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 135px;" title='ID 9'>
+                                    Campaign 19122267089
+                                </td>
+                                <td style="width: 72px;" align='right'>
+                                    6
+                                </td>
+                                <td style="width: 76px;" align='right'>
+                                    0
+                                </td>
+                                <td style="width: 73px;" align='right'>
+                                    0 %
+                                </td>
+                                <td style="width: 82px;" align='right'>
+                                    <b>$0</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow9" onclick="javascript:loadCampaignDetail(9, '10',true)"
+                                title="Online Lead 18">
+                                <td style="width: 32px; color: #71578f" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 135px;" title='ID 10'>
+                                    Online Lead 18
+                                </td>
+                                <td style="width: 72px;" align='right'>
+                                    2
+                                </td>
+                                <td style="width: 76px;" align='right'>
+                                    0
+                                </td>
+                                <td style="width: 73px;" align='right'>
+                                    0 %
+                                </td>
+                                <td style="width: 82px;" align='right'>
+                                    <b>$0</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow10" onclick="javascript:loadCampaignDetail(10, '11',true)"
+                                title="Online Lead 12">
+                                <td style="width: 32px; color: #3f96ae" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 135px;" title='ID 11'>
+                                    Online Lead 12
+                                </td>
+                                <td style="width: 72px;" align='right'>
+                                    2
+                                </td>
+                                <td style="width: 76px;" align='right'>
+                                    0
+                                </td>
+                                <td style="width: 73px;" align='right'>
+                                    0 %
+                                </td>
+                                <td style="width: 82px;" align='right'>
+                                    <b>$0</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow11" onclick="javascript:loadCampaignDetail(11, '12',true)"
+                                title="Campaign 19127217918">
+                                <td style="width: 32px; color: #d9823b" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 135px;" title='ID 12'>
+                                    Campaign 19127217918
+                                </td>
+                                <td style="width: 72px;" align='right'>
+                                    126
+                                </td>
+                                <td style="width: 76px;" align='right'>
+                                    2
+                                </td>
+                                <td style="width: 73px;" align='right'>
+                                    2 %
+                                </td>
+                                <td style="width: 82px;" align='right'>
+                                    <b>$94,773</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow12" onclick="javascript:loadCampaignDetail(12, '13',true)"
+                                title="Online Lead 15">
+                                <td style="width: 32px; color: #6AF9C4" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 135px;" title='ID 13'>
+                                    Online Lead 15
+                                </td>
+                                <td style="width: 72px;" align='right'>
+                                    1
+                                </td>
+                                <td style="width: 76px;" align='right'>
+                                    0
+                                </td>
+                                <td style="width: 73px;" align='right'>
+                                    0 %
+                                </td>
+                                <td style="width: 82px;" align='right'>
+                                    <b>$0</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow13" onclick="javascript:loadCampaignDetail(13, '14',true)"
+                                title="Online Lead 7">
+                                <td style="width: 32px; color: #4471a6" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 135px;" title='ID 14'>
+                                    Online Lead 7
+                                </td>
+                                <td style="width: 72px;" align='right'>
+                                    5
+                                </td>
+                                <td style="width: 76px;" align='right'>
+                                    0
+                                </td>
+                                <td style="width: 73px;" align='right'>
+                                    0 %
+                                </td>
+                                <td style="width: 82px;" align='right'>
+                                    <b>$0</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow14" onclick="javascript:loadCampaignDetail(14, '15',true)"
+                                title="Online Lead 8">
+                                <td style="width: 32px; color: #a84542" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 135px;" title='ID 15'>
+                                    Online Lead 8
+                                </td>
+                                <td style="width: 72px;" align='right'>
+                                    3
+                                </td>
+                                <td style="width: 76px;" align='right'>
+                                    0
+                                </td>
+                                <td style="width: 73px;" align='right'>
+                                    0 %
+                                </td>
+                                <td style="width: 82px;" align='right'>
+                                    <b>$0</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow15" onclick="javascript:loadCampaignDetail(15, '16',true)"
+                                title="Online Lead 4">
+                                <td style="width: 32px; color: #88a44c" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 135px;" title='ID 16'>
+                                    Online Lead 4
+                                </td>
+                                <td style="width: 72px;" align='right'>
+                                    2
+                                </td>
+                                <td style="width: 76px;" align='right'>
+                                    0
+                                </td>
+                                <td style="width: 73px;" align='right'>
+                                    0 %
+                                </td>
+                                <td style="width: 82px;" align='right'>
+                                    <b>$0</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow16" onclick="javascript:loadCampaignDetail(16, '17',true)"
+                                title="Online Lead 11">
+                                <td style="width: 32px; color: #71578f" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 135px;" title='ID 17'>
+                                    Online Lead 11
+                                </td>
+                                <td style="width: 72px;" align='right'>
+                                    2
+                                </td>
+                                <td style="width: 76px;" align='right'>
+                                    1
+                                </td>
+                                <td style="width: 73px;" align='right'>
+                                    50 %
+                                </td>
+                                <td style="width: 82px;" align='right'>
+                                    <b>$1,059</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow17" onclick="javascript:loadCampaignDetail(17, '18',true)"
+                                title="Online Lead 17">
+                                <td style="width: 32px; color: #3f96ae" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 135px;" title='ID 18'>
+                                    Online Lead 17
+                                </td>
+                                <td style="width: 72px;" align='right'>
+                                    3
+                                </td>
+                                <td style="width: 76px;" align='right'>
+                                    1
+                                </td>
+                                <td style="width: 73px;" align='right'>
+                                    33 %
+                                </td>
+                                <td style="width: 82px;" align='right'>
+                                    <b>$7,200</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow18" onclick="javascript:loadCampaignDetail(18, '19',true)"
+                                title="Online Lead 16">
+                                <td style="width: 32px; color: #d9823b" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 135px;" title='ID 19'>
+                                    Online Lead 16
+                                </td>
+                                <td style="width: 72px;" align='right'>
+                                    1
+                                </td>
+                                <td style="width: 76px;" align='right'>
+                                    0
+                                </td>
+                                <td style="width: 73px;" align='right'>
+                                    0 %
+                                </td>
+                                <td style="width: 82px;" align='right'>
+                                    <b>$0</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow19" onclick="javascript:loadCampaignDetail(19, '20',true)"
+                                title="Online Lead 6">
+                                <td style="width: 32px; color: #6AF9C4" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 135px;" title='ID 20'>
+                                    Online Lead 6
+                                </td>
+                                <td style="width: 72px;" align='right'>
+                                    2
+                                </td>
+                                <td style="width: 76px;" align='right'>
+                                    0
+                                </td>
+                                <td style="width: 73px;" align='right'>
+                                    0 %
+                                </td>
+                                <td style="width: 82px;" align='right'>
+                                    <b>$0</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow20" onclick="javascript:loadCampaignDetail(20, '21',true)"
+                                title="Online Lead 9">
+                                <td style="width: 32px; color: #4471a6" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 135px;" title='ID 21'>
+                                    Online Lead 9
+                                </td>
+                                <td style="width: 72px;" align='right'>
+                                    1
+                                </td>
+                                <td style="width: 76px;" align='right'>
+                                    0
+                                </td>
+                                <td style="width: 73px;" align='right'>
+                                    0 %
+                                </td>
+                                <td style="width: 82px;" align='right'>
+                                    <b>$0</b>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <table class="practiceroi-summary-table">
+                        <tr class="practiceroi-summary-header">
+                            <td style="width: 32px;">
+                            </td>
+                            <td style="width: 195px;">
+                                Total
+                            </td>
+                            <td style="width: 72px;" class="center">
+                                414
+                            </td>
+                            <td style="width: 76px;" class="center">
+                                25
+                            </td>
+                            <td style="width: 73px;" class="center">
+                                6 %
+                            </td>
+                            <td style="width: 82px;" class="right">
+                                600,408.00
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </span>
+        <div id="Div1">
+            <div class="practiceroi-hr">
+            </div>
+            <div id="Div2">
+                Manual Lead</div>
+            <div class="practiceroi-hr">
+            </div>
+            <table class="practiceroi-table">
+                <tr class="practiceroi-table-header">
+                    <td class="col1Title first">
+                        Phone Number
+                    </td>
+                    <td class="col2 center">
+                        Source
+                    </td>
+                    <td class="col3 center">
+                        Date
+                    </td>
+                    <td class="col4 center">
+                        Time
+                    </td>
+                    <td class="col5 center">
+                        Duration
+                    </td>
+                    <td class="col6 center">
+                        Detail
+                    </td>
+                    <td class="col7">
+                        Patient
+                    </td>
+                    <td class="col8 right">
+                        Plan
+                    </td>
+                    <td class="col9Title right last">
+                        Production
+                    </td>
+                </tr>
+            </table>
+            <div id="Div3">
+                <table class="practiceroi-table">
+                    <tr>
+                        <td class="col1 first">
+                            1
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=(912) 202 6061&date=5-31-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=(912) 202 6061&date=5-31-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            May 31
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=(912) 202 6061&date=5-31-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=(912) 202 6061&date=5-31-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td class="col7" title='Smiley Lori' onclick="alert('Smiley Lori')">
+                            Patient #5704
+                        </td>
+                        <td class="col8 right">
+                        </td>
+                        <td class="col9 right last">
+                            <a href='javascript:openApptDetailDetail(5704)'><b>$95</b></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            2
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=(912) 509 5587&date=5-28-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=(912) 509 5587&date=5-28-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            May 28
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=(912) 509 5587&date=5-28-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=(912) 509 5587&date=5-28-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td class="col7" title='Hamilton Harriett' onclick="alert('Hamilton Harriett')">
+                            Patient #5785
+                        </td>
+                        <td class="col8 right">
+                        </td>
+                        <td class="col9 right last">
+                            <a href='javascript:openApptDetailDetail(5785)'><b>$95</b></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            3
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=(912) 507 6749&date=5-19-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=(912) 507 6749&date=5-19-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            May 19
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=(912) 507 6749&date=5-19-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=(912) 507 6749&date=5-19-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td class="col7" title='Swinton Shawn' onclick="alert('Swinton Shawn')">
+                            Patient #5694
+                        </td>
+                        <td class="col8 right">
+                            <a href='javascript:openApptDetailDetail(5694)'><b>$54,219</b></a>
+                        </td>
+                        <td class="col9 right last">
+                            <a href='javascript:openApptDetailDetail(5694)'><b>$423</b></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            4
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=(906) 235 8245&date=5-11-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=(906) 235 8245&date=5-11-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            May 11
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=(906) 235 8245&date=5-11-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=(906) 235 8245&date=5-11-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td class="col7" title='Balconi Desiree' onclick="alert('Balconi Desiree')">
+                            Patient #5703
+                        </td>
+                        <td class="col8 right">
+                        </td>
+                        <td class="col9 right last">
+                            <a href='javascript:openApptDetailDetail(5703)'><b>$21,021</b></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            5
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=(256) 452 8270&date=5-8-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=(256) 452 8270&date=5-8-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            May 08
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=(256) 452 8270&date=5-8-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=(256) 452 8270&date=5-8-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td class="col7" title='Mckinney Lori' onclick="alert('Mckinney Lori')">
+                            Patient #5795
+                        </td>
+                        <td class="col8 right">
+                            <a href='javascript:openApptDetailDetail(5795)'><b>$17,195</b></a>
+                        </td>
+                        <td class="col9 right last">
+                            <a href='javascript:openApptDetailDetail(5795)'><b>$25,670</b></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            6
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=(425) 923 8519&date=5-5-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=(425) 923 8519&date=5-5-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            May 05
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=(425) 923 8519&date=5-5-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=(425) 923 8519&date=5-5-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td class="col7" title='Bartley Cheryl' onclick="alert('Bartley Cheryl')">
+                            Patient #5681
+                        </td>
+                        <td class="col8 right">
+                            <a href='javascript:openApptDetailDetail(5681)'><b>$10,780</b></a>
+                        </td>
+                        <td class="col9 right last">
+                            <a href='javascript:openApptDetailDetail(5681)'><b>$22,982</b></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            7
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=(404) 520 3264&date=5-5-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=(404) 520 3264&date=5-5-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            May 05
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=(404) 520 3264&date=5-5-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=(404) 520 3264&date=5-5-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td class="col7" title='Ryberg Carolyn' onclick="alert('Ryberg Carolyn')">
+                            Patient #5720
+                        </td>
+                        <td class="col8 right">
+                        </td>
+                        <td class="col9 right last">
+                            <a href='javascript:openApptDetailDetail(5720)'><b>$63,254</b></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            8
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=(901) 262 5551&date=4-29-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=(901) 262 5551&date=4-29-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            April 29
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=(901) 262 5551&date=4-29-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=(901) 262 5551&date=4-29-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td class="col7" title='Ross Katherine' onclick="alert('Ross Katherine')">
+                            Patient #4597
+                        </td>
+                        <td class="col8 right">
+                        </td>
+                        <td class="col9 right last">
+                            <a href='javascript:openApptDetailDetail(4597)'><b>$529</b></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            9
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=(912) 266 4629&date=4-28-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=(912) 266 4629&date=4-28-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            April 28
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=(912) 266 4629&date=4-28-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=(912) 266 4629&date=4-28-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td class="col7" title='Lariscy Mike' onclick="alert('Lariscy Mike')">
+                            Patient #5672
+                        </td>
+                        <td class="col8 right">
+                        </td>
+                        <td class="col9 right last">
+                            <a href='javascript:openApptDetailDetail(5672)'><b>$95</b></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            10
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=(912) 428 6236&date=4-18-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=(912) 428 6236&date=4-18-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            April 18
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=(912) 428 6236&date=4-18-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=(912) 428 6236&date=4-18-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td class="col7" title='Moon January' onclick="alert('Moon January')">
+                            Patient #5654
+                        </td>
+                        <td class="col8 right">
+                        </td>
+                        <td class="col9 right last">
+                            <a href='javascript:openApptDetailDetail(5654)'><b>$95</b></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="9" class="nopadding">
+                            <div class="separator">
+                                Matches found without treatments posted yet</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            (701) 428 8158
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=7014288158&date=4-17-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=7014288158&date=4-17-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            April 17
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=7014288158&date=4-17-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=7014288158&date=4-17-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td class="col7" title='Ohnstead Joseph' onclick="alert('Ohnstead Joseph')">
+                            Patient #5592
+                        </td>
+                        <td class="col8" colspan="2">
+                            <font color="#999999">- no treatments -</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="9" class="nopadding">
+                            <div class="separator">
+                                Drip Marketing Opportunities</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            (912) 659 1240
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=9126591240&date=5-30-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=9126591240&date=5-30-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            May 30
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=9126591240&date=5-30-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=9126591240&date=5-30-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td colspan="2">
+                            <font color="#999999" nowrap>- no appointment yet -</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            (912) 292 6011
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=ÿ9122926011&date=5-29-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=ÿ9122926011&date=5-29-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            May 29
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=ÿ9122926011&date=5-29-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=ÿ9122926011&date=5-29-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td colspan="2">
+                            <font color="#999999" nowrap>- no appointment yet -</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            (845) 608 2157
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=8456082157&date=5-27-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=8456082157&date=5-27-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            May 27
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=8456082157&date=5-27-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=8456082157&date=5-27-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td colspan="2">
+                            <font color="#999999" nowrap>- no appointment yet -</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            (912) 272 2191
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=9122722191&date=5-26-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=9122722191&date=5-26-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            May 26
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=9122722191&date=5-26-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=9122722191&date=5-26-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td colspan="2">
+                            <font color="#999999" nowrap>- no appointment yet -</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            (706) 987 9336
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=7069879336&date=5-23-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=7069879336&date=5-23-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            May 23
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=7069879336&date=5-23-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=7069879336&date=5-23-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td colspan="2">
+                            <font color="#999999" nowrap>- no appointment yet -</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            (912) 233 0931
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=9122330931&date=5-17-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=9122330931&date=5-17-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            May 17
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=9122330931&date=5-17-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=9122330931&date=5-17-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td colspan="2">
+                            <font color="#999999" nowrap>- no appointment yet -</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            (912) 877 4070
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=9128774070&date=5-17-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=9128774070&date=5-17-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            May 17
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=9128774070&date=5-17-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=9128774070&date=5-17-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td colspan="2">
+                            <font color="#999999" nowrap>- no appointment yet -</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            (940) 704 0571
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=9407040571&date=5-12-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=9407040571&date=5-12-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            May 12
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=9407040571&date=5-12-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=9407040571&date=5-12-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td colspan="2">
+                            <font color="#999999" nowrap>- no appointment yet -</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            (843) 812 0658
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=8438120658&date=5-7-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=8438120658&date=5-7-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            May 07
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=8438120658&date=5-7-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=8438120658&date=5-7-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td colspan="2">
+                            <font color="#999999" nowrap>- no appointment yet -</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            (912) 237 0312
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=9122370312&date=5-3-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=9122370312&date=5-3-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            May 03
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=9122370312&date=5-3-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=9122370312&date=5-3-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td colspan="2">
+                            <font color="#999999" nowrap>- no appointment yet -</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            (912) 596 6574
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=9125966574&date=5-1-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=9125966574&date=5-1-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            May 01
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=9125966574&date=5-1-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=9125966574&date=5-1-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td colspan="2">
+                            <font color="#999999" nowrap>- no appointment yet -</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            770367970
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=ÿ770367970&date=4-30-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=ÿ770367970&date=4-30-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            April 30
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=ÿ770367970&date=4-30-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=ÿ770367970&date=4-30-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td colspan="2">
+                            <font color="#999999" nowrap>- no appointment yet -</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            (520) 820 1319
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=ÿ5208201319&date=4-28-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=ÿ5208201319&date=4-28-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            April 28
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=ÿ5208201319&date=4-28-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=ÿ5208201319&date=4-28-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td colspan="2">
+                            <font color="#999999" nowrap>- no appointment yet -</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            (912) 503 0184
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=ÿ9125030184&date=4-28-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=ÿ9125030184&date=4-28-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            April 28
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=ÿ9125030184&date=4-28-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=ÿ9125030184&date=4-28-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td colspan="2">
+                            <font color="#999999" nowrap>- no appointment yet -</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            (912) 356 3481
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=ÿ9123563481&date=4-27-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=ÿ9123563481&date=4-27-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            April 27
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=ÿ9123563481&date=4-27-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=ÿ9123563481&date=4-27-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td colspan="2">
+                            <font color="#999999" nowrap>- no appointment yet -</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            (858) 254 9450
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=8582549450&date=4-23-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=8582549450&date=4-23-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            April 23
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=8582549450&date=4-23-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=8582549450&date=4-23-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td colspan="2">
+                            <font color="#999999" nowrap>- no appointment yet -</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            (912) 228 0067
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=9122280067&date=4-17-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=9122280067&date=4-17-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            April 17
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=9122280067&date=4-17-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=9122280067&date=4-17-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td colspan="2">
+                            <font color="#999999" nowrap>- no appointment yet -</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            (912) 308 6809
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=9123086809&date=4-17-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=9123086809&date=4-17-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            April 17
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=9123086809&date=4-17-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=9123086809&date=4-17-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td colspan="2">
+                            <font color="#999999" nowrap>- no appointment yet -</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            (919) 353 5987
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=ÿ9193535987&date=4-16-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=ÿ9193535987&date=4-16-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            April 16
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=ÿ9193535987&date=4-16-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=ÿ9193535987&date=4-16-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td colspan="2">
+                            <font color="#999999" nowrap>- no appointment yet -</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            (912) 401 4955
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=9124014955&date=4-15-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=9124014955&date=4-15-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            April 15
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=9124014955&date=4-15-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=9124014955&date=4-15-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td colspan="2">
+                            <font color="#999999" nowrap>- no appointment yet -</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            (912) 429 3225
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=9124293225&date=4-15-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=9124293225&date=4-15-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            April 15
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=9124293225&date=4-15-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=9124293225&date=4-15-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td colspan="2">
+                            <font color="#999999" nowrap>- no appointment yet -</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            (843) 441 1177
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=ÿ8434411177&date=4-12-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=ÿ8434411177&date=4-12-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            April 12
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=ÿ8434411177&date=4-12-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=ÿ8434411177&date=4-12-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td colspan="2">
+                            <font color="#999999" nowrap>- no appointment yet -</font>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col1 first">
+                            (912) 704 8175
+                        </td>
+                        <td class="col2 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&source=1&DB=1135&campId=1&number=9127048175&date=4-11-2012');"
+                                title='Check lead source LeadDetail=1&source=1&DB=1135&campId=1&number=9127048175&date=4-11-2012 '>
+                                <img src='images/icon-source.png' border='0' /></a>
+                        </td>
+                        <td class="col3 center">
+                            April 11
+                        </td>
+                        <td class="col4 center">
+                            12:00 AM
+                        </td>
+                        <td class="col5 center">
+                            1
+                        </td>
+                        <td class="col6 center nopadding">
+                            <a href="javascript:openFCLeadWindow('LeadDetail=1&DB=1135&campId=1&number=9127048175&date=4-11-2012');"
+                                title='Check lead detail LeadDetail=1&DB=1135&campId=1&number=9127048175&date=4-11-2012 '>
+                                <img src='images/icon-detail.png' border='0' /></a>
+                        </td>
+                        <td colspan="2">
+                            <font color="#999999" nowrap>- no appointment yet -</font>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="practiceroi-hr">
+            </div>
+        </div>
+    </div>
+    <span id="DB" style="color: White;">1135</span> <span id="GenerationNumber" style="color: Red;">
+        11122422</span> <span id="superLink"></span><span id="firstCampaign" style="color: White;">
+            1</span>
+    <div id="popupApptDetail" class="popup">
+    </div>
+    <!-- data_file: encodeURIComponent("data_"+document.getElementById("DB").innerHTML+"_"+document.getElementById("period").selectedIndex+".xml") -->
+    <!-- data_file: encodeURIComponent("data_test3.xml") -->
+
+    <script type="text/javascript">
+        var ctrlgenNumber = document.getElementById("GenerationNumber");
+        if (ctrlgenNumber)
+            ctrlgenNumber.style.display = 'none';
+        var genNumber = document.getElementById("GenerationNumber").innerHTML;
+        var Db = document.getElementById("DB").innerHTML;
+        var params = {
+            wmode: "opaque"
+
+        };
+
+        var flashVars = {
+            path: "amcharts/flash/",
+            settings_file: encodeURIComponent("settings.xml"),
+
+            data_file: encodeURIComponent("data_" + Db + "_" + genNumber + ".xml")
+        };
+
+        // change 8 to 80 to test javascript version
+        if (swfobject.hasFlashPlayerVersion("8")) {
+            swfobject.embedSWF("amcharts/flash/ampie.swf", "summary-chart-container", "300", "300", "8.0.0", "amcharts/flash/expressInstall.swf", flashVars, params);
+        }
+        else {
+            // Note, as this example loads external data, JavaScript version might only work on server
+            var amFallback = new AmCharts.AmFallback();
+            amFallback.path = "amcharts/flash/";
+            amFallback.settingsFile = flashVars.settings_file;
+            amFallback.dataFile = flashVars.data_file;
+            amFallback.type = "pie";
+            amFallback.write("summary-chart-container");
+
+        }
+			
+			
+			
+			
+    </script>
+
+    </center>
+    <div id="popUpSound" class="popUpSound">
+        <span id="playerSound"></span>
+        <input type="button" value="Close" id="pbSave" onclick="document.getElementById('popUpSound').style.display = 'none';"
+            name='pbCloseSound' style="text-align: center">
+    </div>
+    <div id="jquery_jplayer_1" class="jp-jplayer">
+    </div>
+    <div id="jp_container_1" class="jp-audio">
+        <span id="labelError" style="color: #CC6600;"></span>
+    </form>
+    <span id="target"></span>
+</body>
+</html> 

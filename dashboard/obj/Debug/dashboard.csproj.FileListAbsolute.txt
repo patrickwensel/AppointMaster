@@ -1,0 +1,19 @@
+C:\csharp\LPI\dashboard\bin\dashboard.dll
+C:\csharp\LPI\dashboard\bin\dashboard.pdb
+C:\csharp\LPI\dashboard\bin\DataBase.dll
+C:\csharp\LPI\dashboard\bin\EO.Web.dll
+C:\csharp\LPI\dashboard\bin\DataBase.pdb
+C:\csharp\LPI\dashboard\obj\Debug\ResolveAssemblyReference.cache
+C:\csharp\LPI\dashboard\obj\Debug\dashboard.Properties.Resources.resources
+C:\csharp\LPI\dashboard\obj\Debug\dashboard.csproj.GenerateResource.Cache
+C:\csharp\LPI\dashboard\obj\Debug\dashboard.dll
+C:\csharp\LPI\dashboard\obj\Debug\dashboard.pdb
+C:\Users\Patrick\Dropbox\PPG\Projects\Appoint Master\LPI DataBase\LPI  Servers\dashboard\bin\dashboard.dll
+C:\Users\Patrick\Dropbox\PPG\Projects\Appoint Master\LPI DataBase\LPI  Servers\dashboard\bin\dashboard.pdb
+C:\Users\Patrick\Dropbox\PPG\Projects\Appoint Master\LPI DataBase\LPI  Servers\dashboard\bin\DataBase.dll
+C:\Users\Patrick\Dropbox\PPG\Projects\Appoint Master\LPI DataBase\LPI  Servers\dashboard\bin\DataBase.pdb
+C:\Users\Patrick\Dropbox\PPG\Projects\Appoint Master\LPI DataBase\LPI  Servers\dashboard\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Patrick\Dropbox\PPG\Projects\Appoint Master\LPI DataBase\LPI  Servers\dashboard\obj\Debug\dashboard.Properties.Resources.resources
+C:\Users\Patrick\Dropbox\PPG\Projects\Appoint Master\LPI DataBase\LPI  Servers\dashboard\obj\Debug\dashboard.csproj.GenerateResource.Cache
+C:\Users\Patrick\Dropbox\PPG\Projects\Appoint Master\LPI DataBase\LPI  Servers\dashboard\obj\Debug\dashboard.dll
+C:\Users\Patrick\Dropbox\PPG\Projects\Appoint Master\LPI DataBase\LPI  Servers\dashboard\obj\Debug\dashboard.pdb

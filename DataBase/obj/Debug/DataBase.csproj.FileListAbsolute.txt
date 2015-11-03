@@ -1,0 +1,10 @@
+C:\csharp\LPI\DataBase\bin\Debug\DataBase.dll
+C:\csharp\LPI\DataBase\bin\Debug\DataBase.pdb
+C:\csharp\LPI\DataBase\obj\Debug\ResolveAssemblyReference.cache
+C:\csharp\LPI\DataBase\obj\Debug\DataBase.dll
+C:\csharp\LPI\DataBase\obj\Debug\DataBase.pdb
+C:\Users\Patrick\Dropbox\PPG\Projects\Appoint Master\LPI DataBase\LPI  Servers\DataBase\bin\Debug\DataBase.dll
+C:\Users\Patrick\Dropbox\PPG\Projects\Appoint Master\LPI DataBase\LPI  Servers\DataBase\bin\Debug\DataBase.pdb
+C:\Users\Patrick\Dropbox\PPG\Projects\Appoint Master\LPI DataBase\LPI  Servers\DataBase\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Patrick\Dropbox\PPG\Projects\Appoint Master\LPI DataBase\LPI  Servers\DataBase\obj\Debug\DataBase.dll
+C:\Users\Patrick\Dropbox\PPG\Projects\Appoint Master\LPI DataBase\LPI  Servers\DataBase\obj\Debug\DataBase.pdb

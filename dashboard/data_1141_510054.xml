@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pie>
+  <slice title="Website Form Leads
+13%" url="javascript:loadCampaignDetail(0,'1',false)" description="click for detail"  pull_out="true"  > 2 951</slice>
+  <slice title="Website Phone Leads
+87%" url="javascript:loadCampaignDetail(1,'2',false)" description="click for detail"   > 20 191</slice>
+</pie>
+

@@ -1,0 +1,238 @@
+﻿
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Dash Board</title>
+  <script type="text/javascript" src="sound/jquery.min.js"></script>
+  <script type="text/javascript" src="sound/jquery.jplayer.min.js"></script>
+  <script type="text/javascript" src="sound/audio.js"></script>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="css/general.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src="js/Ajaxcalls.js"></script>
+    <script type="text/javascript" src="js/general.js"></script>
+
+    <script type="text/javascript">
+function loadAM(){
+	document.getElementById("popupApptDetail").style.display = 'none';
+	document.getElementById("popUpSound").style.display = 'none';
+	
+	initialSelectCampaign();
+	createPlayer();
+	downLoadSimpleHTML('http://localhost/dashboard/testAjax.htm');
+}
+function reloadData() {
+    //alert('Reload of graph + Leads results (right side), may have to reload the all page actually!');
+    var ctrl = document.getElementById("period");
+    var DBctrl = document.getElementById("DB");
+    var TPCtrl = document.getElementById("displayMode");
+    if (ctrl) {
+        var period = ctrl.selectedIndex;
+        var db = DBctrl.innerHTML;
+        var tp = TPCtrl.selectedIndex;
+        window.location.href = 'dashboard.aspx?db=' + db + '&p=' + period + "&TP=" + tp;
+    }
+}
+
+function initialSelectCampaign(){
+    var Cmpctrl=document.getElementById("firstCampaign");
+    if (Cmpctrl){
+        var campId=Cmpctrl.innerHTML;
+        loadCampaignDetail(0,campId,false);
+    }
+
+}
+
+    </script>
+
+
+</head>
+<body onload="loadAM()">
+    <form name="Form1" method="post" action="dashboard.aspx?p=4&amp;message=" id="Form1">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJNzc0Nzc4MjQ1ZGSmA24o0PB1jaZTb8ctv2FSwc8tEg==" />
+</div>
+
+<div>
+
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWCQK/stGwCAK75/GfCwLYwruzAQKl1paZCALM5umSCAK25rnUDgL615ODCwK019GjAwKt8f6mBx3EsGH/VaVTPfjmPLv/d+lUc2df" />
+</div>
+    <!-- saved from url=(0013)about:internet -->
+    <!-- amcharts script-->
+    <!-- swf object (version 2.2) is used to detect if flash is installed and include swf in the page -->
+
+    <script type="text/javascript" src="amcharts/flash/swfobject.js"></script>
+    <script type="text/javascript" src="amcharts/javascript/amcharts.js"></script>
+    <script type="text/javascript" src="amcharts/javascript/amfallback.js"></script>
+    <script type="text/javascript" src="amcharts/javascript/raphael.js"></script>
+    
+<center style="margin:0px">
+    <!-- chart is placed in this div. if you have more than one chart on a page, give unique id for each div -->
+    <table width="977px" align="center" cellpadding="0" cellspacing="0" id="Table1" border="0" style="margin:0px">
+            <tr>
+                <td style="background-color: #C9E4F5; width:488;" valign="top" width="488px">
+                    <table width="100%">
+                        <tbody>
+                            <tr>
+                                <td width="30%">
+                                    <img src="images/logoPROI.gif" style="">
+                                </td>
+                                <td align="left">
+                                    <span style="font-family: Arial Black; font-size: 18px; color: #355010;"><span id="AccountName">Label</span></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td style="background-color: #C9E4F5; width:488; padding-right: 1px" align="left" valign="bottom" nowrap=""  width="488px">
+                    <div class="animatedtabs">
+                        <ul>
+                            <li class="selected">
+                                <a href="#" onmouseover="window.status='Lead Generation'; return true;" ><span>Lead Generation</span></a></li>
+                            <li><a href="reviews.aspx" onmouseover="window.status='Check your reviews!'; return true;" onmouseout="window.status='';"><span>Reviews</span></a></li>
+                            <li><a href="AM.aspx"><span>Reminders</span></a></li>
+                            <!-- li><a href="localListings.aspx"><span>Local Listings</span></a></li -->
+                            <li><a href="login.aspx?logout=1"><span>Log out</span></a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            </table>
+        <table width="977px" align="center" cellpadding="0" cellspacing="0" id="Table2" border="0" style="margin:0px">
+        <tr>
+            <td style='background-image: url(images/backGroundPie.gif)' colspan="6" align="center">
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                        <tbody>
+                            <tr style="background-image: url(images/line_03.jpg)">
+                                <td class="mainHeader">
+                                <big style=" padding-left:10px; padding-right:100px; font-weight:bold">Dashboard</big> Leads period
+                            <select name="period" id="period" class="grayFont" onchange="reloadData()">
+	<option value="Last week">Last week</option>
+	<option value="Last month">Last month</option>
+	<option value="Year to date">Year to date</option>
+	<option value="Last year">Last year</option>
+	<option value="All">All</option>
+
+</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            Amounts displayed
+                            <select name="displayMode" id="displayMode" class="grayFont" onchange="reloadData()">
+	<option value="Production">Production</option>
+	<option value="Plan">Plan</option>
+	<option value="Combined">Combined</option>
+
+</select>&nbsp;&nbsp;&nbsp;
+                            
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="10" colspan="2" background="images/line_06.jpg">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="chartdiv" style="width: 350px; height: 400px; background-color: #000000">
+                </div>
+            </td>
+            <td width="80%" align="center" valign="top">
+                <table style="width:100%; margin:0px;" cellpadding=0 cellspacing >
+                <tr>
+                    <td> <span id="leadTable" class="LeadTable"></span></td>
+                </tr>
+                <!-- tr>
+                    <td align="center" bgcolor="#EFF0F7">
+                        &nbsp; </th> <span style="font-family: Arial Black; font-size: 13px;">Top Procedures</span>
+                    </td>
+                </tr>
+                <tr>
+                <td>
+                    <span id="topProcedures"></span>
+                </td>
+                </tr -->
+                </table>
+            </td>
+        </tr>
+        
+        <tr background="images/backGroundPie.gif">
+            <td colspan="2" align="left">
+                <span id="campaignDetail"></span>
+            </td>
+        </tr>
+    </table>
+    <span id="DB" style="color:White;"></span>
+    <span id="GenerationNumber" style="color:Red;"></span>
+        <span id="superLink"></span>
+    <span id="firstCampaign" style="color:White;"></span>
+    <div id="popupApptDetail" class="popup">
+    </div>
+
+
+
+
+
+
+<!-- data_file: encodeURIComponent("data_"+document.getElementById("DB").innerHTML+"_"+document.getElementById("period").selectedIndex+".xml") -->
+<!-- data_file: encodeURIComponent("data_test3.xml") -->
+    
+    <script type="text/javascript">
+		    var ctrlgenNumber=document.getElementById("GenerationNumber");
+		    if (ctrlgenNumber)
+		            ctrlgenNumber.style.display='none';
+		    var genNumber=document.getElementById("GenerationNumber").innerHTML;
+		    var Db=document.getElementById("DB").innerHTML;
+			var params = {
+		        wmode:"opaque"
+			     
+            };
+            
+		    var flashVars = {
+		        path: "amcharts/flash/",
+		        settings_file: encodeURIComponent("settings.xml"),
+		        
+		        data_file: encodeURIComponent("data_"+Db+"_"+genNumber+".xml") 
+			};
+
+			// change 8 to 80 to test javascript version
+            if (swfobject.hasFlashPlayerVersion("8")){
+	    		swfobject.embedSWF("amcharts/flash/ampie.swf", "chartdiv", "450", "400", "8.0.0", "amcharts/flash/expressInstall.swf", flashVars, params);
+	    	}
+			else{
+			    // Note, as this example loads external data, JavaScript version might only work on server
+				var amFallback = new AmCharts.AmFallback();
+    			amFallback.path = "amcharts/flash/";
+				amFallback.settingsFile = flashVars.settings_file;
+				amFallback.dataFile = flashVars.data_file;				
+				amFallback.type = "pie";
+				amFallback.write("chartdiv");
+
+			}
+			
+			
+			
+			
+    </script>
+
+</center>    
+    <div id="popUpSound" class="popUpSound">
+        <span id="playerSound"></span>
+        <INPUT type=button value=Close id=pbSave onclick="document.getElementById('popUpSound').style.display = 'none';" NAME='pbCloseSound' style="text-align:center">
+    </div>
+
+
+
+  <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+  <div id="jp_container_1" class="jp-audio">
+    
+    <span id="labelError" style="color:#CC6600;"></span>
+
+    </form>
+
+<span id="target"></span>
+
+    
+</body>
+</html>

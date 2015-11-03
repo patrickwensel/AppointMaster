@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pie>
+  <slice title="Angies List
+Combined ammout " url="javascript:loadCampaignDetail(0,'1',false)" description="click for detail"  pull_out="true"  >0</slice>
+  <slice title="Yelp
+Combined ammout " url="javascript:loadCampaignDetail(1,'2',false)" description="click for detail"   >0</slice>
+  <slice title="washingtonain online
+Combined ammout " url="javascript:loadCampaignDetail(2,'3',false)" description="click for detail"   >0</slice>
+  <slice title="washingtonain
+Combined ammout " url="javascript:loadCampaignDetail(3,'4',false)" description="click for detail"   >0</slice>
+  <slice title="Online
+Combined ammout " url="javascript:loadCampaignDetail(4,'5',false)" description="click for detail"   > 7 235</slice>
+</pie>
+

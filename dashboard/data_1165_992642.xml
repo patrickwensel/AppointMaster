@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pie>
+  <slice title="Campaign 12025999578
+Combined ammout " url="javascript:loadCampaignDetail(0,'1',false)" description="click for detail"  pull_out="true"  >0</slice>
+  <slice title="Campaign 18133587624
+Combined ammout " url="javascript:loadCampaignDetail(1,'2',false)" description="click for detail"   >0</slice>
+  <slice title="Online Lead 3
+Combined ammout " url="javascript:loadCampaignDetail(2,'3',false)" description="click for detail"   >0</slice>
+  <slice title="Online Lead
+Combined ammout " url="javascript:loadCampaignDetail(3,'4',false)" description="click for detail"   >0</slice>
+  <slice title="Online Lead Seven
+Combined ammout " url="javascript:loadCampaignDetail(4,'5',false)" description="click for detail"   >0</slice>
+  <slice title="Online Lead Eight
+Combined ammout " url="javascript:loadCampaignDetail(5,'6',false)" description="click for detail"   >0</slice>
+  <slice title="Online Lead 5
+Combined ammout " url="javascript:loadCampaignDetail(6,'7',false)" description="click for detail"   >0</slice>
+  <slice title="Campaign 12027695279
+Combined ammout " url="javascript:loadCampaignDetail(7,'8',false)" description="click for detail"   >0</slice>
+  <slice title="Campaign 12027695280
+Combined ammout " url="javascript:loadCampaignDetail(8,'9',false)" description="click for detail"   >0</slice>
+  <slice title="Campaign 12024550990
+Combined ammout " url="javascript:loadCampaignDetail(9,'10',false)" description="click for detail"   >0</slice>
+  <slice title="Campaign 12027695297
+Combined ammout " url="javascript:loadCampaignDetail(10,'12',false)" description="click for detail"   >0</slice>
+  <slice title="Campaign 12027695298
+Combined ammout " url="javascript:loadCampaignDetail(11,'13',false)" description="click for detail"   >0</slice>
+  <slice title="Online Lead 1
+Combined ammout " url="javascript:loadCampaignDetail(12,'14',false)" description="click for detail"   >0</slice>
+  <slice title="Multiple-Sources Campaign
+Combined ammout " url="javascript:loadCampaignDetail(13,'15',false)" description="click for detail"   >0</slice>
+  <slice title="Online Lead 2
+Combined ammout " url="javascript:loadCampaignDetail(14,'16',false)" description="click for detail"   >0</slice>
+</pie>
+

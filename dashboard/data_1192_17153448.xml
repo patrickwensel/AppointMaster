@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pie>
+  <slice title="Multiple-Sources Campaign
+0%" url="javascript:loadCampaignDetail(0,'1',false)" description="click for detail"  pull_out="true"  >0</slice>
+  <slice title="Campaign 13103625550
+0%" url="javascript:loadCampaignDetail(1,'2',false)" description="click for detail"   >0</slice>
+  <slice title="Campaign 13017696073
+0%" url="javascript:loadCampaignDetail(2,'3',false)" description="click for detail"   >0</slice>
+</pie>
+

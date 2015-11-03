@@ -1,0 +1,470 @@
+﻿<!DOCTYPE html>
+<head>
+	<meta charset="utf-8" />
+	<title>Practice ROI -Local Patient</title>
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/popups.css">
+	<link rel="stylesheet" href="css/practiceroi.css">
+	
+	<!-- lighbox -->
+	<script type="text/javascript" src="easybox/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="easybox/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="easybox/distrib.min.js"></script>
+	<link rel="stylesheet" href="easybox/styles/default/easybox.css" type="text/css" media="screen" />
+	
+	<script type="application/json" id="easyOptions">
+	{
+	        "global": {
+	                "resizeDuration": 0,
+	                "fadeDuration": 0,
+	                "captionFadeDuration": 0,
+	                "overlayOpacity": 0.2,
+	                "dragDrop": 0
+	        }
+	}
+	</script>
+	
+	<!-- pie chart -->
+	<script type="text/javascript" src="js/highcharts.js"></script>
+		<script type="text/javascript">
+		$(function () {
+		
+		// setup practiceroi colors
+		Highcharts.theme = {
+		   colors: ['#4471a6','#a84542','#88a44c','#71578f','#3f96ae','#d9823b', '#FF9655', '#FFF263', '#6AF9C4']
+		   };
+		var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+		
+    	
+    	// Radialize the colors
+		Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function(color) {
+		    return {
+		        radialGradient: { cx: 0.5, cy: 0.3, r: 0.7 },
+		        stops: [
+		            [0, color],
+		            [1, Highcharts.Color(color).brighten(-0.2).get('rgb')] // darken
+		        ]
+		    };
+		});
+		
+		// Build the chart
+        $('#summary-chart').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                width: 365,
+                height: 255
+            },
+            title: {
+            	text: null
+            },
+            tooltip: {
+        	    pointFormat: '{series.name}: <b>${point.y}</b>',
+            	percentageDecimals: 1
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false,
+                        color: '#000000',
+                        connectorColor: '#000000',
+                        formatter: function() {
+                            return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
+                        },
+                        distance: -1
+                    },
+                    size: 230,
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Combined Amount',
+                data: [
+                	{
+                        name: 'Website Phone',
+                        y: 414807,
+                        sliced: true,
+                        selected: true
+                    }, 
+                    ['Website Forms ',       324954],
+                    ['Google Ad Words ', 302042],
+                    ['Direct Mail',    247344],
+                    ['Magazine Ad',     184302],
+                    ['1-800 Dentist',   47393]
+                ],
+                point: {
+                    events: {
+                        click: function() {
+                    		var row;
+	                        var rowIndex = this.x;
+	                        // find the row in the summary table and highlight it
+                    		$(".practiceroi-summary-row").closest("tr").siblings().removeClass("row-selected");
+							$(".practiceroi-summary-row").each(function(i, obj) {
+								if($(obj).data("id") == rowIndex)
+								{
+									$(obj).toggleClass("row-selected", this.clicked);
+									row = obj;
+								}
+							});
+							
+							// set the title of the detail chart
+							$("#campaign-details-title").html($(row).children()[1].innerHTML);
+							
+							// TODO: Update the deatil chart
+							$("#practiceroi-table-container");
+                        }
+                    }
+                }
+            }]
+        });
+    });
+	</script>
+	
+</head>
+
+<body>
+<div id="center-column">
+<div id="header">
+<div id="header-title">Practice ROI</div>
+<div id="header-practice">Drs. Happy &amp; Smiles</div>
+</div>
+<div id="toolbar">
+<div id="toolbar-buttons"><a class="lightbox" title="Campaign Settings" data-width="600" data-height="400" href="settings.html"><img style="padding: 0 5px 0 0;" src="images/settings.png" /></a> 
+<a href="#"><img src="images/logout.png" /></a></div>
+<form><label>LEADS PERIOD</label> <select id="dropdown" onChange="bringVisitorTo();"> <option value="days30.html">Last 30 Days</option> <option value="week.html">Last 90 Days</option> <option value="month.html">Last Year</option> <option selected value="year">All</option> </select> <label>AMOUNTS DISPLAYED</label> <select> <option value="combined">Combined</option> <option value="plan">Plan</option> <option value="production">Production</option> </select></form></div>
+<div id="large-numbers">
+<div class="large-dark">
+<div class="large-top">$1.48M</div>
+<div class="large-bottom">COMBINED</div>
+</div>
+<div class="large-light">
+<div class="large-top">1474</div>
+<div class="large-bottom">LEADS</div>
+</div>
+<div class="large-light">
+<div class="large-top">875</div>
+<div class="large-bottom">PATIENTS</div>
+</div>
+<div class="large-light">
+<div class="large-top">59%</div>
+<div class="large-bottom">CONVERSION</div>
+</div>
+</div>
+<div id="campaign-summaries">
+<div id="summary-chart-container">
+<div id="summary-chart-title">Combined Breakdown</div>
+<div id="summary-chart"></div>
+</div>
+<table class="practiceroi-summary-table">
+<tbody>
+<tr class="practiceroi-summary-header">
+<td></td>
+<!-- no title, the column for the colored dot -->
+<td>Campaign</td>
+<td class="center">Leads</td>
+<td class="center">Patients</td>
+<td class="center">Conversion</td>
+<td class="right">Combined</td>
+</tr>
+<!-- data-id corresponds to the value in the pie chart, starts at 0. --> <!-- we duplicate the title in data-title to make it easier to work with when selecting --> <!-- finally, the first row should be selected by default with the row-selected class -->
+<tr class="practiceroi-summary-row row-selected" data-id="0" data-title="Website Phone">
+<td class="colordot" style="color: #4471a6;">&bull;</td>
+<td>Website Phone</td>
+<td class="center">522</td>
+<td class="center">271</td>
+<td class="center">52%</td>
+<td class="right">$414,807</td>
+</tr>
+<tr class="practiceroi-summary-row" data-id="1" data-title="Website Forms">
+<td class="colordot" style="color: #a84542;">&bull;</td>
+<td>Website Forms</td>
+<td class="center">345</td>
+<td class="center">244</td>
+<td class="center">71%</td>
+<td class="right">$324,954</td>
+</tr>
+<tr class="practiceroi-summary-row" data-id="2" data-title="Google Ad Words">
+<td class="colordot" style="color: #88a44c;">&bull;</td>
+<td>Google Ad Words</td>
+<td class="center">266</td>
+<td class="center">208</td>
+<td class="center">78%</td>
+<td class="right">$302,042</td>
+</tr>
+<tr class="practiceroi-summary-row" data-id="3" data-title="Direct Mail">
+<td class="colordot" style="color: #71578f;">&bull;</td>
+<td>Direct Mail</td>
+<td class="center">142</td>
+<td class="center">83</td>
+<td class="center">59%</td>
+<td class="right">$247,344</td>
+</tr>
+<tr class="practiceroi-summary-row" data-id="4" data-title="Magazine Ad">
+<td class="colordot" style="color: #3f96ae;">&bull;</td>
+<td>Magazine Ad</td>
+<td class="center">125</td>
+<td class="center">61</td>
+<td class="center">49%</td>
+<td class="right">$184,302</td>
+</tr>
+<tr class="practiceroi-summary-row" data-id="5" data-title="1-800 Dentist">
+<td class="colordot" style="color: #d9823b;">&bull;</td>
+<td>1-800-Dentist</td>
+<td class="center">74</td>
+<td class="center">8</td>
+<td class="center">11%</td>
+<td class="right">$7,383</td>
+</tr>
+<tr class="practiceroi-summary-header">
+<td></td>
+<td>Total</td>
+<td class="center">1474</td>
+<td class="center">875</td>
+<td class="center">59%</td>
+<td class="right">$1,480,832</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="campaign-details">
+<div class="practiceroi-hr"></div>
+<div id="campaign-details-title">WEB SITE PHONE</div>
+<div class="practiceroi-hr"></div>
+<!-- non-scrolling headers -->
+		<table class="practiceroi-table">
+			<tr class="practiceroi-table-header">
+				<td class="col1 first">Phone Number</td>
+				<td class="col2 center">Source</td>
+				<td class="col3 center">Date</td>
+				<td class="col4 center">Time</td>
+				<td class="col5 center">Duration</td>
+				<td class="col6 center">Detail</td>
+				<td class="col7">Patient</td>
+				<td class="col8 right">Plan</td>
+				<td class="col9 right last">Production</td>
+			</tr>
+		</table>
+        </tr>
+<!-- table, with scrolling data -->
+		<div id="practiceroi-table-container">
+		<table class="practiceroi-table">
+			<tr>
+        <td class="col1 first">(301) 555-2234</td>
+<td class="col2 center nopadding"><a title="Source Details" class="lightbox" data-width="600" data-height="315" href="source2.html"><img src="images/icon-source.png" /></a></td>
+<td class="col3 center">April 13th, 2012</td>
+<td class="col4 center">2:32pm</td>
+<td class="col5 center">0:30</td>
+<td class="col6 center nopadding"><a href="#"><img src="images/icon-play.png" /></a></td>
+<td class="col7">Patient #12345</td>
+<td class="col8 right"><a class="lightbox" title="Procedures Posted to Jim Smith" data-width="600" data-height="400" href="procedures.html">$103</a></td>
+<td class="col9 right last"><a class="lightbox" title="Procedures Posted to Jim Smith" data-width="600" data-height="400" href="procedures.html">$3,199</a></td>
+</tr>
+<tr>
+<td class="col1 first">(301) 555-1234</td>
+<td class="col2 center nopadding"><a title="Source Details" class="lightbox" data-width="600" data-height="315" href="source.html"><img src="images/icon-source.png" /></a></td>
+<td class="col3 center">August 14th, 2012</td>
+<td class="col4 center">4:12pm</td>
+<td class="col5 center">0:00</td>
+<td class="col6 center nopadding"><a title="Lead Details" class="lightbox" data-width="600" data-height="400" href="detail2.html"><img src="images/icon-detail.png" /></a></td>
+<td class="col7">Patient #22345</td>
+<td class="col8 right"><a class="lightbox" title="Procedures Posted to Ed Hunt" data-width="600" data-height="400" href="procedures2.html">$6,200</a></td>
+<td class="col9 right last"><a class="lightbox" title="Procedures Posted to Ed Hunt" data-width="600" data-height="400" href="procedures2.html">$6,370</a></td>
+</tr>
+<tr>
+<td class="col1 first">(301) 555-3234</td>
+<td class="col2 center nopadding"><a title="Source Details" class="lightbox" data-width="600" data-height="315" href="source.html"><img src="images/icon-source.png" /></a></td>
+<td class="col3 center">August 21st, 2012</td>
+<td class="col4 center">9:42am</td>
+<td class="col5 center">0:00</td>
+<td class="col6 center nopadding"><a title="Lead Details" class="lightbox" data-width="600" data-height="400" href="detail3.html"><img src="images/icon-detail.png" /></a></td>
+<td class="col7">Patient #21341</td>
+<td class="col8 right"><a class="lightbox" title="Procedures Posted to Kim Jones" data-width="600" data-height="400" href="procedures3.html">$148</a></td>
+<td class="col9 right last"><a class="lightbox" title="Procedures Posted to Kim Jones" data-width="600" data-height="400" href="procedures3.html">$3,935</a></td>
+</tr>
+<tr>
+<td class="col1 first">(301) 555-1134</td>
+<td class="col2 center nopadding"><a title="Source Details" class="lightbox" data-width="600" data-height="315" href="source.html"><img src="images/icon-source.png" /></a></td>
+<td class="col3 center">Sept 18th, 2012</td>
+<td class="col4 center">1:32pm</td>
+<td class="col5 center">0:00</td>
+<td class="col6 center nopadding"><a title="Lead Details" class="lightbox" data-width="600" data-height="400" href="detail4.html"><img src="images/icon-detail.png" /></a></td>
+<td class="col7">Patient #19345</td>
+<td class="col8 right"><a class="lightbox" title="Procedures Posted to Sandy Shore" data-width="600" data-height="400" href="procedures4.html">$0</a></td>
+<td class="col9 right last"><a class="lightbox" title="Procedures Posted to Sandy Shore" data-width="600" data-height="400" href="procedures4.html">$6,155</a></td>
+</tr>
+<tr>
+<td class="col1 first">(301) 555-1834</td>
+<td class="col2 center nopadding"><a title="Source Details" class="lightbox" data-width="600" data-height="315" href="source.html"><img src="images/icon-source.png" /></a></td>
+<td class="col3 center">Oct 10th, 2012</td>
+<td class="col4 center">3:32pm</td>
+<td class="col5 center">0:00</td>
+<td class="col6 center nopadding"><a title="Lead Details" class="lightbox" data-width="600" data-height="400" href="detail5.html"><img src="images/icon-detail.png" /></a></td>
+<td class="col7">Patient #17385</td>
+<td class="col8 right"><a class="lightbox" title="Procedures Posted to Joe Hunt" data-width="600" data-height="400" href="procedures5.html">$5,000</a></td>
+<td class="col9 right last"><a class="lightbox" title="Procedures Posted to Joe Hunt" data-width="600" data-height="400" href="procedures5.html">$1,250</a></td>
+</tr>
+<tr>
+<td colspan="9" class="nopadding">
+<div class="separator">Matches found without treatments posted yet</div>
+</td>
+</tr>
+<tr>
+<td class="first">(301) 555-1334</td>
+<td class="center nopadding"><a title="Source Details" class="lightbox" data-width="600" data-height="315" href="source2.html"><img src="images/icon-source22.png" /></a></td>
+<td class="center">April 1st, 2012</td>
+<td class="center">8:45am</td>
+<td class="center">3:34</td>
+<td class="center nopadding"><a href="#"><img src="images/icon-reload.png" /></a> <a href="#"><img src="images/icon-pause.png" /></a></td>
+<td>Patient #18919</td>
+<td class="right">None</td>
+<td class="right last">None</td>
+</tr>
+<tr>
+<td class="first">(301) 555-1634</td>
+<td class="center nopadding"><a title="Source Details" class="lightbox" data-width="600" data-height="315" href="source.html"><img src="images/icon-source.png" /></a></td>
+<td class="center">April 22nd, 2012</td>
+<td class="center">11:43am</td>
+<td class="center">0:00</td>
+<td class="center nopadding"><a title="Lead Details" class="lightbox" data-width="600" data-height="400" href="detail.html"><img src="images/icon-detail.png" /></a></td>
+<td>Patient #18201</td>
+<td class="right">None</td>
+<td class="right last">None</td>
+</tr>
+<tr>
+<td class="first">(301) 555-7634</td>
+<td class="center nopadding"><a title="Source Details" class="lightbox" data-width="600" data-height="315" href="source.html"><img src="images/icon-source.png" /></a></td>
+<td class="center">May 10th, 2012</td>
+<td class="center">2:15pm</td>
+<td class="center">0:00</td>
+<td class="center nopadding"><a title="Lead Details" class="lightbox" data-width="600" data-height="400" href="detail.html"><img src="images/icon-detail.png" /></a></td>
+<td>Patient #18223</td>
+<td class="right">None</td>
+<td class="right last">None</td>
+</tr>
+<tr>
+<td class="first">(301) 555-4631</td>
+<td class="center nopadding"><a title="Source Details" class="lightbox" data-width="600" data-height="315" href="source.html"><img src="images/icon-source.png" /></a></td>
+<td class="center">May 11th, 2012</td>
+<td class="center">10:45am</td>
+<td class="center">0:00</td>
+<td class="center nopadding"><a title="Lead Details" class="lightbox" data-width="600" data-height="400" href="detail.html"><img src="images/icon-detail.png" /></a></td>
+<td>Patient #18231</td>
+<td class="right">None</td>
+<td class="right last">None</td>
+</tr>
+<tr>
+<td class="first">(301) 555-5500</td>
+<td class="center nopadding"><a title="Source Details" class="lightbox" data-width="600" data-height="315" href="source.html"><img src="images/icon-source.png" /></a></td>
+<td class="center">June 12th, 2012</td>
+<td class="center">5:01pm</td>
+<td class="center">0:00</td>
+<td class="center nopadding"><a title="Lead Details" class="lightbox" data-width="600" data-height="400" href="detail.html"><img src="images/icon-detail.png" /></a></td>
+<td>Patient #18244</td>
+<td class="right">None</td>
+<td class="right last">None</td>
+</tr>
+<tr>
+<td class="first">(301) 555-7544</td>
+<td class="center nopadding"><a title="Source Details" class="lightbox" data-width="600" data-height="315" href="source.html"><img src="images/icon-source.png" /></a></td>
+<td class="center">July 5th, 2012</td>
+<td class="center">2:54pm</td>
+<td class="center">0:00</td>
+<td class="center nopadding"><a title="Lead Details" class="lightbox" data-width="600" data-height="400" href="detail.html"><img src="images/icon-detail.png" /></a></td>
+<td>Patient #18256</td>
+<td class="right">None</td>
+<td class="right last">None</td>
+</tr>
+<td colspan="9" class="nopadding">
+<div class="separator">Drip Marketing Opportunities</div>
+</td>
+</tr>
+<tr>
+<td class="first">(301) 555-8339</td>
+<td class="center nopadding"><a title="Source Details" class="lightbox" data-width="600" data-height="315" href="source2.html"><img src="images/icon-source.png" /></a></td>
+<td class="center">May 23rd, 2013</td>
+<td class="center">11:45am</td>
+<td class="center">2:36</td>
+<td class="center nopadding"><a href="#"><img src="images/icon-reload.png" /></a> <a href="#"><img src="images/icon-pause.png" /></a></td>
+<td>No appointment</td>
+<td class="right">None</td>
+<td class="right last">None</td>
+</tr>
+<tr>
+<td class="first">(301) 555-1884</td>
+<td class="center nopadding"><a title="Source Details" class="lightbox" data-width="600" data-height="315" href="source.html"><img src="images/icon-source.png" /></a></td>
+<td class="center">May 22nd, 2013</td>
+<td class="center">11:43am</td>
+<td class="center">0:00</td>
+<td class="center nopadding"><a title="Lead Details" class="lightbox" data-width="600" data-height="400" href="detail6.html"><img src="images/icon-detail.png" /></a></td>
+<td>No appointment</td>
+<td class="right">None</td>
+<td class="right last">None</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="practiceroi-hr"></div>
+</div>
+</div>
+<<script type="text/javascript" language="JavaScript">
+	function bringVisitorTo(){
+		// get the dropdown object and save 
+		// it in a variable 'dropdown'
+		var dropdown = document.getElementById('dropdown'); 
+
+		// get the value selected and store 
+		// on variable 'option'
+		var option = dropdown.value; 
+
+		// get the nth option selected index 
+		//and save it on variable 'index'
+		var index = dropdown.selectedIndex; 
+
+		// get the option's text selected by the 
+		// visitor and save it on variable 'text'
+		var text = dropdown.options[index].text; 
+
+		// Lets verify whether we get the corresponding 
+		// value properly.
+		// alert("Value: "+option);
+		// alert("Nth option selected: "+index);
+		// alert("Text selected by visitor: "+text);
+
+
+		/** we'll redirect the visitors **/
+		window.location = option;
+	}
+</script>
+<script type="text/javascript">// <![CDATA[
+// make the rows of the top chart selectable
+	$(".practiceroi-summary-row td").click(function() {
+		// if it's already selected, do nothing
+		if($(this).closest("tr").hasClass("row-selected"))
+			return;
+		
+		// highlight the correct row
+		$(this).closest("tr").siblings().removeClass("row-selected");
+		$(this).parents("tr").toggleClass("row-selected", this.clicked);
+		
+		// select the right pie slice
+		var row = $(this).closest("tr").data("id");
+		$('#summary-chart').highcharts().series[0].data[row].select();
+		
+		// set the title of the detail chart
+		$("#campaign-details-title").html($(this).closest("tr").data("title"));
+		
+		// TODO: Update the deatil chart
+		$("#practiceroi-table-container");
+	});
+	
+	$(".practiceroi-summary-row td").hover(function() {
+		$(this).closest("tr").siblings().removeClass("row-highlight");
+		$(this).parents("tr").toggleClass("row-highlight", this.clicked);
+	});
+// ]]></script>
+</body>
+
+</html>
