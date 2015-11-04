@@ -57,16 +57,83 @@
     <Reference Include="System.Web.Mobile" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AcountNotFoundiFrame.htm" />
     <Content Include="AM.aspx" />
+    <Content Include="apptDetail.htm" />
     <Content Include="campaignNames.aspx" />
+    <Content Include="css\base.css" />
+    <Content Include="css\easybox.css" />
+    <Content Include="css\general - Copy %282%29.css" />
+    <Content Include="css\general - Copy.css" />
+    <Content Include="css\general.css" />
+    <Content Include="css\popups.css" />
+    <Content Include="css\practiceroi.css" />
+    <Content Include="css\style.css" />
     <Content Include="dashboard.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="images\170px-background.png" />
+    <Content Include="images\ajax-loader.gif" />
+    <Content Include="images\arrowLeftRed.gif" />
+    <Content Include="images\background.png" />
+    <Content Include="images\backGroundPie.gif" />
+    <Content Include="images\blue_03.jpg" />
+    <Content Include="images\blue_04.jpg" />
+    <Content Include="images\bottom_16.jpg" />
+    <Content Include="images\buttons_03.jpg" />
+    <Content Include="images\buttons_04.jpg" />
+    <Content Include="images\buttons_over_12.jpg" />
+    <Content Include="images\cancel.gif" />
+    <Content Include="images\Close.png" />
+    <Content Include="images\enter.jpg" />
+    <Content Include="images\green_07.jpg" />
+    <Content Include="images\icon-detail.png" />
+    <Content Include="images\icon-pause.png" />
+    <Content Include="images\icon-source.png" />
+    <Content Include="images\Keychain_Access_Icon.png" />
+    <Content Include="images\large-dark-background.png" />
+    <Content Include="images\large-light-background.png" />
+    <Content Include="images\line_03.jpg" />
+    <Content Include="images\line_03_16.jpg" />
+    <Content Include="images\line_06.jpg" />
+    <Content Include="images\listen.gif" />
+    <Content Include="images\LoginAM.jpg" />
+    <Content Include="images\logo.gif" />
+    <Content Include="images\logo.png" />
+    <Content Include="images\logoPROI.gif" />
+    <Content Include="images\logout.png" />
+    <Content Include="images\long_20.jpg" />
+    <Content Include="images\long_21.jpg" />
+    <Content Include="images\long_blue_20.jpg" />
+    <Content Include="images\noShowsNoExcuses.gif" />
+    <Content Include="images\PowerByMobile.gif" />
+    <Content Include="images\PROIlogo.gif" />
+    <Content Include="images\rewind.png" />
+    <Content Include="images\settings.png" />
+    <Content Include="images\small-dark-background.png" />
+    <Content Include="images\small-light-background.png" />
+    <Content Include="images\stop.png" />
+    <Content Include="images\tab_gr.jpg" />
+    <Content Include="images\WomanTexting429x286.jpg" />
+    <Content Include="images\womenTexting.png" />
+    <Content Include="images\zoom.jpg" />
+    <Content Include="js\AjaxCalls.js" />
+    <Content Include="js\general.js" />
+    <Content Include="js\jPlayer.js" />
     <Content Include="localListings.aspx" />
     <Content Include="login.aspx" />
     <Content Include="PasswordReset.aspx" />
     <Content Include="reviews.aspx" />
     <None Include="Web References\PROI_WS\ROIServices.disco" />
     <Content Include="Settings.aspx" />
+    <Content Include="Sound\audio.js" />
+    <Content Include="Sound\Jplayer.swf" />
+    <Content Include="Sound\jQuery.jPlayer.2.4.0\add-on\jplayer.playlist.min.js" />
+    <Content Include="Sound\jQuery.jPlayer.2.4.0\add-on\jquery.jplayer.inspector.js" />
+    <Content Include="Sound\jQuery.jPlayer.2.4.0\Jplayer.swf" />
+    <Content Include="Sound\jQuery.jPlayer.2.4.0\jquery.jplayer.min.js" />
+    <Content Include="Sound\jQuery.jPlayer.2.4.0\popcorn\popcorn.jplayer.js" />
+    <Content Include="Sound\jquery.jplayer.min.js" />
+    <Content Include="Sound\jquery.min.js" />
     <Content Include="testAudio.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -172,10 +239,12 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
+    <None Include="images\buttons.psd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Sound\jplayer2.4\jQuery.jPlayer.2.4.0.zip" />
     <None Include="Web References\PROI_WS\accountData.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
