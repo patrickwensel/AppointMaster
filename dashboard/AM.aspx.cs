@@ -19,7 +19,7 @@ namespace dashboard {
 
         private void displayPage(string pageName) {
             try {
-                string directory = DataBase.Util.GetConfigValueInFile("C:\\lpi.ini", "html_source_pages");
+                string directory = ConfigurationManager.AppSettings["html_source_pages"];
                 if (System.IO.Directory.Exists(directory)) {
                     string filename=directory + "\\" + pageName;
                     if (System.IO.File.Exists(filename))

@@ -8,3 +8,8 @@ C:\Users\Patrick\Dropbox\PPG\Projects\Appoint Master\LPI DataBase\LPI  Servers\D
 C:\Users\Patrick\Dropbox\PPG\Projects\Appoint Master\LPI DataBase\LPI  Servers\DataBase\obj\Debug\ResolveAssemblyReference.cache
 C:\Users\Patrick\Dropbox\PPG\Projects\Appoint Master\LPI DataBase\LPI  Servers\DataBase\obj\Debug\DataBase.dll
 C:\Users\Patrick\Dropbox\PPG\Projects\Appoint Master\LPI DataBase\LPI  Servers\DataBase\obj\Debug\DataBase.pdb
+C:\Users\Patrick\Documents\GitHub\AppointMaster\AppointMaster\DataBase\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Patrick\Documents\GitHub\AppointMaster\AppointMaster\DataBase\obj\Debug\DataBase.dll
+C:\Users\Patrick\Documents\GitHub\AppointMaster\AppointMaster\DataBase\obj\Debug\DataBase.pdb
+C:\Users\Patrick\Documents\GitHub\AppointMaster\AppointMaster\DataBase\bin\Debug\DataBase.dll
+C:\Users\Patrick\Documents\GitHub\AppointMaster\AppointMaster\DataBase\bin\Debug\DataBase.pdb
