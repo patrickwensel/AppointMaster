@@ -32,7 +32,7 @@
   <ItemGroup>
     <Reference Include="EO.Web, Version=7.0.41.2, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Server2008\pfb\Ressources\EO.Web.dll</HintPath>
+      <HintPath>ExternalReference\EO.Web.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
