@@ -114,23 +114,24 @@ background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#447fb
 	{
 		display: inline-block;
 		margin: 18px 3px 17px 3px;
-		margin-left:20px;
-		width: 250px;
+        width: 200px;
 		height: 125px;
 		background: url("../images/large-dark-background.png");
+        background-size: 100% 100%;
 	}
 	
 	.large-light
 	{
 		display: inline-block;
 		margin: 18px 3px 7px 3px;
-		width: 213px;
+        width: 170px;
 		height: 125px;
 		background: url("../images/large-light-background.png");
+        background-size: 100% 100%;
 	}
 	.large-top
 	{
-		font-size: 65px;
+		font-size: 50px;
 		line-height: 80px;
 		padding-top: 3px;
 	}
@@ -207,9 +208,13 @@ background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#447fb
 	
 	.practiceroi-table
 	{
-
+       
 	}
-	
+
+    .practiceroi-table-backgroud {
+         background-color: rgb(196, 219, 237);
+    }
+
 	.practiceroi-table-header
 	{
 		color: rgb(68,127,178);
@@ -265,18 +270,19 @@ background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#447fb
 	}
 	
 	/* All table cells must have a fixed column width for the headers (which live in a separate table) to line up with the rows */
-	.practiceroi-table .col1 { width:145px }
-	.practiceroi-table .col2 { width:75px }
-	.practiceroi-table .col3 { width:138px }
-	.practiceroi-table .col4 { width:73px }
-	.practiceroi-table .col5 { width:77px }
-	.practiceroi-table .col6 { width:69px }
-	.practiceroi-table .col7 { width:117px }
-	.practiceroi-table .col8 { width:150px }
-	.practiceroi-table .col9 { width:100px }
+	.practiceroi-table .col1 { width:115px; display:inline-block; }
+	.practiceroi-table .col2 { width:75px; display:inline-block;  }
+	.practiceroi-table .col3 { width:110px; display:inline-block;  }
+	.practiceroi-table .col4 { width:70px; display:inline-block;  }
+	.practiceroi-table .col5 { width:75px; display:inline-block;  }
+	.practiceroi-table .col6 { width:70px; display:inline-block;  }
+	.practiceroi-table .col7 { width:125px; display:inline-block;  }
+
+	.practiceroi-table .col8 { width:100px;  display:inline-block;}
+	.practiceroi-table .col9 { width:100px;  display:inline-block;}
+    .practiceroi-table .col10 { width:125px;  display:inline-block;}
 	
-	.practiceroi-table .col1Title { width:145px }
-	.practiceroi-table .col9Title  { width:155px }
+    .practiceroi-table .withoutWidth { display:inline-block;}
 	
 	
 	/* For the plan/procedure popup */
@@ -398,8 +404,8 @@ div.popup
 	position:fixed;
 	top:50%;
 	left:50%;
-	width:620px;
-	margin-left:-310px;
+    width:820px;
+    margin-left:-410px;
 	height:500px;
 	margin-top:-250px;
 	background-color:white;
@@ -414,7 +420,7 @@ box-shadow: 10px 10px 25px #888888;
 div.popupscroll
 {
 	height:460px;
-	width:620px;
+    width:820px;
 	overflow:auto;
 	overflow-x:hidden;
 	background-color:white;
@@ -454,5 +460,19 @@ div.popuptitle
 	opacity:0.6;
 }
 
+.showHideTable {
+    cursor:pointer;
+    background-color: rgb(47,87,122);
+    color: white;
+    font-weight: bold;
+    margin: 10px 15px;
+    padding: 10px 14px;
+}
 
+.directRow {
+    display:none;
+}
 
+.referralRow {
+    display:none;
+}

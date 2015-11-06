@@ -1,3 +1,4 @@
+
 //****************************************************************************
 //****  Lead Detail Window
 //****************************************************************************
@@ -119,3 +120,16 @@ function openSoundWindow(soundURL) {
 }
 
 
+function showHideTable(element) {
+    if ($(element).data('showhide') == 'hide') {
+        $("." + $(element).data('tablerowname')).show();
+        $(element).data('showhide', 'show');
+        $(element).find('.showHideIcon').text("-");
+    }
+    else
+    {
+        $("." + $(element).data('tablerowname')).hide();
+        $(element).data('showhide', 'hide');
+        $(element).find('.showHideIcon').text("+");
+    }   
+}
