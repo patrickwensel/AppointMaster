@@ -145,8 +145,8 @@ namespace dashboard
             {
 
                 string WC = "select * from dentalprocedure where DB=" + DB.ToString() + " and patientid=" + patId.ToString();
-                // job to put back to 
-                // WC += " and dateTime>='" + from.ToShortDateString() + "'  and  dateTime<'" + to.ToShortDateString() + "'";   
+
+                WC += " and dateTime>='" + from.ToShortDateString() + "'  and  dateTime<'" + to.ToShortDateString() + "'";
 
                 WC += " order by treatmentplan desc, dateTime desc";
                 SqlCommand command = new SqlCommand(WC, cn);
@@ -349,7 +349,7 @@ namespace dashboard
                 s = "";
                 string sql = string.Format(@"select dp.*, p.firstName, p.name  from DENTALPROCEDURE as dp
                     JOIN PATIENT as p on p.AMID = dp.patientID
-                    WHERE p.db = {0} and dp.db = {0} and (p.ResponsibleParty = '{1}' OR p.ReferredBy = '{1}')", DB.ToString(), patId.ToString());
+                    WHERE p.db = {0} and dp.db = {0} and (p.ResponsibleParty = '{1}' OR p.ReferredBy = '{1}') AND dateTime>='{2}' AND dateTime<'{3}'", DB.ToString(), patId.ToString(), from.ToShortDateString(), to.ToShortDateString());
                 sql += " order by treatmentplan desc, dateTime desc";
 
                 command = new SqlCommand(sql, cn);
@@ -1229,7 +1229,7 @@ namespace dashboard
                 string sql = string.Format(@"SELECT SUM(amount)
 		                                    FROM PATIENT as rp
 		                                    JOIN DENTALPROCEDURE as rdp on rdp.patientId = rp.AMID
-		                                    WHERE rp.DB = {0} AND rdp.DB = {0} AND (ReferredBy IS NOT NULL OR ResponsibleParty IS NOT NULL )", DB);
+		                                    WHERE rp.DB = {0} AND rdp.DB = {0} AND (ReferredBy IS NOT NULL OR ResponsibleParty IS NOT NULL ) AND dateTime >= '{1}' AND dateTime < '{2}' ", DB, from.ToShortDateString(), to.ToShortDateString());
 
                 command = new SqlCommand(sql, cn);
                 command.CommandTimeout = 300;
@@ -1484,7 +1484,7 @@ namespace dashboard
                 else if (referral > 1000)
                     sHighlightTotals = sHighlightTotals.Replace("@REFERRAL", (referral / 1000).ToString("### K"));
                 else if (referral > 0)
-                    sHighlightTotals = sHighlightTotals.Replace("@REFERRAL", referral.ToString("###.###"));
+                    sHighlightTotals = sHighlightTotals.Replace("@REFERRAL", referral.ToString("###"));
                 else
                     sHighlightTotals = sHighlightTotals.Replace("@REFERRAL", "0 K");
 
