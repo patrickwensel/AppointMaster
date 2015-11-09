@@ -187,12 +187,7 @@ namespace dashboard
 				<td class=""right"">Amount</td>
 			</tr>
            
-
-
-
-            <tr><td class='nopadding' colspan='4'><div class='showHideTable' data-tablerowname='directRow' data-showhide='hide' onclick='showHideTable(this);'><span class='showHideIcon'>+</span> Direct</div></td></tr>
-
-
+            <tr><td class='nopadding' colspan='4'><div class='showHideTable btnDirectTable' data-tablerowname='directRow' data-showhide='hide' onclick='showHideTable(this);'><span class='showHideIcon'>+</span> Direct</div></td></tr>
 
             @BLOCKLINE_TP
 			<tr class='directRow'>
@@ -203,8 +198,7 @@ namespace dashboard
 				<td colspan=""4"" class=""nopadding right""><div class=""separator"">Subtotal Revenue Tracked: @SUBTOTAL_PROD</div></td>
 			</tr>
 
-
-            <tr><td class='nopadding' colspan='4'><div class='showHideTable'  data-tableRowName='referralRow' data-showhide='hide' onclick='showHideTable(this);'><span class='showHideIcon'>+</span> Referral</div></td></tr>
+            <tr><td class='nopadding' colspan='4'><div class='showHideTable btnReferralTable'  data-tableRowName='referralRow' data-showhide='hide' onclick='showHideTable(this);'><span class='showHideIcon'>+</span> Referral</div></td></tr>
 
             @BLOCKLINEREF_TP
             <tr class='referralRow'>
@@ -214,10 +208,6 @@ namespace dashboard
 			<tr class='referralRow'>
 				<td colspan=""4"" class=""nopadding right""><div class=""separator"">Subtotal Referral Revenue Tracked: @SUBTOTALREF_PROD</div></td>
 			</tr>
-
-
-
-
 		</table>
 </div>
 ";
@@ -646,25 +636,25 @@ namespace dashboard
 
                         if (duplicate)
                         {
-                            newLine += "<td class=\"withoutWidth\" colspan=3><font color=#AA6666>- <i>duplicate</i> -</font></td>";
+                            newLine += "<td colspan=3><font color=#AA6666>- <i>duplicate</i> -</font></td>";
                         }
                         else
                         {
                             if (withTreatment)
                             {
-                                newLine += "<td class=\"withoutWidth\" colspan=3>";
-                                newLine += "<a href='javascript:openApptDetailDetail(" + patId + ")'><b>" + amount.ToString("C0") + "</b></a>";
+                                newLine += "<td colspan=3>";
+                                newLine += "<a href='javascript:openApptDetailDetail(" + patId + ", \"direct\")'><b>" + amount.ToString("C0") + "</b></a>";
                                 newLine += "</td>";
                             }
                             else
                             {
-                                newLine += "<td class=\"withoutWidth\"  colspan=3><font color=#999999>- no treatments -</font></td>";
+                                newLine += "<td colspan=3><font color=#999999>- no treatments -</font></td>";
                             }
                         }
                     }
                     else
                     {
-                        newLine += "<td class=\"withoutWidth\" colspan=3><font color=#999999 nowrap>- no appointment  yet -</font></td>";
+                        newLine += "<td colspan=4><font color=#999999 nowrap>- no appointment  yet -</font></td>";
                         //newLine += "<td class=\"col9 right last\"></td>";
                     }
                     newLine += "</tr>";
@@ -812,17 +802,17 @@ namespace dashboard
 
                         newLine.WriteLine("<td class=\"col8 right\">");
                         if (this.plan > 0)
-                            newLine.WriteLine("<a href='javascript:openApptDetailDetail(" + this.patientID + ")'><b>" + this.plan.ToString("C0") + "</b></a>");
+                            newLine.WriteLine("<a href='javascript:openApptDetailDetail(" + this.patientID + ", \"direct\")'><b>" + this.plan.ToString("C0") + "</b></a>");
                         newLine.WriteLine("</td>");
 
                         newLine.WriteLine("<td class=\"col9 right\">");
                         if (this.production > 0)
-                            newLine.WriteLine("<a href='javascript:openApptDetailDetail(" + this.patientID + ")'><b>" + this.production.ToString("C0") + "</b></a>");
+                            newLine.WriteLine("<a href='javascript:openApptDetailDetail(" + this.patientID + ", \"direct\")'><b>" + this.production.ToString("C0") + "</b></a>");
                         newLine.WriteLine("</td>");
 
                         newLine.WriteLine("<td class=\"col10 center\">");
                         if (this.referredProduction > 0)
-                            newLine.WriteLine("<a href='javascript:openApptDetailDetail(" + this.patientID + ")'><b>" + this.referredProduction.ToString("C0") + "</b></a>");
+                            newLine.WriteLine("<a href='javascript:openApptDetailDetail(" + this.patientID + ", \"referral\")'><b>" + this.referredProduction.ToString("C0") + "</b></a>");
                         newLine.WriteLine("</td>");
 
                         newLine.WriteLine("</tr>");
@@ -1004,7 +994,7 @@ namespace dashboard
 <div class='practiceroi-table-backgroud'>
 <table class=""practiceroi-table"">
 			<tr class=""practiceroi-table-header"">
-				<td class=""col1Title first"">Phone Number</td>
+				<td class=""col1 first"">Phone Number</td>
 				<td class=""col3 center"">Date</td>
 				<td class=""col4 center"">Time</td>
 				<td class=""col5 center"">Call Duration</td>
@@ -1150,7 +1140,7 @@ namespace dashboard
                 double slicePercent = 0;
                 decimal amount = 0;
                 decimal total = 0;
-                int referral = 0;
+                decimal referral = 0;
                 decimal budget = 104;
                 decimal totalBugdet = 0;
                 //DisplayMode displayMode = DisplayModeSelected(cn, DB);
@@ -1175,8 +1165,8 @@ namespace dashboard
 <div class=""large-bottom"">CONVERSION</div>
 </div>
 
-<div class=""large-light"">
-<div class=""large-top"">@REFERRAL</div>
+<div class=""large-light referralBlock"">
+<div class=""large-top"">$@REFERRAL</div>
 <div class=""large-bottom"">REFERRAL</div>
 </div>
 
@@ -1236,12 +1226,10 @@ namespace dashboard
                 }
 
 
-
-
-
-
-                string sql = string.Format("SELECT COUNT(*)  FROM PATIENT WHERE DB = {0} AND (ReferredBy IS NOT NULL OR ResponsibleParty IS NOT NULL)", DB);
-                var a = User.Identity;
+                string sql = string.Format(@"SELECT SUM(amount)
+		                                    FROM PATIENT as rp
+		                                    JOIN DENTALPROCEDURE as rdp on rdp.patientId = rp.AMID
+		                                    WHERE rp.DB = {0} AND rdp.DB = {0} AND (ReferredBy IS NOT NULL OR ResponsibleParty IS NOT NULL )", DB);
 
                 command = new SqlCommand(sql, cn);
                 command.CommandTimeout = 300;
@@ -1251,19 +1239,10 @@ namespace dashboard
                     if (DbReader.IsDBNull(0))
                         referral = 0;
                     else
-                        referral = DbReader.GetInt32(0);
+                        referral = DbReader.GetDecimal(0);
                 }
                 DbReader.Close();
-
-
-
-
-
-
-
-
-
-
+                DbReader.Dispose();
 
                 string cssClass = "";
                 string pullOut = " pull_out=\"true\"";
@@ -1500,10 +1479,14 @@ namespace dashboard
                     sHighlightTotals = sHighlightTotals.Replace("@TOTAL_ROI", "0 K");
 
 
-                sHighlightTotals = sHighlightTotals.Replace("@REFERRAL", referral.ToString());
-
-
-
+                if (referral > 1000000)
+                    sHighlightTotals = sHighlightTotals.Replace("@REFERRAL", (referral / 1000000).ToString("##.# M"));
+                else if (referral > 1000)
+                    sHighlightTotals = sHighlightTotals.Replace("@REFERRAL", (referral / 1000).ToString("### K"));
+                else if (referral > 0)
+                    sHighlightTotals = sHighlightTotals.Replace("@REFERRAL", referral.ToString("###.###"));
+                else
+                    sHighlightTotals = sHighlightTotals.Replace("@REFERRAL", "0 K");
 
 
                 s += "</table></div>";
