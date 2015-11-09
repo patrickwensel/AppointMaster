@@ -59,6 +59,28 @@
   <ItemGroup>
     <Content Include="AcountNotFoundiFrame.htm" />
     <Content Include="AM.aspx" />
+    <Content Include="amcharts\flash\amcolumn.swf" />
+    <Content Include="amcharts\flash\amline.swf" />
+    <Content Include="amcharts\flash\ampie.swf" />
+    <Content Include="amcharts\flash\amradar.swf" />
+    <Content Include="amcharts\flash\amxy.swf" />
+    <Content Include="amcharts\flash\export.aspx" />
+    <Content Include="amcharts\flash\expressInstall.swf" />
+    <Content Include="amcharts\flash\fonts\arial.swf" />
+    <Content Include="amcharts\flash\fonts\garamond.swf" />
+    <Content Include="amcharts\flash\fonts\tahoma.swf" />
+    <Content Include="amcharts\flash\fonts\times new roman.swf" />
+    <Content Include="amcharts\flash\patterns\diagonal.swf" />
+    <Content Include="amcharts\flash\patterns\horizontal.swf" />
+    <Content Include="amcharts\flash\patterns\vertical.swf" />
+    <Content Include="amcharts\flash\plugins\value_indicator.swf" />
+    <Content Include="amcharts\flash\swfobject.js" />
+    <Content Include="amcharts\javascript\amcharts.js" />
+    <Content Include="amcharts\javascript\amfallback.js" />
+    <Content Include="amcharts\javascript\images\dragIcon.gif" />
+    <Content Include="amcharts\javascript\images\dragIconH.gif" />
+    <Content Include="amcharts\javascript\images\lens.png" />
+    <Content Include="amcharts\javascript\raphael.js" />
     <Content Include="apptDetail.htm" />
     <Content Include="campaignNames.aspx" />
     <Content Include="css\base.css" />
@@ -125,6 +147,7 @@
     <Content Include="reviews.aspx" />
     <None Include="Web References\PROI_WS\ROIServices.disco" />
     <Content Include="Settings.aspx" />
+    <Content Include="settings.xml" />
     <Content Include="Sound\audio.js" />
     <Content Include="Sound\Jplayer.swf" />
     <Content Include="Sound\jQuery.jPlayer.2.4.0\add-on\jplayer.playlist.min.js" />
@@ -144,6 +167,10 @@
     </Compile>
     <Compile Include="AM.aspx.designer.cs">
       <DependentUpon>AM.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="amcharts\flash\export.aspx.cs">
+      <DependentUpon>export.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="campaignNames.aspx.cs">
       <DependentUpon>campaignNames.aspx</DependentUpon>
@@ -239,6 +266,11 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
+    <None Include="amcharts\flash\export.php" />
+    <None Include="amcharts\flash\fonts\arial.fla" />
+    <None Include="amcharts\flash\patterns\diagonal.fla" />
+    <None Include="amcharts\flash\patterns\horizontal.fla" />
+    <None Include="amcharts\flash\patterns\vertical.fla" />
     <None Include="images\buttons.psd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
