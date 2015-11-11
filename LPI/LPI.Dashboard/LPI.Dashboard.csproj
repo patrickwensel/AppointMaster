@@ -1,0 +1,365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7C1636B1-0CF3-4B10-BA78-84A284DF7EDB}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>dashboard</RootNamespace>
+    <AssemblyName>dashboard</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;/define:DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EO.Web, Version=7.0.41.2, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ExternalReference\EO.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AcountNotFoundiFrame.htm" />
+    <Content Include="AM.aspx" />
+    <Content Include="amcharts\flash\amcolumn.swf" />
+    <Content Include="amcharts\flash\amline.swf" />
+    <Content Include="amcharts\flash\ampie.swf" />
+    <Content Include="amcharts\flash\amradar.swf" />
+    <Content Include="amcharts\flash\amxy.swf" />
+    <Content Include="amcharts\flash\export.aspx" />
+    <Content Include="amcharts\flash\expressInstall.swf" />
+    <Content Include="amcharts\flash\fonts\arial.swf" />
+    <Content Include="amcharts\flash\fonts\garamond.swf" />
+    <Content Include="amcharts\flash\fonts\tahoma.swf" />
+    <Content Include="amcharts\flash\fonts\times new roman.swf" />
+    <Content Include="amcharts\flash\patterns\diagonal.swf" />
+    <Content Include="amcharts\flash\patterns\horizontal.swf" />
+    <Content Include="amcharts\flash\patterns\vertical.swf" />
+    <Content Include="amcharts\flash\plugins\value_indicator.swf" />
+    <Content Include="amcharts\flash\swfobject.js" />
+    <Content Include="amcharts\javascript\amcharts.js" />
+    <Content Include="amcharts\javascript\amfallback.js" />
+    <Content Include="amcharts\javascript\images\dragIcon.gif" />
+    <Content Include="amcharts\javascript\images\dragIconH.gif" />
+    <Content Include="amcharts\javascript\images\lens.png" />
+    <Content Include="amcharts\javascript\raphael.js" />
+    <Content Include="apptDetail.htm" />
+    <Content Include="campaignNames.aspx" />
+    <Content Include="css\base.css" />
+    <Content Include="css\easybox.css" />
+    <Content Include="css\general - Copy %282%29.css" />
+    <Content Include="css\general - Copy.css" />
+    <Content Include="css\general.css" />
+    <Content Include="css\popups.css" />
+    <Content Include="css\practiceroi.css" />
+    <Content Include="css\style.css" />
+    <Content Include="dashboard.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="images\170px-background.png" />
+    <Content Include="images\ajax-loader.gif" />
+    <Content Include="images\arrowLeftRed.gif" />
+    <Content Include="images\background.png" />
+    <Content Include="images\backGroundPie.gif" />
+    <Content Include="images\blue_03.jpg" />
+    <Content Include="images\blue_04.jpg" />
+    <Content Include="images\bottom_16.jpg" />
+    <Content Include="images\buttons_03.jpg" />
+    <Content Include="images\buttons_04.jpg" />
+    <Content Include="images\buttons_over_12.jpg" />
+    <Content Include="images\cancel.gif" />
+    <Content Include="images\Close.png" />
+    <Content Include="images\enter.jpg" />
+    <Content Include="images\green_07.jpg" />
+    <Content Include="images\icon-detail.png" />
+    <Content Include="images\icon-pause.png" />
+    <Content Include="images\icon-source.png" />
+    <Content Include="images\Keychain_Access_Icon.png" />
+    <Content Include="images\large-dark-background.png" />
+    <Content Include="images\large-light-background.png" />
+    <Content Include="images\line_03.jpg" />
+    <Content Include="images\line_03_16.jpg" />
+    <Content Include="images\line_06.jpg" />
+    <Content Include="images\listen.gif" />
+    <Content Include="images\LoginAM.jpg" />
+    <Content Include="images\logo.gif" />
+    <Content Include="images\logo.png" />
+    <Content Include="images\logoPROI.gif" />
+    <Content Include="images\logout.png" />
+    <Content Include="images\long_20.jpg" />
+    <Content Include="images\long_21.jpg" />
+    <Content Include="images\long_blue_20.jpg" />
+    <Content Include="images\noShowsNoExcuses.gif" />
+    <Content Include="images\PowerByMobile.gif" />
+    <Content Include="images\PROIlogo.gif" />
+    <Content Include="images\rewind.png" />
+    <Content Include="images\settings.png" />
+    <Content Include="images\small-dark-background.png" />
+    <Content Include="images\small-light-background.png" />
+    <Content Include="images\stop.png" />
+    <Content Include="images\tab_gr.jpg" />
+    <Content Include="images\WomanTexting429x286.jpg" />
+    <Content Include="images\womenTexting.png" />
+    <Content Include="images\zoom.jpg" />
+    <Content Include="js\AjaxCalls.js" />
+    <Content Include="js\general.js" />
+    <Content Include="js\jPlayer.js" />
+    <Content Include="localListings.aspx" />
+    <Content Include="login.aspx" />
+    <Content Include="PasswordReset.aspx" />
+    <Content Include="reviews.aspx" />
+    <None Include="Web References\PROI_WS\ROIServices.disco" />
+    <Content Include="Settings.aspx" />
+    <Content Include="settings.xml" />
+    <Content Include="Sound\audio.js" />
+    <Content Include="Sound\Jplayer.swf" />
+    <Content Include="Sound\jQuery.jPlayer.2.4.0\add-on\jplayer.playlist.min.js" />
+    <Content Include="Sound\jQuery.jPlayer.2.4.0\add-on\jquery.jplayer.inspector.js" />
+    <Content Include="Sound\jQuery.jPlayer.2.4.0\Jplayer.swf" />
+    <Content Include="Sound\jQuery.jPlayer.2.4.0\jquery.jplayer.min.js" />
+    <Content Include="Sound\jQuery.jPlayer.2.4.0\popcorn\popcorn.jplayer.js" />
+    <Content Include="Sound\jquery.jplayer.min.js" />
+    <Content Include="Sound\jquery.min.js" />
+    <Content Include="testAudio.aspx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AM.aspx.cs">
+      <DependentUpon>AM.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AM.aspx.designer.cs">
+      <DependentUpon>AM.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="amcharts\flash\export.aspx.cs">
+      <DependentUpon>export.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="campaignNames.aspx.cs">
+      <DependentUpon>campaignNames.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="campaignNames.aspx.designer.cs">
+      <DependentUpon>campaignNames.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="dashboard.aspx.cs">
+      <DependentUpon>dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="dashboard.aspx.designer.cs">
+      <DependentUpon>dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DashUtil.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="localListings.aspx.cs">
+      <DependentUpon>localListings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="localListings.aspx.designer.cs">
+      <DependentUpon>localListings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PasswordReset.aspx.cs">
+      <DependentUpon>PasswordReset.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PasswordReset.aspx.designer.cs">
+      <DependentUpon>PasswordReset.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="reviews.aspx.cs">
+      <DependentUpon>reviews.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="reviews.aspx.designer.cs">
+      <DependentUpon>reviews.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.aspx.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Settings.aspx.designer.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="testAudio.aspx.cs">
+      <DependentUpon>testAudio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="testAudio.aspx.designer.cs">
+      <DependentUpon>testAudio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\PROI_WS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="https://lpi.appointmaster.com/PROIadmin/ROIServices.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\PROI_WS\</RelPath>
+      <UpdateFromURL>https://lpi.appointmaster.com/PROIadmin/ROIServices.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>dashboard_PROI_WS_ROIServices</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="amcharts\flash\export.php" />
+    <None Include="amcharts\flash\fonts\arial.fla" />
+    <None Include="amcharts\flash\patterns\diagonal.fla" />
+    <None Include="amcharts\flash\patterns\horizontal.fla" />
+    <None Include="amcharts\flash\patterns\vertical.fla" />
+    <None Include="images\buttons.psd" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Sound\jplayer2.4\jQuery.jPlayer.2.4.0.zip" />
+    <None Include="Web References\PROI_WS\accountData.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PROI_WS\accountDataReply.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PROI_WS\patientMainContact.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PROI_WS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\PROI_WS\reviewPosted.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PROI_WS\reviewStatistic.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PROI_WS\RoiReplyPerPractice.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\PROI_WS\ROIServices.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataBase\DataBase.csproj">
+      <Project>{2E463183-5B60-42B0-8449-6E9A9B439118}</Project>
+      <Name>DataBase</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52538</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
