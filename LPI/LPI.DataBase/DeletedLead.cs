@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 
-namespace DataBase {
+namespace LPI.DataBase {
     public class DeletedLead {
         public int DB;
         public string campaignID;

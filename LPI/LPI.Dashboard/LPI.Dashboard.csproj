@@ -219,6 +219,7 @@
     </Compile>
     <Compile Include="PasswordReset.aspx.cs">
       <DependentUpon>PasswordReset.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="PasswordReset.aspx.designer.cs">
       <DependentUpon>PasswordReset.aspx</DependentUpon>
@@ -314,12 +315,6 @@
     <None Include="Web References\PROI_WS\ROIServices.wsdl" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataBase\DataBase.csproj">
-      <Project>{2E463183-5B60-42B0-8449-6E9A9B439118}</Project>
-      <Name>DataBase</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -328,6 +323,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LPI.DataBase\LPI.DataBase.csproj">
+      <Project>{2e463183-5b60-42b0-8449-6e9a9b439118}</Project>
+      <Name>LPI.DataBase</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

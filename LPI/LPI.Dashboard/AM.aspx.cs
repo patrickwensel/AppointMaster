@@ -11,7 +11,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
-using DataBase;
+using LPI.DataBase;
 
 namespace dashboard {
     public partial class AM : System.Web.UI.Page {
@@ -23,7 +23,7 @@ namespace dashboard {
                 if (System.IO.Directory.Exists(directory)) {
                     string filename=directory + "\\" + pageName;
                     if (System.IO.File.Exists(filename))
-                        this.labelMain.Text = DataBase.Util.getTextFileContent(filename, false, false);
+                        this.labelMain.Text = Util.getTextFileContent(filename, false, false);
                     else
                         this.labelMain.Text = "File do not exist: " + filename;
                 } else
@@ -76,7 +76,7 @@ namespace dashboard {
 
         protected void pbSignup_Click(object sender, EventArgs e) {
             try {
-                if (DataBase.Util.isValidEmailAddress(this.email.Text)) {
+                if (Util.isValidEmailAddress(this.email.Text)) {
                     Email email = new Email(0);
                     email.content = "New signup for reminder from account "+(string)Session["accountname"]+" <br><br>Email:"+this.email.Text;
                     email.content += "<br><br>LPI Account:#" + ((int)Session["DB"]).ToString();

@@ -8,8 +8,8 @@
     <ProjectGuid>{2E463183-5B60-42B0-8449-6E9A9B439118}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataBase</RootNamespace>
-    <AssemblyName>DataBase</AssemblyName>
+    <RootNamespace>LPI.DataBase</RootNamespace>
+    <AssemblyName>LPI.DataBase</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>

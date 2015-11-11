@@ -14,7 +14,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.Hosting;
 using System.Security.Cryptography;
-using DataBase;
+using LPI.DataBase;
 
 
 namespace dashboard {

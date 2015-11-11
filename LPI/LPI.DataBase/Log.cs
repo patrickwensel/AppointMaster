@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DataBase {
+namespace LPI.DataBase {
     
     /// <summary>
     /// A class to log events for trace purposes

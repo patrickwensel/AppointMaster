@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 
-namespace DataBase {
+namespace LPI.DataBase {
     public class SafeDbReader{
 
         public bool IsDBNull(int index) {

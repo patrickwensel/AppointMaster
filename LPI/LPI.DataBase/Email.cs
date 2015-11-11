@@ -5,7 +5,7 @@ using System.Text;
 using System.Collections;
 using System.Web.Mail;
 
-namespace DataBase {
+namespace LPI.DataBase {
     
     public class Email {
 

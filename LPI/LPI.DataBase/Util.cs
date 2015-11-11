@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DataBase {
+namespace LPI.DataBase {
     public class Util {
 
         public static string CharNumericalSet = "0123456789";

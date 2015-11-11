@@ -11,7 +11,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.Hosting;
-using DataBase;
+using LPI.DataBase;
 
 namespace dashboard {
     public partial class Settings : System.Web.UI.Page {

@@ -11,7 +11,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 
-namespace DataBase {
+namespace LPI.DataBase {
     public abstract class SessionPage : System.Web.UI.Page {
         protected AppliUser _currentUser = null;
         protected Partner _currentPartner = null;
