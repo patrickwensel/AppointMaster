@@ -1,0 +1,522 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DentalData.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ACCOUNT">
+          <Key>
+            <PropertyRef Name="DataBaseNumber" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="DataBaseNumber" Type="int" Nullable="false" />
+          <Property Name="ID" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="Version" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SMSPracticeName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="notificationEmail" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="addressLine2" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="city" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="state" Type="varchar" MaxLength="3" />
+          <Property Name="zipCode" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="homePhone" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="workPhone" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="cellPhone" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="balance" Type="decimal" Precision="11" Scale="2" Nullable="false" />
+          <Property Name="firstUpload" Type="datetime" Nullable="false" />
+          <Property Name="lastUpload" Type="datetime" Nullable="false" />
+          <Property Name="software" Type="smallint" Nullable="false" />
+          <Property Name="valetUserId" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="valetPassword" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="userId" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="accountStatus" Type="smallint" Nullable="false" />
+          <Property Name="mainContact" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="officeManager" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="emailAuthorized" Type="smallint" Nullable="false" />
+          <Property Name="nbUpload" Type="int" />
+          <Property Name="softwareDataPath" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="uploadSchedule" Type="datetime" Nullable="false" />
+          <Property Name="synchonizationProcessing" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="server" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="webSite" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="directionsProvider" Type="smallint" Nullable="false" />
+          <Property Name="allowDirectLogin" Type="smallint" Nullable="false" />
+          <Property Name="SecurityQuestion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SecurityAnswer" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SignupDate" Type="datetime" Nullable="false" />
+          <Property Name="SmsSender" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SignupIp" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SMSAuthorized" Type="smallint" Nullable="false" />
+          <Property Name="market" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="accoutingEmail" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="officeManagerFirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneAuthorized" Type="smallint" Nullable="false" />
+          <Property Name="SyncLimitation" Type="smallint" Nullable="false" />
+          <Property Name="varId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="defaultCreditCardId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="OLSAuthorized" Type="smallint" Nullable="false" />
+          <Property Name="MobileAuthorized" Type="smallint" Nullable="false" />
+          <Property Name="ReminderStatus" Type="smallint" Nullable="false" />
+          <Property Name="latitude" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="longitude" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="mainDoctorName" Type="varchar" MaxLength="100" />
+          <Property Name="ITContact" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="ITPhone" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="ITNoteId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="privateLabel" Type="smallint" Nullable="false" />
+          <Property Name="GooglePlusURL" Type="varchar" MaxLength="150" />
+          <Property Name="FacebookPageURL" Type="varchar" MaxLength="150" />
+          <Property Name="GooglePlusPageId" Type="varchar" MaxLength="50" />
+          <Property Name="GooglePlusPublicName" Type="varchar" MaxLength="150" />
+          <Property Name="PostCardAuthorized" Type="smallint" Nullable="false" />
+          <Property Name="PartnerActNbr" Type="int" Nullable="false" />
+          <Property Name="GroupedWithDB" Type="int" Nullable="false" />
+          <Property Name="SmsProvider" Type="smallint" />
+          <Property Name="SmsUserId" Type="varchar" MaxLength="50" />
+          <Property Name="SmsPassword" Type="varchar" MaxLength="50" />
+          <Property Name="SmsDeliveryConfirmation" Type="smallint" />
+          <Property Name="EmailSenderEmailAddress" Type="varchar" MaxLength="100" />
+          <Property Name="EmailSenderEmailDisplayedName" Type="varchar" MaxLength="100" />
+          <Property Name="EmailSenderSMTPserver" Type="varchar" MaxLength="100" />
+          <Property Name="EmailSenderSMTPport" Type="varchar" MaxLength="10" />
+          <Property Name="EmailSenderSMTPisSSL" Type="smallint" />
+          <Property Name="EmailSenderSMTPuserId" Type="varchar" MaxLength="50" />
+          <Property Name="EmailSenderSMTPpassword" Type="varchar" MaxLength="50" />
+          <Property Name="SecureMessageAuthorized" Type="smallint" Nullable="false" />
+          <Property Name="TwitterURL" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="LinkedInURL" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="country" Type="smallint" />
+          <Property Name="DeActivationDate" Type="datetime" />
+          <Property Name="ActivationDate" Type="datetime" />
+          <Property Name="PetRecallStatus" Type="smallint" />
+          <Property Name="LastDataMessageReceived" Type="datetime" />
+          <Property Name="PartnerUserName" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="PERSON">
+          <Key>
+            <PropertyRef Name="DataBaseNumber" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="DataBaseNumber" Type="int" Nullable="false" />
+          <Property Name="ID" Type="varchar" MaxLength="21" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="Version" Type="smallint" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="firstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="SSN" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="male" Type="smallint" Nullable="false" />
+          <Property Name="birthDate" Type="datetime" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="addressLine2" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="city" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="state" Type="varchar" MaxLength="3" />
+          <Property Name="zipCode" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="homePhone" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="workPhone" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="cellPhone" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="balance" Type="decimal" Precision="11" Scale="2" Nullable="false" />
+          <Property Name="status" Type="smallint" Nullable="false" />
+          <Property Name="maritalStatus" Type="smallint" Nullable="false" />
+          <Property Name="firstVisit" Type="datetime" Nullable="false" />
+          <Property Name="lastVisit" Type="datetime" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="responsiblePartyId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="providerId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="assistantId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="referedById" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="employerId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="insur1" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="insur2" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="planId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="otherPhone" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="language" Type="smallint" Nullable="false" />
+          <Property Name="officeId" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="TREATMENT">
+          <Key>
+            <PropertyRef Name="DataBaseNumber" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="DataBaseNumber" Type="smallint" Nullable="false" />
+          <Property Name="ID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="Version" Type="smallint" Nullable="false" />
+          <Property Name="status" Type="smallint" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="amount" Type="decimal" Precision="11" Scale="2" Nullable="false" />
+          <Property Name="tooth" Type="smallint" Nullable="false" />
+          <Property Name="quadrant" Type="smallint" Nullable="false" />
+          <Property Name="surface" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nbUnits" Type="smallint" Nullable="false" />
+          <Property Name="stdTrtId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="patientId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="responsibleId" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="officeVisitId" Type="varchar" MaxLength="14" Nullable="false" />
+          <Property Name="providerId" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="DentalDataStoreContainer">
+          <EntitySet Name="ACCOUNT" EntityType="Self.ACCOUNT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PERSON" EntityType="Self.PERSON" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TREATMENT" EntityType="Self.TREATMENT" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DentalData" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DentalContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="DentalData.Account" />
+          <EntitySet Name="People" EntityType="DentalData.Person" />
+          <EntitySet Name="Treatments" EntityType="DentalData.Treatment" />
+        </EntityContainer>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="DataBaseNumber" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="DataBaseNumber" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Version" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SMSPracticeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="notificationEmail" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="addressLine2" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="state" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="zipCode" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="homePhone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="workPhone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="cellPhone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="balance" Type="Decimal" Nullable="false" Precision="11" Scale="2" />
+          <Property Name="firstUpload" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="lastUpload" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="software" Type="Int16" Nullable="false" />
+          <Property Name="valetUserId" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="valetPassword" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="userId" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="accountStatus" Type="Int16" Nullable="false" />
+          <Property Name="mainContact" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="officeManager" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="emailAuthorized" Type="Int16" Nullable="false" />
+          <Property Name="nbUpload" Type="Int32" />
+          <Property Name="softwareDataPath" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="uploadSchedule" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="synchonizationProcessing" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="server" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="webSite" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="directionsProvider" Type="Int16" Nullable="false" />
+          <Property Name="allowDirectLogin" Type="Int16" Nullable="false" />
+          <Property Name="SecurityQuestion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SecurityAnswer" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SignupDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SmsSender" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SignupIp" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SMSAuthorized" Type="Int16" Nullable="false" />
+          <Property Name="market" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="accoutingEmail" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="officeManagerFirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneAuthorized" Type="Int16" Nullable="false" />
+          <Property Name="SyncLimitation" Type="Int16" Nullable="false" />
+          <Property Name="varId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="defaultCreditCardId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="OLSAuthorized" Type="Int16" Nullable="false" />
+          <Property Name="MobileAuthorized" Type="Int16" Nullable="false" />
+          <Property Name="ReminderStatus" Type="Int16" Nullable="false" />
+          <Property Name="latitude" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="longitude" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="mainDoctorName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ITContact" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="ITPhone" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ITNoteId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="privateLabel" Type="Int16" Nullable="false" />
+          <Property Name="GooglePlusURL" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="FacebookPageURL" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="GooglePlusPageId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GooglePlusPublicName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="PostCardAuthorized" Type="Int16" Nullable="false" />
+          <Property Name="PartnerActNbr" Type="Int32" Nullable="false" />
+          <Property Name="GroupedWithDB" Type="Int32" Nullable="false" />
+          <Property Name="SmsProvider" Type="Int16" />
+          <Property Name="SmsUserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SmsPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SmsDeliveryConfirmation" Type="Int16" />
+          <Property Name="EmailSenderEmailAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmailSenderEmailDisplayedName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmailSenderSMTPserver" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmailSenderSMTPport" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="EmailSenderSMTPisSSL" Type="Int16" />
+          <Property Name="EmailSenderSMTPuserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmailSenderSMTPpassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SecureMessageAuthorized" Type="Int16" Nullable="false" />
+          <Property Name="TwitterURL" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LinkedInURL" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="country" Type="Int16" />
+          <Property Name="DeActivationDate" Type="DateTime" Precision="3" />
+          <Property Name="ActivationDate" Type="DateTime" Precision="3" />
+          <Property Name="PetRecallStatus" Type="Int16" />
+          <Property Name="LastDataMessageReceived" Type="DateTime" Precision="3" />
+          <Property Name="PartnerUserName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="DataBaseNumber" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="DataBaseNumber" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="21" FixedLength="false" Unicode="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Version" Type="Int16" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SSN" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="male" Type="Int16" Nullable="false" />
+          <Property Name="birthDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="addressLine2" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="state" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="zipCode" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="homePhone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="workPhone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="cellPhone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="balance" Type="Decimal" Nullable="false" Precision="11" Scale="2" />
+          <Property Name="status" Type="Int16" Nullable="false" />
+          <Property Name="maritalStatus" Type="Int16" Nullable="false" />
+          <Property Name="firstVisit" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="lastVisit" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="responsiblePartyId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="providerId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="assistantId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="referedById" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="employerId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="insur1" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="insur2" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="planId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="otherPhone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="language" Type="Int16" Nullable="false" />
+          <Property Name="officeId" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Treatment">
+          <Key>
+            <PropertyRef Name="DataBaseNumber" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="DataBaseNumber" Type="Int16" Nullable="false" />
+          <Property Name="ID" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Version" Type="Int16" Nullable="false" />
+          <Property Name="status" Type="Int16" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="amount" Type="Decimal" Nullable="false" Precision="11" Scale="2" />
+          <Property Name="tooth" Type="Int16" Nullable="false" />
+          <Property Name="quadrant" Type="Int16" Nullable="false" />
+          <Property Name="surface" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nbUnits" Type="Int16" Nullable="false" />
+          <Property Name="stdTrtId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="patientId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="responsibleId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="officeVisitId" Type="String" Nullable="false" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="providerId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DentalDataStoreContainer" CdmEntityContainer="DentalContext">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="DentalData.Account">
+              <MappingFragment StoreEntitySet="ACCOUNT">
+                <ScalarProperty Name="PartnerUserName" ColumnName="PartnerUserName" />
+                <ScalarProperty Name="LastDataMessageReceived" ColumnName="LastDataMessageReceived" />
+                <ScalarProperty Name="PetRecallStatus" ColumnName="PetRecallStatus" />
+                <ScalarProperty Name="ActivationDate" ColumnName="ActivationDate" />
+                <ScalarProperty Name="DeActivationDate" ColumnName="DeActivationDate" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="LinkedInURL" ColumnName="LinkedInURL" />
+                <ScalarProperty Name="TwitterURL" ColumnName="TwitterURL" />
+                <ScalarProperty Name="SecureMessageAuthorized" ColumnName="SecureMessageAuthorized" />
+                <ScalarProperty Name="EmailSenderSMTPpassword" ColumnName="EmailSenderSMTPpassword" />
+                <ScalarProperty Name="EmailSenderSMTPuserId" ColumnName="EmailSenderSMTPuserId" />
+                <ScalarProperty Name="EmailSenderSMTPisSSL" ColumnName="EmailSenderSMTPisSSL" />
+                <ScalarProperty Name="EmailSenderSMTPport" ColumnName="EmailSenderSMTPport" />
+                <ScalarProperty Name="EmailSenderSMTPserver" ColumnName="EmailSenderSMTPserver" />
+                <ScalarProperty Name="EmailSenderEmailDisplayedName" ColumnName="EmailSenderEmailDisplayedName" />
+                <ScalarProperty Name="EmailSenderEmailAddress" ColumnName="EmailSenderEmailAddress" />
+                <ScalarProperty Name="SmsDeliveryConfirmation" ColumnName="SmsDeliveryConfirmation" />
+                <ScalarProperty Name="SmsPassword" ColumnName="SmsPassword" />
+                <ScalarProperty Name="SmsUserId" ColumnName="SmsUserId" />
+                <ScalarProperty Name="SmsProvider" ColumnName="SmsProvider" />
+                <ScalarProperty Name="GroupedWithDB" ColumnName="GroupedWithDB" />
+                <ScalarProperty Name="PartnerActNbr" ColumnName="PartnerActNbr" />
+                <ScalarProperty Name="PostCardAuthorized" ColumnName="PostCardAuthorized" />
+                <ScalarProperty Name="GooglePlusPublicName" ColumnName="GooglePlusPublicName" />
+                <ScalarProperty Name="GooglePlusPageId" ColumnName="GooglePlusPageId" />
+                <ScalarProperty Name="FacebookPageURL" ColumnName="FacebookPageURL" />
+                <ScalarProperty Name="GooglePlusURL" ColumnName="GooglePlusURL" />
+                <ScalarProperty Name="privateLabel" ColumnName="privateLabel" />
+                <ScalarProperty Name="ITNoteId" ColumnName="ITNoteId" />
+                <ScalarProperty Name="ITPhone" ColumnName="ITPhone" />
+                <ScalarProperty Name="ITContact" ColumnName="ITContact" />
+                <ScalarProperty Name="mainDoctorName" ColumnName="mainDoctorName" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="ReminderStatus" ColumnName="ReminderStatus" />
+                <ScalarProperty Name="MobileAuthorized" ColumnName="MobileAuthorized" />
+                <ScalarProperty Name="OLSAuthorized" ColumnName="OLSAuthorized" />
+                <ScalarProperty Name="defaultCreditCardId" ColumnName="defaultCreditCardId" />
+                <ScalarProperty Name="varId" ColumnName="varId" />
+                <ScalarProperty Name="SyncLimitation" ColumnName="SyncLimitation" />
+                <ScalarProperty Name="PhoneAuthorized" ColumnName="PhoneAuthorized" />
+                <ScalarProperty Name="officeManagerFirstName" ColumnName="officeManagerFirstName" />
+                <ScalarProperty Name="accoutingEmail" ColumnName="accoutingEmail" />
+                <ScalarProperty Name="market" ColumnName="market" />
+                <ScalarProperty Name="SMSAuthorized" ColumnName="SMSAuthorized" />
+                <ScalarProperty Name="SignupIp" ColumnName="SignupIp" />
+                <ScalarProperty Name="SmsSender" ColumnName="SmsSender" />
+                <ScalarProperty Name="SignupDate" ColumnName="SignupDate" />
+                <ScalarProperty Name="SecurityAnswer" ColumnName="SecurityAnswer" />
+                <ScalarProperty Name="SecurityQuestion" ColumnName="SecurityQuestion" />
+                <ScalarProperty Name="allowDirectLogin" ColumnName="allowDirectLogin" />
+                <ScalarProperty Name="directionsProvider" ColumnName="directionsProvider" />
+                <ScalarProperty Name="webSite" ColumnName="webSite" />
+                <ScalarProperty Name="server" ColumnName="server" />
+                <ScalarProperty Name="synchonizationProcessing" ColumnName="synchonizationProcessing" />
+                <ScalarProperty Name="uploadSchedule" ColumnName="uploadSchedule" />
+                <ScalarProperty Name="softwareDataPath" ColumnName="softwareDataPath" />
+                <ScalarProperty Name="nbUpload" ColumnName="nbUpload" />
+                <ScalarProperty Name="emailAuthorized" ColumnName="emailAuthorized" />
+                <ScalarProperty Name="officeManager" ColumnName="officeManager" />
+                <ScalarProperty Name="mainContact" ColumnName="mainContact" />
+                <ScalarProperty Name="accountStatus" ColumnName="accountStatus" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="valetPassword" ColumnName="valetPassword" />
+                <ScalarProperty Name="valetUserId" ColumnName="valetUserId" />
+                <ScalarProperty Name="software" ColumnName="software" />
+                <ScalarProperty Name="lastUpload" ColumnName="lastUpload" />
+                <ScalarProperty Name="firstUpload" ColumnName="firstUpload" />
+                <ScalarProperty Name="balance" ColumnName="balance" />
+                <ScalarProperty Name="cellPhone" ColumnName="cellPhone" />
+                <ScalarProperty Name="workPhone" ColumnName="workPhone" />
+                <ScalarProperty Name="homePhone" ColumnName="homePhone" />
+                <ScalarProperty Name="zipCode" ColumnName="zipCode" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="addressLine2" ColumnName="addressLine2" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="notificationEmail" ColumnName="notificationEmail" />
+                <ScalarProperty Name="SMSPracticeName" ColumnName="SMSPracticeName" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DataBaseNumber" ColumnName="DataBaseNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="DentalData.Person">
+              <MappingFragment StoreEntitySet="PERSON">
+                <ScalarProperty Name="officeId" ColumnName="officeId" />
+                <ScalarProperty Name="language" ColumnName="language" />
+                <ScalarProperty Name="otherPhone" ColumnName="otherPhone" />
+                <ScalarProperty Name="planId" ColumnName="planId" />
+                <ScalarProperty Name="insur2" ColumnName="insur2" />
+                <ScalarProperty Name="insur1" ColumnName="insur1" />
+                <ScalarProperty Name="employerId" ColumnName="employerId" />
+                <ScalarProperty Name="referedById" ColumnName="referedById" />
+                <ScalarProperty Name="assistantId" ColumnName="assistantId" />
+                <ScalarProperty Name="providerId" ColumnName="providerId" />
+                <ScalarProperty Name="responsiblePartyId" ColumnName="responsiblePartyId" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="lastVisit" ColumnName="lastVisit" />
+                <ScalarProperty Name="firstVisit" ColumnName="firstVisit" />
+                <ScalarProperty Name="maritalStatus" ColumnName="maritalStatus" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="balance" ColumnName="balance" />
+                <ScalarProperty Name="cellPhone" ColumnName="cellPhone" />
+                <ScalarProperty Name="workPhone" ColumnName="workPhone" />
+                <ScalarProperty Name="homePhone" ColumnName="homePhone" />
+                <ScalarProperty Name="zipCode" ColumnName="zipCode" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="addressLine2" ColumnName="addressLine2" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="birthDate" ColumnName="birthDate" />
+                <ScalarProperty Name="male" ColumnName="male" />
+                <ScalarProperty Name="SSN" ColumnName="SSN" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DataBaseNumber" ColumnName="DataBaseNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Treatments">
+            <EntityTypeMapping TypeName="DentalData.Treatment">
+              <MappingFragment StoreEntitySet="TREATMENT">
+                <ScalarProperty Name="providerId" ColumnName="providerId" />
+                <ScalarProperty Name="officeVisitId" ColumnName="officeVisitId" />
+                <ScalarProperty Name="responsibleId" ColumnName="responsibleId" />
+                <ScalarProperty Name="patientId" ColumnName="patientId" />
+                <ScalarProperty Name="stdTrtId" ColumnName="stdTrtId" />
+                <ScalarProperty Name="nbUnits" ColumnName="nbUnits" />
+                <ScalarProperty Name="surface" ColumnName="surface" />
+                <ScalarProperty Name="quadrant" ColumnName="quadrant" />
+                <ScalarProperty Name="tooth" ColumnName="tooth" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DataBaseNumber" ColumnName="DataBaseNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
