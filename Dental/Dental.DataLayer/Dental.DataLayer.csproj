@@ -69,6 +69,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DentalModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Data\DentalModel.Views.cs" />
     <Compile Include="Data\Person.cs">
       <DependentUpon>DentalModel.tt</DependentUpon>
     </Compile>
