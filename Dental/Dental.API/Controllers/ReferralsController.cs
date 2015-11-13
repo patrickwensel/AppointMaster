@@ -59,39 +59,48 @@ namespace Dental.API.Controllers
             return lpiDentalProcedure;
         }
 
-        //public int Test()
-        //{
-        //    //IEnumerable<string> headerValues = request.Headers.GetValues("x");
-        //    //var id = headerValues.FirstOrDefault();
 
-        //    return 27;
-        //}
+        [HttpPost]
+        public async Task<object> GetReferralsByAccountID()
+        {
+            string jsonAccountID = await Request.Content.ReadAsStringAsync();
+
+            string accountIDString = JsonConvert.DeserializeObject<string>(jsonAccountID);
+            int accountID;
+            bool resulst = int.TryParse(accountIDString, out accountID);
+            if (resulst == false)
+            {
+                return -1;
+            }
+
+            int databaseNumber = 10000 + accountID;
+
+            DentalContext context = new DentalContext();
+
+            var referralReturnDatas =
+                (
+                    from p in context.People
+                    where p.DataBaseNumber == databaseNumber && p.referedById != "0"
+                    select new ReferralReturnData
+                    {
+                        AccountID = p.DataBaseNumber - 10000,
+                        PersonID = p.ID,
+                        ReferredByID = p.referedById
+                    }
+                    ).ToList();
+
+            return referralReturnDatas;
+
+        }
 
 
+    }
 
-
-
-
-        ////Old Code
-        //[HttpPost]
-        //public async Task<object> GetReferralsByAccountID()
-        //{
-        //    string jsonAccountID = await Request.Content.ReadAsStringAsync();
-
-        //    string accountID =JsonConvert.DeserializeObject<string>(jsonAccountID);
-
-        //    DentalContext context =new DentalContext();
-
-        //    var person = context.People.FirstOrDefault(x => x.ID == accountID);
-        //    if (person != null)
-        //    {
-        //        return person.referedById;
-        //    }
-
-        //    return -1;
-        //}
-
-
+    public class ReferralReturnData
+    {
+        public int AccountID { get; set; }
+        public string PersonID { get; set; }
+        public string ReferredByID { get; set; }   
     }
 }
 

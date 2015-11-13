@@ -25,14 +25,15 @@ namespace LPI.Updater
         {
             try
             {
-                UpdateReferrals();
+                UpdateReferralsPWTest();
+                //UpdateReferrals();
             }
             catch (Exception ex)
             {
                 logger.Error(ex);
             }
         }
-        
+
         public static void UpdateReferrals()
         {
             LPIContext context = new LPIContext();
@@ -85,35 +86,44 @@ namespace LPI.Updater
 
 
         ////Old Code
-        //public static void UpdateReferrals()
-        //{
-        //    LPIContext context = new LPIContext();
+        public static void UpdateReferralsPWTest()
+        {
+            LPIContext context = new LPIContext();
 
-        //    List<Account> accounts = context.Accounts.ToList();
+            List<Account> accounts = context.Accounts.ToList();
 
-        //    RunAsync(accounts).Wait();
-        //}
+            RunAsyncPWTest(accounts).Wait();
+        }
 
-        //static async Task RunAsync(List<Account> accounts)
-        //{
+        static async Task RunAsyncPWTest(List<Account> accounts)
+        {
 
-        //    using (var client = new HttpClient())
-        //    {
-        //        client.BaseAddress = new Uri(ConfigurationManager.AppSettings["DentalAPIBaseAddress"]);
-        //        client.DefaultRequestHeaders.Accept.Clear();
-        //        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        //        client.DefaultRequestHeaders.Add("apikey", ConfigurationManager.AppSettings["DentalAPIKey"]);
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["DentalAPIBaseAddress"]);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Add("apikey", ConfigurationManager.AppSettings["DentalAPIKey"]);
 
-        //        foreach (Account account in accounts)
-        //        {
-        //            HttpResponseMessage response = await client.PostAsJsonAsync("api/referrals/GetReferralsByAccountID", account.ID.ToString());
+                foreach (Account account in accounts)
+                {
+                    HttpResponseMessage response = await client.PostAsJsonAsync("api/referrals/GetReferralsByAccountID", account.ID.ToString());
 
-        //            if (response.IsSuccessStatusCode)
-        //            {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var jsonReferralReturnDatas = response.Content.ReadAsStringAsync();
+                        var referralReturnDatas = JsonConvert.DeserializeObject<List<ReferralReturnData>>(jsonReferralReturnDatas.Result);
 
-        //            }
-        //        }
-        //    }
-        //}
+                    }
+                }
+            }
+        }
+    }
+
+    public class ReferralReturnData
+    {
+        public int AccountID { get; set; }
+        public string PersonID { get; set; }
+        public string ReferredByID { get; set; }
     }
 }
