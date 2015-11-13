@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace Dental.API.Controllers
 {
-    public class ReferralsController : DentalAPIController
+    public class ReferralsController : ApiController
     {
 
         [HttpPost]
