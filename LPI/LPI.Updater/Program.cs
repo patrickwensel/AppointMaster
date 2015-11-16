@@ -19,14 +19,11 @@ namespace LPI.Updater
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        private static List<string> errorIds = new List<string>();
-
         static void Main(string[] args)
         {
             try
             {
-                UpdateReferralsPWTest();
-                //UpdateReferrals();
+                UpdateReferrals();
             }
             catch (Exception ex)
             {
@@ -38,68 +35,20 @@ namespace LPI.Updater
         {
             LPIContext context = new LPIContext();
 
-            List<Patient> patients = context.Patients.ToList();
-
-            RunAsync(patients, context).Wait();
-        }
-
-        static async Task RunAsync(List<Patient> patients, LPIContext context)
-        {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(ConfigurationManager.AppSettings["DentalAPIBaseAddress"]);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Add("apikey", ConfigurationManager.AppSettings["DentalAPIKey"]);
-
-                Console.WriteLine("Upadate {0} Patients", patients.Count);
-                int index = 0;
-                foreach (Patient patient in patients)
-                {
-                    HttpResponseMessage response = await client.PostAsJsonAsync("api/referrals/GetReferredByPatientID", "3913"); //patient.ID Grish1nds TEST
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var referredById = response.RequestMessage.Content.ReadAsAsync<string>().Result;
-                        patient.ReferredBy = referredById;
-
-                        response = await client.PostAsJsonAsync("api/referrals/GetTreatmentWithStatus2ByPatientId", "3913"); //patient.ID Grish1nds TEST
-                        var dentalProcedureToAdd = response.RequestMessage.Content.ReadAsAsync<List<DentalProcedure>>().Result;
-                        foreach (var dentalProcedure in dentalProcedureToAdd)
-                        {
-                            context.AddToDentalProcedures(dentalProcedure);
-                        }
-                        Console.WriteLine("#{0} PatientID {1} : success", index, patient.ID);
-                    }
-                    else
-                    {
-                        errorIds.Add(patient.ID);
-                        Console.WriteLine("#{0} PatientID {1} : error", index, patient.ID);
-                    }
-
-                    index++;
-                }
-            }
-            //context.SaveChanges();
-        }
-
-
-
-        ////Old Code
-        public static void UpdateReferralsPWTest()
-        {
-            LPIContext context = new LPIContext();
-
             List<Account> accounts = context.Accounts.ToList();
 
-            RunAsyncPWTest(accounts).Wait();
+            RunAsync(accounts).Wait();
         }
 
-        static async Task RunAsyncPWTest(List<Account> accounts)
+        static async Task RunAsync(List<Account> accounts)
         {
-
+            Console.WriteLine("UpdateReferrals Start");
+            int successCount = 0;
+            int errorCount = 0;
             using (var client = new HttpClient())
             {
+                LPIContext context = new LPIContext();
+                context.CommandTimeout = 1000;
                 client.BaseAddress = new Uri(ConfigurationManager.AppSettings["DentalAPIBaseAddress"]);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -114,9 +63,39 @@ namespace LPI.Updater
                         var jsonReferralReturnDatas = response.Content.ReadAsStringAsync();
                         var referralReturnDatas = JsonConvert.DeserializeObject<List<ReferralReturnData>>(jsonReferralReturnDatas.Result);
 
+                        foreach (var item in referralReturnDatas)
+                        {
+                            var patient = context.Patients.FirstOrDefault(x => x.ID == item.PersonID && x.AccountID == item.AccountID);
+                            if (patient != null)
+                            {
+                                Console.WriteLine("update Patient with ID=" + patient.ID);
+                                patient.ReferredBy = item.ReferredByID;
+
+                                response = await client.PostAsJsonAsync("api/referrals/GetTreatmentWithStatus2ByPatientId", item.PersonID);
+                                var jsonReferralTreatmentReturnDatas = response.Content.ReadAsStringAsync();
+                                var dentalProcedureToAdd = JsonConvert.DeserializeObject<List<DentalProcedure>>(jsonReferralTreatmentReturnDatas.Result);
+                                foreach (var dentalProcedure in dentalProcedureToAdd)
+                                {
+                                    Console.WriteLine("- add new DetalProcedure");
+                                    context.AddToDentalProcedures(dentalProcedure);
+                                }
+                                try
+                                {
+                                    context.SaveChanges();
+                                    successCount++;
+                                }
+                                catch (Exception)
+                                {
+                                    errorCount++;
+                                }
+                            }
+                        }
                     }
                 }
             }
+            Console.WriteLine("UpdateReferrals Complete");
+            Console.WriteLine(string.Format("success: {0} error: {1}", successCount, errorCount));
+            Console.ReadKey();
         }
     }
 

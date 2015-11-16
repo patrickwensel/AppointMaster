@@ -14,24 +14,6 @@ namespace Dental.API.Controllers
     public class ReferralsController : ApiController
     {
         [HttpPost]
-        public async Task<object> GetReferredByPatientID()
-        {
-            string jsonPersontID = await Request.Content.ReadAsStringAsync();
-
-            string personID = JsonConvert.DeserializeObject<string>(jsonPersontID);
-
-            DentalContext context = new DentalContext();
-
-            var person = context.People.FirstOrDefault(x => x.ID == personID);
-            if (person != null)
-            {
-                return person.referedById;
-            }
-
-            return -1;
-        }
-
-        [HttpPost]
         public async Task<object> GetTreatmentWithStatus2ByPatientId()
         {
             string jsonPersontID = await Request.Content.ReadAsStringAsync();
@@ -50,7 +32,7 @@ namespace Dental.API.Controllers
                     apptId = "0",//? Grish1nds TEST
                     code = item.stdTrtId,
                     dateTime = item.date,
-                    DB = item.DataBaseNumber,
+                    DB = item.DataBaseNumber - 10000,
                     ID = item.ID,
                     patientId = item.patientId,
                     TreatmentPlan = false//? Grish1nds TEST
@@ -58,7 +40,6 @@ namespace Dental.API.Controllers
             }
             return lpiDentalProcedure;
         }
-
 
         [HttpPost]
         public async Task<object> GetReferralsByAccountID()
@@ -90,17 +71,14 @@ namespace Dental.API.Controllers
                     ).ToList();
 
             return referralReturnDatas;
-
         }
-
-
     }
 
     public class ReferralReturnData
     {
         public int AccountID { get; set; }
         public string PersonID { get; set; }
-        public string ReferredByID { get; set; }   
+        public string ReferredByID { get; set; }
     }
 }
 
