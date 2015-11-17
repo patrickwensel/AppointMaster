@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data.Objects;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Net.Http.Formatting;
-using System.Net.Mail;
 using System.Threading.Tasks;
 using LPI.DataBase.Data;
 using NLog;
@@ -45,7 +41,7 @@ namespace LPI.Updater
             Console.WriteLine("UpdateReferrals Start");
             int successCount = 0;
             int errorCount = 0;
-            using (var client = new HttpClient())
+            using (HttpClient client = new HttpClient())
             {
                 LPIContext context = new LPIContext();
                 context.CommandTimeout = 1000;
@@ -60,21 +56,21 @@ namespace LPI.Updater
 
                     if (response.IsSuccessStatusCode)
                     {
-                        var jsonReferralReturnDatas = response.Content.ReadAsStringAsync();
-                        var referralReturnDatas = JsonConvert.DeserializeObject<List<ReferralReturnData>>(jsonReferralReturnDatas.Result);
+                        Task<string> jsonReferralReturnDatas = response.Content.ReadAsStringAsync();
+                        List<ReferralReturnData> referralReturnDatas = JsonConvert.DeserializeObject<List<ReferralReturnData>>(jsonReferralReturnDatas.Result);
 
-                        foreach (var item in referralReturnDatas)
+                        foreach (ReferralReturnData item in referralReturnDatas)
                         {
-                            var patient = context.Patients.FirstOrDefault(x => x.ID == item.PersonID && x.AccountID == item.AccountID);
+                            Patient patient = context.Patients.FirstOrDefault(x => x.ID == item.PersonID && x.AccountID == item.AccountID);
                             if (patient != null)
                             {
                                 Console.WriteLine("update Patient with ID=" + patient.ID);
                                 patient.ReferredBy = item.ReferredByID;
 
                                 response = await client.PostAsJsonAsync("api/referrals/GetTreatmentWithStatus2ByPatientId", item.PersonID);
-                                var jsonReferralTreatmentReturnDatas = response.Content.ReadAsStringAsync();
-                                var dentalProcedureToAdd = JsonConvert.DeserializeObject<List<DentalProcedure>>(jsonReferralTreatmentReturnDatas.Result);
-                                foreach (var dentalProcedure in dentalProcedureToAdd)
+                                Task<string> jsonReferralTreatmentReturnDatas = response.Content.ReadAsStringAsync();
+                                List<DentalProcedure> dentalProcedureToAdd = JsonConvert.DeserializeObject<List<DentalProcedure>>(jsonReferralTreatmentReturnDatas.Result);
+                                foreach (DentalProcedure dentalProcedure in dentalProcedureToAdd)
                                 {
                                     Console.WriteLine("- add new DetalProcedure");
                                     context.AddToDentalProcedures(dentalProcedure);
