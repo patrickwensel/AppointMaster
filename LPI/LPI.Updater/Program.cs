@@ -72,16 +72,24 @@ namespace LPI.Updater
                                 List<DentalProcedure> dentalProcedureToAdd = JsonConvert.DeserializeObject<List<DentalProcedure>>(jsonReferralTreatmentReturnDatas.Result);
                                 foreach (DentalProcedure dentalProcedure in dentalProcedureToAdd)
                                 {
-                                    Console.WriteLine("- add new DetalProcedure");
-                                    context.AddToDentalProcedures(dentalProcedure);
+                                    var existingDentalProcedure = (from dp in context.DentalProcedures
+                                        where dp.ID == dentalProcedure.ID
+                                        select dp).FirstOrDefault();
+
+                                    if (existingDentalProcedure == null)
+                                    {
+                                        Console.WriteLine("- add new DetalProcedure");
+                                        context.AddToDentalProcedures(dentalProcedure);
+                                    }
                                 }
                                 try
                                 {
                                     context.SaveChanges();
                                     successCount++;
                                 }
-                                catch (Exception)
+                                catch (Exception ex)
                                 {
+                                    logger.Error(ex);
                                     errorCount++;
                                 }
                             }

@@ -35,7 +35,7 @@ namespace Dental.API.Controllers
                     DB = item.DataBaseNumber - 10000,
                     ID = item.ID,
                     patientId = item.patientId,
-                    TreatmentPlan = false//? Grish1nds TEST
+                    TreatmentPlan = true//? Grish1nds TEST
                 });
             }
             return lpiDentalProcedure;
