@@ -47,7 +47,7 @@ namespace Dental.API.Controllers
         }
 
         [HttpPost]
-        public async Task<object> GetTreatmentByIds()
+        public async Task<object> GetTreatmentsByIds()
         {
             string jsonTreatmentId = await Request.Content.ReadAsStringAsync();
 
