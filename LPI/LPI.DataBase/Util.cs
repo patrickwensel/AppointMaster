@@ -178,59 +178,84 @@ namespace LPI.DataBase {
         }
 
 
-        public static string GetConfigValue(string variable) {
+        public static string GetConfigValue(string variable)
+        {
+            var useWebConfig = Convert.ToBoolean(ConfigurationManager.AppSettings["UseWebConfig"]);
 
-            switch (variable)
+            if (useWebConfig)
             {
-                case "server":
-                    return ConfigurationManager.AppSettings["server"];
-                case "connnectionstring":
-                    return ConfigurationManager.AppSettings["connnectionstring"];
-                case "AMserver":
-                    return ConfigurationManager.AppSettings["AMserver"];
-                case "html_source_pages":
-                    return ConfigurationManager.AppSettings["html_source_pages"];
-                case "SMTP_SERVER":
-                    return ConfigurationManager.AppSettings["SMTP_SERVER"];
-                case "SMTP_SERVER_USERID":
-                    return ConfigurationManager.AppSettings["SMTP_SERVER_USERID"];
-                case "SMTP_SERVER_PASSWORD":
-                    return ConfigurationManager.AppSettings["SMTP_SERVER_PASSWORD"];
-                case "SMTP_PORT":
-                    return ConfigurationManager.AppSettings["SMTP_PORT"];
-                case "SMTP_SSL":
-                    return ConfigurationManager.AppSettings["SMTP_SSL"];
-                case "EMAIL_SENDING":
-                    return ConfigurationManager.AppSettings["EMAIL_SENDING"];
-                case "FROM_NOTIFICATION":
-                    return ConfigurationManager.AppSettings["FROM_NOTIFICATION"];
-                case "localListing":
-                    return ConfigurationManager.AppSettings["localListing"];
-                case "ADMIN_PASSWORD":
-                    return ConfigurationManager.AppSettings["ADMIN_PASSWORD"];
-                case "FIRST_CDR_DATE":
-                    return ConfigurationManager.AppSettings["FIRST_CDR_DATE"];
-                case "WebServicePassword":
-                    return ConfigurationManager.AppSettings["WebServicePassword"];
-                case "NOTIFY_EMAIL_0":
-                    return ConfigurationManager.AppSettings["NOTIFY_EMAIL_0"];
-                case "NOTIFY_EMAIL_NAME_0":
-                    return ConfigurationManager.AppSettings["NOTIFY_EMAIL_NAME_0"];
-                case "NOTIFY_EMAIL_1":
-                    return ConfigurationManager.AppSettings["NOTIFY_EMAIL_1"];
-                case "NOTIFY_EMAIL_NAME_1":
-                    return ConfigurationManager.AppSettings["NOTIFY_EMAIL_NAME_1"];
-                case "NOTIFY_EMAIL_2":
-                    return ConfigurationManager.AppSettings["NOTIFY_EMAIL_2"];
-                case "NOTIFY_EMAIL_NAME_3":
-                    return ConfigurationManager.AppSettings["NOTIFY_EMAIL_NAME_3"];
-                case "NOTIFY_EMAIL_3":
-                    return ConfigurationManager.AppSettings["NOTIFY_EMAIL_3"];
-                case "NOTIFY_EMAIL_NAME_2":
-                    return ConfigurationManager.AppSettings["NOTIFY_EMAIL_NAME_2"];
-                default:
-                    return null;
+                switch (variable)
+                {
+                    case "server":
+                        return ConfigurationManager.AppSettings["server"];
+                    case "connnectionstring":
+                        return ConfigurationManager.AppSettings["connnectionstring"];
+                    case "AMserver":
+                        return ConfigurationManager.AppSettings["AMserver"];
+                    case "html_source_pages":
+                        return ConfigurationManager.AppSettings["html_source_pages"];
+                    case "SMTP_SERVER":
+                        return ConfigurationManager.AppSettings["SMTP_SERVER"];
+                    case "SMTP_SERVER_USERID":
+                        return ConfigurationManager.AppSettings["SMTP_SERVER_USERID"];
+                    case "SMTP_SERVER_PASSWORD":
+                        return ConfigurationManager.AppSettings["SMTP_SERVER_PASSWORD"];
+                    case "SMTP_PORT":
+                        return ConfigurationManager.AppSettings["SMTP_PORT"];
+                    case "SMTP_SSL":
+                        return ConfigurationManager.AppSettings["SMTP_SSL"];
+                    case "EMAIL_SENDING":
+                        return ConfigurationManager.AppSettings["EMAIL_SENDING"];
+                    case "FROM_NOTIFICATION":
+                        return ConfigurationManager.AppSettings["FROM_NOTIFICATION"];
+                    case "localListing":
+                        return ConfigurationManager.AppSettings["localListing"];
+                    case "ADMIN_PASSWORD":
+                        return ConfigurationManager.AppSettings["ADMIN_PASSWORD"];
+                    case "FIRST_CDR_DATE":
+                        return ConfigurationManager.AppSettings["FIRST_CDR_DATE"];
+                    case "WebServicePassword":
+                        return ConfigurationManager.AppSettings["WebServicePassword"];
+                    case "NOTIFY_EMAIL_0":
+                        return ConfigurationManager.AppSettings["NOTIFY_EMAIL_0"];
+                    case "NOTIFY_EMAIL_NAME_0":
+                        return ConfigurationManager.AppSettings["NOTIFY_EMAIL_NAME_0"];
+                    case "NOTIFY_EMAIL_1":
+                        return ConfigurationManager.AppSettings["NOTIFY_EMAIL_1"];
+                    case "NOTIFY_EMAIL_NAME_1":
+                        return ConfigurationManager.AppSettings["NOTIFY_EMAIL_NAME_1"];
+                    case "NOTIFY_EMAIL_2":
+                        return ConfigurationManager.AppSettings["NOTIFY_EMAIL_2"];
+                    case "NOTIFY_EMAIL_NAME_3":
+                        return ConfigurationManager.AppSettings["NOTIFY_EMAIL_NAME_3"];
+                    case "NOTIFY_EMAIL_3":
+                        return ConfigurationManager.AppSettings["NOTIFY_EMAIL_3"];
+                    case "NOTIFY_EMAIL_NAME_2":
+                        return ConfigurationManager.AppSettings["NOTIFY_EMAIL_NAME_2"];
+                    default:
+                        return null;
+                }
             }
+
+            System.IO.StreamReader fr = new System.IO.StreamReader("C:\\lpi.ini");
+            string s = fr.ReadLine();
+            string ls;
+            while (s != null)
+            {
+                int i = s.IndexOf("=");
+                if (i > 0)
+                {
+                    ls = s.Substring(0, i).ToUpper().Trim();
+                    if (variable.ToUpper() == ls)
+                    {
+                        fr.Close();
+                        return s.Substring(i + 1, s.Length - i - 1).Trim();
+                    }
+                }
+                s = fr.ReadLine();
+            }
+            fr.Close();
+            return "";
         }
 
         public static string getTextFileContent(string filename, bool insertLineFeed, bool htmlFormat) {
