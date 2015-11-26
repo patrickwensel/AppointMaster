@@ -71,11 +71,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="confirm.aspx" />
+    <Content Include="css\font-awesome.min.css" />
     <Content Include="css\general.css" />
     <Content Include="Default.aspx" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="images\bg.png" />
     <Content Include="images\logo.png" />
     <Content Include="login.aspx" />
+    <Content Include="scripts\default.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +113,19 @@
       <Project>{2e463183-5b60-42b0-8449-6e9a9b439118}</Project>
       <Name>LPI.DataBase</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="scripts\jquery-2.1.4.min.js" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
