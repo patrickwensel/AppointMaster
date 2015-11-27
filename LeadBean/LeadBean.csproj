@@ -84,6 +84,13 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="images\bg.png" />
     <Content Include="images\logo.png" />
+    <Content Include="lib\RCAJAX\2015.3.1111.35\distribution.xml" />
+    <Content Include="lib\RCAJAX\2015.3.1111.35\Telerik.Web.Design.dll" />
+    <Content Include="lib\RCAJAX\2015.3.1111.35\Telerik.Web.Device.Detection.dll" />
+    <Content Include="lib\RCAJAX\2015.3.1111.35\Telerik.Web.Device.Detection.xml" />
+    <Content Include="lib\RCAJAX\2015.3.1111.35\Telerik.Web.UI.dll" />
+    <Content Include="lib\RCAJAX\2015.3.1111.35\Telerik.Web.UI.Skins.dll" />
+    <Content Include="lib\RCAJAX\2015.3.1111.35\Telerik.Web.UI.xml" />
     <Content Include="login.aspx" />
     <Content Include="scripts\default.js" />
     <Content Include="scripts\jquery-ui.min.js" />
