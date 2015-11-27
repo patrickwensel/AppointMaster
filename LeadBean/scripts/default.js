@@ -1,9 +1,25 @@
 ﻿$(document).ready(function () {
-    $('.btnMoveTo').bind('click', function () {
+    $("#confirmMoveTo").dialog({
+        autoOpen:false,
+        resizable: false,
+        width:400,
+        modal: true,
+        buttons: {
+            "Move": function () {
+                $(".btnMoveToCampaign").click();
+            },
+            Cancel: function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+
+    $('.btnMoveTo').bind('click', function (e) {       
         $('.hiddenCampaignList').click();
     });
-    $('.btnDelete').bind('click', function () {
-        alert(1);
-        window.open("btnDelete_Click");
+
+    $(".campaignItem").bind('click', function (e) {
+        $(".selectedCampaign").text($(this).text());
+        $("#confirmMoveTo").dialog("open");
     });
 });

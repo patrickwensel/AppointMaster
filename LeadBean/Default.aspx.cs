@@ -86,7 +86,7 @@ namespace LeadBean
                         if (Request["DELID"] != null)
                         {
                             Response.Redirect("confirm.aspx?DELID=" + Request["DELID"]);
-                        }                        
+                        }
                     }
                 }
                 else
@@ -98,9 +98,24 @@ namespace LeadBean
             }
         }
 
-        protected void btnDelete_Click(object sender, EventArgs e)
+        protected void btnMoveToCampaign_Click(object sender, EventArgs e)
         {
-            var selected = RadGrid2.SelectedValues;
+            RadDropDownList ddlCampaign = null;
+
+            foreach (GridFilteringItem filterItem in RadGrid2.MasterTableView.GetItems(GridItemType.FilteringItem))
+            {
+                ddlCampaign = (RadDropDownList)filterItem.FindControl("ddlCampaign");
+                if (ddlCampaign != null)
+                {
+                    string campaignId = ddlCampaign.SelectedValue;
+                    var selectedGridItems = RadGrid2.SelectedItems;
+                    foreach (GridDataItem item in selectedGridItems)
+                    {
+                        var Id = item["ID"].Text;
+                    }
+                    return;
+                }
+            }
         }
     }
 }

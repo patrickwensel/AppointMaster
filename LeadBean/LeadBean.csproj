@@ -64,22 +64,33 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
-    <Reference Include="Telerik.Web.UI, Version=2013.3.1324.35, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+    <Reference Include="Telerik.Web.UI, Version=2015.3.1111.35, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Users\Administrator\AppData\Roaming\Telerik\Updates\Telerik_UI_for_ASP.NET_AJAX_2013_3_1324_Dev_hotfix\Bin35\Telerik.Web.UI.dll</HintPath>
+      <HintPath>lib\RCAJAX\2015.3.1111.35\Telerik.Web.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="confirm.aspx" />
     <Content Include="css\font-awesome.min.css" />
     <Content Include="css\general.css" />
+    <Content Include="css\images\ui-icons_444444_256x240.png" />
+    <Content Include="css\images\ui-icons_555555_256x240.png" />
+    <Content Include="css\images\ui-icons_777620_256x240.png" />
+    <Content Include="css\images\ui-icons_777777_256x240.png" />
+    <Content Include="css\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="css\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="css\jquery-ui.min.css" />
     <Content Include="Default.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="images\bg.png" />
     <Content Include="images\logo.png" />
     <Content Include="login.aspx" />
     <Content Include="scripts\default.js" />
-    <Content Include="Web.config" />
+    <Content Include="scripts\jquery-ui.min.js" />
+    <Content Include="scripts\jquery.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="confirm.aspx.cs">
@@ -115,9 +126,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\licenses.licx" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
@@ -125,7 +133,7 @@
     <Content Include="fonts\FontAwesome.otf" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="scripts\jquery-2.1.4.min.js" />
+    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

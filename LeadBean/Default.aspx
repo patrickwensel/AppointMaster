@@ -8,7 +8,9 @@
     <title>Lead Management Board</title>
     <link rel="stylesheet" href="css/general.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
-    <script src="scripts/jquery-2.1.4.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <script src="scripts/jquery.js" type="text/javascript"></script>
+    <script src="scripts/jquery-ui.min.js" type="text/javascript"></script>
     <script src="scripts/default.js" type="text/javascript"></script>
 </head>
 <body>
@@ -17,14 +19,10 @@
             <h1>
                 <asp:Label ID="Title" runat="server" Text="Label"></asp:Label>
             </h1>
-            <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
+            <telerik:RadScriptManager ID="RadScriptManager1" runat="server" EnableEmbeddedjQuery="false">
                 <Scripts>
-                    <asp:ScriptReference Assembly="Telerik.Web.UI"
-                        Name="Telerik.Web.UI.Common.Core.js"></asp:ScriptReference>
-                    <asp:ScriptReference Assembly="Telerik.Web.UI"
-                        Name="Telerik.Web.UI.Common.jQuery.js"></asp:ScriptReference>
-                    <asp:ScriptReference Assembly="Telerik.Web.UI"
-                        Name="Telerik.Web.UI.Common.jQueryInclude.js"></asp:ScriptReference>
+                    <asp:ScriptReference Assembly="Telerik.Web.UI" Name="Telerik.Web.UI.Common.Core.js"></asp:ScriptReference>
+                    <asp:ScriptReference Assembly="Telerik.Web.UI" Name="Telerik.Web.UI.Common.jQuery.js"></asp:ScriptReference>
                 </Scripts>
             </telerik:RadScriptManager>
 
@@ -45,31 +43,33 @@
                 </SelectParameters>
             </asp:SqlDataSource>
 
-            <telerik:RadGrid ID="RadGrid2" runat="server" AllowFilteringByColumn="True"
+            <telerik:RadGrid ID="RadGrid2" runat="server" ClientIDMode="Static" AllowFilteringByColumn="True"
                 AllowPaging="True" AllowSorting="True" Height="800px" PageSize="150"
                 DataSourceID="Leads" OnLoad="RadGrid2_Load"
                 AutoGenerateColumns="False" GroupPanelPosition="Top">
                 <GroupingSettings CollapseAllTooltip="Collapse all groups"></GroupingSettings>
-
                 <ClientSettings>
                     <Scrolling AllowScroll="True" UseStaticHeaders="True" />
                 </ClientSettings>
                 <MasterTableView DataSourceID="Leads" AutoGenerateColumns="True">
                     <Columns>
-                        <telerik:GridClientSelectColumn FilterControlAltText="Filter SelectColumn column" UniqueName="SelectColumn">                           
+                        <telerik:GridClientSelectColumn FilterControlAltText="Filter SelectColumn column" UniqueName="SelectColumn">
                         </telerik:GridClientSelectColumn>
                         <telerik:GridHyperLinkColumn AllowSorting="true"
                             FilterControlAltText="Filter column column" DataNavigateUrlFormatString="default.aspx?DELID={0}" DataNavigateUrlFields="ID"
-                            HeaderText="Action" DataTextField="ID" DataTextFormatString="&lt;div class='actionButton' title='Edit-{0}'&gt;&lt;i class='fa fa-pencil actionIcon'&gt; &lt;/i&gt;&lt;/div&gt;" UniqueName="ID">
+                            HeaderText="Action" DataTextField="ID" DataTextFormatString="&lt;div class='actionButton' title='Edit-{0}'&gt;&lt;i class='fa fa-pencil actionIcon'&gt; &lt;/i&gt;&lt;/div&gt;" UniqueName="Action">
                             <FilterTemplate>
                                 <div class="actionControls">
+                                    <div class="hiddenActionControls">
+                                        <telerik:RadDropDownList ID="ddlCampaign" CssClass="hiddenCampaignList" runat="server" DataSourceID="Campaign" DataTextField="Name" DataValueField="Id" DataTextFormatString='<div class="campaignItem">{0}</div>'></telerik:RadDropDownList>
+                                        <asp:Button ID="btnMoveToCampaign" CssClass="btnMoveToCampaign" runat="server" Text="Move to campaign" OnClick="btnMoveToCampaign_Click" />
+                                    </div>
                                     <div class="actionButton btnMoveTo" title="Move selected to">
                                         <div>
                                             <i class="fa fa-folder actionIcon"></i>
                                             <i class="fa fa-caret-down actionIcon"></i>
                                         </div>
-                                        <telerik:RadDropDownList ID="ddlCampaign" CssClass="hiddenCampaignList" runat="server" DataSourceID="Campaign" DataTextField="Name" DataValueField="Id" DataTextFormatString='<a href="#">{0}</a>'></telerik:RadDropDownList>
-                                    </div>
+                                        </div>
                                     <div id="btnDelete" runat="server" class="actionButton btnDelete" title="Remove selected">
                                         <i class="fa fa-trash-o actionIcon"></i>
                                     </div>
@@ -83,6 +83,9 @@
             <asp:Label ID="usage" runat="server" Visible="False"></asp:Label>
             <br />
             <br />
+            <div id="confirmMoveTo" style="margin: 10px auto; text-align: center;">
+                <div>Are you sure you want to move the selected record to <span style="font-weight: bold;" class="selectedCampaign"></span> Campaign</div>
+            </div>
         </form>
     </div>
     &nbsp;<asp:HyperLink ID="LinkSwitch" runat="server"
