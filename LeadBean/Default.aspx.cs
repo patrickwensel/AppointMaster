@@ -2,6 +2,9 @@
 using LPI.DataBase;
 using System.Web.UI.WebControls;
 using Telerik.Web.UI;
+using System.Collections.Generic;
+using System.Linq;
+using System.Configuration;
 
 
 namespace LeadBean
@@ -98,24 +101,147 @@ namespace LeadBean
             }
         }
 
+        List<int> GetSelectedLeadIds()
+        {
+            List<int> ids = new List<int>();
+            var selectedGridItems = RadGrid2.SelectedItems;
+            foreach (GridDataItem item in selectedGridItems)
+            {
+                int leadId;
+                if (int.TryParse(item["ID"].Text, out leadId))
+                {
+                    ids.Add(leadId);
+                }
+            }
+            return ids;
+        }
+
         protected void btnMoveToCampaign_Click(object sender, EventArgs e)
         {
             RadDropDownList ddlCampaign = null;
-
+            List<int> leadIdsToMove = GetSelectedLeadIds();
             foreach (GridFilteringItem filterItem in RadGrid2.MasterTableView.GetItems(GridItemType.FilteringItem))
             {
                 ddlCampaign = (RadDropDownList)filterItem.FindControl("ddlCampaign");
                 if (ddlCampaign != null)
                 {
-                    string campaignId = ddlCampaign.SelectedValue;
-                    var selectedGridItems = RadGrid2.SelectedItems;
-                    foreach (GridDataItem item in selectedGridItems)
+                    int campaignId;
+
+                    if (int.TryParse(ddlCampaign.SelectedValue, out campaignId))
                     {
-                        var Id = item["ID"].Text;
+                        LPI.DataBase.Data.LPIContext context = new LPI.DataBase.Data.LPIContext();
+
+                        foreach (var item in leadIdsToMove)
+                        {
+                            var lead = context.LEAD.FirstOrDefault(x => x.ID == item);
+                            if (lead != null)
+                            {
+                                lead.campaignID = campaignId;
+                            }
+                        }
+
+                        context.SaveChanges();
+                        Response.Redirect(Context.Request.Url.AbsoluteUri);
                     }
                     return;
                 }
             }
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            LPI.DataBase.Data.LPIContext context = new LPI.DataBase.Data.LPIContext();
+            List<int> leadIdsToDelete = GetSelectedLeadIds();
+            foreach (var item in leadIdsToDelete)
+            {
+                var lead = context.LEAD.FirstOrDefault(x => x.ID == item);
+                if (lead != null)
+                {
+                    context.AddToLeadBeans(new LPI.DataBase.Data.LeadBean()
+                    {
+                        DB = lead.DB,
+                        alterFirstName = lead.alterFirstName,
+                        alterName = lead.alterName,
+                        alterPrimaryPhone = lead.alterPrimaryPhone,
+                        birthday = lead.birthday,
+                        campaign = lead.campaign,
+                        campaignID = lead.campaignID,
+                        content = lead.content,
+                        dentalCareIsFor = lead.dentalCareIsFor,
+                        dentalNeed = lead.dentalNeed,
+                        durationMinutes = lead.durationMinutes,
+                        email = lead.email,
+                        fileURL = lead.fileURL,
+                        firstName = lead.firstName,
+                        ID = lead.ID,
+                        inComingNumber = lead.inComingNumber,
+                        insurancePlanBudget = lead.insurancePlanBudget,
+                        lastName = lead.lastName,
+                        MatchingStatus = lead.MatchingStatus,
+                        medium = lead.medium,
+                        newPatient = lead.newPatient,
+                        original = lead.original,
+                        patientId = lead.patientId,
+                        preferredAppointmentTime = lead.preferredAppointmentTime,
+                        PrimaryPhone = lead.PrimaryPhone,
+                        referred_by = lead.referred_by,
+                        source = lead.source,
+                        term = lead.term,
+                        timeStamp = lead.timeStamp
+                    });
+                    context.DeleteObject(lead);
+                }
+            }
+            context.SaveChanges();
+            Response.Redirect(Context.Request.Url.AbsoluteUri);
+        }
+
+        protected void btnRestore_Click(object sender, EventArgs e)
+        {
+            LPI.DataBase.Data.LPIContext context = new LPI.DataBase.Data.LPIContext();
+            List<int> leadIdsToDelete = GetSelectedLeadIds();
+            foreach (var item in leadIdsToDelete)
+            {
+                var lead = context.LeadBeans.FirstOrDefault(x => x.ID == item);
+                if (lead != null)
+                {
+                    context.AddToLEAD(new LPI.DataBase.Data.LEAD()
+                    {
+                        DB = lead.DB,
+                        alterFirstName = lead.alterFirstName,
+                        alterName = lead.alterName,
+                        alterPrimaryPhone = lead.alterPrimaryPhone,
+                        birthday = lead.birthday,
+                        campaign = lead.campaign,
+                        campaignID = lead.campaignID,
+                        content = lead.content,
+                        dentalCareIsFor = lead.dentalCareIsFor,
+                        dentalNeed = lead.dentalNeed,
+                        durationMinutes = lead.durationMinutes,
+                        email = lead.email,
+                        fileURL = lead.fileURL,
+                        firstName = lead.firstName,
+                        ID = lead.ID,
+                        inComingNumber = lead.inComingNumber,
+                        insurancePlanBudget = lead.insurancePlanBudget,
+                        lastName = lead.lastName,
+                        MatchingStatus = lead.MatchingStatus,
+                        medium = lead.medium,
+                        newPatient = lead.newPatient,
+                        original = lead.original,
+                        patientId = lead.patientId,
+                        preferredAppointmentTime = lead.preferredAppointmentTime,
+                        PrimaryPhone = lead.PrimaryPhone,
+                        referred_by = lead.referred_by,
+                        source = lead.source,
+                        term = lead.term,
+                        timeStamp = lead.timeStamp
+                    });
+                    context.DeleteObject(lead);
+                }
+            }
+            context.SaveChanges();
+            Response.Redirect(Context.Request.Url.AbsoluteUri);
         }
     }
 }

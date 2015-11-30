@@ -50,10 +50,14 @@
                 <GroupingSettings CollapseAllTooltip="Collapse all groups"></GroupingSettings>
                 <ClientSettings>
                     <Scrolling AllowScroll="True" UseStaticHeaders="True" />
+                    <Resizing AllowColumnResize="true" ResizeGridOnColumnResize="true" AllowResizeToFit="true" />
                 </ClientSettings>
                 <MasterTableView DataSourceID="Leads" AutoGenerateColumns="True">
                     <Columns>
-                        <telerik:GridClientSelectColumn FilterControlAltText="Filter SelectColumn column" UniqueName="SelectColumn">
+                        <telerik:GridClientSelectColumn FilterControlAltText="Filter SelectColumn column" UniqueName="SelectColumn" Resizable="False">
+                            <FooterStyle Width="35px" />
+                            <HeaderStyle Width="35px" />
+                            <ItemStyle Width="35px" />
                         </telerik:GridClientSelectColumn>
                         <telerik:GridHyperLinkColumn AllowSorting="true"
                             FilterControlAltText="Filter column column" DataNavigateUrlFormatString="default.aspx?DELID={0}" DataNavigateUrlFields="ID"
@@ -63,15 +67,20 @@
                                     <div class="hiddenActionControls">
                                         <telerik:RadDropDownList ID="ddlCampaign" CssClass="hiddenCampaignList" runat="server" DataSourceID="Campaign" DataTextField="Name" DataValueField="Id" DataTextFormatString='<div class="campaignItem">{0}</div>'></telerik:RadDropDownList>
                                         <asp:Button ID="btnMoveToCampaign" CssClass="btnMoveToCampaign" runat="server" Text="Move to campaign" OnClick="btnMoveToCampaign_Click" />
+                                        <asp:Button ID="btnDelete" CssClass="btnDelete" runat="server" Text="Delete" OnClick="btnDelete_Click" />
                                     </div>
-                                    <div class="actionButton btnMoveTo" title="Move selected to">
+                                    <div class="actionButton buttonMoveTo" title="Move selected to">
                                         <div>
                                             <i class="fa fa-folder actionIcon"></i>
                                             <i class="fa fa-caret-down actionIcon"></i>
                                         </div>
-                                        </div>
-                                    <div id="btnDelete" runat="server" class="actionButton btnDelete" title="Remove selected">
+                                    </div>
+                                    <div class="actionButton buttonDelete" title="Delete selected">
                                         <i class="fa fa-trash-o actionIcon"></i>
+                                    </div>
+
+                                    <div class="actionButton buttonRestore" title="Restore selected">
+                                        <asp:Button ID="btnRestore" CssClass="btnRestore" runat="server" Text="Restore" OnClick="btnRestore_Click" />
                                     </div>
                                 </div>
                             </FilterTemplate>
@@ -84,7 +93,10 @@
             <br />
             <br />
             <div id="confirmMoveTo" style="margin: 10px auto; text-align: center;">
-                <div>Are you sure you want to move the selected record to <span style="font-weight: bold;" class="selectedCampaign"></span> Campaign</div>
+                <div>Are you sure you want to move the selected record to <span style="font-weight: bold;" class="selectedCampaign"></span>Campaign</div>
+            </div>
+            <div id="confirmDelete" style="margin: 10px auto; text-align: center;">
+                <div>Are you sure you want to delete the selected records</div>
             </div>
         </form>
     </div>

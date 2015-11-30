@@ -102,6 +102,40 @@ warning 6002: The table/view 'DB_9D8937_LPI.dbo.DELETEDLEAD' does not have a pri
           <Property Name="ID" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="treatmentPlan" Type="smallint" Nullable="false" />
         </EntityType>
+        <EntityType Name="LEAD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="DB" Type="smallint" Nullable="false" />
+          <Property Name="campaignID" Type="int" Nullable="false" />
+          <Property Name="inComingNumber" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="timeStamp" Type="datetime" Nullable="false" />
+          <Property Name="durationMinutes" Type="smallint" Nullable="false" />
+          <Property Name="newPatient" Type="smallint" Nullable="false" />
+          <Property Name="patientId" Type="varchar" MaxLength="12" />
+          <Property Name="fileURL" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="birthday" Type="datetime" Nullable="false" />
+          <Property Name="dentalNeed" Type="smallint" Nullable="false" />
+          <Property Name="dentalCareIsFor" Type="smallint" Nullable="false" />
+          <Property Name="preferredAppointmentTime" Type="smallint" Nullable="false" />
+          <Property Name="insurancePlanBudget" Type="smallint" Nullable="false" />
+          <Property Name="firstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PrimaryPhone" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="source" Type="varchar" MaxLength="255" />
+          <Property Name="medium" Type="varchar" MaxLength="255" />
+          <Property Name="term" Type="varchar" MaxLength="255" />
+          <Property Name="content" Type="varchar" MaxLength="255" />
+          <Property Name="campaign" Type="varchar" MaxLength="255" />
+          <Property Name="referred_by" Type="varchar" MaxLength="40" />
+          <Property Name="original" Type="tinyint" Nullable="false" />
+          <Property Name="alterPrimaryPhone" Type="varchar" MaxLength="15" />
+          <Property Name="alterName" Type="varchar" MaxLength="50" />
+          <Property Name="alterFirstName" Type="varchar" MaxLength="50" />
+          <Property Name="MatchingStatus" Type="smallint" />
+        </EntityType>
         <EntityType Name="LeadBean">
           <Key>
             <PropertyRef Name="ID" />
@@ -197,6 +231,7 @@ warning 6002: The table/view 'DB_9D8937_LPI.dbo.DELETEDLEAD' does not have a pri
           <EntitySet Name="APPLIUSER" EntityType="Self.APPLIUSER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CAMPAIGN" EntityType="Self.CAMPAIGN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DENTALPROCEDURE" EntityType="Self.DENTALPROCEDURE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LEAD" EntityType="Self.LEAD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeadBean" EntityType="Self.LeadBean" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PARTNER" EntityType="Self.PARTNER" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PATIENT" EntityType="Self.PATIENT" Schema="dbo" store:Type="Tables" />
@@ -280,40 +315,6 @@ FROM [dbo].[DELETEDLEAD] AS [DELETEDLEAD]</DefiningQuery>
           <Property Name="budget" Type="Decimal" Precision="11" Scale="2" Nullable="false" />
           <Property Name="visible" Type="Byte" />
         </EntityType>
-        <EntityType Name="LeadBean">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="AccountID" Type="Int16" Nullable="false" />
-          <Property Name="campaignID" Type="Int32" Nullable="false" />
-          <Property Name="inComingNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="timeStamp" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="durationMinutes" Type="Int16" Nullable="false" />
-          <Property Name="newPatient" Type="Int16" Nullable="false" />
-          <Property Name="patientId" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="fileURL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="birthday" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="dentalNeed" Type="Int16" Nullable="false" />
-          <Property Name="dentalCareIsFor" Type="Int16" Nullable="false" />
-          <Property Name="preferredAppointmentTime" Type="Int16" Nullable="false" />
-          <Property Name="insurancePlanBudget" Type="Int16" Nullable="false" />
-          <Property Name="firstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PrimaryPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="source" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="medium" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="term" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="content" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="campaign" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="referred_by" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
-          <Property Name="original" Type="Byte" Nullable="false" />
-          <Property Name="alterPrimaryPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="alterName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="alterFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="MatchingStatus" Type="Int16" />
-        </EntityType>
         <EntityType Name="Partner">
           <Key>
             <PropertyRef Name="ID" />
@@ -396,7 +397,6 @@ FROM [dbo].[DELETEDLEAD] AS [DELETEDLEAD]</DefiningQuery>
           <EntitySet Name="Accounts" EntityType="LPI.DataBase.Data.Account" />
           <EntitySet Name="AppliUsers" EntityType="LPI.DataBase.Data.AppliUser" />
           <EntitySet Name="Campaigns" EntityType="LPI.DataBase.Data.Campaign" />
-          <EntitySet Name="LeadBeans" EntityType="Self.LeadBean" />
           <EntitySet Name="Partners" EntityType="LPI.DataBase.Data.Partner" />
           <EntitySet Name="Patients" EntityType="LPI.DataBase.Data.Patient" />
           <EntitySet Name="SysOptions" EntityType="LPI.DataBase.Data.SysOption" />
@@ -404,6 +404,8 @@ FROM [dbo].[DELETEDLEAD] AS [DELETEDLEAD]</DefiningQuery>
           <EntitySet Name="Appointments" EntityType="LPI.DataBase.Data.Appointment" />
           <EntitySet Name="DeletedLeads" EntityType="LPI.DataBase.Data.DeletedLead" />
           <EntitySet Name="DentalProcedures" EntityType="LPI.DataBase.Data.DentalProcedure" />
+          <EntitySet Name="LEAD" EntityType="LPI.DataBase.Data.LEAD" />
+          <EntitySet Name="LeadBeans" EntityType="LPI.DataBase.Data.LeadBean" />
         </EntityContainer>
         <EntityType Name="DentalProcedure">
           <Key>
@@ -417,6 +419,74 @@ FROM [dbo].[DELETEDLEAD] AS [DELETEDLEAD]</DefiningQuery>
           <Property Name="amount" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="ID" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="treatmentPlan" Type="Int16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LEAD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="DB" Type="Int16" Nullable="false" />
+          <Property Name="campaignID" Type="Int32" Nullable="false" />
+          <Property Name="inComingNumber" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="timeStamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="durationMinutes" Type="Int16" Nullable="false" />
+          <Property Name="newPatient" Type="Int16" Nullable="false" />
+          <Property Name="patientId" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="fileURL" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="birthday" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dentalNeed" Type="Int16" Nullable="false" />
+          <Property Name="dentalCareIsFor" Type="Int16" Nullable="false" />
+          <Property Name="preferredAppointmentTime" Type="Int16" Nullable="false" />
+          <Property Name="insurancePlanBudget" Type="Int16" Nullable="false" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PrimaryPhone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="source" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="medium" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="term" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="content" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="campaign" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="referred_by" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="original" Type="Byte" Nullable="false" />
+          <Property Name="alterPrimaryPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="alterName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="alterFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MatchingStatus" Type="Int16" />
+        </EntityType>
+        <EntityType Name="LeadBean">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="DB" Type="Int16" Nullable="false" />
+          <Property Name="campaignID" Type="Int32" Nullable="false" />
+          <Property Name="inComingNumber" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="timeStamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="durationMinutes" Type="Int16" Nullable="false" />
+          <Property Name="newPatient" Type="Int16" Nullable="false" />
+          <Property Name="patientId" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="fileURL" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="birthday" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dentalNeed" Type="Int16" Nullable="false" />
+          <Property Name="dentalCareIsFor" Type="Int16" Nullable="false" />
+          <Property Name="preferredAppointmentTime" Type="Int16" Nullable="false" />
+          <Property Name="insurancePlanBudget" Type="Int16" Nullable="false" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PrimaryPhone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="source" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="medium" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="term" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="content" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="campaign" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="referred_by" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="original" Type="Byte" Nullable="false" />
+          <Property Name="alterPrimaryPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="alterName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="alterFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MatchingStatus" Type="Int16" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -479,41 +549,6 @@ FROM [dbo].[DELETEDLEAD] AS [DELETEDLEAD]</DefiningQuery>
                 <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
                 <ScalarProperty Name="budget" ColumnName="budget" />
                 <ScalarProperty Name="visible" ColumnName="visible" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="LeadBeans">
-            <EntityTypeMapping TypeName="LPI.DataBase.Data.LeadBean">
-              <MappingFragment StoreEntitySet="LeadBean">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="AccountID" ColumnName="DB" />
-                <ScalarProperty Name="campaignID" ColumnName="campaignID" />
-                <ScalarProperty Name="inComingNumber" ColumnName="inComingNumber" />
-                <ScalarProperty Name="timeStamp" ColumnName="timeStamp" />
-                <ScalarProperty Name="durationMinutes" ColumnName="durationMinutes" />
-                <ScalarProperty Name="newPatient" ColumnName="newPatient" />
-                <ScalarProperty Name="patientId" ColumnName="patientId" />
-                <ScalarProperty Name="fileURL" ColumnName="fileURL" />
-                <ScalarProperty Name="birthday" ColumnName="birthday" />
-                <ScalarProperty Name="dentalNeed" ColumnName="dentalNeed" />
-                <ScalarProperty Name="dentalCareIsFor" ColumnName="dentalCareIsFor" />
-                <ScalarProperty Name="preferredAppointmentTime" ColumnName="preferredAppointmentTime" />
-                <ScalarProperty Name="insurancePlanBudget" ColumnName="insurancePlanBudget" />
-                <ScalarProperty Name="firstName" ColumnName="firstName" />
-                <ScalarProperty Name="lastName" ColumnName="lastName" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="PrimaryPhone" ColumnName="PrimaryPhone" />
-                <ScalarProperty Name="source" ColumnName="source" />
-                <ScalarProperty Name="medium" ColumnName="medium" />
-                <ScalarProperty Name="term" ColumnName="term" />
-                <ScalarProperty Name="content" ColumnName="content" />
-                <ScalarProperty Name="campaign" ColumnName="campaign" />
-                <ScalarProperty Name="referred_by" ColumnName="referred_by" />
-                <ScalarProperty Name="original" ColumnName="original" />
-                <ScalarProperty Name="alterPrimaryPhone" ColumnName="alterPrimaryPhone" />
-                <ScalarProperty Name="alterName" ColumnName="alterName" />
-                <ScalarProperty Name="alterFirstName" ColumnName="alterFirstName" />
-                <ScalarProperty Name="MatchingStatus" ColumnName="MatchingStatus" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -608,6 +643,76 @@ FROM [dbo].[DELETEDLEAD] AS [DELETEDLEAD]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="LEAD">
+            <EntityTypeMapping TypeName="LPI.DataBase.Data.LEAD">
+              <MappingFragment StoreEntitySet="LEAD">
+                <ScalarProperty Name="MatchingStatus" ColumnName="MatchingStatus" />
+                <ScalarProperty Name="alterFirstName" ColumnName="alterFirstName" />
+                <ScalarProperty Name="alterName" ColumnName="alterName" />
+                <ScalarProperty Name="alterPrimaryPhone" ColumnName="alterPrimaryPhone" />
+                <ScalarProperty Name="original" ColumnName="original" />
+                <ScalarProperty Name="referred_by" ColumnName="referred_by" />
+                <ScalarProperty Name="campaign" ColumnName="campaign" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="term" ColumnName="term" />
+                <ScalarProperty Name="medium" ColumnName="medium" />
+                <ScalarProperty Name="source" ColumnName="source" />
+                <ScalarProperty Name="PrimaryPhone" ColumnName="PrimaryPhone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="insurancePlanBudget" ColumnName="insurancePlanBudget" />
+                <ScalarProperty Name="preferredAppointmentTime" ColumnName="preferredAppointmentTime" />
+                <ScalarProperty Name="dentalCareIsFor" ColumnName="dentalCareIsFor" />
+                <ScalarProperty Name="dentalNeed" ColumnName="dentalNeed" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="fileURL" ColumnName="fileURL" />
+                <ScalarProperty Name="patientId" ColumnName="patientId" />
+                <ScalarProperty Name="newPatient" ColumnName="newPatient" />
+                <ScalarProperty Name="durationMinutes" ColumnName="durationMinutes" />
+                <ScalarProperty Name="timeStamp" ColumnName="timeStamp" />
+                <ScalarProperty Name="inComingNumber" ColumnName="inComingNumber" />
+                <ScalarProperty Name="campaignID" ColumnName="campaignID" />
+                <ScalarProperty Name="DB" ColumnName="DB" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeadBeans">
+            <EntityTypeMapping TypeName="LPI.DataBase.Data.LeadBean">
+              <MappingFragment StoreEntitySet="LeadBean">
+                <ScalarProperty Name="MatchingStatus" ColumnName="MatchingStatus" />
+                <ScalarProperty Name="alterFirstName" ColumnName="alterFirstName" />
+                <ScalarProperty Name="alterName" ColumnName="alterName" />
+                <ScalarProperty Name="alterPrimaryPhone" ColumnName="alterPrimaryPhone" />
+                <ScalarProperty Name="original" ColumnName="original" />
+                <ScalarProperty Name="referred_by" ColumnName="referred_by" />
+                <ScalarProperty Name="campaign" ColumnName="campaign" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="term" ColumnName="term" />
+                <ScalarProperty Name="medium" ColumnName="medium" />
+                <ScalarProperty Name="source" ColumnName="source" />
+                <ScalarProperty Name="PrimaryPhone" ColumnName="PrimaryPhone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="insurancePlanBudget" ColumnName="insurancePlanBudget" />
+                <ScalarProperty Name="preferredAppointmentTime" ColumnName="preferredAppointmentTime" />
+                <ScalarProperty Name="dentalCareIsFor" ColumnName="dentalCareIsFor" />
+                <ScalarProperty Name="dentalNeed" ColumnName="dentalNeed" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="fileURL" ColumnName="fileURL" />
+                <ScalarProperty Name="patientId" ColumnName="patientId" />
+                <ScalarProperty Name="newPatient" ColumnName="newPatient" />
+                <ScalarProperty Name="durationMinutes" ColumnName="durationMinutes" />
+                <ScalarProperty Name="timeStamp" ColumnName="timeStamp" />
+                <ScalarProperty Name="inComingNumber" ColumnName="inComingNumber" />
+                <ScalarProperty Name="campaignID" ColumnName="campaignID" />
+                <ScalarProperty Name="DB" ColumnName="DB" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -622,7 +727,7 @@ FROM [dbo].[DELETEDLEAD] AS [DELETEDLEAD]</DefiningQuery>
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
         <DesignerProperty Name="UseLegacyProvider" Value="true" />
       </DesignerInfoPropertySet>

@@ -70,6 +70,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LPIModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Data\LPIModel.Views.cs" />
     <Compile Include="DeletedLead.cs" />
     <Compile Include="Email.cs" />
     <Compile Include="lead.cs" />

@@ -378,3 +378,8 @@ table.MainMenu {
     z-index: -2147483648;
     overflow: hidden;
 }
+
+.btnRestore {
+    line-height: 10px !important;
+    height: 22px;
+}
