@@ -44,15 +44,21 @@ namespace LeadBean
                 this.Leads.SelectParameters["DB"].DefaultValue = Db.ToString();
                 this.Leads.SelectParameters["TABLE"].DefaultValue = "Lead";
                 string table = "LEAD";
-                string command = " <div class='actionButton' title='Edit-{0}'><i class='fa  fa-pencil actionIcon'></i></div>";
+                string command = " <div class='actionButton' title='Edit-{0}'><i class='fa fa-pencil actionIcon'></i></div>";
                 string URL = "CONFIRM.aspx?DELID={0}";
                 if (Request["leadbean"] != null)
                 {
                     table = "leadbean";
-                    command = "<b>Restore-{0}</b>";
+                    command = "<b>Restore - {0}</b>";
                     URL = "CONFIRM.aspx?RESTOREID={0}";
                 }
-                this.Leads.SelectCommand = "select campaignID as 'Camp', inComingNumber as 'Incoming', timeStamp as 'Time Stamp', durationMinutes as 'Duration', firstName, lastName,email,fileURL, birthday as 'DOB',PrimaryPhone as 'Prim. Phone',alterPrimaryPhone as 'alt. Prim. Phone', ID from " + table + " where DB= " + Db.ToString();
+                this.Leads.SelectCommand = string.Format(@"
+                    select c.name as 'Camp', inComingNumber as 'Incoming', timeStamp as 'Time Stamp', durationMinutes as 'Duration', firstName, lastName,email,fileURL, birthday as 'DOB',
+                    PrimaryPhone as 'Prim. Phone',alterPrimaryPhone as 'alt. Prim. Phone', l.ID 
+                    from {0} as l
+                    join campaign as c on c.Id=campaignID
+                     where l.DB={1}", table, Db.ToString());
+
                 Telerik.Web.UI.GridHyperLinkColumn col = (Telerik.Web.UI.GridHyperLinkColumn)this.RadGrid2.Columns[1];
                 col.DataTextFormatString = command;
                 col.DataNavigateUrlFormatString = URL;
@@ -71,9 +77,6 @@ namespace LeadBean
                 {
                     if (!this.IsPostBack)
                     {
-                        this.Campaign.ConnectionString = Util.GetConfigValue("connnectionstring");
-                        this.Campaign.SelectParameters["DB"].DefaultValue = Db.ToString();
-
                         if (Request["leadbean"] != null)
                         {
                             this.Title.Text = "<u>Deleted</u> Leads for Account #" + ((Account)Session["account"]).DB.ToString() + " " + ((Account)Session["account"]).name;
@@ -242,6 +245,17 @@ namespace LeadBean
             }
             context.SaveChanges();
             Response.Redirect(Context.Request.Url.AbsoluteUri);
+        }
+
+        protected void ddlCampaign_Load(object sender, EventArgs e)
+        {
+            RadDropDownList ddlCampaign = (RadDropDownList)sender;
+            LPI.DataBase.Data.LPIContext context = new LPI.DataBase.Data.LPIContext();
+            var campaigns = context.Campaigns.Where(x => x.AccountID == Db).ToList();
+            foreach (var item in campaigns)
+            {
+                ddlCampaign.Items.Add(new DropDownListItem("<div class='campaignItem'>" + item.name + "</div>", item.ID.ToString()));
+            }
         }
     }
 }

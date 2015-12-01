@@ -382,4 +382,5 @@ table.MainMenu {
 .btnRestore {
     line-height: 10px !important;
     height: 22px;
+    width: 60px;
 }
