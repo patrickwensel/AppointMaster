@@ -199,6 +199,7 @@ namespace LPI.DataBase {
 
                     return true;
                 } else {
+                    command.Cancel();
                     command.Dispose();
                     return false;
                 }
