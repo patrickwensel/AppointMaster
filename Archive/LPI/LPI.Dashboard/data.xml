@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pie>
+  <slice title="Local Listing" url="javascript:loadCampaignDetail('3')" description="click for detail" pull_out="true">40379.08</slice>
+  <slice title="News Paper" url="javascript:loadCampaignDetail('2')" description="click for detail" pull_out="true">1912.66</slice>
+  <slice title="On Line" url="javascript:loadCampaignDetail('4')" description="click for detail" pull_out="true">11879.85</slice>
+  <slice title="Web site" url="javascript:loadCampaignDetail('1')" description="click for detail" pull_out="true">6321.02</slice>
+</pie>

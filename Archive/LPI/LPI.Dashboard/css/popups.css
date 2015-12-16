@@ -1,0 +1,33 @@
+body
+{
+	background: url("../images/170px-background.png") repeat-y left top;
+}
+
+td.header
+{
+	text-align: right;
+	color: rgb(47,87,122);
+	background-color: rgb(196,219,237);
+	width: 150px;
+	font-weight: bold;
+}
+
+table
+{
+	margin: 0;
+	padding: 0;
+}
+
+td
+{
+	padding: 10px;
+	vertical-align: middle;
+}
+
+input[type="text"]
+{
+	padding: 0;
+	margin: 0;
+	display: inline;
+	height: 24px;
+}

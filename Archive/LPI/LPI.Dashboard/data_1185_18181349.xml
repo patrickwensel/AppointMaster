@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pie>
+  <slice title="Campaign 17039577184
+%" url="javascript:loadCampaignDetail(0,'1',false)" description="click for detail"  pull_out="true"  >0</slice>
+  <slice title="Manual Lead Email
+100%" url="javascript:loadCampaignDetail(1,'3',false)" description="click for detail"   >  188</slice>
+  <slice title="Multiple-Sources Campaign
+%" url="javascript:loadCampaignDetail(2,'4',false)" description="click for detail"   >0</slice>
+  <slice title="Online Lead 7
+%" url="javascript:loadCampaignDetail(3,'5',false)" description="click for detail"   >0</slice>
+</pie>
+

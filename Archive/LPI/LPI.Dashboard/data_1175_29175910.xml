@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pie>
+  <slice title="Page1 Email Leads
+31%" url="javascript:loadCampaignDetail(0,'1',false)" description="click for detail"  pull_out="true"  > 119 055</slice>
+  <slice title="Page1 Chat Leads
+23%" url="javascript:loadCampaignDetail(1,'2',false)" description="click for detail"   > 88 926</slice>
+  <slice title="Manual Lead Invisalign
+3%" url="javascript:loadCampaignDetail(2,'3',false)" description="click for detail"   > 11 000</slice>
+  <slice title="Campaign 18772207502
+%" url="javascript:loadCampaignDetail(3,'4',false)" description="click for detail"   >0</slice>
+  <slice title="Page1 Phone
+44%" url="javascript:loadCampaignDetail(4,'5',false)" description="click for detail"   > 168 866</slice>
+</pie>
+

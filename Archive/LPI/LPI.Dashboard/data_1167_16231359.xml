@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pie>
+  <slice title="Website Form (new)
+Combined ammout " url="javascript:loadCampaignDetail(0,'1',false)" description="click for detail"  pull_out="true"  > 164 244</slice>
+  <slice title="Website Form (old)
+Combined ammout " url="javascript:loadCampaignDetail(1,'3',false)" description="click for detail"   > 34 555</slice>
+  <slice title="Direct Website Visit
+Combined ammout " url="javascript:loadCampaignDetail(2,'4',false)" description="click for detail"   > 611 176</slice>
+  <slice title="Website Phone (new)
+Combined ammout " url="javascript:loadCampaignDetail(3,'5',false)" description="click for detail"   > 96 686</slice>
+  <slice title="Direct Mail
+Combined ammout " url="javascript:loadCampaignDetail(4,'7',false)" description="click for detail"   >0</slice>
+  <slice title="Online Lead 7
+Combined ammout " url="javascript:loadCampaignDetail(5,'8',false)" description="click for detail"   >  515</slice>
+  <slice title="Campaign 16142546371
+Combined ammout " url="javascript:loadCampaignDetail(6,'9',false)" description="click for detail"   >0</slice>
+  <slice title="Radio (via Vanity #)
+Combined ammout " url="javascript:loadCampaignDetail(7,'10',false)" description="click for detail"   >  645</slice>
+</pie>
+

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pie>
+  <slice title="Website (phone)
+93%" url="javascript:loadCampaignDetail(0,'1',false)" description="click for detail"  pull_out="true"  > 58 388</slice>
+  <slice title="Website (forms)
+7%" url="javascript:loadCampaignDetail(1,'2',false)" description="click for detail"   > 4 380</slice>
+  <slice title="Church
+%" url="javascript:loadCampaignDetail(2,'3',false)" description="click for detail"   >0</slice>
+  <slice title="Leads
+%" url="javascript:loadCampaignDetail(3,'4',false)" description="click for detail"   >0</slice>
+</pie>
+

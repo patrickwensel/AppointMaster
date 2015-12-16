@@ -1,0 +1,37 @@
+﻿
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+  <script type="text/javascript" src="sound/jquery.min.js"></script>
+  <script type="text/javascript" src="sound/jquery.jplayer.min.js"></script>
+  <script type="text/javascript" src="sound/audio.js"></script>
+  <script type="text/javascript" src="js/AjaxCalls.js"></script>
+<script type="text/javascript">
+function load(){
+	downLoadSimpleHTML('http://localhost/dashboard/testAjax.htm');
+	createPlayer();
+}
+  
+</script>
+  
+<title>
+
+</title></head>
+<body onload="load();">
+    <form name="form1" method="post" action="testaudio.aspx" id="form1">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJOTc4NDg4ODk5ZGRsSyc+J3WhJr8F2GlVU2CTB+2VIg==" />
+</div>
+
+    <div>
+  <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+  <div id="jp_container_1" class="jp-audio">
+
+<span id="target"></span>
+    
+    </div>
+    </form>
+</body>
+</html>

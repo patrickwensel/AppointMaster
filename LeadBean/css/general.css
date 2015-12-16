@@ -1,386 +1,205 @@
-body {
-    background: #fff url(../images/bg.png) repeat-x;
-    font-family: Arial Helvetica, sans-serif;
-    color: #144a5b;
+body{
+	background:#fff url(../images/bg.png) repeat-x;
+	font-family:Arial Helvetica, sans-serif;
+	color:#144a5b;
 }
 
-p {
-    font-size: 13px;
-    overflow: hidden;
+p{
+	font-size:13px;
+	overflow:hidden
+	
 }
 
-li {
-    font-size: 13px;
+li{
+	font-size:13px;
 }
 
-A.help:link {
-    color: #144a5b;
-    text-decoration: underline;
-    font-weight: normal;
-    font-size: 10px;
+A.help:link { color:#144a5b; text-decoration:underline; font-weight:normal;font-size:10px}
+A.help:visited {  color:#144a5b;text-decoration:underline;  font-weight:normal;font-size:10px}
+A.help:active {color:#144a5b;text-decoration:underline; font-weight:normal;font-size:10px}
+A.help:hover { color: #144a5b;text-decoration:underline; font-weight:normal;font-size:10px}
+
+
+
+A:link { color:#144a5b; text-decoration: underline; font-weight:bold;font-size:12px}
+A:visited {  color:#144a5b; text-decoration: underline; font-weight:bold;font-size:12px}
+A:active {color:#144a5b; text-decoration: underline; font-weight:bold;font-size:12px}
+A:hover { color: #144a5b; text-decoration: underline; font-weight:bold;font-size:12px}
+
+
+A.menulink:link { color:#144a5b; text-decoration: none; font-weight:normal;font-size:12px;font-family:Arial Helvetica, sans-serif;}
+A.menulink:visited {  color:#144a5b; text-decoration: none; font-weight:normal;font-size:12px;font-family:Arial Helvetica, sans-serif;}
+A.menulink:active {color:#144a5b; text-decoration: none; font-weight:normal;font-size:12px;font-family:Arial Helvetica, sans-serif;}
+A.menulink:hover { color: #144a5b; text-decoration: underline; font-weight:normal;font-size:12px;font-family:Arial Helvetica, sans-serif;}
+
+
+A.mainpageLink:link { color:#144a5b; text-decoration:underline; font-weight:bold;font-size:18px}
+A.mainpageLink:visited {  color:#144a5b; text-decoration: underline; font-weight:bold;font-size:18px}
+A.mainpageLink:active {color:#144a5b; text-decoration: underline; font-weight:bold;font-size:18px}
+A.mainpageLink:hover { color: #144a5b; text-decoration: underline; font-weight:bold;font-size:18px}
+
+
+
+A.faq:link { color:#144a5b; text-decoration: none; font-weight:normal;font-size:12px}
+A.faq:visited {  color:#144a5b; text-decoration: none; font-weight:normal;font-size:12px}
+A.faq:active {color:#144a5b; text-decoration: none; font-weight:normal;font-size:12px}
+A.faq:hover { color: #144a5b; text-decoration: underline; font-weight:normal;font-size:12px}
+
+
+div.popup
+{
+	position:absolute;
+	top:30%;
+	left:40%;
+	border:solid 1px gray;
+	width:530px;
+	height:390px;
+	background-color:#6666FF;
+	color:White;
+	border-bottom-style:groove;
+	margin:5px;
+	padding:15px;
+	z-index:10;
+	/*filter:alpha(opacity=80);*/
 }
 
-A.help:visited {
-    color: #144a5b;
-    text-decoration: underline;
-    font-weight: normal;
-    font-size: 10px;
+#PhoneNumberArea{
+		width:36px;
+}
+#phonepart1{
+		width:36px;
+}
+#phonepart2{
+		width:45px;
+}
+#state{
+	width:30px;
+}
+#email{
+	width:250px;
+}
+#Address
+{
+	width:250px;
+}
+#Practice
+{
+	width:250px;
 }
 
-A.help:active {
-    color: #144a5b;
-    text-decoration: underline;
-    font-weight: normal;
-    font-size: 10px;
+div.mobiDiv{
+	width:250px;
 }
 
-A.help:hover {
-    color: #144a5b;
-    text-decoration: underline;
-    font-weight: normal;
-    font-size: 10px;
+table.pricing{
+	font-size:13px;
 }
 
-
-
-A:link {
-    color: #144a5b;
-    text-decoration: underline;
-    font-weight: bold;
-    font-size: 12px;
+table.pricing th{
+	background-color:#F0F0F0;
+	
 }
-
-A:visited {
-    color: #144a5b;
-    text-decoration: underline;
-    font-weight: bold;
-    font-size: 12px;
-}
-
-A:active {
-    color: #144a5b;
-    text-decoration: underline;
-    font-weight: bold;
-    font-size: 12px;
-}
-
-A:hover {
-    color: #144a5b;
-    text-decoration: underline;
-    font-weight: bold;
-    font-size: 12px;
-}
-
-
-A.menulink:link {
-    color: #144a5b;
-    text-decoration: none;
-    font-weight: normal;
-    font-size: 12px;
-    font-family: Arial Helvetica, sans-serif;
-}
-
-A.menulink:visited {
-    color: #144a5b;
-    text-decoration: none;
-    font-weight: normal;
-    font-size: 12px;
-    font-family: Arial Helvetica, sans-serif;
-}
-
-A.menulink:active {
-    color: #144a5b;
-    text-decoration: none;
-    font-weight: normal;
-    font-size: 12px;
-    font-family: Arial Helvetica, sans-serif;
-}
-
-A.menulink:hover {
-    color: #144a5b;
-    text-decoration: underline;
-    font-weight: normal;
-    font-size: 12px;
-    font-family: Arial Helvetica, sans-serif;
-}
-
-
-A.mainpageLink:link {
-    color: #144a5b;
-    text-decoration: underline;
-    font-weight: bold;
-    font-size: 18px;
-}
-
-A.mainpageLink:visited {
-    color: #144a5b;
-    text-decoration: underline;
-    font-weight: bold;
-    font-size: 18px;
-}
-
-A.mainpageLink:active {
-    color: #144a5b;
-    text-decoration: underline;
-    font-weight: bold;
-    font-size: 18px;
-}
-
-A.mainpageLink:hover {
-    color: #144a5b;
-    text-decoration: underline;
-    font-weight: bold;
-    font-size: 18px;
-}
-
-
-
-A.faq:link {
-    color: #144a5b;
-    text-decoration: none;
-    font-weight: normal;
-    font-size: 12px;
-}
-
-A.faq:visited {
-    color: #144a5b;
-    text-decoration: none;
-    font-weight: normal;
-    font-size: 12px;
-}
-
-A.faq:active {
-    color: #144a5b;
-    text-decoration: none;
-    font-weight: normal;
-    font-size: 12px;
-}
-
-A.faq:hover {
-    color: #144a5b;
-    text-decoration: underline;
-    font-weight: normal;
-    font-size: 12px;
-}
-
-
-div.popup {
-    position: absolute;
-    top: 30%;
-    left: 40%;
-    border: solid 1px gray;
-    width: 530px;
-    height: 390px;
-    background-color: #6666FF;
-    color: White;
-    border-bottom-style: groove;
-    margin: 5px;
-    padding: 15px;
-    z-index: 10;
-    /*filter:alpha(opacity=80);*/
-}
-
-#PhoneNumberArea {
-    width: 36px;
-}
-
-#phonepart1 {
-    width: 36px;
-}
-
-#phonepart2 {
-    width: 45px;
-}
-
-#state {
-    width: 30px;
-}
-
-#email {
-    width: 250px;
-}
-
-#Address {
-    width: 250px;
-}
-
-#Practice {
-    width: 250px;
-}
-
-div.mobiDiv {
-    width: 250px;
-}
-
-table.pricing {
-    font-size: 13px;
-}
-
-    table.pricing th {
-        background-color: #F0F0F0;
-    }
 
 
 table.entryForm2 {
-    text-align: center;
-    font-size: x-small;
-    background-color: white;
+	text-align:center;
+	font-size:x-small;	
+	background-color:white;
+	
+	}
+
+table.entryForm2 th{
+	font-weight:bold;	
+	font-size:12px;	
+	text-align:left;
+	background-color:#D7F0F7;
+}
+table.entryForm2 td{
+	color:#6A797C;
+	background-color:#C7E0E7;
 }
 
-    table.entryForm2 th {
-        font-weight: bold;
-        font-size: 12px;
-        text-align: left;
-        background-color: #D7F0F7;
-    }
-
-    table.entryForm2 td {
-        color: #6A797C;
-        background-color: #C7E0E7;
-    }
-
-        table.entryForm2 td.white {
-            text-align: left;
-            width: 70%;
-        }
-
-
-#RadioFast {
-    font-size: 12px;
+table.entryForm2 td.white{
+	text-align:left;
+	width:70%;
 }
 
-#RadioClear {
-    font-size: 12px;
-}
 
-#RadioAgain {
-    font-size: 12px;
+#RadioFast{
+	font-size:12px;
 }
-
-#RadioTimes {
-    font-size: 12px;
+#RadioClear{
+	font-size:12px;
 }
-
-#message {
-    width: 100%;
+#RadioAgain{
+	font-size:12px;
 }
-
-#phoneOrEmail {
-    width: 60%;
+#RadioTimes{
+	font-size:12px;
 }
-
-#ReferralDr {
-    width: 60%;
+#message{
+	width:100%;
 }
-
+#phoneOrEmail{
+	width:60%;
+}
+#ReferralDr{
+	width:60%;
+}	
+	
 table.mainList {
-    font-size: 12px;
-    width: 80%;
-    margin: 0px;
-    padding: 0px;
-    border: 0px;
+	font-size:12px;
+	width:80%;
+	
+	margin:0px;
+	padding:0px;
+		
+	border:0px;
+}	
+table.mainList th{
+	background-color:#E0E0E0;
+	margin:0px;	
+	padding:10px;
+}
+table.mainList td{
+	background-color:white;
+	margin:0px;	
+}
+table.mainList td.alternate{
+	background-color:#F0F0F0;
+	margin:0px;	
 }
 
-    table.mainList th {
-        background-color: #E0E0E0;
-        margin: 0px;
-        padding: 10px;
-    }
-
-    table.mainList td {
-        background-color: white;
-        margin: 0px;
-    }
-
-        table.mainList td.alternate {
-            background-color: #F0F0F0;
-            margin: 0px;
-        }
-
-table.activityList {
-    padding: 5px;
+table.activityList
+{
+	padding:5px;
 }
 
-    table.activityList th {
-        background-color: #6666FF;
-        color: White;
-    }
+table.activityList th{
+	background-color:#6666FF;
+	color:White;
+}
 
 
 table.activityDetail {
-    font-size: 12px;
+	
+	font-size:12px;
 }
 
-    table.activityDetail th {
-        background-color: #E0E0E0;
-        color: #555555;
-    }
-
-    table.activityDetail td {
-        text-align: right;
-    }
-
-table.MainMenu {
-    margin: 20px;
+table.activityDetail th{
+	background-color:#E0E0E0;
+	color:#555555;
 }
 
-    table.MainMenu td {
-        padding: 20px;
-    }
-
-
-
-.actionButton {
-    display: inline-block;
-    margin-right: 10px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    height: 22px;
+table.activityDetail td{
+	text-align:right;
 }
 
-.actionControls {
-    position: relative;
-    width: 60px;
-    height: 22px;
+table.MainMenu
+{
+	margin:20px;
 }
-
-.actionIcon {
-    display: inline !important;
-    height: 22px !important;
-    font-size: 18px !important;
-    line-height: 22px !important;
-    text-align: center !important;
-}
-
-.campaignItem {
-    cursor: pointer;
-}
-
-.hiddenActionControls {
-    left: 0;
-    top: 0;
-    height: 22px;
-    position: absolute;
-    visibility: hidden;
-    z-index: -2147483648;
-    overflow: hidden;
-    width: 0px !important;
-}
-
-.hiddenCampaignList {
-    left: 0;
-    top: 0;
-    height: 22px;
-    position: relative;
-    display: inline-block;
-    visibility: hidden;
-    z-index: -2147483648;
-    overflow: hidden;
-}
-
-.btnRestore {
-    line-height: 10px !important;
-    height: 22px;
-    width: 60px;
+table.MainMenu td
+{
+	padding:20px;
 }

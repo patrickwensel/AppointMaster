@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pie>
+  <slice title="Manual Lead
+Combined ammout " url="javascript:loadCampaignDetail(0,'1',false)" description="click for detail"  pull_out="true"  > 21 626</slice>
+  <slice title="Website (forms)
+Combined ammout " url="javascript:loadCampaignDetail(1,'2',false)" description="click for detail"   >  35</slice>
+  <slice title="Campaign 17852899850
+Combined ammout " url="javascript:loadCampaignDetail(2,'3',false)" description="click for detail"   >0</slice>
+  <slice title="Online Lead 2
+Combined ammout " url="javascript:loadCampaignDetail(3,'4',false)" description="click for detail"   >0</slice>
+  <slice title="Campaign 17852899851
+Combined ammout " url="javascript:loadCampaignDetail(4,'5',false)" description="click for detail"   >0</slice>
+  <slice title="Campaign 17852899849
+Combined ammout " url="javascript:loadCampaignDetail(5,'6',false)" description="click for detail"   >0</slice>
+</pie>
+

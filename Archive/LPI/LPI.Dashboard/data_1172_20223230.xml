@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pie>
+  <slice title="Page 1 Chat 1
+Combined ammout " url="javascript:loadCampaignDetail(0,'1',false)" description="click for detail"  pull_out="true"  > 1 072</slice>
+  <slice title="Page 1 (Historical Forms)
+Combined ammout " url="javascript:loadCampaignDetail(1,'2',false)" description="click for detail"   > 46 237</slice>
+  <slice title="Direct Website Visit
+Combined ammout " url="javascript:loadCampaignDetail(2,'3',false)" description="click for detail"   > 56 626</slice>
+  <slice title="Website Form
+Combined ammout " url="javascript:loadCampaignDetail(3,'4',false)" description="click for detail"   > 32 584</slice>
+  <slice title="Website Phone
+Combined ammout " url="javascript:loadCampaignDetail(4,'5',false)" description="click for detail"   >  292</slice>
+  <slice title="Washingtonian magazine
+Combined ammout " url="javascript:loadCampaignDetail(5,'6',false)" description="click for detail"   > 57 964</slice>
+  <slice title="TV ad
+Combined ammout " url="javascript:loadCampaignDetail(6,'7',false)" description="click for detail"   >0</slice>
+  <slice title="Northern VA magazine
+Combined ammout " url="javascript:loadCampaignDetail(7,'8',false)" description="click for detail"   >0</slice>
+  <slice title="Team referra
+Combined ammout " url="javascript:loadCampaignDetail(8,'9',false)" description="click for detail"   > 1 809</slice>
+  <slice title="Patient referral
+Combined ammout " url="javascript:loadCampaignDetail(9,'10',false)" description="click for detail"   > 55 614</slice>
+  <slice title="Our Front Sign
+Combined ammout " url="javascript:loadCampaignDetail(10,'11',false)" description="click for detail"   >0</slice>
+  <slice title="Insurance
+Combined ammout " url="javascript:loadCampaignDetail(11,'12',false)" description="click for detail"   >0</slice>
+  <slice title="Doctor referral
+Combined ammout " url="javascript:loadCampaignDetail(12,'13',false)" description="click for detail"   > 33 781</slice>
+  <slice title="Chat box
+Combined ammout " url="javascript:loadCampaignDetail(13,'14',false)" description="click for detail"   > 1 240</slice>
+  <slice title="Bridal showcase
+Combined ammout " url="javascript:loadCampaignDetail(14,'15',false)" description="click for detail"   >0</slice>
+  <slice title="Bus advertisement
+Combined ammout " url="javascript:loadCampaignDetail(15,'16',false)" description="click for detail"   >0</slice>
+  <slice title="Leading dentist website(TMD/LVI)
+Combined ammout " url="javascript:loadCampaignDetail(16,'17',false)" description="click for detail"   >0</slice>
+  <slice title="VA living magazine
+Combined ammout " url="javascript:loadCampaignDetail(17,'18',false)" description="click for detail"   >0</slice>
+  <slice title="SEO
+Combined ammout " url="javascript:loadCampaignDetail(18,'19',false)" description="click for detail"   >0</slice>
+  <slice title="Angie’s list
+Combined ammout " url="javascript:loadCampaignDetail(19,'20',false)" description="click for detail"   >0</slice>
+  <slice title="Facebook and Twitter
+Combined ammout " url="javascript:loadCampaignDetail(20,'21',false)" description="click for detail"   >0</slice>
+  <slice title="Realself.com
+Combined ammout " url="javascript:loadCampaignDetail(21,'22',false)" description="click for detail"   >0</slice>
+  <slice title="Yelp
+Combined ammout " url="javascript:loadCampaignDetail(22,'23',false)" description="click for detail"   >0</slice>
+  <slice title="Chat Leads
+Combined ammout " url="javascript:loadCampaignDetail(23,'24',false)" description="click for detail"   > 17 385</slice>
+  <slice title="Phone Leads
+Combined ammout " url="javascript:loadCampaignDetail(24,'25',false)" description="click for detail"   >0</slice>
+  <slice title="Email Leads
+Combined ammout " url="javascript:loadCampaignDetail(25,'26',false)" description="click for detail"   >0</slice>
+  <slice title="Google
+Combined ammout " url="javascript:loadCampaignDetail(26,'27',false)" description="click for detail"   > 5 505</slice>
+  <slice title="Online Lead 90
+Combined ammout " url="javascript:loadCampaignDetail(27,'28',false)" description="click for detail"   >0</slice>
+</pie>
+

@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
-using LPI.DataBase;
-
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using DataBase;
 
 namespace LeadBean {
     public partial class confirm : System.Web.UI.Page {

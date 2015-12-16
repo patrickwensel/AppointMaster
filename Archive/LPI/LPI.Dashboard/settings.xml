@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings>
+  
+  <thousands_separator>,</thousands_separator>
+  <precision />
+
+  <text_color>333333</text_color>
+  <background>
+  </background>
+  <balloon>
+    <show>{title}: ${value}</show>
+    <color>#8888FF</color>
+    <alpha>90</alpha>
+    <fontSize>7</fontSize>
+    <corner_radius>5</corner_radius>
+    <borderAlpha>1</borderAlpha>
+    <borderColor>#333399</borderColor>
+    <fillColor>white</fillColor>
+  </balloon>
+  <pie>
+    <y>46%</y>
+    <thousands_separator>,</thousands_separator>
+    <precision />
+    <radius>40%</radius>
+    <inner_radius>19%</inner_radius>
+    <height>0</height>
+    <angle>10</angle>
+    <colors>#4471a6,#a84542,#88a44c,#71578f,#3f96ae,#d9823b,#6AF9C4,#4471a6,#a84542,#71578f,#3f96ae,#d9823b,#6AF9C4</colors>
+    <brightness_step>-20</brightness_step>
+	  <gradient>radial</gradient>
+	  <gradient_ratio>-50,0</gradient_ratio>
+    <start_angle>270</start_angle>
+  </pie>
+  <animation>
+    <start_time>2</start_time>
+    <pull_out_time>1</pull_out_time>
+	<pull_out_only_one>1</pull_out_only_one>
+  </animation>
+  <labels>
+    <label lid="0">
+      <text><![CDATA[Click on the campaign to obtain campaign data]]></text>
+      <x></x>
+		<y>100%</y>
+      <text_size>10</text_size>
+      <align>left</align>
+    </label>
+  </labels>
+  <legend>
+    <enabled>  false</enabled>
+    <max_columns>4</max_columns>
+    <x>10</x>
+    <y>10</y>
+    <width>500</width>
+    <height>20</height>
+    <values>
+      <enabled>true</enabled>
+      <width>40</width>
+    </values>
+  </legend>
+
+</settings>

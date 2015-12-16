@@ -1,0 +1,458 @@
+	body 
+		{
+		background-color: rgb(119,157,186);
+				background-image: url('../images/background.png');
+						background-repeat: 	repeat-y;
+								background-position: center;
+									}
+		
+	div.center-column
+	{
+		width:960px;
+		background-color:white;
+		min-height:100%;
+		margin:0 auto		
+	}
+	
+	div.center-Iframe
+	{
+		width:100%;
+		background-color:white;
+		min-height:100%;
+		margin:0 auto		
+	}
+
+	
+	#header
+	{
+		height: 83px;
+		background-color: rgb(236,240,244);
+		color: rgb(47,87,122)
+	}
+	
+	#header-title
+	{
+		float:left;
+		margin-left: 28px;
+		font-family: Futura, Verdana, sans-serif;
+		margin-top: 40px;
+		font-size: 40px;
+	}
+	#header-title2
+	{
+		float:left;
+		margin-left: 28px;
+		margin-top: 10px;
+		
+	}
+	
+	#header-practice
+	{
+		float:right;
+		margin-right: 28px;
+		font-family: Futura, Verdana, sans-serif;
+		margin-top: 45px;
+		font-size: 30px;
+		vertical-align: baseline;
+	}
+	
+	#toolbar
+	{
+		padding: 4px 0 6px 0;
+		height:31px;
+		background: #447fb2; /* Old browsers */
+		background: -moz-linear-gradient(top,  #447fb2 0%, #2f577a 100%); /* FF3.6+ */
+		
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#447fb2), color-stop(100%,#2f577a)); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(top,  #447fb2 0%,#2f577a 100%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(top,  #447fb2 0%,#2f577a 100%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(top,  #447fb2 0%,#2f577a 100%); /* IE10+ */
+		background: linear-gradient(to bottom,  #447fb2 0%,#2f577a 100%); /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#447fb2', endColorstr='#2f577a',GradientType=0 ); /* IE6-9 */
+	}
+	#toolbar label
+	{
+		color: white;
+		display: inline;
+		padding: 0 5px 0 15px;
+		margin: 0;
+	}
+	#toolbar select
+	{
+		display: inline;
+		width: auto;
+		padding: 0;
+		margin: 0;
+	}
+	#toolbar form
+	{
+		padding: 4px 0;
+		margin: 0;
+	}
+	#toolbar-buttons
+	{
+		float:right;
+		padding: 4px 15px 0 0;
+	}
+	
+/***** Large summary numbers *****/
+	
+	#large-numbers
+	{
+		height: 157px;
+		width: 960px;
+		color: white;
+		margin: 0 auto;
+		background-color: white;
+		text-align: center;
+		font-family: Futura, Verdana, sans-serif;
+		text-shadow: 0px -1px 0px rgba(0,0,0,0.70);
+		white-space: nowrap;
+	}
+	
+	.large-dark
+	{
+		display: inline-block;
+		margin: 18px 3px 17px 3px;
+		margin-left:20px;
+		width: 250px;
+		height: 125px;
+		background: url("../images/large-dark-background.png");
+	}
+	
+	.large-light
+	{
+		display: inline-block;
+		margin: 18px 3px 7px 3px;
+		width: 213px;
+		height: 125px;
+		background: url("../images/large-light-background.png");
+	}
+	.large-top
+	{
+		font-size: 65px;
+		line-height: 80px;
+		padding-top: 3px;
+	}
+	
+	.large-bottom
+	{
+		font-size: 20px;		
+	}
+		
+/***** Campaign summary info & table *****/
+	
+	#campaign-summaries
+	{
+		min-height: 360px;
+	}
+	
+	#summary-chart-container
+	{
+		width: 325px;
+		height: 305px;
+		margin: 0 0px 0px 0px;
+	}
+	
+	#summary-chart-container-with-title
+	{
+		width: 325px;
+		margin: 0 18px 10px 0px;
+		float:left;
+	}
+	
+	#summary-chart-title
+	{
+		color: rgb(68,127,178);
+		text-align: center;
+		font-size: 22px;
+		font-family: Futura;
+		padding-bottom: 10px;
+	}
+	
+	.row-highlight
+	{
+		background: rgb(241,249,255);
+	}
+	
+	.row-selected
+	{
+		background: rgb(196,219,237);
+		background: rgb(230,240,248);
+	}
+	
+/***** Detail Info & Table *****/
+	
+	#campign-details
+	{
+		margin:0px;
+	}
+	
+	#campaign-details-title
+	{
+		line-height: 48px;
+		padding: 0 28px 2px 28px;
+		color: white;
+		font-family: Futura, Verdana, sans-serif;
+		font-size: 26px;
+		background-color: rgb(68,127,178);
+		text-transform: uppercase
+	}
+	
+	#practiceroi-table-container
+	{
+		height:300px;
+		overflow:scroll;
+	}
+	
+	.practiceroi-table
+	{
+
+	}
+	
+	.practiceroi-table-header
+	{
+		color: rgb(68,127,178);
+		background-color: rgb(196,219,237)
+	}
+	
+	.practiceroi-table td
+	{
+		padding: 10px 0px;
+		vertical-align: middle;
+	}
+	
+	td.center
+	{
+		text-align: center;
+	}
+	
+	td.right
+	{
+		text-align: right;
+	}
+	
+	.practiceroi-table td.first
+	{
+		padding-left: 28px
+	}
+	
+	.practiceroi-table td.last
+	{
+		padding-right: 28px
+	}
+	
+	.practiceroi-table td.nopadding
+	{
+		padding: 0;
+		vertical-align: middle;
+	}
+	
+	.practiceroi-table .separator
+	{
+		color:white;
+		font-weight: bold;
+		background-color: rgb(87,156,213);
+		padding: 10px 14px;
+		margin: 4px 14px;	
+	}
+	
+	.practiceroi-hr
+	{
+		background-color: #2f577a;
+		height: 2px;
+		width:100%;
+	}
+	
+	/* All table cells must have a fixed column width for the headers (which live in a separate table) to line up with the rows */
+	.practiceroi-table .col1 { width:145px }
+	.practiceroi-table .col2 { width:75px }
+	.practiceroi-table .col3 { width:138px }
+	.practiceroi-table .col4 { width:73px }
+	.practiceroi-table .col5 { width:77px }
+	.practiceroi-table .col6 { width:69px }
+	.practiceroi-table .col7 { width:117px }
+	.practiceroi-table .col8 { width:150px }
+	.practiceroi-table .col9 { width:100px }
+	
+	.practiceroi-table .col1Title { width:145px }
+	.practiceroi-table .col9Title  { width:155px }
+	
+	
+	/* For the plan/procedure popup */
+	
+	.practiceroi-plan-table
+	{
+		width: 100%;
+	}
+	
+	.practiceroi-plan-table td
+	{
+		padding: 16px;
+	}
+	
+	.small-light-box, .small-dark-box
+	{
+		width: 189px;
+		height: 91px;
+		color: white;
+		display: inline-block;
+		text-align: center;
+		margin: 10px 1px 7px 1px;
+		text-shadow: 0px -1px 0px rgba(0,0,0,0.70)
+	}
+	
+	.small-light-box
+	{
+		background: url("../images/small-light-background.png");
+	}
+	
+	.small-dark-box
+	{
+		background: url("../images/small-dark-background.png");		
+	}
+	
+	.small-top
+	{
+		font-size: 20px;
+		font-family: Futura, Verdana, sans-serif;
+		padding-top: 8px;
+		line-height: 30px;
+	}
+	
+	.small-bottom
+	{
+		padding-top: 6px;
+		font-weight: bold;
+		font-size: 25px;
+		font-family: Futura, Verdana, sans-serif;
+	}
+	
+.ScrollCampaigns
+{
+	margin:0px;
+	padding:0px;
+	height:250px;
+	overflow:scroll;
+	overflow-x:hidden;
+	width:100%;
+}
+.Campaign-tables-wrapper
+{
+	margin:0px;
+	padding:0px;
+	float:right;
+	margin-right:10px;
+}
+
+	.practiceroi-summary-table
+	{
+		width: 532px;
+		font-size: 15px;
+	}
+	.practiceroi-summary-table-inside
+	{
+		width: 515px;
+		font-size: 15px;
+	}
+	.practiceroi-summary-table-inside td
+	{
+		padding: 6px 8px 8px 8px;
+	}
+	
+	.practiceroi-summary-table td
+	{
+		padding: 6px 8px 8px 8px;
+	}
+	
+	.practiceroi-summary-header
+	{
+		color: white;
+		background-color: rgb(68,127,178);
+		font-weight: bold;	
+	}
+	
+	.practiceroi-summary-table-inside td.colordot
+	{
+		font-size: 45px;
+		line-height: 5px;
+		width: 5px;
+		padding: 0 2px 0 10px;
+		text-align: center;
+		vertical-align: middle
+	}
+	
+.jp-jplayer
+{
+	display:none;
+}
+.jp-audio
+{
+	display:none;
+}
+.popUpSound{
+	display:none;
+}
+div.popup
+{
+	position:fixed;
+	top:50%;
+	left:50%;
+	width:620px;
+	margin-left:-310px;
+	height:500px;
+	margin-top:-250px;
+	background-color:white;
+	color:#0b4b7f;
+	border-bottom-style:groove;
+	z-index:100;
+	
+	/*filter:alpha(opacity=80);*/
+box-shadow: 10px 10px 25px #888888;
+}
+
+div.popupscroll
+{
+	height:460px;
+	width:620px;
+	overflow:auto;
+	overflow-x:hidden;
+	background-color:white;
+}
+div.popuptitle
+{
+	color:White;
+	font-family: Futura, Verdana, sans-serif;
+	font-size: 16px;
+	font-weight:bold;
+
+	padding: 10px 20px 6px 20px;
+	height:25px;
+	background: #447fb2; /* Old browsers */
+	background: -moz-linear-gradient(top,  #447fb2 0%, #2f577a 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#447fb2), color-stop(100%,#2f577a)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #447fb2 0%,#2f577a 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #447fb2 0%,#2f577a 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #447fb2 0%,#2f577a 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #447fb2 0%,#2f577a 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#447fb2', endColorstr='#2f577a',GradientType=0 ); /* IE6-9 */
+}
+
+#screenBackGround
+{
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	background-color:#666666;
+	z-index:10;
+
+	-webkit-opacity: 0.5;
+	-moz-opacity: 0.5;
+	filter:alpha(opacity=50);
+	opacity:0.6;
+}
+
+
+

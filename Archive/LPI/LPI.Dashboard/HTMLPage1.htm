@@ -1,0 +1,1415 @@
+﻿<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <title>Dash Board</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/popups.css">
+    <link rel="stylesheet" href="css/practiceroi.css">
+    <link rel="stylesheet" href="css/easybox.css">
+
+    <script type="text/javascript" src="sound/jquery.min.js"></script>
+
+    <script type="text/javascript" src="sound/jQuery.jPlayer.2.4.0/jquery.jplayer.min.js"></script>
+
+    <!-- script type="text/javascript" src="sound/jquery.jplayer.min.js"></script -->
+
+    <script type="text/javascript" src="sound/audio.js"></script>
+
+    <script type="text/javascript" src="js/Ajaxcalls.js"></script>
+
+    <script type="text/javascript" src="js/general.js"></script>
+
+    <script type="text/javascript">
+        function loadAM() {
+            closeApptDetailDetail();
+            document.getElementById("popUpSound").style.display = 'none';
+            initialSelectCampaign();
+            createPlayer();
+            var ctrl1 = document.getElementById("iFrameIndicatore");
+            if (ctrl1) {
+                var ctrl = document.getElementById("center-column");
+                if (ctrl1.innerHTML == "1") {
+                    ctrl.className = "center-Iframe";
+                    ctrl1.style.display = 'none';
+                }
+            }
+        }
+
+        function CustomDatesClick() {
+            var ctrl = document.getElementById("period");
+            if (ctrl) {
+                var period = ctrl.selectedIndex;
+                if (period >= 5) {
+                    var ctrl2 = document.getElementById("DivSelectDates");
+                    if (ctrl2)
+                        ctrl2.style.display = '';
+                }
+            }
+        }
+        function CloseCustomDates() {
+            var ctrl2 = document.getElementById("DivSelectDates");
+            if (ctrl2)
+                ctrl2.style.display = 'none';
+        }
+        function DateChanged() {
+            var ctrl = document.getElementById("period");
+            if (ctrl) {
+                var period = ctrl.selectedIndex;
+                if (period < 5)
+                    reloadData();
+                else {
+                    var ctrl2 = document.getElementById("DivSelectDates");
+                    if (ctrl2)
+                        ctrl2.style.display = '';
+                }
+            }
+        }
+
+        function reloadData() {
+            //alert('Reload of graph + Leads results (right side), may have to reload the all page actually!');
+            var ctrl = document.getElementById("period");
+            var DBctrl = document.getElementById("DB");
+            var TPCtrl = document.getElementById("displayMode");
+            if (ctrl) {
+                var period = ctrl.selectedIndex;
+                var db = DBctrl.innerHTML;
+                var tp = TPCtrl.selectedIndex;
+                window.location.href = 'dashboard.aspx?db=' + db + '&p=' + period + "&TP=" + tp;
+            }
+        }
+
+        function initialSelectCampaign() {
+            var Cmpctrl = document.getElementById("firstCampaign");
+            if (Cmpctrl) {
+                var campId = Cmpctrl.innerHTML;
+                loadCampaignDetail(0, campId, false);
+            }
+
+        }
+
+    </script>
+
+</head>
+<body onload="loadAM()">
+    <form name="Form1" method="post" action="/dashboard/(S(bdspix55m2tnlhjldz3ew345))/dashboard.aspx?db=1170&amp;p=4&amp;TP=2"
+    id="Form1">
+    <div>
+        <input type="hidden" name="__eo_obj_states" id="__eo_obj_states" value="" />
+        <input type="hidden" name="__eo_sc" id="__eo_sc" value="" />
+        <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTk3NDEwNjA1OQ9kFgICAQ9kFhICAw8PFgIeBFRleHQFOmh0dHA6Ly9sb2NhbGhvc3QvZGFzaGJvYXJkL2Rhc2hib2FyZC5hc3B4P2RiPTExNzAmcD00JlRQPTJkZAIFD2QWAgIBDw8WAh8ABTQ8c3BhbiB0aXRsZT0nQWNjb3VudCAjMTE3MCc+RGVudGlzdHJ5IGF0IE1haW48L3NwYW4+ZGQCDQ8PZA8PD2Q8KwAWAgAFDFR3SUFBQUFBQUFBPRQFCjIwMTUtMDEtMDFkZGQCDw8PZA8PD2Q8KwAWAgAFDFR3SUFBQUFBQUFBPRQFCjIwMTUtMDEtMTlkZGQCFQ8PFgIfAAWaIzxkaXYgaWQ9ImxhcmdlLW51bWJlcnMiPg0KPGRpdiBjbGFzcz0ibGFyZ2UtZGFyayI+DQo8ZGl2IGNsYXNzPSJsYXJnZS10b3AiPiQxLjMgTTwvZGl2Pg0KPGRpdiBjbGFzcz0ibGFyZ2UtYm90dG9tIj5Db21iaW5lZDwvZGl2Pg0KPC9kaXY+DQo8ZGl2IGNsYXNzPSJsYXJnZS1saWdodCI+DQo8ZGl2IGNsYXNzPSJsYXJnZS10b3AiPjY4MjwvZGl2Pg0KPGRpdiBjbGFzcz0ibGFyZ2UtYm90dG9tIj5MRUFEUzwvZGl2Pg0KPC9kaXY+DQo8ZGl2IGNsYXNzPSJsYXJnZS1saWdodCI+DQo8ZGl2IGNsYXNzPSJsYXJnZS10b3AiPjMyMDwvZGl2Pg0KPGRpdiBjbGFzcz0ibGFyZ2UtYm90dG9tIj5ORVcgUEFUSUVOVFM8L2Rpdj4NCjwvZGl2Pg0KPGRpdiBjbGFzcz0ibGFyZ2UtbGlnaHQiPg0KPGRpdiBjbGFzcz0ibGFyZ2UtdG9wIj40NyAlPC9kaXY+DQo8ZGl2IGNsYXNzPSJsYXJnZS1ib3R0b20iPkNPTlZFUlNJT048L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8ZGl2IGlkPSJjYW1wYWlnbi1zdW1tYXJpZXMiPg0KPGRpdiBpZD0ic3VtbWFyeS1jaGFydC1jb250YWluZXItd2l0aC10aXRsZSI+DQo8ZGl2IGlkPSJzdW1tYXJ5LWNoYXJ0LXRpdGxlIj5DYW1wYWlnbiBCcmVha2Rvd248L2Rpdj4NCjxkaXYgaWQ9InN1bW1hcnktY2hhcnQtY29udGFpbmVyIj4NCjxkaXYgaWQ9InN1bW1hcnktY2hhcnQiPjwvZGl2PjwvZGl2Pg0KPC9kaXY+DQo8ZGl2IGNsYXNzPSJDYW1wYWlnbi10YWJsZXMtd3JhcHBlciI+PHRhYmxlIGNsYXNzPSJwcmFjdGljZXJvaS1zdW1tYXJ5LXRhYmxlIiA+DQo8dGJvZHk+DQo8dHIgY2xhc3M9InByYWN0aWNlcm9pLXN1bW1hcnktaGVhZGVyIj4NCjx0ZCBzdHlsZT0id2lkdGg6MjJweDsiID48L3RkPg0KPCEtLSBubyB0aXRsZSwgdGhlIGNvbHVtbiBmb3IgdGhlIGNvbG9yZWQgZG90IC0tPg0KPHRkIHN0eWxlPSJ3aWR0aDoxNTVweDsiID5DYW1wYWlnbjwvdGQ+DQo8dGQgc3R5bGU9IndpZHRoOjcycHg7IiBjbGFzcz0iY2VudGVyIj5MZWFkczwvdGQ+DQo8dGQgc3R5bGU9IndpZHRoOjY2cHg7IiBjbGFzcz0iY2VudGVyIj4jIFBhdDwvdGQ+DQo8dGQgc3R5bGU9IndpZHRoOjYzcHg7IiBjbGFzcz0iY2VudGVyIj5Db252LjwvdGQ+DQo8dGQgc3R5bGU9IndpZHRoOjgycHg7IiBjbGFzcz0icmlnaHQiPkNvbWIuPC90ZD48dGQgc3R5bGU9IndpZHRoOjcwcHg7IHRleHQtYWxpZ246cmlnaHQiID5ST0k8L3RkPg0KPHRkPjwvdGQ+DQo8L3RyPg0KPC90YWJsZT4NCjxkaXYgY2xhc3M9IlNjcm9sbENhbXBhaWducyIgaWQ9InNjcm9sbGluZy1jYW1wYWlnbi1kaXYiPg0KPHRhYmxlIGNsYXNzPSJwcmFjdGljZXJvaS1zdW1tYXJ5LXRhYmxlLWluc2lkZSIgaWQ9IkxlYWRUYWJsZVRhYmxlIj4NCjx0ciBjbGFzcz0icHJhY3RpY2Vyb2ktc3VtbWFyeS1yb3ciIGlkPSJsZWFkdGFibGVSb3cwIiAgb25jbGljaz0iamF2YXNjcmlwdDpsb2FkQ2FtcGFpZ25EZXRhaWwoMCwgJzInLHRydWUpIiB0aXRsZT0iUGFnZTEgRW1haWwgTGVhZHMiPjx0ZCBzdHlsZT0id2lkdGg6MzJweDtjb2xvcjojNDQ3MWE2IiBjbGFzcz0iY29sb3Jkb3QiID4mYnVsbDs8L3RkPjx0ZCBzdHlsZT0id2lkdGg6MTA1cHg7IiAgdGl0bGU9J0lEIDInPlBhZ2UxIEVtYWlsIExlYWRzPC90ZD48dGQgc3R5bGU9IndpZHRoOjYycHg7IiAgYWxpZ249J3JpZ2h0Jz40ODQ8L3RkPjx0ZCBzdHlsZT0id2lkdGg6NjZweDsiICBhbGlnbj0ncmlnaHQnPjI5NTwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo2M3B4OyIgIGFsaWduPSdyaWdodCc+NjEgJTwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo4MnB4OyIgIGFsaWduPSdyaWdodCcgdGl0bGU9JyQxLDE0MywxMTInPjxiPiQxLDE0MywxMTI8L2I+PC90ZD48dGQgc3R5bGU9IndpZHRoOjcwcHg7IiAgYWxpZ249J3JpZ2h0JyB0aXRsZT0nJDEsMTQzLDExMic+PGI+NDQ0ICU8L2I+PC90ZD48L3RyPjx0ciBjbGFzcz0icHJhY3RpY2Vyb2ktc3VtbWFyeS1yb3ciIGlkPSJsZWFkdGFibGVSb3cxIiAgb25jbGljaz0iamF2YXNjcmlwdDpsb2FkQ2FtcGFpZ25EZXRhaWwoMSwgJzQnLHRydWUpIiB0aXRsZT0iV2Vic2l0ZSBQaG9uZSI+PHRkIHN0eWxlPSJ3aWR0aDozMnB4O2NvbG9yOiNhODQ1NDIiIGNsYXNzPSJjb2xvcmRvdCIgPiZidWxsOzwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDoxMDVweDsiICB0aXRsZT0nSUQgNCc+V2Vic2l0ZSBQaG9uZTwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo2MnB4OyIgIGFsaWduPSdyaWdodCc+NjA8L3RkPjx0ZCBzdHlsZT0id2lkdGg6NjZweDsiICBhbGlnbj0ncmlnaHQnPjc8L3RkPjx0ZCBzdHlsZT0id2lkdGg6NjNweDsiICBhbGlnbj0ncmlnaHQnPjEyICU8L3RkPjx0ZCBzdHlsZT0id2lkdGg6ODJweDsiICBhbGlnbj0ncmlnaHQnIHRpdGxlPSckNjYsMDEyJz48Yj4kNjYsMDEyPC9iPjwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3MHB4OyIgIGFsaWduPSdyaWdodCcgdGl0bGU9JyQ2NiwwMTInPjxiPjMwICU8L2I+PC90ZD48L3RyPjx0ciBjbGFzcz0icHJhY3RpY2Vyb2ktc3VtbWFyeS1yb3ciIGlkPSJsZWFkdGFibGVSb3cyIiAgb25jbGljaz0iamF2YXNjcmlwdDpsb2FkQ2FtcGFpZ25EZXRhaWwoMiwgJzUnLHRydWUpIiB0aXRsZT0iVmlsbGEgKFdlYiBmb3JtKSI+PHRkIHN0eWxlPSJ3aWR0aDozMnB4O2NvbG9yOiM4OGE0NGMiIGNsYXNzPSJjb2xvcmRvdCIgPiZidWxsOzwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDoxMDVweDsiICB0aXRsZT0nSUQgNSc+VmlsbGEgKFdlYiBmb3JtKTwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo2MnB4OyIgIGFsaWduPSdyaWdodCc+MDwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo2NnB4OyIgIGFsaWduPSdyaWdodCc+MDwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo2M3B4OyIgIGFsaWduPSdyaWdodCc+MCAlPC90ZD48dGQgc3R5bGU9IndpZHRoOjgycHg7IiAgYWxpZ249J3JpZ2h0JyB0aXRsZT0nJDAnPjxiPiQwPC9iPjwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3MHB4OyIgIGFsaWduPSdyaWdodCcgdGl0bGU9JyQwJz48Yj5OL0E8L2I+PC90ZD48L3RyPjx0ciBjbGFzcz0icHJhY3RpY2Vyb2ktc3VtbWFyeS1yb3ciIGlkPSJsZWFkdGFibGVSb3czIiAgb25jbGljaz0iamF2YXNjcmlwdDpsb2FkQ2FtcGFpZ25EZXRhaWwoMywgJzYnLHRydWUpIiB0aXRsZT0iV2ViIEZvcm0gTWFpbiI+PHRkIHN0eWxlPSJ3aWR0aDozMnB4O2NvbG9yOiM3MTU3OGYiIGNsYXNzPSJjb2xvcmRvdCIgPiZidWxsOzwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDoxMDVweDsiICB0aXRsZT0nSUQgNic+V2ViIEZvcm0gTWFpbjwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo2MnB4OyIgIGFsaWduPSdyaWdodCc+MDwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo2NnB4OyIgIGFsaWduPSdyaWdodCc+MDwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo2M3B4OyIgIGFsaWduPSdyaWdodCc+MCAlPC90ZD48dGQgc3R5bGU9IndpZHRoOjgycHg7IiAgYWxpZ249J3JpZ2h0JyB0aXRsZT0nJDAnPjxiPiQwPC9iPjwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo3MHB4OyIgIGFsaWduPSdyaWdodCcgdGl0bGU9JyQwJz48Yj5OL0E8L2I+PC90ZD48L3RyPjx0ciBjbGFzcz0icHJhY3RpY2Vyb2ktc3VtbWFyeS1yb3ciIGlkPSJsZWFkdGFibGVSb3c0IiAgb25jbGljaz0iamF2YXNjcmlwdDpsb2FkQ2FtcGFpZ25EZXRhaWwoNCwgJzcnLHRydWUpIiB0aXRsZT0iQ2hhdCBsZWFkcyI+PHRkIHN0eWxlPSJ3aWR0aDozMnB4O2NvbG9yOiMzZjk2YWUiIGNsYXNzPSJjb2xvcmRvdCIgPiZidWxsOzwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDoxMDVweDsiICB0aXRsZT0nSUQgNyc+Q2hhdCBsZWFkczwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo2MnB4OyIgIGFsaWduPSdyaWdodCc+MTM4PC90ZD48dGQgc3R5bGU9IndpZHRoOjY2cHg7IiAgYWxpZ249J3JpZ2h0Jz4xODwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo2M3B4OyIgIGFsaWduPSdyaWdodCc+MTMgJTwvdGQ+PHRkIHN0eWxlPSJ3aWR0aDo4MnB4OyIgIGFsaWduPSdyaWdodCcgdGl0bGU9JyQ2MywxNTInPjxiPiQ2MywxNTI8L2I+PC90ZD48dGQgc3R5bGU9IndpZHRoOjcwcHg7IiAgYWxpZ249J3JpZ2h0JyB0aXRsZT0nJDYzLDE1Mic+PGI+Ti9BPC9iPjwvdGQ+PC90cj48L3RhYmxlPjwvZGl2Pjx0YWJsZSBjbGFzcz0icHJhY3RpY2Vyb2ktc3VtbWFyeS10YWJsZSIgPg0KPHRyIGNsYXNzPSJwcmFjdGljZXJvaS1zdW1tYXJ5LWhlYWRlciI+DQo8dGQgIHN0eWxlPSJ3aWR0aDoyMnB4OyIgPjwvdGQ+DQo8dGQgc3R5bGU9IndpZHRoOjE1NXB4OyIgPlRvdGFsPC90ZD4NCjx0ZCBzdHlsZT0id2lkdGg6NzJweDsiIGNsYXNzPSJjZW50ZXIiPjY4MjwvdGQ+DQo8dGQgc3R5bGU9IndpZHRoOjY2cHg7IiBjbGFzcz0iY2VudGVyIj4zMjA8L3RkPg0KPHRkIHN0eWxlPSJ3aWR0aDo2M3B4OyIgY2xhc3M9ImNlbnRlciI+NDcgJTwvdGQ+DQo8dGQgc3R5bGU9IndpZHRoOjgycHg7IiBjbGFzcz0icmlnaHQiPiQxLDI3MiwyNzY8L3RkPjx0ZCBzdHlsZT0id2lkdGg6NzBweDsiID4tPC90ZD4NCjx0ZD48L3RkPg0KPC90cj48L3RhYmxlPjwvZGl2PjwvZGl2PmRkAhcPDxYCHwAFBDExNzBkZAIZDw8WAh8ABQgxOTE1NDY0NGRkAh0PDxYCHwAFATJkZAIfDw8WAh8AZWRkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYCBQhmcm9tRGF0ZQUGdG9EYXRlKpMzlo8o12mGpZVFNYiIwgIKvzI=" />
+    </div>
+
+    <script type="text/javascript">
+        //<![CDATA[
+        var _eo_form = 'Form1';
+        var _eo_autoInit = false;
+        var _eo_handlerUrl = '/dashboard/eo_web.ashx';
+        var _eo_imgdir = null;
+
+        //]]>
+    </script>
+
+    <script type="text/javascript" src="/dashboard/eo_web.ashx?id=4184fcf9-8fad-4573-9da2-2d51276cb7a9"></script>
+
+    <script type="text/javascript">
+        //<![CDATA[
+        if (!window._eo_js && window._eo_autoInit && window.confirm("EO.Web Controls Client Side Debug Message:\r\n\r\nThe control library wasn't able to automatically initialize correctly. Please refer to http://www.essentialobjects.com/Go.aspx?id=1002 for instructions on how to intialize EO.Web controls manually.\r\n\r\nSelect OK to redirect to the above page automatically.")) window.location.href = "http://www.essentialobjects.com/Go.aspx?id=1002";
+        //]]>
+    </script>
+
+    <script type="text/javascript" src="/dashboard/eo_web.ashx?id=55e448db-a5bf-46df-a666-ccaad0f55183"></script>
+
+    <script type="text/javascript" src="/dashboard/eo_web.ashx?id=fb11b96a-4b23-4f86-9d83-f7d637b2846e"></script>
+
+    <script type="text/javascript" src="/dashboard/eo_web.ashx?id=db376336-809e-497d-a6f4-6666bb833ace"></script>
+
+    <script type="text/javascript" src="/dashboard/eo_web.ashx?id=8dfa1efa-b8ac-4ebc-859d-618155591da0"></script>
+
+    <script type="text/javascript" src="/dashboard/eo_web.ashx?id=fd923728-31fb-4ef1-ad1e-e570a1b2f44f"></script>
+
+    <script type="text/javascript" src="/dashboard/eo_web.ashx?id=96c1ad59-f08f-40c1-9cdd-a7d2a4aeaaf7"></script>
+
+    <script type="text/javascript" src="/dashboard/eo_web.ashx?id=5aea8135-114e-4aeb-b4a7-0481ad998ef5"></script>
+
+    <script type="text/javascript" src="/dashboard/eo_web.ashx?id=98059432-449d-4187-aa17-430bfc78ef96"></script>
+
+    <div id="eo_root">
+    </div>
+    <style type="text/css">
+        .eo_tag_style
+        {
+        }
+    </style>
+    <style type="text/css">
+        table.eo_no_border_spacing
+        {
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+        table.eo_td_no_padding td
+        {
+            padding: 0px;
+        }
+        .eo_align_center
+        {
+            text-align: center;
+        }
+        .eo_transparent
+        {
+            filter: alpha(opacity=0);
+            -moz-opacity: 0.0;
+            opacity: 0.0;
+        }
+    </style>
+    <div>
+        <input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="3DD0547A" />
+        <input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+        <input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+        <input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWCwKcuKOZAQK75/GfCwLYwruzAQKl1paZCALM5umSCAK25rnUDgLU6K2/DAKVu74fAuPBlt0CAsrn/awPAped5IEDrRsyUMj3+W0ZJxQ0+meDy4zO4I4=" />
+    </div>
+    <!-- saved from url=(0013)about:internet -->
+    <!-- amcharts script-->
+    <!-- swf object (version 2.2) is used to detect if flash is installed and include swf in the page -->
+
+    <script type="text/javascript" src="amcharts/flash/swfobject.js"></script>
+
+    <script type="text/javascript" src="amcharts/javascript/amcharts.js"></script>
+
+    <script type="text/javascript" src="amcharts/javascript/amfallback.js"></script>
+
+    <script type="text/javascript" src="amcharts/javascript/raphael.js"></script>
+
+    <!-- chart is placed in this div. if you have more than one chart on a page, give unique id for each div -->
+    <div id="screenBackGround">
+        <span id="iFrameIndicatore">Label</span> <span id="EntryURL" style="display: none">http://localhost/dashboard/dashboard.aspx?db=1170&p=4&TP=2</span>
+    </div>
+    <div id="center-column" class="center-column">
+        <div id="PanelHeader">
+            <div id="header">
+                <div id="header-title">
+                    Practice ROI</div>
+                <div id="header-practice">
+                    <span id="AccountName"><span title='Account #1170'>Dentistry at Main</span></span></div>
+            </div>
+        </div>
+        <div id="toolbar">
+            <div id="toolbar-buttons">
+                <a class="lightbox" title="Campaign Settings" data-width="600" data-height="400"
+                    href="campaignNames.aspx">
+                    <img style="padding: 0 5px 0 0;" src="images/settings.png" /></a> <a id="LinkLogOut"
+                        href="login.aspx?logout=1">
+                        <img src="images/logout.png" alt="HyperLink" style="border-width: 0px;" /></a>
+            </div>
+            <div style="margin-top: 5px">
+                <label>
+                    LEADS PERIOD
+                    <select name="period" id="period" onchange="DateChanged()" onclick="CustomDatesClick()">
+                        <option value="Last week">Last week</option>
+                        <option value="Last month">Last month</option>
+                        <option value="Year to date">Year to date</option>
+                        <option value="Last year">Last year</option>
+                        <option selected="selected" value="All">All</option>
+                        <option value="Custom ...">Custom ...</option>
+                    </select>
+                    <div id="DivSelectDates" style="background-color: #E0E0FF; z-index: 2; border: solid 3px #556688;
+                        position: absolute; padding: 10px; color: #555555; display: none; margin: 20px;
+                        border-radius: 25px; box-shadow: 10px 10px 5px #888888;">
+                        <img src="images/close.png" onclick="CloseCustomDates()" style="border: none; float: right;
+                            margin: 0px;" border="0" />
+                        <h4>
+                            Custom Leads Date Range</h4>
+                        <br />
+                        <table style="background-color: white">
+                            <tr>
+                                <td>
+                                    From
+                                </td>
+                                <td>
+                                    <!-- Begin EO.Web DatePicker fromDate.  -->
+
+                                    <script type="text/javascript">
+                                        //<![CDATA[
+                                        var _eo_debug = true;
+                                        var _eo_aspnet11 = 0;
+                                        var eo_culture_i = eval('({"name":"","numberFormat":{"CurrencyDecimalDigits":2,"CurrencyDecimalSeparator":".","IsReadOnly":true,"CurrencyGroupSizes":[3],"NumberGroupSizes":[3],"PercentGroupSizes":[3],"CurrencyGroupSeparator":",","CurrencySymbol":"\u00A4","NaNSymbol":"NaN","CurrencyNegativePattern":0,"NumberNegativePattern":1,"PercentPositivePattern":0,"PercentNegativePattern":0,"NegativeInfinitySymbol":"-Infinity","NegativeSign":"-","NumberDecimalDigits":2,"NumberDecimalSeparator":".","NumberGroupSeparator":",","CurrencyPositivePattern":0,"PositiveInfinitySymbol":"Infinity","PositiveSign":"+","PercentDecimalDigits":2,"PercentDecimalSeparator":".","PercentGroupSeparator":",","PercentSymbol":"%","PerMilleSymbol":"\u2030","NativeDigits":["0","1","2","3","4","5","6","7","8","9"],"DigitSubstitution":1},"dateTimeFormat":{"AMDesignator":"AM","Calendar":{"MinSupportedDateTime":"@-62135568000000@","MaxSupportedDateTime":"@253402300799999@","AlgorithmType":1,"CalendarType":1,"Eras":[1],"TwoDigitYearMax":2029,"IsReadOnly":true},"DateSeparator":"/","FirstDayOfWeek":0,"CalendarWeekRule":0,"FullDateTimePattern":"dddd, dd MMMM yyyy HH:mm:ss","LongDatePattern":"dddd, dd MMMM yyyy","LongTimePattern":"HH:mm:ss","MonthDayPattern":"MMMM dd","PMDesignator":"PM","RFC1123Pattern":"ddd, dd MMM yyyy HH\':\'mm\':\'ss \'GMT\'","ShortDatePattern":"MM/dd/yyyy","ShortTimePattern":"HH:mm","SortableDateTimePattern":"yyyy\'-\'MM\'-\'dd\'T\'HH\':\'mm\':\'ss","TimeSeparator":":","UniversalSortableDateTimePattern":"yyyy\'-\'MM\'-\'dd HH\':\'mm\':\'ss\'Z\'","YearMonthPattern":"yyyy MMMM","AbbreviatedDayNames":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"ShortestDayNames":["Su","Mo","Tu","We","Th","Fr","Sa"],"DayNames":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"AbbreviatedMonthNames":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",""],"MonthNames":["January","February","March","April","May","June","July","August","September","October","November","December",""],"IsReadOnly":true,"NativeCalendarName":"Gregorian Calendar","AbbreviatedMonthGenitiveNames":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",""],"MonthGenitiveNames":["January","February","March","April","May","June","July","August","September","October","November","December",""]}})'); //eo_culture_i
+                                        var eo_culture = eval('({"name":"en-US","numberFormat":{"CurrencyDecimalDigits":2,"CurrencyDecimalSeparator":".","IsReadOnly":false,"CurrencyGroupSizes":[3],"NumberGroupSizes":[3],"PercentGroupSizes":[3],"CurrencyGroupSeparator":",","CurrencySymbol":"$","NaNSymbol":"NaN","CurrencyNegativePattern":0,"NumberNegativePattern":1,"PercentPositivePattern":0,"PercentNegativePattern":0,"NegativeInfinitySymbol":"-Infinity","NegativeSign":"-","NumberDecimalDigits":2,"NumberDecimalSeparator":".","NumberGroupSeparator":",","CurrencyPositivePattern":0,"PositiveInfinitySymbol":"Infinity","PositiveSign":"+","PercentDecimalDigits":2,"PercentDecimalSeparator":".","PercentGroupSeparator":",","PercentSymbol":"%","PerMilleSymbol":"‰","NativeDigits":["0","1","2","3","4","5","6","7","8","9"],"DigitSubstitution":1},"dateTimeFormat":{"AMDesignator":"AM","Calendar":{"MinSupportedDateTime":new Date(-62135568000000),"MaxSupportedDateTime":new Date(253402300799999),"AlgorithmType":1,"CalendarType":1,"Eras":[1],"TwoDigitYearMax":2029,"IsReadOnly":false},"DateSeparator":"/","FirstDayOfWeek":0,"CalendarWeekRule":0,"FullDateTimePattern":"dddd, MMMM dd, yyyy h:mm:ss tt","LongDatePattern":"dddd, MMMM dd, yyyy","LongTimePattern":"h:mm:ss tt","MonthDayPattern":"MMMM dd","PMDesignator":"PM","RFC1123Pattern":"ddd, dd MMM yyyy HH\u0027:\u0027mm\u0027:\u0027ss \u0027GMT\u0027","ShortDatePattern":"M/d/yyyy","ShortTimePattern":"h:mm tt","SortableDateTimePattern":"yyyy\u0027-\u0027MM\u0027-\u0027dd\u0027T\u0027HH\u0027:\u0027mm\u0027:\u0027ss","TimeSeparator":":","UniversalSortableDateTimePattern":"yyyy\u0027-\u0027MM\u0027-\u0027dd HH\u0027:\u0027mm\u0027:\u0027ss\u0027Z\u0027","YearMonthPattern":"MMMM, yyyy","AbbreviatedDayNames":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"ShortestDayNames":["Su","Mo","Tu","We","Th","Fr","Sa"],"DayNames":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"AbbreviatedMonthNames":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",""],"MonthNames":["January","February","March","April","May","June","July","August","September","October","November","December",""],"IsReadOnly":false,"NativeCalendarName":"Gregorian Calendar","AbbreviatedMonthGenitiveNames":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",""],"MonthGenitiveNames":["January","February","March","April","May","June","July","August","September","October","November","December",""]}})'); //eo_culture
+
+                                        //]]>
+                                    </script>
+
+                                    <style type="text/css">
+                                        .eo_css_ctrl_fromDate1
+                                        {
+                                            background-color: white;
+                                            border-bottom-color: #7f9db9;
+                                            border-bottom-style: solid;
+                                            border-bottom-width: 1px;
+                                            border-left-color: #7f9db9;
+                                            border-left-style: solid;
+                                            border-left-width: 1px;
+                                            border-right-color: #7f9db9;
+                                            border-right-style: solid;
+                                            border-right-width: 1px;
+                                            border-top-color: #7f9db9;
+                                            border-top-style: solid;
+                                            border-top-width: 1px;
+                                            font-family: tahoma;
+                                            font-size: 9px;
+                                            padding-bottom: 4px;
+                                            padding-left: 4px;
+                                            padding-right: 4px;
+                                            padding-top: 4px;
+                                        }
+                                        .eo_css_ctrl_fromDate2
+                                        {
+                                            border-bottom-color: #aca899;
+                                            border-bottom-style: solid;
+                                            border-bottom-width: 1px;
+                                            font-family: tahoma;
+                                            font-size: 12px;
+                                        }
+                                        .eo_css_ctrl_fromDate3
+                                        {
+                                            border-bottom-color: white;
+                                            border-bottom-style: solid;
+                                            border-bottom-width: 1px;
+                                            border-left-color: white;
+                                            border-left-style: solid;
+                                            border-left-width: 1px;
+                                            border-right-color: white;
+                                            border-right-style: solid;
+                                            border-right-width: 1px;
+                                            border-top-color: white;
+                                            border-top-style: solid;
+                                            border-top-width: 1px;
+                                            font-family: tahoma;
+                                            font-size: 12px;
+                                        }
+                                        .eo_css_ctrl_fromDate4
+                                        {
+                                            border-bottom-color: #fbe694;
+                                            border-bottom-style: solid;
+                                            border-bottom-width: 1px;
+                                            border-left-color: #fbe694;
+                                            border-left-style: solid;
+                                            border-left-width: 1px;
+                                            border-right-color: #fbe694;
+                                            border-right-style: solid;
+                                            border-right-width: 1px;
+                                            border-top-color: #fbe694;
+                                            border-top-style: solid;
+                                            border-top-width: 1px;
+                                            font-family: tahoma;
+                                            font-size: 10px;
+                                        }
+                                        .eo_css_ctrl_fromDate5
+                                        {
+                                            border-bottom-color: #bb5503;
+                                            border-bottom-style: solid;
+                                            border-bottom-width: 1px;
+                                            border-left-color: #bb5503;
+                                            border-left-style: solid;
+                                            border-left-width: 1px;
+                                            border-right-color: #bb5503;
+                                            border-right-style: solid;
+                                            border-right-width: 1px;
+                                            border-top-color: #bb5503;
+                                            border-top-style: solid;
+                                            border-top-width: 1px;
+                                            font-family: tahoma;
+                                            font-size: 12px;
+                                        }
+                                        .eo_css_ctrl_fromDate6
+                                        {
+                                            border-bottom-color: white;
+                                            border-bottom-style: solid;
+                                            border-bottom-width: 1px;
+                                            border-left-color: white;
+                                            border-left-style: solid;
+                                            border-left-width: 1px;
+                                            border-right-color: white;
+                                            border-right-style: solid;
+                                            border-right-width: 1px;
+                                            border-top-color: white;
+                                            border-top-style: solid;
+                                            border-top-width: 1px;
+                                            color: gray;
+                                            font-family: tahoma;
+                                            font-size: 12px;
+                                        }
+                                        .eo_css_ctrl_fromDate7
+                                        {
+                                            cursor: pointer;
+                                            cursor: hand;
+                                            font-family: tahoma;
+                                            font-size: 12px;
+                                            margin-left: 14px;
+                                            margin-right: 14px;
+                                        }
+                                        .eo_css_ctrl_fromDate8
+                                        {
+                                            background-color: #fbe694;
+                                            border-bottom-color: white;
+                                            border-bottom-style: solid;
+                                            border-bottom-width: 1px;
+                                            border-left-color: white;
+                                            border-left-style: solid;
+                                            border-left-width: 1px;
+                                            border-right-color: white;
+                                            border-right-style: solid;
+                                            border-right-width: 1px;
+                                            border-top-color: white;
+                                            border-top-style: solid;
+                                            border-top-width: 1px;
+                                            font-family: tahoma;
+                                            font-size: 10px;
+                                        }
+                                        .eo_css_ctrl_fromDate9
+                                        {
+                                            cursor: pointer;
+                                            cursor: hand;
+                                        }
+                                        .eo_css_ctrl_fromDate10
+                                        {
+                                            background-color: #9ebef5;
+                                            font-family: Tahoma;
+                                            font-size: 12px;
+                                            padding-bottom: 2px;
+                                            padding-left: 6px;
+                                            padding-right: 6px;
+                                            padding-top: 2px;
+                                        }
+                                        .eo_css_ctrl_toDate1
+                                        {
+                                            background-color: white;
+                                            border-bottom-color: #7f9db9;
+                                            border-bottom-style: solid;
+                                            border-bottom-width: 1px;
+                                            border-left-color: #7f9db9;
+                                            border-left-style: solid;
+                                            border-left-width: 1px;
+                                            border-right-color: #7f9db9;
+                                            border-right-style: solid;
+                                            border-right-width: 1px;
+                                            border-top-color: #7f9db9;
+                                            border-top-style: solid;
+                                            border-top-width: 1px;
+                                            font-family: tahoma;
+                                            font-size: 9px;
+                                            padding-bottom: 4px;
+                                            padding-left: 4px;
+                                            padding-right: 4px;
+                                            padding-top: 4px;
+                                        }
+                                        .eo_css_ctrl_toDate2
+                                        {
+                                            border-bottom-color: #aca899;
+                                            border-bottom-style: solid;
+                                            border-bottom-width: 1px;
+                                            font-family: tahoma;
+                                            font-size: 12px;
+                                        }
+                                        .eo_css_ctrl_toDate3
+                                        {
+                                            border-bottom-color: white;
+                                            border-bottom-style: solid;
+                                            border-bottom-width: 1px;
+                                            border-left-color: white;
+                                            border-left-style: solid;
+                                            border-left-width: 1px;
+                                            border-right-color: white;
+                                            border-right-style: solid;
+                                            border-right-width: 1px;
+                                            border-top-color: white;
+                                            border-top-style: solid;
+                                            border-top-width: 1px;
+                                            font-family: tahoma;
+                                            font-size: 12px;
+                                        }
+                                        .eo_css_ctrl_toDate4
+                                        {
+                                            border-bottom-color: #fbe694;
+                                            border-bottom-style: solid;
+                                            border-bottom-width: 1px;
+                                            border-left-color: #fbe694;
+                                            border-left-style: solid;
+                                            border-left-width: 1px;
+                                            border-right-color: #fbe694;
+                                            border-right-style: solid;
+                                            border-right-width: 1px;
+                                            border-top-color: #fbe694;
+                                            border-top-style: solid;
+                                            border-top-width: 1px;
+                                            font-family: tahoma;
+                                            font-size: 12px;
+                                        }
+                                        .eo_css_ctrl_toDate5
+                                        {
+                                            border-bottom-color: #bb5503;
+                                            border-bottom-style: solid;
+                                            border-bottom-width: 1px;
+                                            border-left-color: #bb5503;
+                                            border-left-style: solid;
+                                            border-left-width: 1px;
+                                            border-right-color: #bb5503;
+                                            border-right-style: solid;
+                                            border-right-width: 1px;
+                                            border-top-color: #bb5503;
+                                            border-top-style: solid;
+                                            border-top-width: 1px;
+                                            font-family: tahoma;
+                                            font-size: 12px;
+                                        }
+                                        .eo_css_ctrl_toDate6
+                                        {
+                                            border-bottom-color: white;
+                                            border-bottom-style: solid;
+                                            border-bottom-width: 1px;
+                                            border-left-color: white;
+                                            border-left-style: solid;
+                                            border-left-width: 1px;
+                                            border-right-color: white;
+                                            border-right-style: solid;
+                                            border-right-width: 1px;
+                                            border-top-color: white;
+                                            border-top-style: solid;
+                                            border-top-width: 1px;
+                                            color: gray;
+                                            font-family: tahoma;
+                                            font-size: 12px;
+                                        }
+                                        .eo_css_ctrl_toDate7
+                                        {
+                                            cursor: pointer;
+                                            cursor: hand;
+                                            font-family: tahoma;
+                                            font-size: 12px;
+                                            margin-left: 14px;
+                                            margin-right: 14px;
+                                        }
+                                        .eo_css_ctrl_toDate8
+                                        {
+                                            background-color: #fbe694;
+                                            border-bottom-color: white;
+                                            border-bottom-style: solid;
+                                            border-bottom-width: 1px;
+                                            border-left-color: white;
+                                            border-left-style: solid;
+                                            border-left-width: 1px;
+                                            border-right-color: white;
+                                            border-right-style: solid;
+                                            border-right-width: 1px;
+                                            border-top-color: white;
+                                            border-top-style: solid;
+                                            border-top-width: 1px;
+                                            font-family: tahoma;
+                                            font-size: 12px;
+                                        }
+                                        .eo_css_ctrl_toDate9
+                                        {
+                                            cursor: pointer;
+                                            cursor: hand;
+                                        }
+                                        .eo_css_ctrl_toDate10
+                                        {
+                                            background-color: #9ebef5;
+                                            font-family: Tahoma;
+                                            font-size: 12px;
+                                            padding-bottom: 2px;
+                                            padding-left: 6px;
+                                            padding-right: 6px;
+                                            padding-top: 2px;
+                                        }
+                                    </style>
+                                    <div style="position: absolute; top: -1000px;">
+                                        <input type="hidden" name="eo_version" value="7.0.41.2" /><input type="hidden" name="eo_style_keys"
+                                            value="/wFk" />
+                                    </div>
+                                    <table border="0" cellpadding="0" cellspacing="0" id="fromDate" style="width: 120px;">
+                                        <tr>
+                                            <td>
+                                                <input style="font-family: Courier New; padding-left: 5px; padding-right: 5px; width: 100%"
+                                                    type="text" id="_eo_fromDate_picker" name="_eo_fromDate_picker" value="01/01/2015"
+                                                    size="11" />
+                                            </td>
+                                            <td>
+                                                <img id="_eo_fromDate_popupimg" onload="javascript:eo_ObjLoaded('_eo_fromDate_popupimg');"
+                                                    alt="" title="" src="/dashboard/eo_web.ashx?id=f41bf6b7-0a28-45d6-8c6b-9f904085d669" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <input type="hidden" id="_eo_fromDate_h" name="_eo_fromDate_h" />
+                                    <div id="_eo_fromDate_div" class="eo_css_ctrl_fromDate1" style="background-color: white;
+                                        border-bottom-color: #7f9db9; border-bottom-style: solid; border-bottom-width: 1px;
+                                        border-left-color: #7f9db9; border-left-style: solid; border-left-width: 1px;
+                                        border-right-color: #7f9db9; border-right-style: solid; border-right-width: 1px;
+                                        border-top-color: #7f9db9; border-top-style: solid; border-top-width: 1px; display: none;
+                                        font-family: tahoma; font-size: 9px; padding-bottom: 4px; padding-left: 4px;
+                                        padding-right: 4px; padding-top: 4px; position: absolute">
+                                        <table cellpadding="0" cellspacing="0" id="_eo_fromDate_table">
+                                            <tr>
+                                                <td id="_eo_fromDate_title">
+                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td id="_eo_fromDate_titleTd" class="eo_css_ctrl_fromDate10" style="background-color: #9ebef5;
+                                                                border-collapse: collapse; font-family: Tahoma; font-size: 12px; padding-bottom: 2px;
+                                                                padding-left: 6px; padding-right: 6px; padding-top: 2px">
+                                                                <table id="_eo_fromDate_titleTable" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                    <tr>
+                                                                        <td id="_eo_fromDate_left_arrow" class="eo_css_ctrl_fromDate9">
+                                                                            <img id="_eo_fromDate_left_arrow_image" onload="javascript:eo_ObjLoaded('_eo_fromDate_left_arrow_image');"
+                                                                                alt="" title="" />
+                                                                        </td>
+                                                                        <td width="99%" align="center" id="_eo_fromDate_title_text">
+                                                                            December 2014
+                                                                        </td>
+                                                                        <td id="_eo_fromDate_right_arrow" class="eo_css_ctrl_fromDate9">
+                                                                            <img id="_eo_fromDate_right_arrow_image" onload="javascript:eo_ObjLoaded('_eo_fromDate_right_arrow_image');"
+                                                                                alt="" title="" />
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div id="_eo_fromDate_bodyDiv">
+                                                        <table cellspacing="0" style="border-collapse: collapse" cellpadding="0" id="_eo_fromDate_monthPanel"
+                                                            border="0" frame="void">
+                                                            <tr>
+                                                                <td valign="top">
+                                                                    <table class="eo_css_ctrl_fromDate7" style="cursor: pointer; cursor: hand; font-family: tahoma;
+                                                                        font-size: 12px; margin-left: 14px; margin-right: 14px" id="_eo_fromDate_month_0"
+                                                                        cellpadding="0" style="border-collapse: collapse" border="0" frame="void" cellspacing="0">
+                                                                        <tr>
+                                                                            <td align="center" class="eo_css_ctrl_fromDate2" style="border-bottom-color: #aca899;
+                                                                                border-bottom-style: solid; border-bottom-width: 1px; font-family: tahoma; font-size: 12px">
+                                                                                S
+                                                                            </td>
+                                                                            <td align="center" class="eo_css_ctrl_fromDate2" style="border-bottom-color: #aca899;
+                                                                                border-bottom-style: solid; border-bottom-width: 1px; font-family: tahoma; font-size: 12px">
+                                                                                M
+                                                                            </td>
+                                                                            <td align="center" class="eo_css_ctrl_fromDate2" style="border-bottom-color: #aca899;
+                                                                                border-bottom-style: solid; border-bottom-width: 1px; font-family: tahoma; font-size: 12px">
+                                                                                T
+                                                                            </td>
+                                                                            <td align="center" class="eo_css_ctrl_fromDate2" style="border-bottom-color: #aca899;
+                                                                                border-bottom-style: solid; border-bottom-width: 1px; font-family: tahoma; font-size: 12px">
+                                                                                W
+                                                                            </td>
+                                                                            <td align="center" class="eo_css_ctrl_fromDate2" style="border-bottom-color: #aca899;
+                                                                                border-bottom-style: solid; border-bottom-width: 1px; font-family: tahoma; font-size: 12px">
+                                                                                T
+                                                                            </td>
+                                                                            <td align="center" class="eo_css_ctrl_fromDate2" style="border-bottom-color: #aca899;
+                                                                                border-bottom-style: solid; border-bottom-width: 1px; font-family: tahoma; font-size: 12px">
+                                                                                F
+                                                                            </td>
+                                                                            <td align="center" class="eo_css_ctrl_fromDate2" style="border-bottom-color: #aca899;
+                                                                                border-bottom-style: solid; border-bottom-width: 1px; font-family: tahoma; font-size: 12px">
+                                                                                S
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    30</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    1</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    2</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    3</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    4</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    5</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    6</div>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    7</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    8</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    9</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    10</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    11</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    12</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    13</div>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    14</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    15</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    16</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    17</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    18</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    19</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    20</div>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    21</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    22</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    23</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    24</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    25</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    26</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    27</div>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    28</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    29</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    30</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    31</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    1</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    2</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    3</div>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    4</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    5</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    6</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    7</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    8</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    9</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    10</div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <script type="text/javascript">
+                                        //<![CDATA[
+                                        window._eo_initobj_fromDate = function() { var list = "ldr|i|fmt|u|pop|ei|e|me|cd".split("|"); for (var i = 0; i < list.length; i++) { if (!window.eo_modules || (("|" + window.eo_modules).indexOf("|" + list[i] + "|") < 0)) { window.setTimeout("_eo_initobj_fromDate()", 100, "JavaScript"); return; } } _eofldr_a.a.b.fromDate = 1; _eofi_a("_eo_o_fromDate", "fromDate", new _eofcd_fk([[[[[, "fromDate", "DatePicker", "fromDate", , , , , , , "__doPostBack(\'fromDate\',\'_eo_arg_\')"], , , , "None", , , , , []], , , , , , , , , , ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], , , "eo_css_ctrl_fromDate7", "2014-12-01", , , "eo_css_ctrl_fromDate9", , , "/dashboard/eo_web.ashx?id=ed1fc418-4c07-45fb-8503-4cc9ff5f2d26", , , "/dashboard/eo_web.ashx?id=9cc2706e-16d5-4bcf-a16b-179addb58c8e", , , , , , , , , , , , , , , , , , , , "eo_css_ctrl_fromDate2", 2, , , , , , , 19, 16, "eo_css_ctrl_fromDate3", "eo_css_ctrl_fromDate4", "eo_css_ctrl_fromDate5", , , , "eo_css_ctrl_fromDate8", "eo_css_ctrl_fromDate6", "eo_css_ctrl_fromDate6", , "2015-01-01", "", , , , , 1, , 0, , , , , , , , ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]]], "/dashboard/eo_web.ashx?id=f41bf6b7-0a28-45d6-8c6b-9f904085d669", "/dashboard/eo_web.ashx?id=f41bf6b7-0a28-45d6-8c6b-9f904085d669", "/dashboard/eo_web.ashx?id=8b62d391-fde9-43be-b980-3b5bb3c4d006", , , , "AM", "PM"]), "DatePicker"); eval(_eofi_r(unescape('%78%78%78%7B%6D%65%70%0A%3B%68%7A%73%65%7B%78%79%7B%05%71%4A%6D%0E%78%35%46%30%74%02%06%7F%35%35%34%2F%47'))); }; _eo_initobj_fromDate();
+                                        //]]>
+                                    </script>
+
+                                    <!-- End EO.Web DatePicker fromDate.  -->
+                                </td>
+                                <td>
+                                    To
+                                </td>
+                                <td>
+                                    <!-- Begin EO.Web DatePicker toDate.  -->
+                                    <table border="0" cellpadding="0" cellspacing="0" id="toDate" style="width: 120px;">
+                                        <tr>
+                                            <td>
+                                                <input style="font-family: Courier New; padding-left: 5px; padding-right: 5px; width: 100%"
+                                                    type="text" id="_eo_toDate_picker" name="_eo_toDate_picker" value="01/19/2015"
+                                                    size="11" />
+                                            </td>
+                                            <td>
+                                                <img id="_eo_toDate_popupimg" onload="javascript:eo_ObjLoaded('_eo_toDate_popupimg');"
+                                                    alt="" title="" src="/dashboard/eo_web.ashx?id=f41bf6b7-0a28-45d6-8c6b-9f904085d669" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <input type="hidden" id="_eo_toDate_h" name="_eo_toDate_h" />
+                                    <div id="_eo_toDate_div" class="eo_css_ctrl_toDate1" style="background-color: white;
+                                        border-bottom-color: #7f9db9; border-bottom-style: solid; border-bottom-width: 1px;
+                                        border-left-color: #7f9db9; border-left-style: solid; border-left-width: 1px;
+                                        border-right-color: #7f9db9; border-right-style: solid; border-right-width: 1px;
+                                        border-top-color: #7f9db9; border-top-style: solid; border-top-width: 1px; display: none;
+                                        font-family: tahoma; font-size: 9px; padding-bottom: 4px; padding-left: 4px;
+                                        padding-right: 4px; padding-top: 4px; position: absolute">
+                                        <table cellpadding="0" cellspacing="0" id="_eo_toDate_table">
+                                            <tr>
+                                                <td id="_eo_toDate_title">
+                                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td id="_eo_toDate_titleTd" class="eo_css_ctrl_toDate10" style="background-color: #9ebef5;
+                                                                border-collapse: collapse; font-family: Tahoma; font-size: 12px; padding-bottom: 2px;
+                                                                padding-left: 6px; padding-right: 6px; padding-top: 2px">
+                                                                <table id="_eo_toDate_titleTable" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                    <tr>
+                                                                        <td id="_eo_toDate_left_arrow" class="eo_css_ctrl_toDate9">
+                                                                            <img id="_eo_toDate_left_arrow_image" onload="javascript:eo_ObjLoaded('_eo_toDate_left_arrow_image');"
+                                                                                alt="" title="" />
+                                                                        </td>
+                                                                        <td width="99%" align="center" id="_eo_toDate_title_text">
+                                                                            December 2014
+                                                                        </td>
+                                                                        <td id="_eo_toDate_right_arrow" class="eo_css_ctrl_toDate9">
+                                                                            <img id="_eo_toDate_right_arrow_image" onload="javascript:eo_ObjLoaded('_eo_toDate_right_arrow_image');"
+                                                                                alt="" title="" />
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div id="_eo_toDate_bodyDiv">
+                                                        <table cellspacing="0" style="border-collapse: collapse" cellpadding="0" id="_eo_toDate_monthPanel"
+                                                            border="0" frame="void">
+                                                            <tr>
+                                                                <td valign="top">
+                                                                    <table class="eo_css_ctrl_toDate7" style="cursor: pointer; cursor: hand; font-family: tahoma;
+                                                                        font-size: 12px; margin-left: 14px; margin-right: 14px" id="_eo_toDate_month_0"
+                                                                        cellpadding="0" style="border-collapse: collapse" border="0" frame="void" cellspacing="0">
+                                                                        <tr>
+                                                                            <td align="center" class="eo_css_ctrl_toDate2" style="border-bottom-color: #aca899;
+                                                                                border-bottom-style: solid; border-bottom-width: 1px; font-family: tahoma; font-size: 12px">
+                                                                                S
+                                                                            </td>
+                                                                            <td align="center" class="eo_css_ctrl_toDate2" style="border-bottom-color: #aca899;
+                                                                                border-bottom-style: solid; border-bottom-width: 1px; font-family: tahoma; font-size: 12px">
+                                                                                M
+                                                                            </td>
+                                                                            <td align="center" class="eo_css_ctrl_toDate2" style="border-bottom-color: #aca899;
+                                                                                border-bottom-style: solid; border-bottom-width: 1px; font-family: tahoma; font-size: 12px">
+                                                                                T
+                                                                            </td>
+                                                                            <td align="center" class="eo_css_ctrl_toDate2" style="border-bottom-color: #aca899;
+                                                                                border-bottom-style: solid; border-bottom-width: 1px; font-family: tahoma; font-size: 12px">
+                                                                                W
+                                                                            </td>
+                                                                            <td align="center" class="eo_css_ctrl_toDate2" style="border-bottom-color: #aca899;
+                                                                                border-bottom-style: solid; border-bottom-width: 1px; font-family: tahoma; font-size: 12px">
+                                                                                T
+                                                                            </td>
+                                                                            <td align="center" class="eo_css_ctrl_toDate2" style="border-bottom-color: #aca899;
+                                                                                border-bottom-style: solid; border-bottom-width: 1px; font-family: tahoma; font-size: 12px">
+                                                                                F
+                                                                            </td>
+                                                                            <td align="center" class="eo_css_ctrl_toDate2" style="border-bottom-color: #aca899;
+                                                                                border-bottom-style: solid; border-bottom-width: 1px; font-family: tahoma; font-size: 12px">
+                                                                                S
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    30</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    1</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    2</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    3</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    4</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    5</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    6</div>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    7</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    8</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    9</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    10</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    11</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    12</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    13</div>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    14</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    15</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    16</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    17</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    18</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    19</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    20</div>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    21</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    22</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    23</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    24</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    25</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    26</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    27</div>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    28</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    29</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    30</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    31</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    1</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    2</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    3</div>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    4</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    5</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    6</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    7</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    8</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    9</div>
+                                                                            </td>
+                                                                            <td align="center" valign="top" style="height: 16px">
+                                                                                <div height="100%">
+                                                                                    10</div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <script type="text/javascript">
+                                        //<![CDATA[
+                                        window._eo_initobj_toDate = function() { var list = "ldr|i|fmt|u|pop|ei|e|me|cd".split("|"); for (var i = 0; i < list.length; i++) { if (!window.eo_modules || (("|" + window.eo_modules).indexOf("|" + list[i] + "|") < 0)) { window.setTimeout("_eo_initobj_toDate()", 100, "JavaScript"); return; } } _eofldr_a.a.b.toDate = 1; _eofi_a("_eo_o_toDate", "toDate", new _eofcd_fk([[[[[, "toDate", "DatePicker", "toDate", , , , , , , "__doPostBack(\'toDate\',\'_eo_arg_\')"], , , , "None", , , , , []], , , , , , , , , , ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"], , , "eo_css_ctrl_toDate7", "2014-12-01", , , "eo_css_ctrl_toDate9", , , "/dashboard/eo_web.ashx?id=ed1fc418-4c07-45fb-8503-4cc9ff5f2d26", , , "/dashboard/eo_web.ashx?id=9cc2706e-16d5-4bcf-a16b-179addb58c8e", , , , , , , , , , , , , , , , , , , , "eo_css_ctrl_toDate2", 2, , , , , , , 19, 16, "eo_css_ctrl_toDate3", "eo_css_ctrl_toDate4", "eo_css_ctrl_toDate5", , , , "eo_css_ctrl_toDate8", "eo_css_ctrl_toDate6", "eo_css_ctrl_toDate6", , "2015-01-19", "", , , , , 1, , 0, , , , , , , , ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]]], "/dashboard/eo_web.ashx?id=f41bf6b7-0a28-45d6-8c6b-9f904085d669", "/dashboard/eo_web.ashx?id=f41bf6b7-0a28-45d6-8c6b-9f904085d669", "/dashboard/eo_web.ashx?id=8b62d391-fde9-43be-b980-3b5bb3c4d006", , , , "AM", "PM"]), "DatePicker"); eval(_eofi_r(unescape('%78%78%78%7B%6D%65%70%0A%3B%68%7A%73%65%7B%78%08%78%59%65%7A%71%45%44%35%04%79%72%78%45%33%39%3E%3F'))); }; _eo_initobj_toDate();
+                                        //]]>
+                                    </script>
+
+                                    <!-- End EO.Web DatePicker toDate.  -->
+                                </td>
+                            </tr>
+                        </table>
+                        <center>
+                            <br />
+                            <input type="submit" name="pbPeriodSelec" value="Set Date Range" id="pbPeriodSelec" />
+                        </center>
+                    </div>
+                    <label>
+                        AMOUNTS DISPLAYED</label>
+                    <select name="displayMode" id="displayMode" onchange="reloadData()">
+                        <option value="Production Revenue (PROD.)">Production Revenue (PROD.)</option>
+                        <option value="Planned Revenue (PLAN.)">Planned Revenue (PLAN.)</option>
+                        <option selected="selected" value="Revenue Tracked">Revenue Tracked</option>
+                    </select>
+            </div>
+        </div>
+        <span id="leadTable" class="LeadTable">
+            <div id="large-numbers">
+                <div class="large-dark">
+                    <div class="large-top">
+                        $1.3 M</div>
+                    <div class="large-bottom">
+                        Combined</div>
+                </div>
+                <div class="large-light">
+                    <div class="large-top">
+                        682</div>
+                    <div class="large-bottom">
+                        LEADS</div>
+                </div>
+                <div class="large-light">
+                    <div class="large-top">
+                        320</div>
+                    <div class="large-bottom">
+                        NEW PATIENTS</div>
+                </div>
+                <div class="large-light">
+                    <div class="large-top">
+                        47 %</div>
+                    <div class="large-bottom">
+                        CONVERSION</div>
+                </div>
+            </div>
+            <div id="campaign-summaries">
+                <div id="summary-chart-container-with-title">
+                    <div id="summary-chart-title">
+                        Campaign Breakdown</div>
+                    <div id="summary-chart-container">
+                        <div id="summary-chart">
+                        </div>
+                    </div>
+                </div>
+                <div class="Campaign-tables-wrapper">
+                    <table class="practiceroi-summary-table">
+                        <tbody>
+                            <tr class="practiceroi-summary-header">
+                                <td style="width: 22px;">
+                                </td>
+                                <!-- no title, the column for the colored dot -->
+                                <td style="width: 155px;">
+                                    Campaign
+                                </td>
+                                <td style="width: 72px;" class="center">
+                                    Leads
+                                </td>
+                                <td style="width: 66px;" class="center">
+                                    # Pat
+                                </td>
+                                <td style="width: 63px;" class="center">
+                                    Conv.
+                                </td>
+                                <td style="width: 82px;" class="right">
+                                    Comb.
+                                </td>
+                                <td style="width: 70px; text-align: right">
+                                    ROI
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                    </table>
+                    <div class="ScrollCampaigns" id="scrolling-campaign-div">
+                        <table class="practiceroi-summary-table-inside" id="LeadTableTable">
+                            <tr class="practiceroi-summary-row" id="leadtableRow0" onclick="javascript:loadCampaignDetail(0, '2',true)"
+                                title="Page1 Email Leads">
+                                <td style="width: 32px; color: #4471a6" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 105px;" title='ID 2'>
+                                    Page1 Email Leads
+                                </td>
+                                <td style="width: 62px;" align='right'>
+                                    484
+                                </td>
+                                <td style="width: 66px;" align='right'>
+                                    295
+                                </td>
+                                <td style="width: 63px;" align='right'>
+                                    61 %
+                                </td>
+                                <td style="width: 82px;" align='right' title='$1,143,112'>
+                                    <b>$1,143,112</b>
+                                </td>
+                                <td style="width: 70px; white-space: nowrap;" align='right' title='$1,143,112'>
+                                    <b>1,222,444 %</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow1" onclick="javascript:loadCampaignDetail(1, '4',true)"
+                                title="Website Phone">
+                                <td style="width: 32px; color: #a84542" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 105px;" title='ID 4'>
+                                    Website Phone
+                                </td>
+                                <td style="width: 62px;" align='right'>
+                                    60
+                                </td>
+                                <td style="width: 66px;" align='right'>
+                                    7
+                                </td>
+                                <td style="width: 63px;" align='right'>
+                                    12 %
+                                </td>
+                                <td style="width: 82px;" align='right' title='$66,012'>
+                                    <b>$66,012</b>
+                                </td>
+                                <td style="width: 70px;" align='right' title='$66,012'>
+                                    <b>30 %</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow2" onclick="javascript:loadCampaignDetail(2, '5',true)"
+                                title="Villa (Web form)">
+                                <td style="width: 32px; color: #88a44c" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 105px;" title='ID 5'>
+                                    Villa (Web form)
+                                </td>
+                                <td style="width: 62px;" align='right'>
+                                    0
+                                </td>
+                                <td style="width: 66px;" align='right'>
+                                    0
+                                </td>
+                                <td style="width: 63px;" align='right'>
+                                    0 %
+                                </td>
+                                <td style="width: 82px;" align='right' title='$0'>
+                                    <b>$0</b>
+                                </td>
+                                <td style="width: 70px;" align='right' title='$0'>
+                                    <b>N/A</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow3" onclick="javascript:loadCampaignDetail(3, '6',true)"
+                                title="Web Form Main">
+                                <td style="width: 32px; color: #71578f" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 105px;" title='ID 6'>
+                                    Web Form Main
+                                </td>
+                                <td style="width: 62px;" align='right'>
+                                    0
+                                </td>
+                                <td style="width: 66px;" align='right'>
+                                    0
+                                </td>
+                                <td style="width: 63px;" align='right'>
+                                    0 %
+                                </td>
+                                <td style="width: 82px;" align='right' title='$0'>
+                                    <b>$0</b>
+                                </td>
+                                <td style="width: 70px;" align='right' title='$0'>
+                                    <b>N/A</b>
+                                </td>
+                            </tr>
+                            <tr class="practiceroi-summary-row" id="leadtableRow4" onclick="javascript:loadCampaignDetail(4, '7',true)"
+                                title="Chat leads">
+                                <td style="width: 32px; color: #3f96ae" class="colordot">
+                                    &bull;
+                                </td>
+                                <td style="width: 105px;" title='ID 7'>
+                                    Chat leads
+                                </td>
+                                <td style="width: 62px;" align='right'>
+                                    138
+                                </td>
+                                <td style="width: 66px;" align='right'>
+                                    18
+                                </td>
+                                <td style="width: 63px;" align='right'>
+                                    13 %
+                                </td>
+                                <td style="width: 82px;" align='right' title='$63,152'>
+                                    <b>$63,152</b>
+                                </td>
+                                <td style="width: 70px;" align='right' title='$63,152'>
+                                    <b>N/A</b>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <table class="practiceroi-summary-table">
+                        <tr class="practiceroi-summary-header">
+                            <td style="width: 22px;">
+                            </td>
+                            <td style="width: 155px;">
+                                Total
+                            </td>
+                            <td style="width: 72px;" class="center">
+                                682
+                            </td>
+                            <td style="width: 66px;" class="center">
+                                320
+                            </td>
+                            <td style="width: 63px;" class="center">
+                                47 %
+                            </td>
+                            <td style="width: 82px;" class="right">
+                                $1,272,276
+                            </td>
+                            <td style="width: 70px;">
+                                -
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </span><span id="campaignDetail"></span><span id="DB" style="color: White;">1170</span>
+        <span id="GenerationNumber" style="color: Red;">19154644</span> <span id="superLink">
+        </span><span id="firstCampaign" style="color: White;">2</span>
+        <div id="popupApptDetail" class="popup">
+        </div>
+        <!-- data_file: encodeURIComponent("data_"+document.getElementById("DB").innerHTML+"_"+document.getElementById("period").selectedIndex+".xml") -->
+        <!-- data_file: encodeURIComponent("data_test3.xml") -->
+
+        <script type="text/javascript">
+            var ctrlgenNumber = document.getElementById("GenerationNumber");
+            if (ctrlgenNumber)
+                ctrlgenNumber.style.display = 'none';
+            var genNumber = document.getElementById("GenerationNumber").innerHTML;
+            var Db = document.getElementById("DB").innerHTML;
+            var params = {
+                wmode: "opaque"
+
+            };
+
+            var flashVars = {
+                path: "amcharts/flash/",
+                settings_file: encodeURIComponent("settings.xml"),
+
+                data_file: encodeURIComponent("data_" + Db + "_" + genNumber + ".xml")
+            };
+
+            // change 8 to 80 to test javascript version
+            if (swfobject.hasFlashPlayerVersion("8")) {
+                swfobject.embedSWF("amcharts/flash/ampie.swf", "summary-chart-container", "300", "300", "8.0.0", "amcharts/flash/expressInstall.swf", flashVars, params);
+            }
+            else {
+                // Note, as this example loads external data, JavaScript version might only work on server
+                var amFallback = new AmCharts.AmFallback();
+                amFallback.path = "amcharts/flash/";
+                amFallback.settingsFile = flashVars.settings_file;
+                amFallback.dataFile = flashVars.data_file;
+                amFallback.type = "pie";
+                amFallback.write("summary-chart-container");
+
+            }
+			
+			
+			
+			
+        </script>
+
+        </center>
+        <div id="popUpSound" class="popUpSound">
+            <span id="playerSound"></span>
+            <input type="button" value="Close" id="pbSave" onclick="document.getElementById('popUpSound').style.display = 'none';"
+                name='pbCloseSound' style="text-align: center">
+        </div>
+        <div id="jquery_jplayer_1" class="jp-jplayer">
+        </div>
+        <div id="jp_container_1" class="jp-audio">
+            <span id="labelError" style="color: #CC6600;"></span>
+
+            <script type="text/javascript">
+                //<![CDATA[
+                var theForm = document.forms['Form1'];
+                if (!theForm) {
+                    theForm = document.Form1;
+                }
+                function __doPostBack(eventTarget, eventArgument) {
+                    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+                        theForm.__EVENTTARGET.value = eventTarget;
+                        theForm.__EVENTARGUMENT.value = eventArgument;
+                        theForm.submit();
+                    }
+                }
+                //]]>
+            </script>
+    </form>
+    <span id="target"></span>
+</body>
+</html> 

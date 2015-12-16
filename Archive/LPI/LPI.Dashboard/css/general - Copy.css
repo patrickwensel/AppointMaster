@@ -1,0 +1,391 @@
+BODY{
+}
+
+h3{
+	font-family:Tahoma;
+	font-size:24px;
+	color: #FFFFFF;
+	font-weight: normal;
+	line-height: 20px;
+	
+	
+}
+
+table.LeadTable{
+	font-family:Tahoma;
+	font-size:14px;
+	color:#234560;
+	font-weight: 300;
+}
+table.LeadTable2{
+	font-family:Tahoma;
+	font-size:14px;
+	color:#234560;
+	font-weight: 300;
+}
+table.LeadTable th{
+	font-size:12px;
+	color:#660000;
+	padding:5px;
+	border:1px solid #FFFFFF;
+	background-image: url(../images/green_07.jpg);
+	font-weight: bold;
+}
+
+table.LeadTable td{
+	padding:5px;
+}
+
+table.LeadTable td.alternate{
+	background-color:#efefef;
+	
+}
+
+table.LeadsDetailTable{
+	font-family:Tahoma;
+	font-size:12px;
+	color:#003366;
+}
+table.LeadsDetailTable2{
+	font-family:Tahoma;
+	font-size:12px;
+	color:#003366;
+}
+
+table.LeadsDetailTable th{
+	font-size:12px;
+	color:#660000;
+	padding:5px;
+	border:1px solid #FFFFFF;
+	background-image: url(../images/green_07.jpg);
+	font-family: Tahoma;
+	font-weight: bold;
+	background-color: #E9EAF3;
+}
+table.LeadsDetailTable2 th{
+	font-size:13px;
+	color:#FFFFFF;
+	font-family: Tahoma;
+	font-weight: bold;
+	line-height: 32px;
+	background-image: url(../images/long_blue_20.jpg);
+	background-repeat: no-repeat;
+	background-position: right top;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #FFFFFF;
+	padding-left: -6px;
+}
+table.LeadsDetailTable td{
+	padding:1px;
+}
+
+table.LeadsDetailTable td.alternate{
+	background-color:#efefef;
+	
+}
+
+.menuLink
+{
+	font-family:Arial;
+	font-size:12px;
+	text-decoration:none;
+	padding:13px;
+	height:30px;
+	border:solid 1px;
+}
+
+.menuLinkSelected
+{
+	font-family:Arial;
+	font-size:12px;
+	text-decoration:none;
+	height:30px;
+	padding:15px;
+	border:solid 1px blue;
+	border-bottom:solid 1px #CCCCFF;
+	background-image:url(../images/backGroundPie.gif)
+}
+
+
+div.popup
+{
+	position:absolute;
+	top:30%;
+	left:60%;
+	border:solid 1px gray;
+	width:330px;
+	height:400px;
+	background-color:#66DDFF;
+	color:White;
+	border-bottom-style:groove;
+	margin:5px;
+	padding:15px;
+	z-index:10;
+	/*filter:alpha(opacity=80);*/
+	border:solid 1px black;
+	
+}
+
+.popuptitle
+{
+	position:relative;
+	top:0;
+	left:10%;
+	text-align:center;
+	width:100%;
+	font-size:18px;
+	font-family:Arial;
+	font-weight:bold;
+	overflow: hidden;
+}
+
+
+div.popUpSound
+{
+	width:180px;
+	height:80px;
+	position:absolute;
+	top:85%;
+	left:45%;
+	border:groove 10px gray;
+	border-style:inset;
+	background-color:#55FF55;
+	color:White;
+	margin:5px;
+	padding:5px;
+	z-index:10;
+	/*filter:alpha(opacity=80);*/
+	
+}
+
+
+
+
+.animatedtabs{
+	overflow: hidden;
+	width: 100%; /*font of menu text*/
+	margin-bottom: 0px;
+}
+
+
+.animatedtabs ul{
+list-style-type: none;
+margin: 0;
+margin-left: 10px; /*offset of first tab relative to page left edge*/
+padding: 0;
+}
+
+.animatedtabs li{
+float: left;
+margin: 0;
+padding: 0;
+}
+
+.animatedtabs a{
+	float: left;
+	position: relative;
+	top: 6px;
+	margin-right: 1px;
+	text-decoration: none;
+	background-image: url(../images/buttons_03.jpg);
+	background-repeat: no-repeat;
+	background-position: left top;
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-left: 0;
+	padding-top: 0;
+	padding-right: 0;
+	padding-bottom: 0;
+	padding-left: 8px;
+
+}
+
+.animatedtabs a span{
+	float: left;
+	position: relative;
+	display: block;
+	color: #FFFFFF;
+	background: url(../images/buttons_04.jpg) no-repeat right top;
+	padding-top: 12px;
+	padding-right: 10px;
+	padding-bottom: 12px;
+	padding-left: 2px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+}
+
+/* Commented Backslash Hack hides rule from IE5-Mac \*/
+.animatedtabs a span {float:none;}
+/* End IE5-Mac hack */
+
+
+.animatedtabs .selected a{
+background-position: 0 1px;
+top: 0;
+}
+
+.animatedtabs .selected a span{
+	background-position: 100% 1px;
+	color: #FFFFFF;
+	padding-bottom: 12px; /* 3) Bottom padding of selected tab. Should equal (1) PLUS (2) above */
+	top: 0;
+}
+
+.animatedtabs a:hover{
+background-position: 0% 1px;
+top: 0;
+}
+
+.animatedtabs a:hover span{
+background-position: 100% 1px;
+padding-bottom: 12px; /* 3) Bottom padding of selected tab. Should equal (1) PLUS (2) above */
+top: 0;
+}
+.green{
+	background-image: url(images/green_08.jpg);
+	background-repeat: repeat-x;
+
+}
+.titlename {
+	font-family: Tahoma;
+	font-size: 20px;
+	color: #FFFFFF;
+	line-height: 35px;
+}
+.bottom_tab {
+	font-family: Tahoma;
+	font-size: 18px;
+	font-weight: bold;
+	color: #37779D;
+	padding-left: 26px;
+	line-height: 30px;
+}
+.bottom_tab2 {
+	font-family: Tahoma;
+	font-size: 22px;
+	font-weight: bold;
+	color: #3C779F;
+	padding-left: 26px;
+}
+.bottom_tab3 {
+	font-family: Tahoma;
+	font-size: 24px;
+	font-weight: normal;
+	color: #FFFFFF;
+	padding-left: 26px;
+	line-height: 56px;
+}
+.animatedtabs2{
+	/*overflow: hidden;*/
+	width: 100%; /*font of menu text*/
+	margin-bottom: 0px;
+	line-height: 32px;
+}
+
+
+.animatedtabs2 ul{
+list-style-type: none;
+margin: 0;
+margin-left: 0px; /*offset of first tab relative to page left edge*/
+padding: 0;
+}
+
+.animatedtabs2 li{
+	padding: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.animatedtabs2 a{
+	float: left;
+	position: relative;
+	top: 6px;
+	margin-right: 1px;
+	text-decoration: none;
+	background-image: url(../images/buttons_03.jpg);
+	background-repeat: no-repeat;
+	background-position: left top;
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-left: 0;
+	padding-top: 0;
+	padding-right: 0;
+	padding-bottom: 0;
+	padding-left: 8px;
+
+}
+
+.animatedtabs2 a span{
+	float: left;
+	display: block;
+	color: #FFFFFF;
+	background-image: url(../images/buttons_04.jpg);
+	background-repeat: no-repeat;
+	background-position: right top;
+	padding-top: 10px;
+	padding-bottom: 16px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	padding-right: 32px;
+	padding-left: 28px;
+}
+
+/* Commented Backslash Hack hides rule from IE5-Mac \*/
+.animatedtabs2 a span {float:none;}
+/* End IE5-Mac hack */
+
+
+.animatedtabs2 .selected a{
+background-position: 0 1px;
+top: 0;
+}
+
+.animatedtabs2 .selected a span{
+	background-position: 100% 1px;
+	color: #FFFFFF;
+	padding-bottom: 8px; /* 3) Bottom padding of selected tab. Should equal (1) PLUS (2) above */
+	top: 0;
+}
+
+/*.animatedtabs2 a:hover{
+background-position: 0% 1px;
+top: 0;
+}*/
+
+/*.animatedtabs2 a:hover span{
+background-position: 100% 1px;
+padding-bottom: 8px; /* 3) Bottom padding of selected tab. Should equal (1) PLUS (2) above 
+top: 0;
+}*/
+
+.error
+{
+	font-weight:bold;
+	color:Red;
+}
+
+table.surveyList
+{
+	font-size:12px;
+	background-color:#666666;
+	padding:1px;
+	margin:0px;
+	width:90%;
+}
+table.surveyList td
+{
+	background-color:#FFFFFF;
+	font-size:12px;
+	padding:5px;
+
+}
+table.surveyList th
+{
+	background-color:#EEEEEE;
+	font-size:14px;
+	color:#445566;
+	padding:15px;
+	
+
+}
