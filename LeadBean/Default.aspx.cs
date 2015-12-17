@@ -5,6 +5,7 @@ using Telerik.Web.UI;
 using System.Collections.Generic;
 using System.Linq;
 using System.Configuration;
+using System.Data.SqlClient;
 
 
 namespace LeadBean
@@ -73,30 +74,25 @@ namespace LeadBean
         {
             try
             {
-                if (Session["account"] != null)
+                if (!this.IsPostBack)
                 {
-                    if (!this.IsPostBack)
+                    if (Request["leadbean"] != null)
                     {
-                        if (Request["leadbean"] != null)
-                        {
-                            this.Title.Text = "<u>Deleted</u> Leads for Account #" + ((Account)Session["account"]).DB.ToString() + " " + ((Account)Session["account"]).name;
-                            this.LinkSwitch.Text = "Show Leads";
-                            this.LinkSwitch.NavigateUrl = "default.aspx";
-                        }
-                        else
-                        {
-                            this.Title.Text = "Leads for Account #" + ((Account)Session["account"]).DB.ToString() + " " + ((Account)Session["account"]).name;
-                            this.LinkSwitch.Text = "Show Deleted Leads";
-                            this.LinkSwitch.NavigateUrl = "default.aspx?leadbean=1";
-                        }
-                        if (Request["DELID"] != null)
-                        {
-                            Response.Redirect("confirm.aspx?DELID=" + Request["DELID"]);
-                        }
+                        this.Title.Text = "<u>Deleted</u> Leads for Account #" + ((Account)Session["account"]).DB.ToString() + " " + ((Account)Session["account"]).name;
+                        this.LinkSwitch.Text = "Show Leads";
+                        this.LinkSwitch.NavigateUrl = "default.aspx";
+                    }
+                    else
+                    {
+                        this.Title.Text = "Leads for Account #" + ((Account)Session["account"]).DB.ToString() + " " + ((Account)Session["account"]).name;
+                        this.LinkSwitch.Text = "Show Deleted Leads";
+                        this.LinkSwitch.NavigateUrl = "default.aspx?leadbean=1";
+                    }
+                    if (Request["DELID"] != null)
+                    {
+                        Response.Redirect("confirm.aspx?DELID=" + Request["DELID"]);
                     }
                 }
-                else
-                    Response.Redirect("login.aspx");
             }
             catch (Exception ex)
             {
@@ -132,19 +128,34 @@ namespace LeadBean
 
                     if (int.TryParse(ddlCampaign.SelectedValue, out campaignId))
                     {
-                        DataBase.Data.LPIContext context = new LPI.DataBase.Data.LPIContext();
-
-                        foreach (var item in leadIdsToMove)
+                        try
                         {
-                            var lead = context.LEAD.FirstOrDefault(x => x.ID == item);
-                            if (lead != null)
+                            using (SqlConnection cn = Connect.getDefaultConnection())
                             {
-                                lead.campaignID = campaignId;
+                                if (leadIdsToMove.Count > 0)
+                                {
+                                    string where = "WHERE ";
+                                    foreach (var item in leadIdsToMove)
+                                    {
+                                        where += "id = " + item + " OR ";
+                                    }
+                                    int index = where.LastIndexOf("OR");
+                                    where = where.Remove(index);
+
+                                    string sql = string.Format("UPDATE LEAD SET campaignID = {0} {1}", campaignId, where);
+                                    SqlCommand cmd = new SqlCommand(sql, cn);
+                                    cmd.ExecuteNonQuery();
+                                    cmd.Dispose();
+                                    cmd = null;
+                                    cn.Close();
+                                    Response.Redirect(Context.Request.Url.AbsoluteUri);
+                                }
                             }
                         }
-
-                        context.SaveChanges();
-                        Response.Redirect(Context.Request.Url.AbsoluteUri);
+                        catch (Exception ex)
+                        {
+                            this.LabelError.Text = "Exception:" + ex.Message;
+                        }
                     }
                     return;
                 }
@@ -153,108 +164,88 @@ namespace LeadBean
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            LPI.DataBase.Data.LPIContext context = new LPI.DataBase.Data.LPIContext();
             List<int> leadIdsToDelete = GetSelectedLeadIds();
-            foreach (var item in leadIdsToDelete)
+            using (SqlConnection cn = Connect.getDefaultConnection())
             {
-                var lead = context.LEAD.FirstOrDefault(x => x.ID == item);
-                if (lead != null)
+                if (leadIdsToDelete.Count > 0)
                 {
-                    context.AddToLeadBeans(new LPI.DataBase.Data.LeadBean()
+                    string where = "WHERE ";
+                    foreach (var item in leadIdsToDelete)
                     {
-                        DB = lead.DB,
-                        alterFirstName = lead.alterFirstName,
-                        alterName = lead.alterName,
-                        alterPrimaryPhone = lead.alterPrimaryPhone,
-                        birthday = lead.birthday,
-                        campaign = lead.campaign,
-                        campaignID = lead.campaignID,
-                        content = lead.content,
-                        dentalCareIsFor = lead.dentalCareIsFor,
-                        dentalNeed = lead.dentalNeed,
-                        durationMinutes = lead.durationMinutes,
-                        email = lead.email,
-                        fileURL = lead.fileURL,
-                        firstName = lead.firstName,
-                        ID = lead.ID,
-                        inComingNumber = lead.inComingNumber,
-                        insurancePlanBudget = lead.insurancePlanBudget,
-                        lastName = lead.lastName,
-                        MatchingStatus = lead.MatchingStatus,
-                        medium = lead.medium,
-                        newPatient = lead.newPatient,
-                        original = lead.original,
-                        patientId = lead.patientId,
-                        preferredAppointmentTime = lead.preferredAppointmentTime,
-                        PrimaryPhone = lead.PrimaryPhone,
-                        referred_by = lead.referred_by,
-                        source = lead.source,
-                        term = lead.term,
-                        timeStamp = lead.timeStamp
-                    });
-                    context.DeleteObject(lead);
+                        where += "id = " + item + " OR ";
+                    }
+                    int index = where.LastIndexOf("OR");
+                    where = where.Remove(index);
+
+                    string insertSql = string.Format("INSERT INTO LeadBean SELECT * FROM LEAD {0}", where);
+                    SqlCommand insertCmd = new SqlCommand(insertSql, cn);
+                    insertCmd.ExecuteNonQuery();
+                    insertCmd.Dispose();
+                    insertCmd = null;
+
+                    string deleteSql = string.Format("DELETE FROM LEAD {0}", where);
+                    SqlCommand deleteCmd = new SqlCommand(deleteSql, cn);
+                    deleteCmd.ExecuteNonQuery();                   
+                    deleteCmd.Dispose();
+                    deleteCmd = null;
+                    cn.Close();
+
+                    Response.Redirect(Context.Request.Url.AbsoluteUri);
                 }
             }
-            context.SaveChanges();
-            Response.Redirect(Context.Request.Url.AbsoluteUri);
         }
 
         protected void btnRestore_Click(object sender, EventArgs e)
         {
-            LPI.DataBase.Data.LPIContext context = new LPI.DataBase.Data.LPIContext();
-            List<int> leadIdsToDelete = GetSelectedLeadIds();
-            foreach (var item in leadIdsToDelete)
+            List<int> leadIdsToRestore = GetSelectedLeadIds();
+
+            using (SqlConnection cn = Connect.getDefaultConnection())
             {
-                var lead = context.LeadBeans.FirstOrDefault(x => x.ID == item);
-                if (lead != null)
+                if (leadIdsToRestore.Count > 0)
                 {
-                    context.AddToLEAD(new LPI.DataBase.Data.LEAD()
+                    string where = "WHERE ";
+                    foreach (var item in leadIdsToRestore)
                     {
-                        DB = lead.DB,
-                        alterFirstName = lead.alterFirstName,
-                        alterName = lead.alterName,
-                        alterPrimaryPhone = lead.alterPrimaryPhone,
-                        birthday = lead.birthday,
-                        campaign = lead.campaign,
-                        campaignID = lead.campaignID,
-                        content = lead.content,
-                        dentalCareIsFor = lead.dentalCareIsFor,
-                        dentalNeed = lead.dentalNeed,
-                        durationMinutes = lead.durationMinutes,
-                        email = lead.email,
-                        fileURL = lead.fileURL,
-                        firstName = lead.firstName,
-                        ID = lead.ID,
-                        inComingNumber = lead.inComingNumber,
-                        insurancePlanBudget = lead.insurancePlanBudget,
-                        lastName = lead.lastName,
-                        MatchingStatus = lead.MatchingStatus,
-                        medium = lead.medium,
-                        newPatient = lead.newPatient,
-                        original = lead.original,
-                        patientId = lead.patientId,
-                        preferredAppointmentTime = lead.preferredAppointmentTime,
-                        PrimaryPhone = lead.PrimaryPhone,
-                        referred_by = lead.referred_by,
-                        source = lead.source,
-                        term = lead.term,
-                        timeStamp = lead.timeStamp
-                    });
-                    context.DeleteObject(lead);
+                        where += "id = " + item + " OR ";
+                    }
+                    int index = where.LastIndexOf("OR");
+                    where = where.Remove(index);
+
+                    string insertSql = string.Format("INSERT INTO LEAD SELECT * FROM LeadBean {0}", where);
+                    SqlCommand insertCmd = new SqlCommand(insertSql, cn);
+                    insertCmd.ExecuteNonQuery();
+                    insertCmd.Dispose();
+                    insertCmd = null;
+                    
+                    string deleteSql = string.Format("DELETE FROM LeadBean {0}", where);
+                    SqlCommand deleteCmd = new SqlCommand(deleteSql, cn);
+                    deleteCmd.ExecuteNonQuery();
+                    deleteCmd.Dispose();
+                    deleteCmd = null;
+                    cn.Close();
+
+                    Response.Redirect(Context.Request.Url.AbsoluteUri);
                 }
             }
-            context.SaveChanges();
-            Response.Redirect(Context.Request.Url.AbsoluteUri);
         }
 
         protected void ddlCampaign_Load(object sender, EventArgs e)
         {
             RadDropDownList ddlCampaign = (RadDropDownList)sender;
-            LPI.DataBase.Data.LPIContext context = new LPI.DataBase.Data.LPIContext();
-            var campaigns = context.Campaigns.Where(x => x.AccountID == Db).ToList();
-            foreach (var item in campaigns)
+
+            using (SqlConnection cn = Connect.getDefaultConnection())
             {
-                ddlCampaign.Items.Add(new DropDownListItem("<div class='campaignItem'>" + item.name + "</div>", item.ID.ToString()));
+                string sql = string.Format("SELECT ID, name FROM CAMPAIGN WHERE DB = {0}", Db.ToString());
+                SqlCommand cmd = new SqlCommand(sql, cn);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ddlCampaign.Items.Add(new DropDownListItem("<div class='campaignItem'>" + reader["name"] + "</div>", reader["ID"].ToString()));
+                }
+                cmd.Dispose();
+                cmd = null;
+                cn.Close();
             }
         }
     }
