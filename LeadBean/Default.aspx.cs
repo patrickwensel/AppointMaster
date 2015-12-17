@@ -74,25 +74,30 @@ namespace LeadBean
         {
             try
             {
-                if (!this.IsPostBack)
+                if (Session["account"] != null)
                 {
-                    if (Request["leadbean"] != null)
+                    if (!this.IsPostBack)
                     {
-                        this.Title.Text = "<u>Deleted</u> Leads for Account #" + ((Account)Session["account"]).DB.ToString() + " " + ((Account)Session["account"]).name;
-                        this.LinkSwitch.Text = "Show Leads";
-                        this.LinkSwitch.NavigateUrl = "default.aspx";
-                    }
-                    else
-                    {
-                        this.Title.Text = "Leads for Account #" + ((Account)Session["account"]).DB.ToString() + " " + ((Account)Session["account"]).name;
-                        this.LinkSwitch.Text = "Show Deleted Leads";
-                        this.LinkSwitch.NavigateUrl = "default.aspx?leadbean=1";
-                    }
-                    if (Request["DELID"] != null)
-                    {
-                        Response.Redirect("confirm.aspx?DELID=" + Request["DELID"]);
+                        if (Request["leadbean"] != null)
+                        {
+                            this.Title.Text = "<u>Deleted</u> Leads for Account #" + ((Account)Session["account"]).DB.ToString() + " " + ((Account)Session["account"]).name;
+                            this.LinkSwitch.Text = "Show Leads";
+                            this.LinkSwitch.NavigateUrl = "default.aspx";
+                        }
+                        else
+                        {
+                            this.Title.Text = "Leads for Account #" + ((Account)Session["account"]).DB.ToString() + " " + ((Account)Session["account"]).name;
+                            this.LinkSwitch.Text = "Show Deleted Leads";
+                            this.LinkSwitch.NavigateUrl = "default.aspx?leadbean=1";
+                        }
+                        if (Request["DELID"] != null)
+                        {
+                            Response.Redirect("confirm.aspx?DELID=" + Request["DELID"]);
+                        }
                     }
                 }
+                else
+                    Response.Redirect("login.aspx");
             }
             catch (Exception ex)
             {
