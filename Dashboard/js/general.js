@@ -1,3 +1,4 @@
+
 //****************************************************************************
 //****  Lead Detail Window
 //****************************************************************************
@@ -60,7 +61,7 @@ function openFCLeadWindow(parameters) {
 //****************************************************************************
 //****  Appointment Detail Window
 //****************************************************************************
-function processopenApptDetailDetail(req) {
+function processopenApptDetailDetail(req, table) {
     // only if req shows "loaded"
     if (req.readyState == 4) {
         if (req.status == 200) {
@@ -68,6 +69,13 @@ function processopenApptDetailDetail(req) {
 			document.getElementById("screenBackGround").style.display = '';
 			document.getElementById("popupApptDetail").style.display = '';
 			document.getElementById("popupApptDetail").focus();
+
+			if (table == 'referral') {
+			    $('.btnReferralTable').click();
+			}
+			else {
+			    $('.btnDirectTable').click();
+			}
         } else {
             alert("There was a problem retrieving the XML data:\n" +
                 req.statusText);
@@ -75,7 +83,8 @@ function processopenApptDetailDetail(req) {
     }
 }
 
-function openApptDetailDetail(ApptDetailId) {
+function openApptDetailDetail(ApptDetailId, table) {  
+
 	//if (document.getElementById("popupApptDetail").style.display == 'none'){
         var s='dashboard.aspx?apptDetail='+ApptDetailId+"&count="+signature() ;
 		var req=false;
@@ -86,7 +95,7 @@ function openApptDetailDetail(ApptDetailId) {
 		}
 		count++;
 		if (req) {
-				req.onreadystatechange = function() { processopenApptDetailDetail(req); };
+		    req.onreadystatechange = function () { processopenApptDetailDetail(req, table); };
 				req.open("GET", s , true);
 				req.send(null);
 		}else{
@@ -119,3 +128,16 @@ function openSoundWindow(soundURL) {
 }
 
 
+function showHideTable(element) {
+    if ($(element).data('showhide') == 'hide') {
+        $("." + $(element).data('tablerowname')).show();
+        $(element).data('showhide', 'show');
+        $(element).find('.showHideIcon').text("-");
+    }
+    else
+    {
+        $("." + $(element).data('tablerowname')).hide();
+        $(element).data('showhide', 'hide');
+        $(element).find('.showHideIcon').text("+");
+    }   
+}

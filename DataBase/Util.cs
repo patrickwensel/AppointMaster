@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Linq;
@@ -113,32 +114,18 @@ namespace DataBase {
             }
         }
 
-        public static string getServerName() {
-            string path = "c:";//                HostingEnvironment.MapPath("~");
-            string line = "";
-            string server = "";
-            System.IO.StreamReader file = new System.IO.StreamReader(path + "\\lpi.ini");
-            while ((line = file.ReadLine()) != null) {
-                if (line.StartsWith("server=")) {
-                    server = line.Substring(line.IndexOf("server=") + 7);
-                }
-            }
-            file.Close();
+        public static string getServerName() 
+        {
+            string server = GetConfigValue("server");
+
             return server;
         }
 
         public static string getLocalListingURL() {
-            string path = "c:";//                HostingEnvironment.MapPath("~");
-            string line = "";
-            string server = "";
-            System.IO.StreamReader file = new System.IO.StreamReader(path + "\\lpi.ini");
-            while ((line = file.ReadLine()) != null) {
-                if (line.StartsWith("localListing=")) {
-                    server = line.Substring(line.IndexOf("localListing=") + 13);
-                }
-            }
-            file.Close();
-            return server;
+
+            string localListing = GetConfigValue("localListing");
+
+            return localListing;
         }
 
         public static string stringCharsInSet(string originalString, string validSet) {
@@ -190,19 +177,76 @@ namespace DataBase {
         }
 
 
-        public static string GetConfigValue(string variable) {
-            return GetConfigValueInFile("C:\\lpi.ini", variable);
-        }
+        public static string GetConfigValue(string variable)
+        {
+            var useWebConfig = Convert.ToBoolean(ConfigurationManager.AppSettings["UseWebConfig"]);
 
-        public static string GetConfigValueInFile(string FileName, string variable) {
-            System.IO.StreamReader fr = new System.IO.StreamReader(FileName);
+            if (useWebConfig)
+            {
+                switch (variable)
+                {
+                    case "server":
+                        return ConfigurationManager.AppSettings["server"];
+                    case "connnectionstring":
+                        return ConfigurationManager.AppSettings["connnectionstring"];
+                    case "AMserver":
+                        return ConfigurationManager.AppSettings["AMserver"];
+                    case "html_source_pages":
+                        return ConfigurationManager.AppSettings["html_source_pages"];
+                    case "SMTP_SERVER":
+                        return ConfigurationManager.AppSettings["SMTP_SERVER"];
+                    case "SMTP_SERVER_USERID":
+                        return ConfigurationManager.AppSettings["SMTP_SERVER_USERID"];
+                    case "SMTP_SERVER_PASSWORD":
+                        return ConfigurationManager.AppSettings["SMTP_SERVER_PASSWORD"];
+                    case "SMTP_PORT":
+                        return ConfigurationManager.AppSettings["SMTP_PORT"];
+                    case "SMTP_SSL":
+                        return ConfigurationManager.AppSettings["SMTP_SSL"];
+                    case "EMAIL_SENDING":
+                        return ConfigurationManager.AppSettings["EMAIL_SENDING"];
+                    case "FROM_NOTIFICATION":
+                        return ConfigurationManager.AppSettings["FROM_NOTIFICATION"];
+                    case "localListing":
+                        return ConfigurationManager.AppSettings["localListing"];
+                    case "ADMIN_PASSWORD":
+                        return ConfigurationManager.AppSettings["ADMIN_PASSWORD"];
+                    case "FIRST_CDR_DATE":
+                        return ConfigurationManager.AppSettings["FIRST_CDR_DATE"];
+                    case "WebServicePassword":
+                        return ConfigurationManager.AppSettings["WebServicePassword"];
+                    case "NOTIFY_EMAIL_0":
+                        return ConfigurationManager.AppSettings["NOTIFY_EMAIL_0"];
+                    case "NOTIFY_EMAIL_NAME_0":
+                        return ConfigurationManager.AppSettings["NOTIFY_EMAIL_NAME_0"];
+                    case "NOTIFY_EMAIL_1":
+                        return ConfigurationManager.AppSettings["NOTIFY_EMAIL_1"];
+                    case "NOTIFY_EMAIL_NAME_1":
+                        return ConfigurationManager.AppSettings["NOTIFY_EMAIL_NAME_1"];
+                    case "NOTIFY_EMAIL_2":
+                        return ConfigurationManager.AppSettings["NOTIFY_EMAIL_2"];
+                    case "NOTIFY_EMAIL_NAME_3":
+                        return ConfigurationManager.AppSettings["NOTIFY_EMAIL_NAME_3"];
+                    case "NOTIFY_EMAIL_3":
+                        return ConfigurationManager.AppSettings["NOTIFY_EMAIL_3"];
+                    case "NOTIFY_EMAIL_NAME_2":
+                        return ConfigurationManager.AppSettings["NOTIFY_EMAIL_NAME_2"];
+                    default:
+                        return null;
+                }
+            }
+
+            System.IO.StreamReader fr = new System.IO.StreamReader("C:\\lpi.ini");
             string s = fr.ReadLine();
             string ls;
-            while (s != null) {
+            while (s != null)
+            {
                 int i = s.IndexOf("=");
-                if (i > 0) {
+                if (i > 0)
+                {
                     ls = s.Substring(0, i).ToUpper().Trim();
-                    if (variable.ToUpper() == ls) {
+                    if (variable.ToUpper() == ls)
+                    {
                         fr.Close();
                         return s.Substring(i + 1, s.Length - i - 1).Trim();
                     }

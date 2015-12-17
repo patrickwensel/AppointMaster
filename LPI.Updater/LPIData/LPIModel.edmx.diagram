@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="423c1137521b4fe08095cedd737018f7" Name="Diagram1" ZoomLevel="82">
+        <EntityTypeShape EntityType="LPI.DataBase.Data.Account" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LPI.DataBase.Data.AppliUser" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LPI.DataBase.Data.Campaign" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LPI.DataBase.Data.Partner" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LPI.DataBase.Data.Patient" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LPI.DataBase.Data.SysOption" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LPI.DataBase.Data.UniqueId" Width="1.5" PointX="12.375" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LPI.DataBase.Data.Appointment" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LPI.DataBase.Data.DeletedLead" Width="1.5" PointX="13.5" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LPI.DataBase.Data.DentalProcedure" Width="1.5" PointX="3.375" PointY="4.75" />
+        <EntityTypeShape EntityType="LPI.DataBase.Data.LEAD" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="LPI.DataBase.Data.LeadBean" Width="1.5" PointX="5.375" PointY="3.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -32,7 +32,7 @@
   <ItemGroup>
     <Reference Include="EO.Web, Version=7.0.41.2, Culture=neutral, PublicKeyToken=e92353a6bf73fffc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Server2008\pfb\Ressources\EO.Web.dll</HintPath>
+      <HintPath>ExternalReference\EO.Web.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -112,6 +112,7 @@
     </Compile>
     <Compile Include="PasswordReset.aspx.cs">
       <DependentUpon>PasswordReset.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="PasswordReset.aspx.designer.cs">
       <DependentUpon>PasswordReset.aspx</DependentUpon>
@@ -205,6 +206,12 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataBase\DataBase.csproj">
+      <Project>{2E463183-5B60-42B0-8449-6E9A9B439118}</Project>
+      <Name>DataBase</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
