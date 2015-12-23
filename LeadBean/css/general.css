@@ -384,3 +384,17 @@ table.MainMenu {
     height: 22px;
     width: 60px;
 }
+
+.deleteCampaignBlock {
+    float: right;
+    height: 38px;
+    margin: 19px auto;
+}
+
+.header {
+    height: 80px;
+}
+
+    .header h1 {
+        float: left;
+    }

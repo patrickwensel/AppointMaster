@@ -30,12 +30,11 @@
         $(contentTableCols[i]).css("width", $(headerTableCols[i]).css("width"));
     }
 
-
     //alignment of filter rows
     var filterRows = $('.rgFilterRow td').get();
     for (var i = 0; i < filterRows.length; i++) {
         var input = $($(filterRows[i]).find('span'));
-        if (input.length>0) {
+        if (input.length > 0) {
             input.css('width', $(filterRows[i]).width() - 24);
         }
         else {
@@ -70,7 +69,7 @@
             }
         }
     });
-    $("#confirmDelete").dialog({
+    $("#confirmDeleteLeads").dialog({
         autoOpen: false,
         resizable: false,
         width: 400,
@@ -86,16 +85,40 @@
         }
     });
 
+    $("#confirmDeleteCampaign").dialog({
+        autoOpen: false,
+        resizable: false,
+        width: 400,
+        modal: true,
+        buttons: {
+            "Delete": function () {
+                var value = JSON.parse($("#ddlDeleteCampaign_ClientState").val()).selectedValue;
+                console.log(value);
+                __doPostBack('btnDeleteCampaign', value);
+                $(this).dialog("close");
+            },
+            Cancel: function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+
     $('.buttonMoveTo').bind('click', function (e) {
         $('.hiddenCampaignList').click();
     });
 
     $('.buttonDelete').bind('click', function (e) {
-        $("#confirmDelete").dialog("open");
+        $("#confirmDeleteLeads").dialog("open");
     });
 
-    $(".campaignItem").bind('click', function (e) {
+    $(".moveCampaignItem").bind('click', function (e) {
         $(".selectedCampaign").text($(this).text());
         $("#confirmMoveTo").dialog("open");
+    });
+
+    $(".btnDeleteCampaign").bind('click', function (e) {
+        $(".selectedCampaign").text($("#ddlDeleteCampaign").find(".rddlFakeInput").text());
+        $("#confirmDeleteCampaign").dialog("open");
+        return false;
     });
 });

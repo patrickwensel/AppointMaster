@@ -54,10 +54,15 @@ namespace LeadBean
                     URL = "CONFIRM.aspx?RESTOREID={0}";
                 }
                 this.Leads.SelectCommand = string.Format(@"
-                    select c.name as 'Camp', inComingNumber as 'Incoming', timeStamp as 'Time Stamp', durationMinutes as 'Duration', firstName, lastName,email,fileURL, birthday as 'DOB',
+                    select 
+                        CASE
+	                        WHEN c.name is not null
+		                        THEN c.name 
+		                        ELSE '-'
+                        END  as 'Camp', inComingNumber as 'Incoming', timeStamp as 'Time Stamp', durationMinutes as 'Duration', firstName, lastName,email,fileURL, birthday as 'DOB',
                     PrimaryPhone as 'Prim. Phone',alterPrimaryPhone as 'alt. Prim. Phone', l.ID 
                     from {0} as l
-                    join campaign as c on c.Id=campaignID
+                    LEFT join campaign as c on c.Id=campaignID
                      where l.DB={1}", table, Db.ToString());
 
                 Telerik.Web.UI.GridHyperLinkColumn col = (Telerik.Web.UI.GridHyperLinkColumn)this.RadGrid2.Columns[1];
@@ -190,7 +195,7 @@ namespace LeadBean
 
                     string deleteSql = string.Format("DELETE FROM LEAD {0}", where);
                     SqlCommand deleteCmd = new SqlCommand(deleteSql, cn);
-                    deleteCmd.ExecuteNonQuery();                   
+                    deleteCmd.ExecuteNonQuery();
                     deleteCmd.Dispose();
                     deleteCmd = null;
                     cn.Close();
@@ -221,7 +226,7 @@ namespace LeadBean
                     insertCmd.ExecuteNonQuery();
                     insertCmd.Dispose();
                     insertCmd = null;
-                    
+
                     string deleteSql = string.Format("DELETE FROM LeadBean {0}", where);
                     SqlCommand deleteCmd = new SqlCommand(deleteSql, cn);
                     deleteCmd.ExecuteNonQuery();
@@ -246,7 +251,57 @@ namespace LeadBean
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    ddlCampaign.Items.Add(new DropDownListItem("<div class='campaignItem'>" + reader["name"] + "</div>", reader["ID"].ToString()));
+                    ddlCampaign.Items.Add(new DropDownListItem("<div class='moveCampaignItem'>" + reader["name"] + "</div>", reader["ID"].ToString()));
+                }
+                cmd.Dispose();
+                cmd = null;
+                cn.Close();
+            }
+        }
+
+        protected void btnDeleteCampaign_Click(object sender, EventArgs e)
+        {
+            var campaignIdToDelete = Request["__EVENTARGUMENT"];
+
+            using (SqlConnection cn = Connect.getDefaultConnection())
+            {
+                string insertLeadSql = "INSERT INTO LeadBean SELECT * FROM LEAD WHERE campaignID = " + campaignIdToDelete;
+                SqlCommand insertLeadCmd = new SqlCommand(insertLeadSql, cn);
+                insertLeadCmd.ExecuteNonQuery();
+                insertLeadCmd.Dispose();
+                insertLeadCmd = null;
+
+                string deleteLeadSql = "DELETE FROM LEAD WHERE campaignID = " + campaignIdToDelete;
+                SqlCommand deleteLeadCmd = new SqlCommand(deleteLeadSql, cn);
+                deleteLeadCmd.ExecuteNonQuery();
+                deleteLeadCmd.Dispose();
+                deleteLeadCmd = null;
+
+                string deleteCampaignSql = "DELETE FROM CAMPAIGN WHERE ID = " + campaignIdToDelete;
+                SqlCommand deleteCampaignCmd = new SqlCommand(deleteCampaignSql, cn);
+                deleteCampaignCmd.ExecuteNonQuery();
+                deleteCampaignCmd.Dispose();
+                deleteCampaignCmd = null;
+
+                cn.Close();
+
+                Response.Redirect(Context.Request.Url.AbsoluteUri);
+            }
+        }
+
+        protected void ddlDeleteCampaign_Load(object sender, EventArgs e)
+        {
+            RadDropDownList ddlCampaign = (RadDropDownList)sender;
+            ddlCampaign.Items.Clear();
+            using (SqlConnection cn = Connect.getDefaultConnection())
+            {
+                string sql = string.Format("SELECT ID, name FROM CAMPAIGN WHERE DB = {0}", Db.ToString());
+                SqlCommand cmd = new SqlCommand(sql, cn);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ddlCampaign.Items.Add(new DropDownListItem("<div class='campaignItem deleteCampaignItem'>" + reader["name"] + "</div>", reader["ID"].ToString()));
                 }
                 cmd.Dispose();
                 cmd = null;

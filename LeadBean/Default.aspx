@@ -17,9 +17,7 @@
 <body>
     <div style="width: 1870px; margin: 0px auto;">
         <form id="form1" runat="server">
-            <h1>
-                <asp:Label ID="Title" runat="server" Text="Label"></asp:Label>
-            </h1>
+
             <telerik:RadScriptManager ID="RadScriptManager1" runat="server">
                 <Scripts>
                     <asp:ScriptReference Assembly="Telerik.Web.UI"
@@ -29,6 +27,22 @@
                 </Scripts>
             </telerik:RadScriptManager>
 
+            <div class="header">
+                <h1>
+                    <asp:Label ID="Title" runat="server" Text="Label"></asp:Label>
+                </h1>
+                <div class="deleteCampaignBlock">
+                    <div>Delete Campaign</div>
+                    <telerik:RadDropDownList ID="ddlDeleteCampaign" runat="server"
+                        DataTextFormatString='<div class="campaignItem">{0}</div>'
+                        OnLoad="ddlDeleteCampaign_Load">
+                    </telerik:RadDropDownList>
+                    <telerik:RadButton ID="btnDeleteCampaign" CssClass="btnDeleteCampaign" runat="server" Text="Delete"
+                        OnClick="btnDeleteCampaign_Click">
+                    </telerik:RadButton>
+                </div>
+            </div>
+
             <asp:SqlDataSource ID="Leads" runat="server"
                 SelectCommand="select campaignID as 'Camp', inComingNumber as 'Incoming', timeStamp as 'Time Stamp', durationMinutes as 'Duration', firstName, lastName,email,fileURL, birthday as 'DOB',PrimaryPhone as 'Prim. Phone', alterPrimaryPhone as 'alt. Prim. Phone', ID from @TABLE where DB= @DB ">
                 <SelectParameters>
@@ -37,7 +51,7 @@
                 <SelectParameters>
                     <asp:Parameter Name="TABLE" />
                 </SelectParameters>
-            </asp:SqlDataSource>     
+            </asp:SqlDataSource>
 
             <telerik:RadGrid ID="RadGrid2" runat="server" AllowFilteringByColumn="True"
                 AllowPaging="True" AllowSorting="True" CellSpacing="0" Height="800px" PageSize="150"
@@ -52,7 +66,7 @@
                     <Scrolling AllowScroll="True" UseStaticHeaders="True" />
                     <Resizing AllowColumnResize="true" ResizeGridOnColumnResize="true" AllowResizeToFit="true" />
                 </ClientSettings>
-                <MasterTableView DataSourceID="Leads" AutoGenerateColumns="True">                    
+                <MasterTableView DataSourceID="Leads" AutoGenerateColumns="True">
                     <Columns>
                         <telerik:GridClientSelectColumn FilterControlAltText="Filter SelectColumn column" UniqueName="SelectColumn">
                         </telerik:GridClientSelectColumn>
@@ -90,15 +104,18 @@
             <br />
             <br />
             <div id="confirmMoveTo" style="margin: 10px auto; text-align: center;">
-                <div>Are you sure you want to move the selected record to <span style="font-weight: bold;" class="selectedCampaign"></span>Campaign</div>
+                <div>Are you sure you want to move the selected record to <span style="font-weight: bold;" class="selectedCampaign"></span> Campaign?</div>
             </div>
-            <div id="confirmDelete" style="margin: 10px auto; text-align: center;">
-                <div>Are you sure you want to delete the selected records</div>
+            <div id="confirmDeleteCampaign" style="margin: 10px auto; text-align: center;">
+                <div>Are you sure you want to delete <span style="font-weight: bold;" class="selectedCampaign"></span>?</div>
+            </div>
+            <div id="confirmDeleteLeads" style="margin: 10px auto; text-align: center;">
+                <div>Are you sure you want to delete the selected records?</div>
             </div>
         </form>
-        
-    &nbsp;<asp:HyperLink ID="LinkSwitch" runat="server"
-        NavigateUrl="default.aspx?leadbean=1">Trash</asp:HyperLink>
+
+        &nbsp;<asp:HyperLink ID="LinkSwitch" runat="server"
+            NavigateUrl="default.aspx?leadbean=1">Trash</asp:HyperLink>
     </div>
 </body>
 </html>
