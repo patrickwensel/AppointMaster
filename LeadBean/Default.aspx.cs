@@ -62,7 +62,7 @@ namespace LeadBean
                         END  as 'Camp', inComingNumber as 'Incoming', timeStamp as 'Time Stamp', durationMinutes as 'Duration', firstName, lastName,email,fileURL, birthday as 'DOB',
                     PrimaryPhone as 'Prim. Phone',alterPrimaryPhone as 'alt. Prim. Phone', l.ID 
                     from {0} as l
-                    LEFT join campaign as c on c.Id=campaignID
+                    LEFT join campaign as c on c.Id=campaignID and c.db = l.db
                      where l.DB={1}", table, Db.ToString());
 
                 Telerik.Web.UI.GridHyperLinkColumn col = (Telerik.Web.UI.GridHyperLinkColumn)this.RadGrid2.Columns[1];
