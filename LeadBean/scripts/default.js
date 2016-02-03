@@ -114,8 +114,10 @@
     });
 
     $(".moveCampaignItem").bind('click', function (e) {
-        $(".selectedCampaign").text($(this).text());
-        $("#confirmMoveTo").dialog("open");
+        if (!$(this).hasClass("emptyCampaign")) {
+            $(".selectedCampaign").text($(this).text());
+            $("#confirmMoveTo").dialog("open");
+        }
     });
 
     $(".btnDeleteCampaign").bind('click', function (e) {
