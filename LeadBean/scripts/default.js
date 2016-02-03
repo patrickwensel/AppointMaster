@@ -92,9 +92,11 @@
         modal: true,
         buttons: {
             "Delete": function () {
-                var value = JSON.parse($("#ddlDeleteCampaign_ClientState").val()).selectedValue;
-                console.log(value);
-                __doPostBack('btnDeleteCampaign', value);
+                if ($("#ddlDeleteCampaign_ClientState").val() && JSON.parse($("#ddlDeleteCampaign_ClientState").val()).selectedValue) {
+                    var value = JSON.parse($("#ddlDeleteCampaign_ClientState").val()).selectedValue;
+                    console.log(value);
+                    __doPostBack('btnDeleteCampaign', value);
+                }
                 $(this).dialog("close");
             },
             Cancel: function () {
@@ -117,8 +119,13 @@
     });
 
     $(".btnDeleteCampaign").bind('click', function (e) {
-        $(".selectedCampaign").text($("#ddlDeleteCampaign").find(".rddlFakeInput").text());
-        $("#confirmDeleteCampaign").dialog("open");
+        if ($("#ddlDeleteCampaign_ClientState").val() && JSON.parse($("#ddlDeleteCampaign_ClientState").val()).selectedValue) {
+            $(".selectedCampaign").text($("#ddlDeleteCampaign").find(".rddlFakeInput").text());
+            $("#confirmDeleteCampaign").dialog("open");
+        }
+        else {
+            $("#ddlDeleteCampaign").click()
+        }
         return false;
     });
 });

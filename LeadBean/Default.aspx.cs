@@ -242,16 +242,19 @@ namespace LeadBean
         protected void ddlCampaign_Load(object sender, EventArgs e)
         {
             RadDropDownList ddlCampaign = (RadDropDownList)sender;
+            ddlCampaign.Items.Clear();
 
             using (SqlConnection cn = Connect.getDefaultConnection())
             {
                 string sql = string.Format("SELECT ID, name FROM CAMPAIGN WHERE DB = {0}", Db.ToString());
                 SqlCommand cmd = new SqlCommand(sql, cn);
 
+                ddlCampaign.Items.Add(new DropDownListItem("<div class='campaignItem'>" + "- select campaing -" + "</div>"));
+
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    ddlCampaign.Items.Add(new DropDownListItem("<div class='moveCampaignItem'>" + reader["name"] + "</div>", reader["ID"].ToString()));
+                    ddlCampaign.Items.Add(new DropDownListItem("<div class='campaignItem moveCampaignItem'>" + reader["name"] + "</div>", reader["ID"].ToString()));
                 }
                 cmd.Dispose();
                 cmd = null;
@@ -297,6 +300,8 @@ namespace LeadBean
             {
                 string sql = string.Format("SELECT ID, name FROM CAMPAIGN WHERE DB = {0}", Db.ToString());
                 SqlCommand cmd = new SqlCommand(sql, cn);
+
+                ddlCampaign.Items.Add(new DropDownListItem("<div class='campaignItem deleteCampaignItem'>" + "- select campaing -" + "</div>"));
 
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
