@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace AppointMaster.ViewModels
 {
@@ -19,6 +20,13 @@ namespace AppointMaster.ViewModels
         public MainViewModel()
         {
 
+        }
+        public MvxCommand ShowCheckInCommand
+        {
+            get
+            {
+                return new MvxCommand(() => ShowViewModel<CheckInViewModel>());
+            }
         }
     }
 }

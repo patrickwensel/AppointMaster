@@ -62,6 +62,15 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check In.
+        /// </summary>
+        internal static string Check_In {
+            get {
+                return ResourceManager.GetString("Check_In", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disclaimer.
         /// </summary>
         internal static string Disclaimer {
@@ -85,6 +94,42 @@ namespace AppointMaster.Resources {
         internal static string Registration {
             get {
                 return ResourceManager.GetString("Registration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step 1 of 6 - Client Information.
+        /// </summary>
+        internal static string Registration_Step1 {
+            get {
+                return ResourceManager.GetString("Registration_Step1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step 2 of 6 - Address.
+        /// </summary>
+        internal static string Registration_Step2 {
+            get {
+                return ResourceManager.GetString("Registration_Step2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        internal static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Walk - In New Registration.
+        /// </summary>
+        internal static string Walk_In {
+            get {
+                return ResourceManager.GetString("Walk_In", resourceCulture);
             }
         }
     }

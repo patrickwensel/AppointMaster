@@ -1,4 +1,5 @@
 ﻿using AppointMaster.Resources;
+using AppointMaster.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,14 @@ namespace AppointMaster.Pages
 {
     public class MainPage : ContentPage
     {
+        private MainViewModel MainViewModel
+        {
+            get { return BindingContext as MainViewModel; }
+        }
+
         public MainPage()
         {
+            BackgroundColor = Color.White;
             NavigationPage.SetHasNavigationBar(this, false);
             //var padding = new Thickness(0, Device.OnPlatform(40, 40, 0), 0, 0);
             var padding = new Thickness(20, 20, 20, 20);
@@ -73,6 +80,11 @@ namespace AppointMaster.Pages
                 }
             };
 
+            slReg.GestureRecognizers.Add(new TapGestureRecognizer
+            {
+                Command = new Command(() => ShowCheckInView())
+            });
+
             var slDis = new StackLayout
             {
                 Orientation = StackOrientation.Vertical,
@@ -100,37 +112,11 @@ namespace AppointMaster.Pages
             grid.Children.Add(slDis, 0, 2);
 
             Content = grid;
+        }
 
-            //Content = new StackLayout
-            //{
-            //    Children = {
-            //        label1,
-            //        label2,
-            //        label3,
-            //        image
-            //    }
-            //};
-
-            //var rl = new RelativeLayout();
-            //rl.Children.Add(sl,
-            //Constraint.RelativeToView(sl, (Parent, sibling) =>
-            //{
-            //    return sibling.X + 20;
-            //}), 
-            //Constraint.RelativeToView(sl, (parent, sibling) =>
-            //{
-            //    return sibling.Y + 20;
-            //}),
-            //Constraint.RelativeToParent((parent) =>
-            //{
-            //    return parent.Width * .5;
-            //}),
-            //Constraint.RelativeToParent((parent) =>
-            //{
-            //    return parent.Height * .5;
-            //}));
-            BackgroundColor = Color.White;
-            //helloResponse.SetBinding(Label.TextProperty, new Binding("YourNickname"));
+        private void ShowCheckInView()
+        {
+            MainViewModel.ShowCheckInCommand.Execute();
         }
     }
 }
