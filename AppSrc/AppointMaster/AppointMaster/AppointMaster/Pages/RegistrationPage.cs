@@ -31,7 +31,7 @@ namespace AppointMaster.Pages
                 WidthRequest = 207
             };
 
-            var labStep1= new Label
+            var labStep1 = new Label
             {
                 VerticalOptions = LayoutOptions.Start,
                 HorizontalOptions = LayoutOptions.Start,
@@ -49,38 +49,148 @@ namespace AppointMaster.Pages
                 FontSize = 20
             };
 
-            //var titleEntry = new ExtendedEntry
-            //{
-            //    VerticalOptions = LayoutOptions.Start,
-            //    HorizontalOptions = LayoutOptions.Start,
-            //    HeightRequest=40,
-            //    WidthRequest = 150,
-            //    TextColor = Color.Black,
-            //    FontSize = 20,
-            //    BackgroundColor=Color.White,
-            //    HasBorder=false
-            //};
-
-            var titleEntry = new ExtendedEntry()
+            var labFirst = new Label
             {
-                Text = "and From code",
-                Font = Font.SystemFontOfSize(NamedSize.Large),
-                PlaceholderTextColor = Color.Red,
-                HasBorder = false,
-                XAlign = TextAlignment.Center
+                VerticalOptions = LayoutOptions.Start,
+                HorizontalOptions = LayoutOptions.Start,
+                Text = AppResources.FirstName,
+                TextColor = Color.Black,
+                FontSize = 20
+            };
+
+            var labLast = new Label
+            {
+                VerticalOptions = LayoutOptions.Start,
+                HorizontalOptions = LayoutOptions.Start,
+                Text = AppResources.LastName,
+                TextColor = Color.Black,
+                FontSize = 20
+            };
+
+            var titleEntry = new MyEntry
+            {
+                VerticalOptions = LayoutOptions.Start,
+                HorizontalOptions = LayoutOptions.Start,
+                HeightRequest = 50,
+                WidthRequest = 460,
+                TextColor = Color.Black,
+                FontSize = 20,
+            };
+
+            var firstEntry = new MyEntry
+            {
+                VerticalOptions = LayoutOptions.Start,
+                HorizontalOptions = LayoutOptions.Start,
+                HeightRequest = 50,
+                WidthRequest = 460,
+                TextColor = Color.Black,
+                FontSize = 20,
+            };
+
+            var lastEntry = new MyEntry
+            {
+                VerticalOptions = LayoutOptions.Start,
+                HorizontalOptions = LayoutOptions.Start,
+                HeightRequest = 50,
+                WidthRequest = 460,
+                TextColor = Color.Black,
+                FontSize = 20,
+            };
+
+            var titleSl = new StackLayout
+            {
+                Children =
+                {
+                    labTitle,
+                    titleEntry
+                }
+            };
+
+            var firstSl = new StackLayout
+            {
+                Children =
+                {
+                    labFirst,
+                    firstEntry
+                }
+            };
+
+            var lastSl = new StackLayout
+            {
+                Children =
+                {
+                    labLast,
+                    lastEntry
+                }
+            };
+
+            Button btnBack = new Button
+            {
+                Text = AppResources.Back,
+                TextColor = Color.Black,
+                BackgroundColor = Color.Transparent,
+                WidthRequest = 120,
+                HeightRequest = 50,
+                HorizontalOptions = LayoutOptions.Start,
+                BorderColor = Color.Black,
+                BorderRadius = 1,
+                BorderWidth = 2
+            };
+            Button btnCancel = new Button
+            {
+                Text = AppResources.Cancel,
+                TextColor = Color.Black,
+                BackgroundColor = Color.Transparent,
+                WidthRequest = 120,
+                HorizontalOptions = LayoutOptions.Center,
+                BorderColor = Color.Black,
+                BorderRadius = 1,
+                BorderWidth = 2
+            };
+            Button btnNext = new Button
+            {
+                Text = AppResources.Next,
+                TextColor = Color.Black,
+                BackgroundColor = Color.Transparent,
+                WidthRequest = 120,
+                HorizontalOptions = LayoutOptions.End,
+                BorderColor = Color.Black,
+                BorderRadius = 1,
+                BorderWidth = 2
+            };
+
+            var btnSl = new StackLayout
+            {
+                Orientation = StackOrientation.Horizontal,
+                VerticalOptions = LayoutOptions.Start,
+                Children =
+                {
+                    new StackLayout {Padding=new Thickness(0,0,50,0), Children= { btnBack } },
+                     new StackLayout {Padding=new Thickness(0,0,50,0), Children= { btnCancel } },
+                      new StackLayout {Padding=new Thickness(0,0,50,0), Children= { btnNext } }
+                }
             };
 
             var grid1 = new Grid();
             grid1.RowDefinitions.Add(new RowDefinition { Height = new GridLength(150) });
-            grid1.RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
-            grid1.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            grid1.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
+            grid1.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
+            grid1.RowDefinitions.Add(new RowDefinition { Height = new GridLength(120) });
+            grid1.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50) });
 
             grid1.Children.Add(logoImage1, 0, 0);
             grid1.Children.Add(labStep1, 0, 0);
 
-            grid1.Children.Add(labTitle, 0, 1);
+            grid1.Children.Add(titleSl, 0, 1);
 
-            grid1.Children.Add(titleEntry, 0, 2);
+            grid1.Children.Add(firstSl, 0, 2);
+
+            grid1.Children.Add(lastSl, 0, 3);
+
+            grid1.Children.Add(btnSl, 0, 4);
+            //grid1.Children.Add(btnBack, 0, 4);
+            //grid1.Children.Add(btnCancel, 0, 4);
+            //grid1.Children.Add(btnNext, 0, 4);
 
             //Step2
             var logoImage2 = new Image

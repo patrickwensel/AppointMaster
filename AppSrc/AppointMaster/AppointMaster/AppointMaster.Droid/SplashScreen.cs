@@ -6,7 +6,7 @@ using Xamarin.Forms;
 namespace AppointMaster.Droid
 {
     [Activity(
-        Label = "Example.Droid"
+        Label = "AppointMaster"
         , MainLauncher = true
         , Icon = "@drawable/icon"
         , Theme = "@style/Theme.Splash"

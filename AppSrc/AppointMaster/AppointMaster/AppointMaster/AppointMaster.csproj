@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Controls\MyEntry.cs" />
     <Compile Include="Models\CheckInInfoModel.cs" />
     <Compile Include="Pages\CheckInPage.cs" />
     <Compile Include="Pages\MainPage.cs" />
