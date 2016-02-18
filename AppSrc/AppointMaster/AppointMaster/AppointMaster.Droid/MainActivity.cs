@@ -16,7 +16,7 @@ using Xamarin.Forms.Platform.Android;
 
 namespace AppointMaster.Droid
 {
-    [Activity(Label = "FormsApplicationActivity", ConfigurationChanges = ConfigChanges.Orientation)]
+    [Activity(Label = "FormsApplicationActivity", ScreenOrientation = ScreenOrientation.Portrait)]//, Theme = "@style/Theme.NoTitle"
     public class MainActivity : FormsApplicationActivity
     {
         protected override void OnCreate(Bundle bundle)

@@ -62,11 +62,29 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Test.
+        ///   Looks up a localized string similar to Disclaimer.
         /// </summary>
-        internal static string String1 {
+        internal static string Disclaimer {
             get {
-                return ResourceManager.GetString("String1", resourceCulture);
+                return ResourceManager.GetString("Disclaimer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio..
+        /// </summary>
+        internal static string Disclaimer_Details {
+            get {
+                return ResourceManager.GetString("Disclaimer_Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registration.
+        /// </summary>
+        internal static string Registration {
+            get {
+                return ResourceManager.GetString("Registration", resourceCulture);
             }
         }
     }
