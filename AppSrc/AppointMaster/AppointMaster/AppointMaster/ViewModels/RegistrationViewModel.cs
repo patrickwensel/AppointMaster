@@ -9,5 +9,16 @@ namespace AppointMaster.ViewModels
 {
     public class RegistrationViewModel : MvxViewModel
     {
+        private int _selectedPageIndex;
+        public int SelectedPageIndex
+        {
+            get { return _selectedPageIndex; }
+            set
+            {
+                if (value == _selectedPageIndex) return;
+                _selectedPageIndex = value;
+                RaisePropertyChanged(() => SelectedPageIndex);
+            }
+        }
     }
 }

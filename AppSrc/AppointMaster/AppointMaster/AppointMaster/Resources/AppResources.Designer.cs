@@ -89,6 +89,15 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to City.
+        /// </summary>
+        internal static string City {
+            get {
+                return ResourceManager.GetString("City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disclaimer.
         /// </summary>
         internal static string Disclaimer {
@@ -103,6 +112,15 @@ namespace AppointMaster.Resources {
         internal static string Disclaimer_Details {
             get {
                 return ResourceManager.GetString("Disclaimer_Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        internal static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
             }
         }
         
@@ -134,6 +152,15 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Phone.
+        /// </summary>
+        internal static string Phone {
+            get {
+                return ResourceManager.GetString("Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Registration.
         /// </summary>
         internal static string Registration {
@@ -161,6 +188,24 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to State.
+        /// </summary>
+        internal static string State {
+            get {
+                return ResourceManager.GetString("State", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Street Adress.
+        /// </summary>
+        internal static string Street_Adress {
+            get {
+                return ResourceManager.GetString("Street_Adress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         internal static string Title {
@@ -175,6 +220,15 @@ namespace AppointMaster.Resources {
         internal static string Walk_In {
             get {
                 return ResourceManager.GetString("Walk_In", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zip.
+        /// </summary>
+        internal static string Zip {
+            get {
+                return ResourceManager.GetString("Zip", resourceCulture);
             }
         }
     }

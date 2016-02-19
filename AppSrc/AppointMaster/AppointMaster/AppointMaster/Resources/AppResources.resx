@@ -126,11 +126,17 @@
   <data name="Check_In" xml:space="preserve">
     <value>Check In</value>
   </data>
+  <data name="City" xml:space="preserve">
+    <value>City</value>
+  </data>
   <data name="Disclaimer" xml:space="preserve">
     <value>Disclaimer</value>
   </data>
   <data name="Disclaimer_Details" xml:space="preserve">
     <value>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>First Name</value>
@@ -141,6 +147,9 @@
   <data name="Next" xml:space="preserve">
     <value>Next &gt;</value>
   </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
   <data name="Registration" xml:space="preserve">
     <value>Registration</value>
   </data>
@@ -150,10 +159,19 @@
   <data name="Registration_Step2" xml:space="preserve">
     <value>Step 2 of 6 - Address</value>
   </data>
+  <data name="State" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="Street_Adress" xml:space="preserve">
+    <value>Street Adress</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>Title</value>
   </data>
   <data name="Walk_In" xml:space="preserve">
     <value>Walk - In New Registration</value>
+  </data>
+  <data name="Zip" xml:space="preserve">
+    <value>Zip</value>
   </data>
 </root>
