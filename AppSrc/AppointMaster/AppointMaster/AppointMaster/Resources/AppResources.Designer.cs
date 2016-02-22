@@ -188,6 +188,15 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt; Main Menu.
+        /// </summary>
+        internal static string Main_Menu {
+            get {
+                return ResourceManager.GetString("Main_Menu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Next &gt;.
         /// </summary>
         internal static string Next {

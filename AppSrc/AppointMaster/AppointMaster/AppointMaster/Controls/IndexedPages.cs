@@ -89,6 +89,7 @@ namespace AppointMaster.Controls
             _internalPageChange = false;
         }
 
+
         protected override ContentPage CreateDefault(object item)
         {
             var contentPage = new ContentPage();

@@ -55,7 +55,21 @@ namespace AppointMaster.Pages
                 Text = AppResources.Walk_In,
                 TextColor = Color.Black,
                 FontSize = 20,
-                BackgroundColor=Color.Transparent
+                BackgroundColor = Color.Transparent
+            };
+
+            var btnMainMenu = new Button
+            {
+                WidthRequest=200,
+                VerticalOptions = LayoutOptions.End,
+                HorizontalOptions = LayoutOptions.Start,
+                Text = AppResources.Main_Menu,
+                TextColor = Color.Black,
+                FontSize = 20,
+                BackgroundColor = Color.Transparent,
+                BorderColor = Color.Black,
+                BorderRadius = 1,
+                BorderWidth = 2
             };
 
             btnNewReg.SetBinding(Button.CommandProperty, new Binding("ShowRegistrationCommand"));
@@ -133,6 +147,7 @@ namespace AppointMaster.Pages
             grid.Children.Add(boxView, 0, 2);
 
             grid.Children.Add(listView, 0, 3);
+            grid.Children.Add(btnMainMenu, 0, 3);
 
             Content = grid;
 

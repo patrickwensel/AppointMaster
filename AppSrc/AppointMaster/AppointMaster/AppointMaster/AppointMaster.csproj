@@ -36,8 +36,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Controls\DropDownPicker.cs" />
+    <Compile Include="Controls\DropDownTapArgs.cs" />
     <Compile Include="Controls\IndexedPages.cs" />
+    <Compile Include="Controls\MyDatePicker.cs" />
     <Compile Include="Controls\MyEntry.cs" />
+    <Compile Include="Controls\MyPicker.cs" />
     <Compile Include="Models\CheckInInfoModel.cs" />
     <Compile Include="Pages\CheckInPage.cs" />
     <Compile Include="Pages\MainPage.cs" />

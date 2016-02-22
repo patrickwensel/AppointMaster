@@ -159,6 +159,9 @@
   <data name="LastName" xml:space="preserve">
     <value>Last Name</value>
   </data>
+  <data name="Main_Menu" xml:space="preserve">
+    <value>&lt; Main Menu</value>
+  </data>
   <data name="Next" xml:space="preserve">
     <value>Next &gt;</value>
   </data>
