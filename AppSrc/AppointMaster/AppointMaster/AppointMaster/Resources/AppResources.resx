@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add_Another" xml:space="preserve">
+    <value>+ Add Another</value>
+  </data>
   <data name="Back" xml:space="preserve">
     <value>&lt; Back</value>
+  </data>
+  <data name="Birthdate" xml:space="preserve">
+    <value>Birthdate</value>
+  </data>
+  <data name="Breed" xml:space="preserve">
+    <value>Breed</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
@@ -128,6 +137,9 @@
   </data>
   <data name="City" xml:space="preserve">
     <value>City</value>
+  </data>
+  <data name="Companion" xml:space="preserve">
+    <value>Companion</value>
   </data>
   <data name="Disclaimer" xml:space="preserve">
     <value>Disclaimer</value>
@@ -141,11 +153,17 @@
   <data name="FirstName" xml:space="preserve">
     <value>First Name</value>
   </data>
+  <data name="Gender" xml:space="preserve">
+    <value>Gender</value>
+  </data>
   <data name="LastName" xml:space="preserve">
     <value>Last Name</value>
   </data>
   <data name="Next" xml:space="preserve">
     <value>Next &gt;</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
   </data>
   <data name="Phone" xml:space="preserve">
     <value>Phone</value>
@@ -170,6 +188,9 @@
   </data>
   <data name="Walk_In" xml:space="preserve">
     <value>Walk - In New Registration</value>
+  </data>
+  <data name="Who_Is_With" xml:space="preserve">
+    <value>Who is with you today?</value>
   </data>
   <data name="Zip" xml:space="preserve">
     <value>Zip</value>

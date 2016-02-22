@@ -8,7 +8,6 @@ namespace AppointMaster.Droid
     [Activity(
         Label = "AppointMaster"
         , MainLauncher = true
-        , Icon = "@drawable/icon"
         , Theme = "@style/Theme.Splash"
         , NoHistory = true
         , ScreenOrientation = ScreenOrientation.Portrait)]

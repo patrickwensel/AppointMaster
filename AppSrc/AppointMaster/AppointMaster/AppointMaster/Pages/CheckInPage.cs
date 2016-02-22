@@ -55,9 +55,7 @@ namespace AppointMaster.Pages
                 Text = AppResources.Walk_In,
                 TextColor = Color.Black,
                 FontSize = 20,
-                //BorderColor=Color.Black,
-                //BorderWidth=1,
-                BackgroundColor=Color.Transparent,
+                BackgroundColor=Color.Transparent
             };
 
             btnNewReg.SetBinding(Button.CommandProperty, new Binding("ShowRegistrationCommand"));
