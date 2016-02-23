@@ -75,15 +75,23 @@ namespace AppointMaster.Pages
                 FontSize = 20
             };
 
-            var titleEntry = new MyEntry
+            //var titleEntry = new MyEntry
+            //{
+            //    VerticalOptions = LayoutOptions.Start,
+            //    HorizontalOptions = LayoutOptions.Start,
+            //    HeightRequest = 50,
+            //    WidthRequest = 470,
+            //    TextColor = Color.Black,
+            //    FontSize = 20,
+            //};
+            MyPicker titlePicker = new MyPicker
             {
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Start,
+                WidthRequest = 120,
                 HeightRequest = 50,
-                WidthRequest = 470,
-                TextColor = Color.Black,
-                FontSize = 20,
+                //DisplayProperty = "Title"
             };
+            titlePicker.Items.Add("Mr.");
+            titlePicker.Items.Add("Mrs.");
 
             var firstEntry = new MyEntry
             {
@@ -107,11 +115,13 @@ namespace AppointMaster.Pages
 
             var titleSl = new StackLayout
             {
-                HorizontalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Start,
+                Padding = new Thickness(145, 0, 0, 0),
                 Children =
                 {
                     labTitle,
-                    titleEntry
+                    titlePicker
+                    //titleEntry
                 }
             };
 
@@ -147,6 +157,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BorderWidth = 2
             };
+
             Button btnStep1Cancel = new Button
             {
                 Text = AppResources.Cancel,
@@ -158,6 +169,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BorderWidth = 2
             };
+
             Button btnStep1Next = new Button
             {
                 Text = AppResources.Next,
@@ -258,15 +270,23 @@ namespace AppointMaster.Pages
                 FontSize = 20,
             };
 
-            var stateEntry = new MyEntry
+            //var stateEntry = new MyEntry
+            //{
+            //    VerticalOptions = LayoutOptions.Start,
+            //    HorizontalOptions = LayoutOptions.Start,
+            //    HeightRequest = 50,
+            //    WidthRequest = 200,
+            //    TextColor = Color.Black,
+            //    FontSize = 20
+            //};
+
+            MyPicker statePicker = new MyPicker
             {
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Start,
                 HeightRequest = 50,
-                WidthRequest = 200,
-                TextColor = Color.Black,
-                FontSize = 20
+                WidthRequest = 200
             };
+            statePicker.Items.Add("MD"); statePicker.Items.Add("AL");
+            statePicker.Items.Add("AK"); statePicker.Items.Add("AZ");
 
             var zipEntry = new MyEntry
             {
@@ -304,7 +324,8 @@ namespace AppointMaster.Pages
                 Children =
                 {
                    labState,
-                   stateEntry
+                   statePicker
+                   //stateEntry
                 }
             };
 
@@ -685,7 +706,7 @@ namespace AppointMaster.Pages
             grid4.Children.Add(addAnotherGrid, 0, 0);
 
             grid4.Children.Add(whoIsSl, 0, 1);
-        
+
             grid4.Children.Add(sl, 0, 2);//sl
 
             grid4.Children.Add(btnStep4Sl, 0, 3);
@@ -1183,7 +1204,7 @@ namespace AppointMaster.Pages
 
             StackLayout clientInfoTitleSl = new StackLayout
             {
-                Orientation=StackOrientation.Horizontal,
+                Orientation = StackOrientation.Horizontal,
                 Children =
                 {
                     clientInfoSl,
@@ -1295,13 +1316,16 @@ namespace AppointMaster.Pages
             addAnotherSl.GestureRecognizers.Add(addAnotherSlClick);
 
             //Binding
-            titleEntry.SetBinding(Entry.TextProperty, new Binding("Title"));
+            //titleEntry.SetBinding(Entry.TextProperty, new Binding("Title"));
+            //titlePicker.SetBinding(Picker.ItemsSourceProperty, new Binding("TitleList"));
+            //titlePicker.SetBinding(ExtendedPicker.SelectedItemProperty, new Binding("SelectedTitle"));
+
             firstEntry.SetBinding(Entry.TextProperty, new Binding("FirstName"));
             lastEntry.SetBinding(Entry.TextProperty, new Binding("LastName"));
 
             streetEntry.SetBinding(Entry.TextProperty, new Binding("StreetAddress"));
             cityEntry.SetBinding(Entry.TextProperty, new Binding("City"));
-            stateEntry.SetBinding(Entry.TextProperty, new Binding("State"));
+            //stateEntry.SetBinding(Entry.TextProperty, new Binding("State"));
             zipEntry.SetBinding(Entry.TextProperty, new Binding("Zip"));
 
             phoneEntry.SetBinding(Entry.TextProperty, new Binding("Phone"));

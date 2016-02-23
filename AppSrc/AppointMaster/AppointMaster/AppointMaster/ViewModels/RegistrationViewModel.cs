@@ -1,6 +1,7 @@
 ﻿using MvvmCross.Core.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,14 +22,14 @@ namespace AppointMaster.ViewModels
         //    }
         //}
 
-        private string _title;
-        public string Title
+        private object _selectedTitle;
+        public object SelectedTitle
         {
-            get { return _title; }
+            get { return _selectedTitle; }
             set
             {
-                _title = value;
-                RaisePropertyChanged(() => Title);
+                _selectedTitle = value;
+                RaisePropertyChanged(() => SelectedTitle);
             }
         }
 
@@ -128,5 +129,19 @@ namespace AppointMaster.ViewModels
                 return new MvxCommand(() => ShowViewModel<CheckInViewModel>());
             }
         }
+
+        public ObservableCollection<TitleModel> TitleList { get; set; }
+
+        public RegistrationViewModel()
+        {
+            TitleList = new ObservableCollection<TitleModel>();
+            TitleList.Add(new TitleModel { Title = "Mr." });
+            TitleList.Add(new TitleModel { Title = "Mrs." });
+        }
+    }
+
+    public class TitleModel
+    {
+        public string Title { get; set; }
     }
 }
