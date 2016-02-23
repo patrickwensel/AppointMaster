@@ -138,6 +138,9 @@
   <data name="City" xml:space="preserve">
     <value>City</value>
   </data>
+  <data name="Client_Information" xml:space="preserve">
+    <value>Client Information</value>
+  </data>
   <data name="Companion" xml:space="preserve">
     <value>Companion</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="Disclaimer_Details" xml:space="preserve">
     <value>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
@@ -174,6 +180,9 @@
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
+  <data name="Patient_Information" xml:space="preserve">
+    <value>Patient Information</value>
+  </data>
   <data name="Phone" xml:space="preserve">
     <value>Phone</value>
   </data>
@@ -181,16 +190,16 @@
     <value>Registration</value>
   </data>
   <data name="Registration_Step1" xml:space="preserve">
-    <value>Step 1 of 4 - Client Information</value>
+    <value>Step 1 of 5 - Client Information</value>
   </data>
   <data name="Registration_Step2" xml:space="preserve">
-    <value>Step 2 of 4 - Address</value>
+    <value>Step 2 of 5 - Address</value>
   </data>
   <data name="Registration_Step3" xml:space="preserve">
-    <value>Step 3 of 4 - Contact Information</value>
+    <value>Step 3 of 5 - Contact Information</value>
   </data>
   <data name="Registration_Step4" xml:space="preserve">
-    <value>Step 4 of 4 - Patient Information</value>
+    <value>Step 4 of 5 - Patient Information</value>
   </data>
   <data name="State" xml:space="preserve">
     <value>State</value>

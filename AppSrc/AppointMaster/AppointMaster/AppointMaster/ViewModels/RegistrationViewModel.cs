@@ -120,5 +120,13 @@ namespace AppointMaster.ViewModels
                 RaisePropertyChanged(() => Email);
             }
         }
+
+        public MvxCommand ShowCheckInCommand
+        {
+            get
+            {
+                return new MvxCommand(() => ShowViewModel<CheckInViewModel>());
+            }
+        }
     }
 }

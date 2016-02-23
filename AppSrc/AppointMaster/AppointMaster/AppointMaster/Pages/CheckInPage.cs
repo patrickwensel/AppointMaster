@@ -1,4 +1,5 @@
-﻿using AppointMaster.Resources;
+﻿using AppointMaster.Controls;
+using AppointMaster.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,7 +77,7 @@ namespace AppointMaster.Pages
 
             var boxView = new BoxView { WidthRequest = 1, HeightRequest = 1, BackgroundColor = Color.Black, VerticalOptions = LayoutOptions.Start };
 
-            ListView listView = new ListView()
+            MyListView listView = new MyListView()
             {
                 ItemTemplate = new DataTemplate(() =>
                 {

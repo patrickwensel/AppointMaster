@@ -24,9 +24,7 @@ namespace AppointMaster.Pages
         {
             BackgroundColor = Color.White;
             NavigationPage.SetHasNavigationBar(this, false);
-            var padding = new Thickness(20, 20, 20, 20);
-
-            Padding = padding;
+            Padding = new Thickness(20, 20, 20, 20);
 
             var logoImage = new Image
             {
@@ -563,24 +561,6 @@ namespace AppointMaster.Pages
                 VerticalOptions = LayoutOptions.Start
             };
 
-            Button btnAdd = new Button
-            {
-                BorderColor = Color.Black,
-                BorderWidth = 2,
-                BorderRadius = 10,
-                BackgroundColor = Color.Transparent,
-            };
-
-            //Button btn = new Button
-            //{
-            //    BorderColor = Color.Black,
-            //    BorderWidth = 2,
-            //    BorderRadius = 1,
-            //    BackgroundColor = Color.Transparent
-            //};
-
-            CheckBox ck = new CheckBox() { };
-
             Image patientImage = new Image
             {
                 Source = "cat.png",
@@ -599,7 +579,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BackgroundColor = Color.Transparent
             }, 0, 0);
-            patientGrid.Children.Add(ck, 0, 0);
+            patientGrid.Children.Add(new CheckBox { }, 0, 0);
             //Grid.SetColumnSpan(ck, 2);
 
             Button btnStep4Back = new Button
@@ -687,7 +667,13 @@ namespace AppointMaster.Pages
             addAnotherGrid.HorizontalOptions = LayoutOptions.End;
             addAnotherGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(80) });
             addAnotherGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(200) });
-            addAnotherGrid.Children.Add(btnAdd, 0, 0);
+            addAnotherGrid.Children.Add(new Button
+            {
+                BorderColor = Color.Black,
+                BorderWidth = 2,
+                BorderRadius = 10,
+                BackgroundColor = Color.Transparent,
+            }, 0, 0);
             addAnotherGrid.Children.Add(addAnotherSl, 0, 0);
 
             var grid4 = new Grid();
@@ -699,8 +685,8 @@ namespace AppointMaster.Pages
             grid4.Children.Add(addAnotherGrid, 0, 0);
 
             grid4.Children.Add(whoIsSl, 0, 1);
-
-            grid4.Children.Add(sl, 0, 2);
+        
+            grid4.Children.Add(sl, 0, 2);//sl
 
             grid4.Children.Add(btnStep4Sl, 0, 3);
 
@@ -1036,7 +1022,7 @@ namespace AppointMaster.Pages
             {
                 BackgroundColor = Color.White,
                 WidthRequest = 150,
-                HeightRequest = 50,
+                HeightRequest = 50
             };
             genderPicker.Items.Add("Male");
             genderPicker.Items.Add("Female");
@@ -1164,8 +1150,8 @@ namespace AppointMaster.Pages
 
             var grid4Other = new Grid();
             grid4Other.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
-            grid4Other.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50) });
-            grid4Other.RowDefinitions.Add(new RowDefinition { Height = new GridLength(150) });
+            grid4Other.RowDefinitions.Add(new RowDefinition { Height = new GridLength(80) });
+            grid4Other.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
 
             grid4Other.Children.Add(breedSl, 0, 0);
 
@@ -1174,6 +1160,36 @@ namespace AppointMaster.Pages
             grid4Other.Children.Add(btnStep4OtherSl, 0, 2);
 
             #endregion
+
+            //Confirm
+            StackLayout clientInfoSl = new StackLayout
+            {
+                Children =
+                {
+                    new Label { Text=AppResources.Client_Information},
+                    new BoxView { WidthRequest = 1, HeightRequest = 1, BackgroundColor = Color.Black, VerticalOptions = LayoutOptions.Start }
+                }
+            };
+
+            Button btnEditClientInfo = new Button
+            {
+                Text = AppResources.Edit,
+                TextColor = Color.Black,
+                BackgroundColor = Color.Transparent,
+                BorderColor = Color.Black,
+                BorderRadius = 1,
+                BorderWidth = 2
+            };
+
+            StackLayout clientInfoTitleSl = new StackLayout
+            {
+                Orientation=StackOrientation.Horizontal,
+                Children =
+                {
+                    clientInfoSl,
+                    btnEditClientInfo
+                }
+            };
 
             var grid = new Grid();
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(150) });
@@ -1218,15 +1234,14 @@ namespace AppointMaster.Pages
 
             btnStep4Next.Clicked += delegate
             {
-                grid4.IsVisible = false;
-                grid4Add.IsVisible = true;
+                //grid4.IsVisible = false;
+                //grid4Add.IsVisible = true;
             };
 
             btnStep4AddNext.Clicked += delegate
             {
                 grid4Add.IsVisible = false;
                 grid4Other.IsVisible = true;
-
             };
 
             //btnStep4OtherNext.Clicked += delegate
@@ -1236,10 +1251,7 @@ namespace AppointMaster.Pages
             //};
 
             //Back
-            btnStep1Back.Clicked += delegate
-            {
-
-            };
+            btnStep1Back.SetBinding(Button.CommandProperty, new Binding("ShowCheckInCommand"));
 
             btnStep2Back.Clicked += delegate
             {
@@ -1273,6 +1285,14 @@ namespace AppointMaster.Pages
                 grid4Add.IsVisible = true;
                 grid4Other.IsVisible = false;
             };
+
+            var addAnotherSlClick = new TapGestureRecognizer();
+            addAnotherSlClick.Tapped += delegate
+            {
+                grid4.IsVisible = false;
+                grid4Add.IsVisible = true;
+            };
+            addAnotherSl.GestureRecognizers.Add(addAnotherSlClick);
 
             //Binding
             titleEntry.SetBinding(Entry.TextProperty, new Binding("Title"));

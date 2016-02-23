@@ -33,14 +33,14 @@ namespace AppointMaster.ViewModels
 
         private void Login()
         {
-            if (string.IsNullOrEmpty(UserName))
-            {
-                return;
-            }
-            if (string.IsNullOrEmpty(Password))
-            {
-                return;
-            }
+            //if (string.IsNullOrEmpty(UserName))
+            //{
+            //    return;
+            //}
+            //if (string.IsNullOrEmpty(Password))
+            //{
+            //    return;
+            //}
 
             ShowViewModel<CheckInViewModel>();
         }

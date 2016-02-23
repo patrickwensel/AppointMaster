@@ -86,7 +86,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BorderWidth = 2,
                 BackgroundColor = Color.Transparent,
-                TextColor=Color.Black,
+                TextColor = Color.Black,
             };
 
             var grid = new Grid();

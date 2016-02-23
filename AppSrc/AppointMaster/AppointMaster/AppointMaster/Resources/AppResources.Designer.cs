@@ -125,6 +125,15 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Client Information.
+        /// </summary>
+        public static string Client_Information {
+            get {
+                return ResourceManager.GetString("Client_Information", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Companion.
         /// </summary>
         public static string Companion {
@@ -148,6 +157,15 @@ namespace AppointMaster.Resources {
         public static string Disclaimer_Details {
             get {
                 return ResourceManager.GetString("Disclaimer_Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
             }
         }
         
@@ -233,6 +251,15 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Patient Information.
+        /// </summary>
+        public static string Patient_Information {
+            get {
+                return ResourceManager.GetString("Patient_Information", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Phone.
         /// </summary>
         public static string Phone {
@@ -251,7 +278,7 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Step 1 of 4 - Client Information.
+        ///   Looks up a localized string similar to Step 1 of 5 - Client Information.
         /// </summary>
         public static string Registration_Step1 {
             get {
@@ -260,7 +287,7 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Step 2 of 4 - Address.
+        ///   Looks up a localized string similar to Step 2 of 5 - Address.
         /// </summary>
         public static string Registration_Step2 {
             get {
@@ -269,7 +296,7 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Step 3 of 4 - Contact Information.
+        ///   Looks up a localized string similar to Step 3 of 5 - Contact Information.
         /// </summary>
         public static string Registration_Step3 {
             get {
@@ -278,7 +305,7 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Step 4 of 4 - Patient Information.
+        ///   Looks up a localized string similar to Step 4 of 5 - Patient Information.
         /// </summary>
         public static string Registration_Step4 {
             get {
