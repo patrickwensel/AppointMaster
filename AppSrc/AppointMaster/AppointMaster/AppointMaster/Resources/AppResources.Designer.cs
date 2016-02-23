@@ -188,6 +188,15 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        internal static string Login {
+            get {
+                return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt; Main Menu.
         /// </summary>
         internal static string Main_Menu {
@@ -215,6 +224,15 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        internal static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Phone.
         /// </summary>
         internal static string Phone {
@@ -233,7 +251,7 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Step 1 of 6 - Client Information.
+        ///   Looks up a localized string similar to Step 1 of 4 - Client Information.
         /// </summary>
         internal static string Registration_Step1 {
             get {
@@ -242,11 +260,29 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Step 2 of 6 - Address.
+        ///   Looks up a localized string similar to Step 2 of 4 - Address.
         /// </summary>
         internal static string Registration_Step2 {
             get {
                 return ResourceManager.GetString("Registration_Step2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step 3 of 4 - Contact Information.
+        /// </summary>
+        internal static string Registration_Step3 {
+            get {
+                return ResourceManager.GetString("Registration_Step3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step 4 of 4 - Patient Information.
+        /// </summary>
+        internal static string Registration_Step4 {
+            get {
+                return ResourceManager.GetString("Registration_Step4", resourceCulture);
             }
         }
         

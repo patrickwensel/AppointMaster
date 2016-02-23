@@ -18,7 +18,7 @@ namespace AppointMaster
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
-            RegisterAppStart<ViewModels.MainViewModel>();
+            RegisterAppStart<ViewModels.LoginViewModel>();
         }
     }
 }

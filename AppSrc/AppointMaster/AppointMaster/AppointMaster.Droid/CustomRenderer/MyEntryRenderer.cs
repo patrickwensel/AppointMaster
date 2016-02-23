@@ -26,6 +26,7 @@ namespace AppointMaster.Droid.CustomRenderer
             if (Control != null)
             {
                 Control.Background = Resources.GetDrawable(Resource.Drawable.bg_entry);
+                Control.Gravity = GravityFlags.CenterVertical;
             }
         }
     }

@@ -1043,9 +1043,8 @@ namespace AppointMaster.Pages
 
             MyDatePicker datePicker = new MyDatePicker
             {
-                BackgroundColor = Color.White,
                 WidthRequest = 150,
-                HeightRequest = 50,
+                HeightRequest = 50
             };
 
             Button btnStep4OtherBack = new Button
@@ -1200,17 +1199,21 @@ namespace AppointMaster.Pages
             {
                 grid1.IsVisible = false;
                 grid2.IsVisible = true;
+                labStep.Text = AppResources.Registration_Step2;
             };
 
             btnStep2Next.Clicked += delegate
             {
                 grid2.IsVisible = false;
                 grid3.IsVisible = true;
+                labStep.Text = AppResources.Registration_Step3;
             };
+
             btnStep3Next.Clicked += delegate
             {
                 grid3.IsVisible = false;
                 grid4.IsVisible = true;
+                labStep.Text = AppResources.Registration_Step4;
             };
 
             btnStep4Next.Clicked += delegate
@@ -1223,7 +1226,14 @@ namespace AppointMaster.Pages
             {
                 grid4Add.IsVisible = false;
                 grid4Other.IsVisible = true;
+
             };
+
+            //btnStep4OtherNext.Clicked += delegate
+            //{
+            //    grid1.IsVisible = false;
+            //    grid2.IsVisible = true;
+            //};
 
             //Back
             btnStep1Back.Clicked += delegate
@@ -1235,18 +1245,21 @@ namespace AppointMaster.Pages
             {
                 grid1.IsVisible = true;
                 grid2.IsVisible = false;
+                labStep.Text = AppResources.Registration_Step1;
             };
 
             btnStep3Back.Clicked += delegate
             {
                 grid2.IsVisible = true;
                 grid3.IsVisible = false;
+                labStep.Text = AppResources.Registration_Step2;
             };
 
             btnStep4Back.Clicked += delegate
             {
                 grid3.IsVisible = true;
                 grid4.IsVisible = false;
+                labStep.Text = AppResources.Registration_Step3;
             };
 
             btnStep4AddBack.Clicked += delegate
@@ -1261,12 +1274,6 @@ namespace AppointMaster.Pages
                 grid4Other.IsVisible = false;
             };
 
-            //btnStep4OtherNext.Clicked += delegate
-            //{
-            //    grid1.IsVisible = false;
-            //    grid2.IsVisible = true;
-            //};
-
             //Binding
             titleEntry.SetBinding(Entry.TextProperty, new Binding("Title"));
             firstEntry.SetBinding(Entry.TextProperty, new Binding("FirstName"));
@@ -1279,7 +1286,6 @@ namespace AppointMaster.Pages
 
             phoneEntry.SetBinding(Entry.TextProperty, new Binding("Phone"));
             emailEntry.SetBinding(Entry.TextProperty, new Binding("Email"));
-
 
             Content = grid;
         }

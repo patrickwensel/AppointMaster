@@ -36,14 +36,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
-    <Compile Include="Controls\DropDownPicker.cs" />
-    <Compile Include="Controls\DropDownTapArgs.cs" />
     <Compile Include="Controls\IndexedPages.cs" />
     <Compile Include="Controls\MyDatePicker.cs" />
     <Compile Include="Controls\MyEntry.cs" />
     <Compile Include="Controls\MyPicker.cs" />
     <Compile Include="Models\CheckInInfoModel.cs" />
     <Compile Include="Pages\CheckInPage.cs" />
+    <Compile Include="Pages\LoginPage.cs" />
     <Compile Include="Pages\MainPage.cs" />
     <Compile Include="Pages\RegistrationPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,6 +57,7 @@
       <DependentUpon>AppResources.fr.resx</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\CheckInViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
   </ItemGroup>

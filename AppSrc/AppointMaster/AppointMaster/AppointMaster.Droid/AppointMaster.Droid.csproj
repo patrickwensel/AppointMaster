@@ -165,7 +165,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomRenderer\MyAppCompatSpinner.cs" />
     <Compile Include="CustomRenderer\MyDatePickerRenderer.cs" />
     <Compile Include="CustomRenderer\MyEntryRenderer.cs" />
     <Compile Include="CustomRenderer\MyPickerRenderer.cs" />
