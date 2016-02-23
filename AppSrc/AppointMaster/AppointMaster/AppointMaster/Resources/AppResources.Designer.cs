@@ -23,7 +23,7 @@ namespace AppointMaster.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AppResources {
+    public class AppResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -37,7 +37,7 @@ namespace AppointMaster.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AppointMaster.Resources.AppResources", typeof(AppResources).GetTypeInfo().Assembly);
@@ -52,7 +52,7 @@ namespace AppointMaster.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -64,7 +64,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to + Add Another.
         /// </summary>
-        internal static string Add_Another {
+        public static string Add_Another {
             get {
                 return ResourceManager.GetString("Add_Another", resourceCulture);
             }
@@ -73,7 +73,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to &lt; Back.
         /// </summary>
-        internal static string Back {
+        public static string Back {
             get {
                 return ResourceManager.GetString("Back", resourceCulture);
             }
@@ -82,7 +82,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Birthdate.
         /// </summary>
-        internal static string Birthdate {
+        public static string Birthdate {
             get {
                 return ResourceManager.GetString("Birthdate", resourceCulture);
             }
@@ -91,7 +91,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Breed.
         /// </summary>
-        internal static string Breed {
+        public static string Breed {
             get {
                 return ResourceManager.GetString("Breed", resourceCulture);
             }
@@ -100,7 +100,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        internal static string Cancel {
+        public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
             }
@@ -109,7 +109,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Check In.
         /// </summary>
-        internal static string Check_In {
+        public static string Check_In {
             get {
                 return ResourceManager.GetString("Check_In", resourceCulture);
             }
@@ -118,7 +118,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to City.
         /// </summary>
-        internal static string City {
+        public static string City {
             get {
                 return ResourceManager.GetString("City", resourceCulture);
             }
@@ -127,7 +127,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Companion.
         /// </summary>
-        internal static string Companion {
+        public static string Companion {
             get {
                 return ResourceManager.GetString("Companion", resourceCulture);
             }
@@ -136,7 +136,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Disclaimer.
         /// </summary>
-        internal static string Disclaimer {
+        public static string Disclaimer {
             get {
                 return ResourceManager.GetString("Disclaimer", resourceCulture);
             }
@@ -145,7 +145,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio..
         /// </summary>
-        internal static string Disclaimer_Details {
+        public static string Disclaimer_Details {
             get {
                 return ResourceManager.GetString("Disclaimer_Details", resourceCulture);
             }
@@ -154,7 +154,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
-        internal static string Email {
+        public static string Email {
             get {
                 return ResourceManager.GetString("Email", resourceCulture);
             }
@@ -163,7 +163,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to First Name.
         /// </summary>
-        internal static string FirstName {
+        public static string FirstName {
             get {
                 return ResourceManager.GetString("FirstName", resourceCulture);
             }
@@ -172,7 +172,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Gender.
         /// </summary>
-        internal static string Gender {
+        public static string Gender {
             get {
                 return ResourceManager.GetString("Gender", resourceCulture);
             }
@@ -181,7 +181,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Last Name.
         /// </summary>
-        internal static string LastName {
+        public static string LastName {
             get {
                 return ResourceManager.GetString("LastName", resourceCulture);
             }
@@ -190,7 +190,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
-        internal static string Login {
+        public static string Login {
             get {
                 return ResourceManager.GetString("Login", resourceCulture);
             }
@@ -199,7 +199,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to &lt; Main Menu.
         /// </summary>
-        internal static string Main_Menu {
+        public static string Main_Menu {
             get {
                 return ResourceManager.GetString("Main_Menu", resourceCulture);
             }
@@ -208,7 +208,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Next &gt;.
         /// </summary>
-        internal static string Next {
+        public static string Next {
             get {
                 return ResourceManager.GetString("Next", resourceCulture);
             }
@@ -217,7 +217,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Other.
         /// </summary>
-        internal static string Other {
+        public static string Other {
             get {
                 return ResourceManager.GetString("Other", resourceCulture);
             }
@@ -226,7 +226,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
-        internal static string Password {
+        public static string Password {
             get {
                 return ResourceManager.GetString("Password", resourceCulture);
             }
@@ -235,7 +235,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Phone.
         /// </summary>
-        internal static string Phone {
+        public static string Phone {
             get {
                 return ResourceManager.GetString("Phone", resourceCulture);
             }
@@ -244,7 +244,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Registration.
         /// </summary>
-        internal static string Registration {
+        public static string Registration {
             get {
                 return ResourceManager.GetString("Registration", resourceCulture);
             }
@@ -253,7 +253,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Step 1 of 4 - Client Information.
         /// </summary>
-        internal static string Registration_Step1 {
+        public static string Registration_Step1 {
             get {
                 return ResourceManager.GetString("Registration_Step1", resourceCulture);
             }
@@ -262,7 +262,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Step 2 of 4 - Address.
         /// </summary>
-        internal static string Registration_Step2 {
+        public static string Registration_Step2 {
             get {
                 return ResourceManager.GetString("Registration_Step2", resourceCulture);
             }
@@ -271,7 +271,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Step 3 of 4 - Contact Information.
         /// </summary>
-        internal static string Registration_Step3 {
+        public static string Registration_Step3 {
             get {
                 return ResourceManager.GetString("Registration_Step3", resourceCulture);
             }
@@ -280,7 +280,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Step 4 of 4 - Patient Information.
         /// </summary>
-        internal static string Registration_Step4 {
+        public static string Registration_Step4 {
             get {
                 return ResourceManager.GetString("Registration_Step4", resourceCulture);
             }
@@ -289,7 +289,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to State.
         /// </summary>
-        internal static string State {
+        public static string State {
             get {
                 return ResourceManager.GetString("State", resourceCulture);
             }
@@ -298,7 +298,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Street Adress.
         /// </summary>
-        internal static string Street_Adress {
+        public static string Street_Adress {
             get {
                 return ResourceManager.GetString("Street_Adress", resourceCulture);
             }
@@ -307,7 +307,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
-        internal static string Title {
+        public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
             }
@@ -316,7 +316,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Walk - In New Registration.
         /// </summary>
-        internal static string Walk_In {
+        public static string Walk_In {
             get {
                 return ResourceManager.GetString("Walk_In", resourceCulture);
             }
@@ -325,7 +325,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Who is with you today?.
         /// </summary>
-        internal static string Who_Is_With {
+        public static string Who_Is_With {
             get {
                 return ResourceManager.GetString("Who_Is_With", resourceCulture);
             }
@@ -334,7 +334,7 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Zip.
         /// </summary>
-        internal static string Zip {
+        public static string Zip {
             get {
                 return ResourceManager.GetString("Zip", resourceCulture);
             }
