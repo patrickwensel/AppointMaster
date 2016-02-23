@@ -42,7 +42,7 @@ namespace AppointMaster.ViewModels
             //    return;
             //}
 
-            ShowViewModel<CheckInViewModel>();
+            ShowViewModel<MainViewModel>();
         }
     }
 }

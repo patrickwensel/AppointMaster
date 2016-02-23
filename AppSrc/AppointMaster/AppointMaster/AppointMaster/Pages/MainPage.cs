@@ -21,8 +21,7 @@ namespace AppointMaster.Pages
         {
             BackgroundColor = Color.White;
             NavigationPage.SetHasNavigationBar(this, false);
-            //var padding = new Thickness(0, Device.OnPlatform(40, 40, 0), 0, 0);
-            var padding = new Thickness(20, 20, 20, 20);
+            Padding = new Thickness(20, Device.OnPlatform(40, 20, 20), 20, 20);
 
             var label1 = new Label
             {
@@ -103,8 +102,6 @@ namespace AppointMaster.Pages
             //};
 
             //parentReg.Children.Add(slReg);
-
-            Padding = padding;
 
             grid.Children.Add(sl, 0, 0);
             grid.Children.Add(image, 0, 0);

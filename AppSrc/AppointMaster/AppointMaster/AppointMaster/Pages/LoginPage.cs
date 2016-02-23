@@ -16,7 +16,7 @@ namespace AppointMaster.Pages
         {
             BackgroundColor = Color.White;
             NavigationPage.SetHasNavigationBar(this, false);
-            Padding = new Thickness(0, 20, 0, 0);
+            Padding = Padding = new Thickness(20, Device.OnPlatform(40, 20, 20), 20, 20);
 
             var logoImage = new Image
             {

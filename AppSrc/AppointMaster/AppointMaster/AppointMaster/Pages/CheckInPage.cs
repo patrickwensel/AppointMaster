@@ -16,9 +16,8 @@ namespace AppointMaster.Pages
         {
             BackgroundColor = Color.White;
             NavigationPage.SetHasNavigationBar(this, false);
-            var padding = new Thickness(20, 20, 20, 20);
 
-            Padding = padding;
+            Padding = new Thickness(20, Device.OnPlatform(40, 20, 20), 20, 20);
 
             var resImage = new Image
             {
@@ -73,6 +72,7 @@ namespace AppointMaster.Pages
                 BorderWidth = 2
             };
 
+            btnMainMenu.SetBinding(Button.CommandProperty, new Binding("ShowMainCommand"));
             btnNewReg.SetBinding(Button.CommandProperty, new Binding("ShowRegistrationCommand"));
 
             var boxView = new BoxView { WidthRequest = 1, HeightRequest = 1, BackgroundColor = Color.Black, VerticalOptions = LayoutOptions.Start };
@@ -152,6 +152,12 @@ namespace AppointMaster.Pages
 
             Content = grid;
 
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return false;
+            //return base.OnBackButtonPressed();
         }
     }
 }

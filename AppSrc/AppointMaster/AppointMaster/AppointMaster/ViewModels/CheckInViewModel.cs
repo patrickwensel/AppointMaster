@@ -28,5 +28,13 @@ namespace AppointMaster.ViewModels
                 return new MvxCommand(() => ShowViewModel<RegistrationViewModel>());
             }
         }
+
+        public MvxCommand ShowMainCommand
+        {
+            get
+            {
+                return new MvxCommand(() => ShowViewModel<MainViewModel>());
+            }
+        }
     }
 }

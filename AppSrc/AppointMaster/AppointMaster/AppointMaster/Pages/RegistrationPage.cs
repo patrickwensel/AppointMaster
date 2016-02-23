@@ -24,7 +24,7 @@ namespace AppointMaster.Pages
         {
             BackgroundColor = Color.White;
             NavigationPage.SetHasNavigationBar(this, false);
-            Padding = new Thickness(20, 20, 20, 20);
+            Padding = new Thickness(20, Device.OnPlatform(40, 20, 20), 20, 20);
 
             var logoImage = new Image
             {
@@ -116,7 +116,7 @@ namespace AppointMaster.Pages
             var titleSl = new StackLayout
             {
                 HorizontalOptions = LayoutOptions.Start,
-                Padding = new Thickness(145, 0, 0, 0),
+                Padding = new Thickness(Device.OnPlatform(130, 145, 0),0 , 0, 0),
                 Children =
                 {
                     labTitle,
