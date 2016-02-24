@@ -47,6 +47,8 @@ namespace AppointMaster.Droid
 			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxListView = global::AppointMaster.Droid.Resource.Styleable.MvxListView;
 			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxListView_MvxDropDownItemTemplate = global::AppointMaster.Droid.Resource.Styleable.MvxListView_MvxDropDownItemTemplate;
 			global::MvvmCross.Binding.Droid.Resource.Styleable.MvxListView_MvxItemTemplate = global::AppointMaster.Droid.Resource.Styleable.MvxListView_MvxItemTemplate;
+			global::PCLCrypto.Resource.String.ApplicationName = global::AppointMaster.Droid.Resource.String.ApplicationName;
+			global::PCLCrypto.Resource.String.Hello = global::AppointMaster.Droid.Resource.String.Hello;
 			global::Xamarin.Forms.Platform.Resource.Animation.abc_fade_in = global::AppointMaster.Droid.Resource.Animation.abc_fade_in;
 			global::Xamarin.Forms.Platform.Resource.Animation.abc_fade_out = global::AppointMaster.Droid.Resource.Animation.abc_fade_out;
 			global::Xamarin.Forms.Platform.Resource.Animation.abc_grow_fade_in_from_bottom = global::AppointMaster.Droid.Resource.Animation.abc_grow_fade_in_from_bottom;
