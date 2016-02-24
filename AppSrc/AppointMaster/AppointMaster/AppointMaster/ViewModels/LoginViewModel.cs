@@ -3,6 +3,7 @@ using MvvmCross.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -33,7 +34,7 @@ namespace AppointMaster.ViewModels
             }
         }
 
-        private void Login()
+        private async void Login()
         {
             if (string.IsNullOrEmpty(UserName))
             {
@@ -46,7 +47,15 @@ namespace AppointMaster.ViewModels
                 return;
             }
 
-            ShowViewModel<MainViewModel>();
+            string url = "http://ppgservices-001-site6.ctempurl.com/api/v1/VetClinic";
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", "VmV0TW9iaWxlfGMwYTBmNzZkLTI2MWMtNDc0YS04ZGI5LWQ1ZjgxNWU0MDk1OHxxMzhDbXVZNWk2ZjFyZDRxUnRVdWx1UW1YT1U9 ");
+            HttpResponseMessage response = await client.GetAsync(url);
+            if (response.IsSuccessStatusCode)
+            {
+                string responseBody = await response.Content.ReadAsStringAsync();
+                ShowViewModel<MainViewModel>();
+            }
         }
 
         public void DisplayAlert(string message)
