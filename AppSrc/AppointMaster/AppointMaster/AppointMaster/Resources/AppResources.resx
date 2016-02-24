@@ -156,6 +156,15 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="Enter_Clinic_ID" xml:space="preserve">
+    <value>Please enter the Clinic ID</value>
+  </data>
+  <data name="Enter_Password" xml:space="preserve">
+    <value>Please enter the Password</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
   <data name="FirstName" xml:space="preserve">
     <value>First Name</value>
   </data>
@@ -173,6 +182,9 @@
   </data>
   <data name="Next" xml:space="preserve">
     <value>Next &gt;</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
   </data>
   <data name="Other" xml:space="preserve">
     <value>Other</value>

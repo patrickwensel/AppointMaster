@@ -50,17 +50,21 @@ namespace AppointMaster.Pages
 
             var btnNewReg = new Button
             {
+                WidthRequest=300,
                 VerticalOptions = LayoutOptions.Start,
                 HorizontalOptions = LayoutOptions.End,
                 Text = AppResources.Walk_In,
                 TextColor = Color.Black,
                 FontSize = 20,
-                BackgroundColor = Color.Transparent
+                BackgroundColor = Color.Transparent,
+                BorderColor=Color.Black,
+                BorderRadius=1,
+                BorderWidth=2
             };
 
             var btnMainMenu = new Button
             {
-                WidthRequest=200,
+                WidthRequest = 200,
                 VerticalOptions = LayoutOptions.End,
                 HorizontalOptions = LayoutOptions.Start,
                 Text = AppResources.Main_Menu,
@@ -85,46 +89,45 @@ namespace AppointMaster.Pages
                     dateLabel.SetBinding(Label.TextProperty, "Date");
                     dateLabel.TextColor = Color.Black;
                     dateLabel.FontSize = 20;
+                    dateLabel.VerticalOptions = LayoutOptions.Center;
 
                     Label infoLable = new Label();
                     infoLable.SetBinding(Label.TextProperty, "Info");
                     infoLable.TextColor = Color.Black;
                     infoLable.FontSize = 20;
+                    infoLable.VerticalOptions = LayoutOptions.Center;
 
                     Label lineLable = new Label();
                     lineLable.Text = "-";
                     lineLable.TextColor = Color.Black;
                     lineLable.FontSize = 20;
+                    lineLable.VerticalOptions = LayoutOptions.Center;
 
                     Button btn = new Button
                     {
                         BorderWidth = 2,
                         BorderColor = Color.Black,
-                        WidthRequest = 25,
-                        HeightRequest = 5,
+                        WidthRequest = 100,
+                        HeightRequest = 40,
                         BackgroundColor = Color.Transparent,
-                        BorderRadius = 1
+                        BorderRadius = 1,
+                        Text = AppResources.Check_In,
+                        VerticalOptions = LayoutOptions.Center,
+                        TextColor = Color.Black
                     };
 
                     return new ViewCell
                     {
                         View = new StackLayout
                         {
+                            Padding = new Thickness(0, 5, 0, 5),
                             Orientation = StackOrientation.Horizontal,
                             Children =
                             {
-                                new StackLayout
-                                {
-                                    VerticalOptions=LayoutOptions.Center,
-                                    Orientation=StackOrientation.Horizontal,
-                                    Children=
-                                    {
-                                        btn,
-                                        dateLabel,
-                                        lineLable,
-                                        infoLable
-                                    }
-                                }
+                               btn,
+                               dateLabel,
+                               lineLable,
+                               infoLable
                             }
                         }
                     };
@@ -135,6 +138,7 @@ namespace AppointMaster.Pages
 
             var grid = new Grid();
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(150) });
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50) });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(40) });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1) });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
@@ -142,16 +146,16 @@ namespace AppointMaster.Pages
             grid.Children.Add(resImage, 0, 0);
             grid.Children.Add(logoImage, 0, 0);
 
-            grid.Children.Add(labCheckIn, 0, 1);
-            grid.Children.Add(btnNewReg, 0, 1);
+            grid.Children.Add(new StackLayout { Children = { btnNewReg } }, 0, 1);
 
-            grid.Children.Add(boxView, 0, 2);
+            grid.Children.Add(labCheckIn, 0, 2);
 
-            grid.Children.Add(listView, 0, 3);
-            grid.Children.Add(btnMainMenu, 0, 3);
+            grid.Children.Add(boxView, 0, 3);
+
+            grid.Children.Add(listView, 0, 4);
+            grid.Children.Add(btnMainMenu, 0, 4);
 
             Content = grid;
-
         }
 
         protected override bool OnBackButtonPressed()

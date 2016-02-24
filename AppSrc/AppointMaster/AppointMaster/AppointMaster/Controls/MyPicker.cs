@@ -10,7 +10,7 @@ using XLabs.Forms.Controls;
 
 namespace AppointMaster.Controls
 {
-    public class MyPicker : Picker
+    public class MyPicker : ExtendedPicker
     {
 
     }

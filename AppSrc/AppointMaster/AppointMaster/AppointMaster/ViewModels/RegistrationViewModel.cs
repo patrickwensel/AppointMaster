@@ -22,8 +22,8 @@ namespace AppointMaster.ViewModels
         //    }
         //}
 
-        private object _selectedTitle;
-        public object SelectedTitle
+        private string _selectedTitle;
+        public string SelectedTitle
         {
             get { return _selectedTitle; }
             set
@@ -78,14 +78,14 @@ namespace AppointMaster.ViewModels
             }
         }
 
-        private string _state;
-        public string State
+        private StateModel _selectedState;
+        public StateModel SelectedState
         {
-            get { return _state; }
+            get { return _selectedState; }
             set
             {
-                _state = value;
-                RaisePropertyChanged(() => State);
+                _selectedState = value;
+                RaisePropertyChanged(() => SelectedState);
             }
         }
 
@@ -122,6 +122,10 @@ namespace AppointMaster.ViewModels
             }
         }
 
+        public ObservableCollection<TitleModel> TitleList { get; set; }
+
+        public ObservableCollection<StateModel> StateList { get; set; }
+
         public MvxCommand ShowCheckInCommand
         {
             get
@@ -130,18 +134,27 @@ namespace AppointMaster.ViewModels
             }
         }
 
-        public ObservableCollection<TitleModel> TitleList { get; set; }
-
         public RegistrationViewModel()
         {
             TitleList = new ObservableCollection<TitleModel>();
             TitleList.Add(new TitleModel { Title = "Mr." });
             TitleList.Add(new TitleModel { Title = "Mrs." });
+
+            StateList = new ObservableCollection<StateModel>();
+            StateList.Add(new StateModel { State = "MD" });
+            StateList.Add(new StateModel { State = "AZ" });
+            StateList.Add(new StateModel { State = "AL" });
+            StateList.Add(new StateModel { State = "AK" });
         }
     }
 
     public class TitleModel
     {
         public string Title { get; set; }
+    }
+
+    public class StateModel
+    {
+        public string State { get; set; }
     }
 }

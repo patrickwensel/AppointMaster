@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Controls\IndexedPages.cs" />
+    <Compile Include="Controls\MyAlertDialog.cs" />
     <Compile Include="Controls\MyDatePicker.cs" />
     <Compile Include="Controls\MyEntry.cs" />
     <Compile Include="Controls\MyListView.cs" />

@@ -7,6 +7,7 @@ using System.Reflection.Emit;
 using System.Text;
 
 using Xamarin.Forms;
+using XLabs.Forms.Controls;
 
 namespace AppointMaster.Pages
 {
@@ -54,11 +55,6 @@ namespace AppointMaster.Pages
                 WidthRequest = 207
             };
 
-            var grid = new Grid();
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(2, GridUnitType.Star) });
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-
             var sl = new StackLayout
             {
                 Children = {
@@ -71,10 +67,10 @@ namespace AppointMaster.Pages
             var slReg = new StackLayout
             {
                 Orientation = StackOrientation.Horizontal,
-                VerticalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.Center,
                 Children = {
-                   new Image { Source="clipbaord.png",WidthRequest=50,HeightRequest=68,VerticalOptions=LayoutOptions.Center},
+                   new Image { Source="clipbaord.png",WidthRequest=50,HeightRequest=68},
                    new Label { Text=AppResources.Registration,VerticalOptions=LayoutOptions.Center,TextColor=Color.Black,FontSize=22}
                 }
             };
@@ -83,6 +79,19 @@ namespace AppointMaster.Pages
             {
                 Command = new Command(() => ShowCheckInView())
             });
+
+            var registrationGrid = new Grid();
+            registrationGrid.HorizontalOptions = LayoutOptions.Center;
+            registrationGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(80) });
+            registrationGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(300) });
+            registrationGrid.Children.Add(new Button
+            {
+                BorderColor = Color.Black,
+                BorderWidth = 2,
+                BorderRadius = 1,
+                BackgroundColor = Color.Transparent,
+            }, 0, 0);
+            registrationGrid.Children.Add(slReg, 0, 0);
 
             var slDis = new StackLayout
             {
@@ -94,18 +103,17 @@ namespace AppointMaster.Pages
                 }
             };
 
-            //var parentReg = new StackLayout
-            //{
-            //    BackgroundColor = Color.Black,
-            //    HorizontalOptions = LayoutOptions.FillAndExpand,
-            //    VerticalOptions = LayoutOptions.FillAndExpand
-            //};
-
-            //parentReg.Children.Add(slReg);
+            var grid = new Grid();
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(2, GridUnitType.Star) });
+            //grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(200) });
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
             grid.Children.Add(sl, 0, 0);
             grid.Children.Add(image, 0, 0);
-            grid.Children.Add(slReg, 0, 1);
+
+            grid.Children.Add(registrationGrid, 0, 1);
+
             grid.Children.Add(slDis, 0, 2);
 
             Content = grid;

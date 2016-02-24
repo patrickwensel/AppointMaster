@@ -1,9 +1,11 @@
-﻿using MvvmCross.Core.ViewModels;
+﻿using AppointMaster.Resources;
+using MvvmCross.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace AppointMaster.ViewModels
 {
@@ -33,16 +35,23 @@ namespace AppointMaster.ViewModels
 
         private void Login()
         {
-            //if (string.IsNullOrEmpty(UserName))
-            //{
-            //    return;
-            //}
-            //if (string.IsNullOrEmpty(Password))
-            //{
-            //    return;
-            //}
+            if (string.IsNullOrEmpty(UserName))
+            {
+                DisplayAlert(AppResources.Enter_Clinic_ID);
+                return;
+            }
+            if (string.IsNullOrEmpty(Password))
+            {
+                DisplayAlert(AppResources.Enter_Password);
+                return;
+            }
 
             ShowViewModel<MainViewModel>();
+        }
+
+        public void DisplayAlert(string message)
+        {
+            MessagingCenter.Send<LoginViewModel, string>(this, "DisplayAlert", message);
         }
     }
 }

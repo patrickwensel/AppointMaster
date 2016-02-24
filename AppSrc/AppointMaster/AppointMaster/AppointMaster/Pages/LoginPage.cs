@@ -1,5 +1,6 @@
 ﻿using AppointMaster.Controls;
 using AppointMaster.Resources;
+using AppointMaster.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,11 @@ namespace AppointMaster.Pages
 {
     public class LoginPage : ContentPage
     {
+        private LoginViewModel LoginViewModel
+        {
+            get { return BindingContext as LoginViewModel; }
+        }
+
         public LoginPage()
         {
             BackgroundColor = Color.White;
@@ -45,7 +51,6 @@ namespace AppointMaster.Pages
 
             StackLayout userSl = new StackLayout
             {
-                //HorizontalOptions = LayoutOptions.Center,
                 Children =
                 {
                     new Label
@@ -62,7 +67,6 @@ namespace AppointMaster.Pages
 
             StackLayout passwordSl = new StackLayout
             {
-                //HorizontalOptions = LayoutOptions.Center,
                 Children =
                 {
                     new Label
@@ -108,7 +112,13 @@ namespace AppointMaster.Pages
             passwordEntry.SetBinding(Entry.TextProperty, new Binding("Password"));
             btnLogin.SetBinding(Button.CommandProperty, new Binding("LoginCommand"));
 
+            MessagingCenter.Subscribe<LoginViewModel, string>(this, "DisplayAlert", (sender, value) => {
+                DisplayAlert(AppResources.Error, value, AppResources.OK);
+            });
+
             Content = grid;
         }
+
+
     }
 }

@@ -90,8 +90,8 @@ namespace AppointMaster.Pages
                 HeightRequest = 50,
                 //DisplayProperty = "Title"
             };
-            titlePicker.Items.Add("Mr.");
-            titlePicker.Items.Add("Mrs.");
+            //titlePicker.Items.Add("Mr.");
+            //titlePicker.Items.Add("Mrs.");
 
             var firstEntry = new MyEntry
             {
@@ -283,10 +283,9 @@ namespace AppointMaster.Pages
             MyPicker statePicker = new MyPicker
             {
                 HeightRequest = 50,
-                WidthRequest = 200
+                WidthRequest = 200,
+                DisplayProperty= "State"
             };
-            statePicker.Items.Add("MD"); statePicker.Items.Add("AL");
-            statePicker.Items.Add("AK"); statePicker.Items.Add("AZ");
 
             var zipEntry = new MyEntry
             {
@@ -1317,8 +1316,11 @@ namespace AppointMaster.Pages
 
             //Binding
             //titleEntry.SetBinding(Entry.TextProperty, new Binding("Title"));
-            //titlePicker.SetBinding(Picker.ItemsSourceProperty, new Binding("TitleList"));
-            //titlePicker.SetBinding(ExtendedPicker.SelectedItemProperty, new Binding("SelectedTitle"));
+            titlePicker.SetBinding(ExtendedPicker.ItemsSourceProperty, new Binding("TitleList",BindingMode.TwoWay));
+            titlePicker.SetBinding(ExtendedPicker.SelectedItemProperty, new Binding("SelectedTitle", BindingMode.TwoWay));
+
+            statePicker.SetBinding(ExtendedPicker.ItemsSourceProperty, new Binding("StateList", BindingMode.TwoWay));
+            statePicker.SetBinding(ExtendedPicker.SelectedItemProperty, new Binding("SelectedState", BindingMode.TwoWay));
 
             firstEntry.SetBinding(Entry.TextProperty, new Binding("FirstName"));
             lastEntry.SetBinding(Entry.TextProperty, new Binding("LastName"));
