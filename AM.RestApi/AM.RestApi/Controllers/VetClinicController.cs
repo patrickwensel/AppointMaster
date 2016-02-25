@@ -1,6 +1,9 @@
 ﻿using System.Linq;
 using System.Net.Http;
+using System.Security.Principal;
+using System.Threading;
 using System.Web.Http;
+using AM.RestApi.Identities;
 using AM.RestApi.Model;
 using AM.VetData.Data;
 using Newtonsoft.Json;
@@ -12,20 +15,15 @@ namespace AM.RestApi.Controllers
 	{
 		// GET: api/VetClinic
 		[Route("")]
-		public string Get()
+		public object Get()
 		{
-
 			VetDataContext context = new VetDataContext();
 
-			Clinic clinic = context.Clinics.FirstOrDefault(c => c.ID == 1);
+			int clinicID = (User as ClinicPrincipal).ClinicID;
+            Clinic clinic = context.Clinics.FirstOrDefault(c => c.ID == clinicID);
 
-			var x = JsonConvert.SerializeObject(clinic, Formatting.Indented,
-				new JsonSerializerSettings
-				{
-					ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-				});
 
-			return x;
+			return clinic;
 		}
 
 		[Route("~/api/v1/VetClinic/Authorize")]
