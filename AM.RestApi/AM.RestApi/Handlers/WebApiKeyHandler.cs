@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using AM.RestApi.Identities;
+using AM.VetData.Data;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -85,25 +86,40 @@ namespace AM.RestApi.Handlers
 
         private bool AuthorizeVetMobile()
         {
+			VetDataContext context = new VetDataContext(); 
+			//Key
+			//c0a0f76d-261c-474a-8db9-d5f815e40958
+			//K!ll3r
+			//q38CmuY5i6f1rd4qRtUuluQmXOU=
+			//
+			//VetMobile|c0a0f76d-261c-474a-8db9-d5f815e40958|q38CmuY5i6f1rd4qRtUuluQmXOU=
+			//VmV0TW9iaWxlfGMwYTBmNzZkLTI2MWMtNDc0YS04ZGI5LWQ1ZjgxNWU0MDk1OHxxMzhDbXVZNWk2ZjFyZDRxUnRVdWx1UW1YT1U9
 
-            //Key
-            //c0a0f76d-261c-474a-8db9-d5f815e40958
-            //K!ll3r
-            //q38CmuY5i6f1rd4qRtUuluQmXOU=
-            //
-            //VetMobile|c0a0f76d-261c-474a-8db9-d5f815e40958|q38CmuY5i6f1rd4qRtUuluQmXOU=
-            //VmV0TW9iaWxlfGMwYTBmNzZkLTI2MWMtNDc0YS04ZGI5LWQ1ZjgxNWU0MDk1OHxxMzhDbXVZNWk2ZjFyZDRxUnRVdWx1UW1YT1U9
+	        APIUser apiUser = (from au in context.APIUsers
+		        where au.APIKey == Key
+		        select au).FirstOrDefault();
 
-            if (Key != "c0a0f76d-261c-474a-8db9-d5f815e40958" && Pass != "q38CmuY5i6f1rd4qRtUuluQmXOU=")
-                return false;
+	        if (apiUser != null)
+	        {
+		        if (apiUser.Password == Pass)
+		        {
+					IIdentity identity = new GenericIdentity(apiUser.Clinic.Name);
 
-            IIdentity identity = new GenericIdentity("Some Veterinary Clinic");
+					ClinicPrincipal myPrincipal = new ClinicPrincipal(identity) { ClinicID = apiUser.ClinicID.Value};
 
-            ClinicPrincipal myPrincipal = new ClinicPrincipal(identity) {ClinicID = 1234};
+					SetPrincipal(myPrincipal);
+			        return true;
+		        }
+		        else
+		        {
+			        return false;
+		        }
+	        }
+	        else
+	        {
+		        return false;
+	        }
 
-            SetPrincipal(myPrincipal);
-
-            return true;
         }
 
         private void SetPrincipal(IPrincipal principal)

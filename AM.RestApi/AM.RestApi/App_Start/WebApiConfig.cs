@@ -14,15 +14,9 @@ namespace AM.RestApi
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/v{version}/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
-
             //config.Routes.MapHttpRoute(
             //    name: "DefaultApi",
-            //    routeTemplate: "api/{controller}/{id}",
+            //    routeTemplate: "api/v{version}/{controller}/{id}",
             //    defaults: new { id = RouteParameter.Optional }
             //);
         }
