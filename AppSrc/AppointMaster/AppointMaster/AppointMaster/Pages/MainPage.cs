@@ -1,4 +1,5 @@
-﻿using AppointMaster.Resources;
+﻿using AppointMaster.Controls;
+using AppointMaster.Resources;
 using AppointMaster.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace AppointMaster.Pages
         {
             BackgroundColor = Color.White;
             NavigationPage.SetHasNavigationBar(this, false);
-            Padding = new Thickness(20, Device.OnPlatform(40, 20, 20), 20, 20);
+            var padding = new Thickness(20, Device.OnPlatform(40, 20, 20), 20, 20);
 
             var label1 = new Label
             {
@@ -54,8 +55,18 @@ namespace AppointMaster.Pages
                 WidthRequest = 207
             };
 
+            StackLayout logoImageSl = new StackLayout
+            {
+                BackgroundColor = Color.Transparent,
+                VerticalOptions = LayoutOptions.Start,
+                HorizontalOptions = LayoutOptions.End,
+                HeightRequest = 100,
+                WidthRequest = 207
+            };
+
             var sl = new StackLayout
             {
+                Padding=padding,
                 Children = {
                     label1,
                     label2,
@@ -79,14 +90,6 @@ namespace AppointMaster.Pages
                 Command = new Command(() => ShowCheckInView())
             });
 
-            PopupLayout popupLayout = new PopupLayout();
-            logoImage.GestureRecognizers.Add(new TapGestureRecognizer
-            {
-                NumberOfTapsRequired=2,
-                Command = new Command(() => ShowSettingPopUp(popupLayout))
-            });
-
-
             var registrationGrid = new Grid();
             registrationGrid.HorizontalOptions = LayoutOptions.Center;
             registrationGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(80) });
@@ -102,6 +105,7 @@ namespace AppointMaster.Pages
 
             var slDis = new StackLayout
             {
+                Padding = padding,
                 Orientation = StackOrientation.Vertical,
                 VerticalOptions = LayoutOptions.End,
                 Children = {
@@ -116,16 +120,42 @@ namespace AppointMaster.Pages
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
             grid.Children.Add(sl, 0, 0);
-            grid.Children.Add(logoImage, 0, 0);
+            grid.Children.Add(new StackLayout { Padding=padding, Children = { logoImage} }, 0, 0);
+            grid.Children.Add(logoImageSl, 0, 0);
 
             grid.Children.Add(registrationGrid, 0, 1);
 
             grid.Children.Add(slDis, 0, 2);
 
+            //PopupLayout
+            StackLayout blackSl = new StackLayout { BackgroundColor = Color.Black, Opacity = 0.5 };
+            blackSl.IsVisible = false;
+            grid.Children.Add(blackSl, 0, 0);
+            Grid.SetRowSpan(blackSl, 3);
+
+            PopupLayout popupLayout = new PopupLayout
+            {
+                Content = logoImageSl
+            };
+            logoImageSl.GestureRecognizers.Add(new TapGestureRecognizer
+            {
+                NumberOfTapsRequired = 2,
+                Command = new Command(() => ShowSettingPopUp(popupLayout, blackSl))
+            });
+
             grid.Children.Add(popupLayout, 0, 0);
             Grid.SetRowSpan(popupLayout, 3);
 
+            var tr = new TapGestureRecognizer();
+            tr.Tapped += delegate { popupLayout.DismissPopup(); blackSl.IsVisible = false; };
+            blackSl.GestureRecognizers.Add(tr);
+
             Content = grid;
+
+            MessagingCenter.Subscribe<MainViewModel, string>(this, "DisplayAlert", (sender, value) =>
+            {
+                DisplayAlert(AppResources.Error, value, AppResources.OK);
+            });
         }
 
         private void ShowCheckInView()
@@ -133,26 +163,97 @@ namespace AppointMaster.Pages
             MainViewModel.ShowCheckInCommand.Execute();
         }
 
-        private void ShowSettingPopUp(PopupLayout popupLayout)
+        private void ShowSettingPopUp(PopupLayout popupLayout, StackLayout sl)
         {
+            sl.IsVisible = true;
             if (popupLayout.IsPopupActive)
             {
                 popupLayout.DismissPopup();
             }
             else
             {
-                var list = new ListView()
+                //var list = new ListView()
+                //{
+                //    BackgroundColor = Color.White,
+                //    ItemsSource = new[] { "1", "2", "3" },
+                //    HeightRequest = this.Height * .5,
+                //    WidthRequest = this.Width * .8
+                //};
+
+                //list.ItemSelected += (s, args) =>
+                //    popupLayout.DismissPopup();
+
+                Button btnLogout = new Button
                 {
-                    BackgroundColor = Color.White,
-                    ItemsSource = new[] { "1", "2", "3" },
-                    HeightRequest = this.Height * .5,
-                    WidthRequest = this.Width * .8
+                    Text = AppResources.Logout,
+                    BorderColor = Color.Black,
+                    BorderRadius = 1,
+                    BorderWidth = 2,
+                    WidthRequest = 200,
+                    HeightRequest = 50,
+                    TextColor = Color.Black,
+                    BackgroundColor = Color.Transparent
                 };
 
-                list.ItemSelected += (s, args) =>
-                    popupLayout.DismissPopup();
+                Button btnSettings = new Button
+                {
+                    Text = AppResources.Settings,
+                    BorderColor = Color.Black,
+                    BorderRadius = 1,
+                    BorderWidth = 2,
+                    WidthRequest = 200,
+                    HeightRequest = 50,
+                    TextColor = Color.Black,
+                    BackgroundColor = Color.Transparent
+                };
 
-                popupLayout.ShowPopup(list);
+                MyEntry passEntry = new MyEntry
+                {
+                    WidthRequest = 300,
+                    HeightRequest = 50,
+                    TextColor = Color.Black,
+                    IsPassword=true
+                };
+
+                passEntry.SetBinding(Entry.TextProperty, new Binding("Password"));
+                btnLogout.SetBinding(Button.CommandProperty, new Binding("ShowLoginCommand"));
+                btnSettings.SetBinding(Button.CommandProperty, new Binding("ShowSettingsCommand"));
+
+                var padding20 = new Thickness(0, 0, 0, 20);
+                var padding10 = new Thickness(0, 0, 0, 5);
+                StackLayout contentSl = new StackLayout
+                {
+                    Children =
+                    {
+                        new StackLayout {Padding=padding20, Children={ btnLogout } },
+                        new StackLayout {Padding=padding10,Children= {new BoxView { WidthRequest = 1, HeightRequest = 1, BackgroundColor = Color.Black}} },
+                        new StackLayout {Children={new Label { Text=AppResources.Settings,TextColor=Color.Black,HorizontalOptions=LayoutOptions.Center} } },
+                        new StackLayout {Padding=padding10, Children={ new Label { Text=AppResources.Enter_Settings_Section,TextColor=Color.Black, HorizontalOptions = LayoutOptions.Center } } },
+                        new StackLayout {Padding=padding20, Children={ passEntry } },
+                        btnSettings
+                    }
+                };
+
+                var grid = new Grid
+                {
+                    Padding = new Thickness(30, 30, 30, 20),
+                    BackgroundColor = Color.White,
+                    HorizontalOptions = LayoutOptions.Center,
+                    VerticalOptions = LayoutOptions.Center
+                };
+                grid.RowDefinitions.Add(new RowDefinition { Height = 300 });
+                grid.ColumnDefinitions.Add(new ColumnDefinition { Width = Width * 0.5 });
+                grid.Children.Add(contentSl, 0, 0);
+
+                Grid settingGrid = new Grid
+                {
+                    WidthRequest = Width,
+                    HeightRequest = Height,
+                };
+                settingGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                settingGrid.Children.Add(grid);
+
+                popupLayout.ShowPopup(settingGrid);
             }
         }
     }

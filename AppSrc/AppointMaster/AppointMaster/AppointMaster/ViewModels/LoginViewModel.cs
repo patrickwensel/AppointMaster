@@ -50,6 +50,9 @@ namespace AppointMaster.ViewModels
 
         private async void Login()
         {
+            ShowViewModel<MainViewModel>();
+            return;
+
             IsBusy = true;
 
             if (string.IsNullOrEmpty(UserName))
@@ -63,24 +66,34 @@ namespace AppointMaster.ViewModels
                 return;
             }
 
-            byte[] inputBytes = Encoding.UTF8.GetBytes("K!ll3r");
-            var hasher = WinRTCrypto.HashAlgorithmProvider.OpenAlgorithm(HashAlgorithm.Sha1);
-            byte[] hash = hasher.HashData(inputBytes);
-            string hashPass = Convert.ToBase64String(hash);
-
-            string authorization = string.Format("{0}|{1}|{2}", "VetMobile", UserName, hashPass);
-            string authorizationBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(authorization));
-
-            Services.DataHelper.GetInstance().SetAuthorization(authorizationBase64);
-
-            string url = "http://ppgservices-001-site6.ctempurl.com/api/v1/VetClinic";
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", authorizationBase64);
-            HttpResponseMessage response = await client.GetAsync(url);
-            if (response.IsSuccessStatusCode)
+            try
             {
-                string responseBody = await response.Content.ReadAsStringAsync();
-                ShowViewModel<MainViewModel>();
+                byte[] inputBytes = Encoding.UTF8.GetBytes("K!ll3r");
+                var hasher = WinRTCrypto.HashAlgorithmProvider.OpenAlgorithm(HashAlgorithm.Sha1);
+                byte[] hash = hasher.HashData(inputBytes);
+                string hashPass = Convert.ToBase64String(hash);
+
+                string authorization = string.Format("{0}|{1}|{2}", "VetMobile", UserName, hashPass);
+                string authorizationBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(authorization));
+
+                Services.DataHelper.GetInstance().SetAuthorization(authorizationBase64);
+
+                string url = "http://ppgservices-001-site6.ctempurl.com/api/v1/VetClinic";
+                HttpClient client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", authorizationBase64);
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    ShowViewModel<MainViewModel>();
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            finally
+            {
                 IsBusy = false;
             }
         }

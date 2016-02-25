@@ -162,6 +162,9 @@
   <data name="Enter_Password" xml:space="preserve">
     <value>Please enter the Password</value>
   </data>
+  <data name="Enter_Settings_Section" xml:space="preserve">
+    <value>Please enter the password to enter settings section</value>
+  </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
   </data>
@@ -176,6 +179,9 @@
   </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
   </data>
   <data name="Main_Menu" xml:space="preserve">
     <value>&lt; Main Menu</value>
@@ -212,6 +218,12 @@
   </data>
   <data name="Registration_Step4" xml:space="preserve">
     <value>Step 4 of 5 - Patient Information</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
   </data>
   <data name="State" xml:space="preserve">
     <value>State</value>

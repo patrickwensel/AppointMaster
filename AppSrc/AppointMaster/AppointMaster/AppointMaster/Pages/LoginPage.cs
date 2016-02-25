@@ -46,6 +46,7 @@ namespace AppointMaster.Pages
                 WidthRequest = 470,
                 TextColor = Color.Black,
                 FontSize = 20,
+                IsPassword = true
             };
 
             StackLayout userSl = new StackLayout
@@ -83,7 +84,7 @@ namespace AppointMaster.Pages
             Button btnLogin = new Button
             {
                 Text = AppResources.Login,
-                WidthRequest = 150,
+                WidthRequest = 470,
                 HeightRequest = 50,
                 BorderColor = Color.Black,
                 BorderRadius = 1,
