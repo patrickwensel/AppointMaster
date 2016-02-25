@@ -224,7 +224,7 @@ namespace AppointMaster.Pages
             {
                 VerticalOptions = LayoutOptions.Start,
                 HorizontalOptions = LayoutOptions.Start,
-                Text = string.Format("{0}/{1}", AppResources.State,AppResources.Province),
+                Text = string.Format("{0}/{1}", AppResources.State, AppResources.Province),
                 TextColor = Color.Black,
                 FontSize = 20
             };
@@ -310,7 +310,7 @@ namespace AppointMaster.Pages
             {
                 Padding = new Thickness(0, 0, 30, 0),
                 Children =
-                {              
+                {
                    new Label
                    {
                         VerticalOptions = LayoutOptions.Start,
@@ -732,6 +732,7 @@ namespace AppointMaster.Pages
                 FontSize = 20,
             };
 
+            CheckBox ck = new CheckBox {DefaultText="123" ,WidthRequest=20,HeightRequest=20};
             var dogGrid = new Grid();
             dogGrid.VerticalOptions = LayoutOptions.Center;
             dogGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(35) });
@@ -743,7 +744,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BackgroundColor = Color.Transparent
             }, 0, 0);
-            dogGrid.Children.Add(new CheckBox() { }, 0, 0);
+            dogGrid.Children.Add(ck, 0, 0);
 
             var fishGrid = new Grid();
             fishGrid.VerticalOptions = LayoutOptions.Center;
@@ -756,7 +757,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BackgroundColor = Color.Transparent
             }, 0, 0);
-            fishGrid.Children.Add(new CheckBox() { }, 0, 0);
+            fishGrid.Children.Add(new CheckBox { }, 0, 0);
 
             var catGrid = new Grid();
             catGrid.VerticalOptions = LayoutOptions.Center;
@@ -769,7 +770,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BackgroundColor = Color.Transparent
             }, 0, 0);
-            catGrid.Children.Add(new CheckBox() { }, 0, 0);
+            catGrid.Children.Add(new CheckBox { }, 0, 0);
 
             var hamsterGrid = new Grid();
             hamsterGrid.VerticalOptions = LayoutOptions.Center;
@@ -782,7 +783,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BackgroundColor = Color.Transparent
             }, 0, 0);
-            hamsterGrid.Children.Add(new CheckBox() { }, 0, 0);
+            hamsterGrid.Children.Add(new CheckBox { }, 0, 0);
 
             var birdGrid = new Grid();
             birdGrid.VerticalOptions = LayoutOptions.Center;
@@ -795,7 +796,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BackgroundColor = Color.Transparent
             }, 0, 0);
-            birdGrid.Children.Add(new CheckBox() { Checked=true }, 0, 0);
+            birdGrid.Children.Add(new CheckBox { Checked = true }, 0, 0);
 
             var otherGrid = new Grid();
             otherGrid.VerticalOptions = LayoutOptions.Center;
@@ -808,7 +809,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BackgroundColor = Color.Transparent
             }, 0, 0);
-            otherGrid.Children.Add(new CheckBox() { }, 0, 0);
+            otherGrid.Children.Add(new CheckBox { }, 0, 0);
 
             StackLayout titleAndEntrySl = new StackLayout
             {

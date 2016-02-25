@@ -7,6 +7,7 @@ using UIKit;
 using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
 using MvvmCross.iOS.Platform;
+using XLabs.Forms.Controls;
 
 namespace AppointMaster.iOS
 {
