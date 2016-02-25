@@ -173,6 +173,7 @@
     <Compile Include="Areas\TestData\TestDataAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\VetAppointmentController.cs" />
     <Compile Include="Controllers\VetClinicController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
