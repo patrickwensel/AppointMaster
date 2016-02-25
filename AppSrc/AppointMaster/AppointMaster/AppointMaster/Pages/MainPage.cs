@@ -57,7 +57,6 @@ namespace AppointMaster.Pages
 
             StackLayout logoImageSl = new StackLayout
             {
-                BackgroundColor = Color.Transparent,
                 VerticalOptions = LayoutOptions.Start,
                 HorizontalOptions = LayoutOptions.End,
                 HeightRequest = 100,
@@ -137,18 +136,23 @@ namespace AppointMaster.Pages
             {
                 Content = logoImageSl
             };
-            logoImageSl.GestureRecognizers.Add(new TapGestureRecognizer
+            logoImage.GestureRecognizers.Add(new TapGestureRecognizer
             {
                 NumberOfTapsRequired = 2,
                 Command = new Command(() => ShowSettingPopUp(popupLayout, blackSl))
             });
-
+            popupLayout.IsVisible = false;
             grid.Children.Add(popupLayout, 0, 0);
             Grid.SetRowSpan(popupLayout, 3);
-
+            
             var tr = new TapGestureRecognizer();
-            tr.Tapped += delegate { popupLayout.DismissPopup(); blackSl.IsVisible = false; };
-            blackSl.GestureRecognizers.Add(tr);
+            tr.Tapped += delegate
+            {
+                popupLayout.DismissPopup();
+                blackSl.IsVisible = false;
+                popupLayout.IsVisible = false;
+            };
+            popupLayout.GestureRecognizers.Add(tr);
 
             Content = grid;
 
@@ -166,6 +170,7 @@ namespace AppointMaster.Pages
         private void ShowSettingPopUp(PopupLayout popupLayout, StackLayout sl)
         {
             sl.IsVisible = true;
+            popupLayout.IsVisible = true;
             if (popupLayout.IsPopupActive)
             {
                 popupLayout.DismissPopup();

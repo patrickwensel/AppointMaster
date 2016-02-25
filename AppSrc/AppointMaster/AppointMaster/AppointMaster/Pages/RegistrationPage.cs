@@ -75,15 +75,6 @@ namespace AppointMaster.Pages
                 FontSize = 20
             };
 
-            //var titleEntry = new MyEntry
-            //{
-            //    VerticalOptions = LayoutOptions.Start,
-            //    HorizontalOptions = LayoutOptions.Start,
-            //    HeightRequest = 50,
-            //    WidthRequest = 470,
-            //    TextColor = Color.Black,
-            //    FontSize = 20,
-            //};
             MyPicker titlePicker = new MyPicker
             {
                 WidthRequest = 120,
@@ -114,12 +105,11 @@ namespace AppointMaster.Pages
             var titleSl = new StackLayout
             {
                 HorizontalOptions = LayoutOptions.Start,
-                Padding = new Thickness(Device.OnPlatform(130, 145, 0),0 , 0, 0),
+                Padding = new Thickness(Device.OnPlatform(130, 145, 0), 0, 0, 0),
                 Children =
                 {
                     labTitle,
                     titlePicker
-                    //titleEntry
                 }
             };
 
@@ -234,16 +224,7 @@ namespace AppointMaster.Pages
             {
                 VerticalOptions = LayoutOptions.Start,
                 HorizontalOptions = LayoutOptions.Start,
-                Text = AppResources.State,
-                TextColor = Color.Black,
-                FontSize = 20
-            };
-
-            var labZip = new Label
-            {
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Start,
-                Text = AppResources.Zip,
+                Text = string.Format("{0}/{1}", AppResources.State,AppResources.Province),
                 TextColor = Color.Black,
                 FontSize = 20
             };
@@ -268,21 +249,11 @@ namespace AppointMaster.Pages
                 FontSize = 20,
             };
 
-            //var stateEntry = new MyEntry
-            //{
-            //    VerticalOptions = LayoutOptions.Start,
-            //    HorizontalOptions = LayoutOptions.Start,
-            //    HeightRequest = 50,
-            //    WidthRequest = 200,
-            //    TextColor = Color.Black,
-            //    FontSize = 20
-            //};
-
             MyPicker statePicker = new MyPicker
             {
                 HeightRequest = 50,
-                WidthRequest = 200,
-                DisplayProperty= "State"
+                WidthRequest = 120,
+                DisplayProperty = "State"
             };
 
             var zipEntry = new MyEntry
@@ -290,7 +261,17 @@ namespace AppointMaster.Pages
                 VerticalOptions = LayoutOptions.Start,
                 HorizontalOptions = LayoutOptions.Start,
                 HeightRequest = 50,
-                WidthRequest = 200,
+                WidthRequest = 130,
+                TextColor = Color.Black,
+                FontSize = 20
+            };
+
+            var postalEntry = new MyEntry
+            {
+                VerticalOptions = LayoutOptions.Start,
+                HorizontalOptions = LayoutOptions.Start,
+                HeightRequest = 50,
+                WidthRequest = 130,
                 TextColor = Color.Black,
                 FontSize = 20
             };
@@ -317,12 +298,28 @@ namespace AppointMaster.Pages
 
             var stateSl = new StackLayout
             {
-                Padding = new Thickness(0, 0, 60, 0),
+                Padding = new Thickness(0, 0, 30, 0),
                 Children =
                 {
                    labState,
                    statePicker
-                   //stateEntry
+                }
+            };
+
+            var postalSl = new StackLayout
+            {
+                Padding = new Thickness(0, 0, 30, 0),
+                Children =
+                {              
+                   new Label
+                   {
+                        VerticalOptions = LayoutOptions.Start,
+                        HorizontalOptions = LayoutOptions.Start,
+                        Text = AppResources.Postal_Code,
+                        TextColor = Color.Black,
+                        FontSize = 20
+                   },
+                   postalEntry
                 }
             };
 
@@ -330,18 +327,26 @@ namespace AppointMaster.Pages
             {
                 Children =
                 {
-                   labZip,
+                   new Label
+                   {
+                        VerticalOptions = LayoutOptions.Start,
+                        HorizontalOptions = LayoutOptions.Start,
+                        Text = AppResources.Zip,
+                        TextColor = Color.Black,
+                        FontSize = 20
+                   },
                    zipEntry
                 }
             };
 
-            var stateAndZipSl = new StackLayout
+            var stateAndPostalSl = new StackLayout
             {
                 HorizontalOptions = LayoutOptions.Center,
                 Orientation = StackOrientation.Horizontal,
                 Children =
                 {
                   stateSl,
+                  postalSl,
                   zipSl
                 }
             };
@@ -395,20 +400,16 @@ namespace AppointMaster.Pages
             };
 
             var grid2 = new Grid();
-            //grid2.RowDefinitions.Add(new RowDefinition { Height = new GridLength(150) });
             grid2.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
             grid2.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
             grid2.RowDefinitions.Add(new RowDefinition { Height = new GridLength(120) });
             grid2.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50) });
 
-            //grid2.Children.Add(logoImage2, 0, 0);
-            //grid2.Children.Add(labStep2, 0, 0);
-
             grid2.Children.Add(streetSl, 0, 0);
 
             grid2.Children.Add(citySl, 0, 1);
 
-            grid2.Children.Add(stateAndZipSl, 0, 2);
+            grid2.Children.Add(stateAndPostalSl, 0, 2);
 
             grid2.Children.Add(btnStep2Sl, 0, 3);
 
@@ -598,7 +599,6 @@ namespace AppointMaster.Pages
                 BackgroundColor = Color.Transparent
             }, 0, 0);
             patientGrid.Children.Add(new CheckBox { }, 0, 0);
-            //Grid.SetColumnSpan(ck, 2);
 
             Button btnStep4Back = new Button
             {
@@ -795,7 +795,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BackgroundColor = Color.Transparent
             }, 0, 0);
-            birdGrid.Children.Add(new CheckBox() { }, 0, 0);
+            birdGrid.Children.Add(new CheckBox() { Checked=true }, 0, 0);
 
             var otherGrid = new Grid();
             otherGrid.VerticalOptions = LayoutOptions.Center;
@@ -1314,7 +1314,7 @@ namespace AppointMaster.Pages
 
             //Binding
             //titleEntry.SetBinding(Entry.TextProperty, new Binding("Title"));
-            titlePicker.SetBinding(ExtendedPicker.ItemsSourceProperty, new Binding("TitleList",BindingMode.TwoWay));
+            titlePicker.SetBinding(ExtendedPicker.ItemsSourceProperty, new Binding("TitleList", BindingMode.TwoWay));
             titlePicker.SetBinding(ExtendedPicker.SelectedItemProperty, new Binding("SelectedTitle", BindingMode.TwoWay));
 
             statePicker.SetBinding(ExtendedPicker.ItemsSourceProperty, new Binding("StateList", BindingMode.TwoWay));
