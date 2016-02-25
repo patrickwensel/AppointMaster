@@ -88,10 +88,8 @@ namespace AppointMaster.Pages
             {
                 WidthRequest = 120,
                 HeightRequest = 50,
-                //DisplayProperty = "Title"
+                DisplayProperty = "Title"
             };
-            //titlePicker.Items.Add("Mr.");
-            //titlePicker.Items.Add("Mrs.");
 
             var firstEntry = new MyEntry
             {
@@ -1327,7 +1325,6 @@ namespace AppointMaster.Pages
 
             streetEntry.SetBinding(Entry.TextProperty, new Binding("StreetAddress"));
             cityEntry.SetBinding(Entry.TextProperty, new Binding("City"));
-            //stateEntry.SetBinding(Entry.TextProperty, new Binding("State"));
             zipEntry.SetBinding(Entry.TextProperty, new Binding("Zip"));
 
             phoneEntry.SetBinding(Entry.TextProperty, new Binding("Phone"));

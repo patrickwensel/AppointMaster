@@ -123,6 +123,9 @@
   <data name="Back" xml:space="preserve">
     <value>&lt; Back</value>
   </data>
+  <data name="Base_API_Address" xml:space="preserve">
+    <value>Base API address</value>
+  </data>
   <data name="Birthdate" xml:space="preserve">
     <value>Birthdate</value>
   </data>

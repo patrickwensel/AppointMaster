@@ -80,6 +80,15 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Base API address.
+        /// </summary>
+        public static string Base_API_Address {
+            get {
+                return ResourceManager.GetString("Base_API_Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Birthdate.
         /// </summary>
         public static string Birthdate {

@@ -110,7 +110,7 @@ namespace AppointMaster.Pages
             var grid = new Grid();
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(150) });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(120) });
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(140) });
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(130) });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
             grid.Children.Add(new StackLayout { Padding = new Thickness(0, Device.OnPlatform(40, 20, 20), 0, 0), Children = { logoImage } }, 0, 0);
