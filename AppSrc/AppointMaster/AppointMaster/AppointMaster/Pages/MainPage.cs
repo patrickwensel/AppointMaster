@@ -45,9 +45,8 @@ namespace AppointMaster.Pages
                 TextColor = Color.Black
             };
 
-            var image = new Image
+            Image logoImage = new Image
             {
-                Aspect = Aspect.AspectFit,
                 Source = "logo.png",
                 VerticalOptions = LayoutOptions.Start,
                 HorizontalOptions = LayoutOptions.End,
@@ -80,6 +79,14 @@ namespace AppointMaster.Pages
                 Command = new Command(() => ShowCheckInView())
             });
 
+            PopupLayout popupLayout = new PopupLayout();
+            logoImage.GestureRecognizers.Add(new TapGestureRecognizer
+            {
+                NumberOfTapsRequired=2,
+                Command = new Command(() => ShowSettingPopUp(popupLayout))
+            });
+
+
             var registrationGrid = new Grid();
             registrationGrid.HorizontalOptions = LayoutOptions.Center;
             registrationGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(80) });
@@ -106,15 +113,17 @@ namespace AppointMaster.Pages
             var grid = new Grid();
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(2, GridUnitType.Star) });
-            //grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(200) });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
             grid.Children.Add(sl, 0, 0);
-            grid.Children.Add(image, 0, 0);
+            grid.Children.Add(logoImage, 0, 0);
 
             grid.Children.Add(registrationGrid, 0, 1);
 
             grid.Children.Add(slDis, 0, 2);
+
+            grid.Children.Add(popupLayout, 0, 0);
+            Grid.SetRowSpan(popupLayout, 3);
 
             Content = grid;
         }
@@ -122,6 +131,29 @@ namespace AppointMaster.Pages
         private void ShowCheckInView()
         {
             MainViewModel.ShowCheckInCommand.Execute();
+        }
+
+        private void ShowSettingPopUp(PopupLayout popupLayout)
+        {
+            if (popupLayout.IsPopupActive)
+            {
+                popupLayout.DismissPopup();
+            }
+            else
+            {
+                var list = new ListView()
+                {
+                    BackgroundColor = Color.White,
+                    ItemsSource = new[] { "1", "2", "3" },
+                    HeightRequest = this.Height * .5,
+                    WidthRequest = this.Width * .8
+                };
+
+                list.ItemSelected += (s, args) =>
+                    popupLayout.DismissPopup();
+
+                popupLayout.ShowPopup(list);
+            }
         }
     }
 }
