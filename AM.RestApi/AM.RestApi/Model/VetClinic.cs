@@ -6,7 +6,7 @@ using System.Web;
 
 namespace AM.RestApi.Model
 {
-    public class Clinic
+    public class VetClinic
     {
         public int ID { get; set; }
         public string Name { get; set; }

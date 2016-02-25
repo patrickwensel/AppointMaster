@@ -1,0 +1,712 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="VetDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="VetAPIUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClinicID" Type="int" />
+          <Property Name="APIKey" Type="varchar" MaxLength="500" />
+          <Property Name="Password" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="VetAppointment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClinicID" Type="int" />
+          <Property Name="ClientID" Type="int" />
+          <Property Name="Time" Type="datetime" />
+          <Property Name="CheckedIn" Type="bit" />
+        </EntityType>
+        <EntityType Name="VetAppointmentPatient">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppointmentID" Type="int" />
+          <Property Name="PatientID" Type="int" />
+        </EntityType>
+        <EntityType Name="VetClient">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="150" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="150" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="150" />
+          <Property Name="Address" Type="nvarchar" MaxLength="150" />
+          <Property Name="City" Type="nvarchar" MaxLength="150" />
+          <Property Name="StateProvince" Type="nvarchar" MaxLength="150" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="150" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="150" />
+          <Property Name="Email" Type="nvarchar" MaxLength="150" />
+          <Property Name="DefaultCultureCode" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="VetClinic">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AccountID" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="150" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="150" />
+          <Property Name="City" Type="nvarchar" MaxLength="150" />
+          <Property Name="StateProvince" Type="nvarchar" MaxLength="150" />
+          <Property Name="PostalCode" Type="nvarchar" MaxLength="150" />
+          <Property Name="WebAddress" Type="nvarchar" MaxLength="150" />
+          <Property Name="EmailAddress" Type="nvarchar" MaxLength="150" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="150" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="150" />
+          <Property Name="Logo" Type="image" />
+          <Property Name="DefaultCultureCode" Type="varchar" MaxLength="50" />
+          <Property Name="PrimaryColor" Type="nvarchar" MaxLength="150" />
+          <Property Name="SecondaryColor" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="VetClinicSpecies">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClinicID" Type="int" />
+          <Property Name="SpeciesID" Type="int" />
+          <Property Name="PrimaryDisplay" Type="bit" />
+        </EntityType>
+        <EntityType Name="VetCulture">
+          <Key>
+            <PropertyRef Name="CultureCode" />
+          </Key>
+          <Property Name="CultureCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CountryCode" Type="varchar" MaxLength="50" />
+          <Property Name="LanguageCode" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="VetPatient">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientID" Type="int" />
+          <Property Name="SpeciesID" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" />
+          <Property Name="Breed" Type="nvarchar" MaxLength="150" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="150" />
+          <Property Name="Birthdate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="VetSpecies">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <Association Name="FK_VetAPIUser_VetClinic">
+          <End Role="VetClinic" Type="Self.VetClinic" Multiplicity="0..1" />
+          <End Role="VetAPIUser" Type="Self.VetAPIUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VetClinic">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VetAPIUser">
+              <PropertyRef Name="ClinicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VetAppointment_VetClient">
+          <End Role="VetClient" Type="Self.VetClient" Multiplicity="0..1" />
+          <End Role="VetAppointment" Type="Self.VetAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VetClient">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VetAppointment">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VetAppointment_VetClinic">
+          <End Role="VetClinic" Type="Self.VetClinic" Multiplicity="0..1" />
+          <End Role="VetAppointment" Type="Self.VetAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VetClinic">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VetAppointment">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VetAppointmentPatient_VetAppointment">
+          <End Role="VetAppointment" Type="Self.VetAppointment" Multiplicity="0..1" />
+          <End Role="VetAppointmentPatient" Type="Self.VetAppointmentPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VetAppointment">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VetAppointmentPatient">
+              <PropertyRef Name="AppointmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VetAppointmentPatient_VetPatient">
+          <End Role="VetPatient" Type="Self.VetPatient" Multiplicity="0..1" />
+          <End Role="VetAppointmentPatient" Type="Self.VetAppointmentPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VetPatient">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VetAppointmentPatient">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VetClient_VetCulture">
+          <End Role="VetCulture" Type="Self.VetCulture" Multiplicity="0..1" />
+          <End Role="VetClient" Type="Self.VetClient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VetCulture">
+              <PropertyRef Name="CultureCode" />
+            </Principal>
+            <Dependent Role="VetClient">
+              <PropertyRef Name="DefaultCultureCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VetClinic_VetClinic">
+          <End Role="VetCulture" Type="Self.VetCulture" Multiplicity="0..1" />
+          <End Role="VetClinic" Type="Self.VetClinic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VetCulture">
+              <PropertyRef Name="CultureCode" />
+            </Principal>
+            <Dependent Role="VetClinic">
+              <PropertyRef Name="DefaultCultureCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VetClinicSpecies_VetClinicSpecies">
+          <End Role="VetClinic" Type="Self.VetClinic" Multiplicity="0..1" />
+          <End Role="VetClinicSpecies" Type="Self.VetClinicSpecies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VetClinic">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VetClinicSpecies">
+              <PropertyRef Name="ClinicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VetClinicSpecies_VetSpecies">
+          <End Role="VetSpecies" Type="Self.VetSpecies" Multiplicity="0..1" />
+          <End Role="VetClinicSpecies" Type="Self.VetClinicSpecies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VetSpecies">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VetClinicSpecies">
+              <PropertyRef Name="SpeciesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VetPatient_VetSpecies">
+          <End Role="VetSpecies" Type="Self.VetSpecies" Multiplicity="0..1" />
+          <End Role="VetPatient" Type="Self.VetPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VetSpecies">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VetPatient">
+              <PropertyRef Name="SpeciesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VetDataModelStoreContainer">
+          <EntitySet Name="VetAPIUser" EntityType="Self.VetAPIUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VetAppointment" EntityType="Self.VetAppointment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VetAppointmentPatient" EntityType="Self.VetAppointmentPatient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VetClient" EntityType="Self.VetClient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VetClinic" EntityType="Self.VetClinic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VetClinicSpecies" EntityType="Self.VetClinicSpecies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VetCulture" EntityType="Self.VetCulture" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VetPatient" EntityType="Self.VetPatient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VetSpecies" EntityType="Self.VetSpecies" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_VetAPIUser_VetClinic" Association="Self.FK_VetAPIUser_VetClinic">
+            <End Role="VetClinic" EntitySet="VetClinic" />
+            <End Role="VetAPIUser" EntitySet="VetAPIUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VetAppointment_VetClient" Association="Self.FK_VetAppointment_VetClient">
+            <End Role="VetClient" EntitySet="VetClient" />
+            <End Role="VetAppointment" EntitySet="VetAppointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VetAppointment_VetClinic" Association="Self.FK_VetAppointment_VetClinic">
+            <End Role="VetClinic" EntitySet="VetClinic" />
+            <End Role="VetAppointment" EntitySet="VetAppointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VetAppointmentPatient_VetAppointment" Association="Self.FK_VetAppointmentPatient_VetAppointment">
+            <End Role="VetAppointment" EntitySet="VetAppointment" />
+            <End Role="VetAppointmentPatient" EntitySet="VetAppointmentPatient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VetAppointmentPatient_VetPatient" Association="Self.FK_VetAppointmentPatient_VetPatient">
+            <End Role="VetPatient" EntitySet="VetPatient" />
+            <End Role="VetAppointmentPatient" EntitySet="VetAppointmentPatient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VetClient_VetCulture" Association="Self.FK_VetClient_VetCulture">
+            <End Role="VetCulture" EntitySet="VetCulture" />
+            <End Role="VetClient" EntitySet="VetClient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VetClinic_VetClinic" Association="Self.FK_VetClinic_VetClinic">
+            <End Role="VetCulture" EntitySet="VetCulture" />
+            <End Role="VetClinic" EntitySet="VetClinic" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VetClinicSpecies_VetClinicSpecies" Association="Self.FK_VetClinicSpecies_VetClinicSpecies">
+            <End Role="VetClinic" EntitySet="VetClinic" />
+            <End Role="VetClinicSpecies" EntitySet="VetClinicSpecies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VetClinicSpecies_VetSpecies" Association="Self.FK_VetClinicSpecies_VetSpecies">
+            <End Role="VetSpecies" EntitySet="VetSpecies" />
+            <End Role="VetClinicSpecies" EntitySet="VetClinicSpecies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VetPatient_VetSpecies" Association="Self.FK_VetPatient_VetSpecies">
+            <End Role="VetSpecies" EntitySet="VetSpecies" />
+            <End Role="VetPatient" EntitySet="VetPatient" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VetDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClinicID" Type="Int32" />
+          <Property Name="ClientID" Type="Int32" />
+          <Property Name="Time" Type="DateTime" Precision="3" />
+          <Property Name="CheckedIn" Type="Boolean" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_VetAppointment_VetClient" FromRole="VetAppointment" ToRole="VetClient" />
+          <NavigationProperty Name="Clinic" Relationship="Self.FK_VetAppointment_VetClinic" FromRole="VetAppointment" ToRole="VetClinic" />
+          <NavigationProperty Name="AppointmentPatients" Relationship="Self.FK_VetAppointmentPatient_VetAppointment" FromRole="VetAppointment" ToRole="VetAppointmentPatient" />
+        </EntityType>
+        <EntityType Name="AppointmentPatient">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppointmentID" Type="Int32" />
+          <Property Name="PatientID" Type="Int32" />
+          <NavigationProperty Name="Appointment" Relationship="Self.FK_VetAppointmentPatient_VetAppointment" FromRole="VetAppointmentPatient" ToRole="VetAppointment" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK_VetAppointmentPatient_VetPatient" FromRole="VetAppointmentPatient" ToRole="VetPatient" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="StateProvince" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DefaultCultureCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Appointments" Relationship="Self.FK_VetAppointment_VetClient" FromRole="VetClient" ToRole="VetAppointment" />
+          <NavigationProperty Name="Culture" Relationship="Self.FK_VetClient_VetCulture" FromRole="VetClient" ToRole="VetCulture" />
+        </EntityType>
+        <EntityType Name="Clinic">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Address1" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Address2" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="StateProvince" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="WebAddress" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="EmailAddress" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Fax" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="DefaultCultureCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PrimaryColor" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="SecondaryColor" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Appointments" Relationship="Self.FK_VetAppointment_VetClinic" FromRole="VetClinic" ToRole="VetAppointment" />
+          <NavigationProperty Name="Culture" Relationship="Self.FK_VetClinic_VetClinic" FromRole="VetClinic" ToRole="VetCulture" />
+          <NavigationProperty Name="ClinicSpecies" Relationship="Self.FK_VetClinicSpecies_VetClinicSpecies" FromRole="VetClinic" ToRole="VetClinicSpecies" />
+          <NavigationProperty Name="APIUsers" Relationship="VetDataModel.FK_VetAPIUser_VetClinic" FromRole="Clinic" ToRole="VetAPIUser" />
+        </EntityType>
+        <EntityType Name="ClinicSpecies">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClinicID" Type="Int32" />
+          <Property Name="SpeciesID" Type="Int32" />
+          <Property Name="PrimaryDisplay" Type="Boolean" />
+          <NavigationProperty Name="Clinic" Relationship="Self.FK_VetClinicSpecies_VetClinicSpecies" FromRole="VetClinicSpecies" ToRole="VetClinic" />
+          <NavigationProperty Name="Species" Relationship="Self.FK_VetClinicSpecies_VetSpecies" FromRole="VetClinicSpecies" ToRole="VetSpecies" />
+        </EntityType>
+        <EntityType Name="Culture">
+          <Key>
+            <PropertyRef Name="CultureCode" />
+          </Key>
+          <Property Name="CultureCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CountryCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LanguageCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK_VetClient_VetCulture" FromRole="VetCulture" ToRole="VetClient" />
+          <NavigationProperty Name="Clinics" Relationship="Self.FK_VetClinic_VetClinic" FromRole="VetCulture" ToRole="VetClinic" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientID" Type="Int32" />
+          <Property Name="SpeciesID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Breed" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Birthdate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AppointmentPatients" Relationship="Self.FK_VetAppointmentPatient_VetPatient" FromRole="VetPatient" ToRole="VetAppointmentPatient" />
+          <NavigationProperty Name="Species" Relationship="Self.FK_VetPatient_VetSpecies" FromRole="VetPatient" ToRole="VetSpecies" />
+        </EntityType>
+        <EntityType Name="Species">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ClinicSpecies" Relationship="Self.FK_VetClinicSpecies_VetSpecies" FromRole="VetSpecies" ToRole="VetClinicSpecies" />
+          <NavigationProperty Name="Patients" Relationship="Self.FK_VetPatient_VetSpecies" FromRole="VetSpecies" ToRole="VetPatient" />
+        </EntityType>
+        <Association Name="FK_VetAppointment_VetClient">
+          <End Role="VetClient" Type="VetDataModel.Client" Multiplicity="0..1" />
+          <End Role="VetAppointment" Type="VetDataModel.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VetClient">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VetAppointment">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VetAppointment_VetClinic">
+          <End Role="VetClinic" Type="VetDataModel.Clinic" Multiplicity="0..1" />
+          <End Role="VetAppointment" Type="VetDataModel.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VetClinic">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VetAppointment">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VetAppointmentPatient_VetAppointment">
+          <End Role="VetAppointment" Type="VetDataModel.Appointment" Multiplicity="0..1" />
+          <End Role="VetAppointmentPatient" Type="VetDataModel.AppointmentPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VetAppointment">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VetAppointmentPatient">
+              <PropertyRef Name="AppointmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VetAppointmentPatient_VetPatient">
+          <End Role="VetPatient" Type="VetDataModel.Patient" Multiplicity="0..1" />
+          <End Role="VetAppointmentPatient" Type="VetDataModel.AppointmentPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VetPatient">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VetAppointmentPatient">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VetClient_VetCulture">
+          <End Role="VetCulture" Type="VetDataModel.Culture" Multiplicity="0..1" />
+          <End Role="VetClient" Type="VetDataModel.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VetCulture">
+              <PropertyRef Name="CultureCode" />
+            </Principal>
+            <Dependent Role="VetClient">
+              <PropertyRef Name="DefaultCultureCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VetClinic_VetClinic">
+          <End Role="VetCulture" Type="VetDataModel.Culture" Multiplicity="0..1" />
+          <End Role="VetClinic" Type="VetDataModel.Clinic" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VetCulture">
+              <PropertyRef Name="CultureCode" />
+            </Principal>
+            <Dependent Role="VetClinic">
+              <PropertyRef Name="DefaultCultureCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VetClinicSpecies_VetClinicSpecies">
+          <End Role="VetClinic" Type="VetDataModel.Clinic" Multiplicity="0..1" />
+          <End Role="VetClinicSpecies" Type="VetDataModel.ClinicSpecies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VetClinic">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VetClinicSpecies">
+              <PropertyRef Name="ClinicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VetClinicSpecies_VetSpecies">
+          <End Role="VetSpecies" Type="VetDataModel.Species" Multiplicity="0..1" />
+          <End Role="VetClinicSpecies" Type="VetDataModel.ClinicSpecies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VetSpecies">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VetClinicSpecies">
+              <PropertyRef Name="SpeciesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VetPatient_VetSpecies">
+          <End Role="VetSpecies" Type="VetDataModel.Species" Multiplicity="0..1" />
+          <End Role="VetPatient" Type="VetDataModel.Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VetSpecies">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VetPatient">
+              <PropertyRef Name="SpeciesID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VetDataContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Appointments" EntityType="VetDataModel.Appointment" />
+          <EntitySet Name="AppointmentPatients" EntityType="VetDataModel.AppointmentPatient" />
+          <EntitySet Name="Clients" EntityType="VetDataModel.Client" />
+          <EntitySet Name="Clinics" EntityType="VetDataModel.Clinic" />
+          <EntitySet Name="ClinicSpeciess" EntityType="VetDataModel.ClinicSpecies" />
+          <EntitySet Name="Cultures" EntityType="VetDataModel.Culture" />
+          <EntitySet Name="Patients" EntityType="VetDataModel.Patient" />
+          <EntitySet Name="Speciess" EntityType="VetDataModel.Species" />
+          <AssociationSet Name="FK_VetAppointment_VetClient" Association="Self.FK_VetAppointment_VetClient">
+            <End Role="VetClient" EntitySet="Clients" />
+            <End Role="VetAppointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VetAppointment_VetClinic" Association="Self.FK_VetAppointment_VetClinic">
+            <End Role="VetClinic" EntitySet="Clinics" />
+            <End Role="VetAppointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VetAppointmentPatient_VetAppointment" Association="Self.FK_VetAppointmentPatient_VetAppointment">
+            <End Role="VetAppointment" EntitySet="Appointments" />
+            <End Role="VetAppointmentPatient" EntitySet="AppointmentPatients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VetAppointmentPatient_VetPatient" Association="Self.FK_VetAppointmentPatient_VetPatient">
+            <End Role="VetPatient" EntitySet="Patients" />
+            <End Role="VetAppointmentPatient" EntitySet="AppointmentPatients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VetClient_VetCulture" Association="Self.FK_VetClient_VetCulture">
+            <End Role="VetCulture" EntitySet="Cultures" />
+            <End Role="VetClient" EntitySet="Clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VetClinic_VetClinic" Association="Self.FK_VetClinic_VetClinic">
+            <End Role="VetCulture" EntitySet="Cultures" />
+            <End Role="VetClinic" EntitySet="Clinics" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VetClinicSpecies_VetClinicSpecies" Association="Self.FK_VetClinicSpecies_VetClinicSpecies">
+            <End Role="VetClinic" EntitySet="Clinics" />
+            <End Role="VetClinicSpecies" EntitySet="ClinicSpeciess" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VetClinicSpecies_VetSpecies" Association="Self.FK_VetClinicSpecies_VetSpecies">
+            <End Role="VetSpecies" EntitySet="Speciess" />
+            <End Role="VetClinicSpecies" EntitySet="ClinicSpeciess" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VetPatient_VetSpecies" Association="Self.FK_VetPatient_VetSpecies">
+            <End Role="VetSpecies" EntitySet="Speciess" />
+            <End Role="VetPatient" EntitySet="Patients" />
+          </AssociationSet>
+          <EntitySet Name="APIUsers" EntityType="VetDataModel.APIUser" />
+          <AssociationSet Name="FK_VetAPIUser_VetClinic" Association="VetDataModel.FK_VetAPIUser_VetClinic">
+            <End Role="Clinic" EntitySet="Clinics" />
+            <End Role="VetAPIUser" EntitySet="APIUsers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="APIUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClinicID" Type="Int32" />
+          <Property Name="APIKey" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Clinic" Relationship="VetDataModel.FK_VetAPIUser_VetClinic" FromRole="VetAPIUser" ToRole="Clinic" />
+        </EntityType>
+        <Association Name="FK_VetAPIUser_VetClinic">
+          <End Type="VetDataModel.Clinic" Role="Clinic" Multiplicity="0..1" />
+          <End Type="VetDataModel.APIUser" Role="VetAPIUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clinic">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VetAPIUser">
+              <PropertyRef Name="ClinicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VetDataModelStoreContainer" CdmEntityContainer="VetDataContext">
+          <EntitySetMapping Name="Appointments">
+            <EntityTypeMapping TypeName="VetDataModel.Appointment">
+              <MappingFragment StoreEntitySet="VetAppointment">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ClinicID" ColumnName="ClinicID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="CheckedIn" ColumnName="CheckedIn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppointmentPatients">
+            <EntityTypeMapping TypeName="VetDataModel.AppointmentPatient">
+              <MappingFragment StoreEntitySet="VetAppointmentPatient">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AppointmentID" ColumnName="AppointmentID" />
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="VetDataModel.Client">
+              <MappingFragment StoreEntitySet="VetClient">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StateProvince" ColumnName="StateProvince" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DefaultCultureCode" ColumnName="DefaultCultureCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clinics">
+            <EntityTypeMapping TypeName="VetDataModel.Clinic">
+              <MappingFragment StoreEntitySet="VetClinic">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StateProvince" ColumnName="StateProvince" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="WebAddress" ColumnName="WebAddress" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="DefaultCultureCode" ColumnName="DefaultCultureCode" />
+                <ScalarProperty Name="PrimaryColor" ColumnName="PrimaryColor" />
+                <ScalarProperty Name="SecondaryColor" ColumnName="SecondaryColor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClinicSpeciess">
+            <EntityTypeMapping TypeName="VetDataModel.ClinicSpecies">
+              <MappingFragment StoreEntitySet="VetClinicSpecies">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ClinicID" ColumnName="ClinicID" />
+                <ScalarProperty Name="SpeciesID" ColumnName="SpeciesID" />
+                <ScalarProperty Name="PrimaryDisplay" ColumnName="PrimaryDisplay" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cultures">
+            <EntityTypeMapping TypeName="VetDataModel.Culture">
+              <MappingFragment StoreEntitySet="VetCulture">
+                <ScalarProperty Name="CultureCode" ColumnName="CultureCode" />
+                <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="VetDataModel.Patient">
+              <MappingFragment StoreEntitySet="VetPatient">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="SpeciesID" ColumnName="SpeciesID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Breed" ColumnName="Breed" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Birthdate" ColumnName="Birthdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Speciess">
+            <EntityTypeMapping TypeName="VetDataModel.Species">
+              <MappingFragment StoreEntitySet="VetSpecies">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="APIUsers">
+            <EntityTypeMapping TypeName="VetDataModel.APIUser">
+              <MappingFragment StoreEntitySet="VetAPIUser">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="APIKey" ColumnName="APIKey" />
+                <ScalarProperty Name="ClinicID" ColumnName="ClinicID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
