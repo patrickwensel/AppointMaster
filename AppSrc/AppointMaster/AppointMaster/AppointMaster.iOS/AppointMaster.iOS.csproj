@@ -91,6 +91,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CustomRenderer\MyViewCellRenderer.cs" />
     <Compile Include="CustomRenderer\MyEntryRenderer.cs" />
     <Compile Include="CustomRenderer\MyListViewRenderer.cs" />
     <Compile Include="DebugTrace.cs" />
@@ -258,6 +259,18 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Icon-76%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\checked_checkbox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\checked_checkbox%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\unchecked_checkbox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\unchecked_checkbox%402x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.0.0.6490\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.0.0.6490\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />

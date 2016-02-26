@@ -44,13 +44,13 @@ namespace AppointMaster.ViewModels
 
         public LoginViewModel()
         {
-            //UserName = "c0a0f76d-261c-474a-8db9-d5f815e40958";
-            //Password = "K!ll3r";
+            UserName = "c0a0f76d-261c-474a-8db9-d5f815e40958";
+            Password = "K!ll3r";
         }
 
         private async void Login()
         {
-            //IsBusy = true;
+            IsBusy = true;
 
             if (string.IsNullOrEmpty(UserName))
             {

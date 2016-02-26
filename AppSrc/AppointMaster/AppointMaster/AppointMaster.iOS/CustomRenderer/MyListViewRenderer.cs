@@ -7,7 +7,7 @@ using Xamarin.Forms.Platform.iOS;
 [assembly: ExportRenderer(typeof(MyListView), typeof(MyListViewRenderer))]
 namespace AppointMaster.iOS.CustomRenderer
 {
-    public class MyListViewRenderer: ListViewRenderer
+    public class MyListViewRenderer : ListViewRenderer
     {
         protected override void OnElementChanged(ElementChangedEventArgs<ListView> e)
         {

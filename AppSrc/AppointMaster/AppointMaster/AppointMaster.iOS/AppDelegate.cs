@@ -8,6 +8,10 @@ using MvvmCross.Core.ViewModels;
 using MvvmCross.Platform;
 using MvvmCross.iOS.Platform;
 using XLabs.Forms.Controls;
+using XLabs.Platform.Device;
+using XLabs.Platform.Services.Geolocation;
+using XLabs.Ioc;
+using XLabs.Forms;
 
 namespace AppointMaster.iOS
 {
@@ -32,6 +36,11 @@ namespace AppointMaster.iOS
             ////LoadApplication(new App());
 
             //return base.FinishedLaunching(app, options);
+
+            //var container = new SimpleContainer();
+            //container.Register<IDevice>(t => AppleDevice.CurrentDevice);
+            //container.Register<IGeolocator, Geolocator>();
+            //Resolver.SetResolver(container.GetResolver());
 
             _window = new UIWindow(UIScreen.MainScreen.Bounds);
 
