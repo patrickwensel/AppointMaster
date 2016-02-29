@@ -11,6 +11,7 @@ using Xamarin.Forms;
 using XLabs.Forms.Controls;
 using System.Runtime.CompilerServices;
 using System.Globalization;
+using AppointMaster.Models;
 
 namespace AppointMaster.Pages
 {
@@ -20,6 +21,16 @@ namespace AppointMaster.Pages
         {
             get { return BindingContext as RegistrationViewModel; }
         }
+
+
+        Grid grid1;
+        Grid grid2;
+        Grid grid3;
+        Grid grid4;
+        Grid grid4Add;
+        Grid grid4Breed;
+        Grid grid5;
+        Label labStep;
 
         public RegistrationPage()
         {
@@ -37,7 +48,7 @@ namespace AppointMaster.Pages
                 WidthRequest = 207
             };
 
-            var labStep = new Label
+            labStep = new Label
             {
                 VerticalOptions = LayoutOptions.Start,
                 HorizontalOptions = LayoutOptions.Start,
@@ -46,32 +57,49 @@ namespace AppointMaster.Pages
                 FontSize = 20
             };
 
-            //Step1
-            #region Step1
-            var labFirst = new Label
-            {
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Start,
-                Text = AppResources.FirstName,
-                TextColor = Color.Black,
-                FontSize = 20
-            };
+            Step1();
+            Step2();
+            Step3();
+            Step4();
+            Step4AddBreed();
+            Step4AddPaitent();
+            Step5();
 
-            var labLast = new Label
-            {
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Start,
-                Text = AppResources.LastName,
-                TextColor = Color.Black,
-                FontSize = 20
-            };
+            var grid = new Grid();
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(150) });
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
+            grid.Children.Add(logoImage, 0, 0);
+            grid.Children.Add(labStep, 0, 0);
+
+            grid.Children.Add(grid1, 0, 1);
+            grid.Children.Add(grid2, 0, 1);
+            grid.Children.Add(grid3, 0, 1);
+            grid.Children.Add(grid4, 0, 1);
+            grid.Children.Add(grid4Add, 0, 1);
+            grid.Children.Add(grid4Breed, 0, 1);
+            grid.Children.Add(grid5, 0, 1);
+
+            grid1.IsVisible = true;
+            grid2.IsVisible = false;
+            grid3.IsVisible = false;
+            grid4.IsVisible = false;
+            grid4Add.IsVisible = false;
+            grid4Breed.IsVisible = false;
+            grid5.IsVisible = false;
+
+            Content = grid;
+        }
+
+        private void Step1()
+        {
             MyPicker titlePicker = new MyPicker
             {
                 WidthRequest = 120,
-                HeightRequest = 50,
-                DisplayProperty = "Title"
+                HeightRequest = 50
             };
+            titlePicker.SetBinding(ExtendedPicker.ItemsSourceProperty, new Binding("TitleList", BindingMode.TwoWay));
+            titlePicker.SetBinding(ExtendedPicker.SelectedItemProperty, new Binding("SelectedTitle", BindingMode.TwoWay));
 
             var firstEntry = new MyEntry
             {
@@ -82,6 +110,7 @@ namespace AppointMaster.Pages
                 TextColor = Color.Black,
                 FontSize = 20,
             };
+            firstEntry.SetBinding(Entry.TextProperty, new Binding("FirstName"));
 
             var lastEntry = new MyEntry
             {
@@ -92,6 +121,7 @@ namespace AppointMaster.Pages
                 TextColor = Color.Black,
                 FontSize = 20,
             };
+            lastEntry.SetBinding(Entry.TextProperty, new Binding("LastName"));
 
             var titleSl = new StackLayout
             {
@@ -116,7 +146,14 @@ namespace AppointMaster.Pages
                 HorizontalOptions = LayoutOptions.Center,
                 Children =
                 {
-                    labFirst,
+                    new Label
+                    {
+                        VerticalOptions = LayoutOptions.Start,
+                        HorizontalOptions = LayoutOptions.Start,
+                        Text = AppResources.FirstName,
+                        TextColor = Color.Black,
+                        FontSize = 20
+                    },
                     firstEntry
                 }
             };
@@ -126,7 +163,14 @@ namespace AppointMaster.Pages
                 HorizontalOptions = LayoutOptions.Center,
                 Children =
                 {
-                    labLast,
+                    new Label
+                    {
+                        VerticalOptions = LayoutOptions.Start,
+                        HorizontalOptions = LayoutOptions.Start,
+                        Text = AppResources.LastName,
+                        TextColor = Color.Black,
+                        FontSize = 20
+                    },
                     lastEntry
                 }
             };
@@ -181,7 +225,16 @@ namespace AppointMaster.Pages
                 }
             };
 
-            var grid1 = new Grid();
+
+            btnStep1Next.Clicked += delegate
+            {
+                grid1.IsVisible = false;
+                grid2.IsVisible = true;
+                labStep.Text = AppResources.Registration_Step2;
+            };
+            btnStep1Back.SetBinding(Button.CommandProperty, new Binding("ShowCheckInCommand"));
+
+            grid1 = new Grid();
             grid1.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
             grid1.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
             grid1.RowDefinitions.Add(new RowDefinition { Height = new GridLength(120) });
@@ -194,39 +247,10 @@ namespace AppointMaster.Pages
             grid1.Children.Add(lastSl, 0, 2);
 
             grid1.Children.Add(btnStep1Sl, 0, 3);
+        }
 
-            #endregion
-
-            //Step2
-            #region Step2
-
-            var labStreet = new Label
-            {
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Start,
-                Text = AppResources.Street_Adress,
-                TextColor = Color.Black,
-                FontSize = 20
-            };
-
-            var labCity = new Label
-            {
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Start,
-                Text = AppResources.City,
-                TextColor = Color.Black,
-                FontSize = 20
-            };
-
-            var labState = new Label
-            {
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Start,
-                Text = string.Format("{0}/{1}", AppResources.State, AppResources.Province),
-                TextColor = Color.Black,
-                FontSize = 20
-            };
-
+        private void Step2()
+        {
             var streetEntry = new MyEntry
             {
                 VerticalOptions = LayoutOptions.Start,
@@ -236,6 +260,7 @@ namespace AppointMaster.Pages
                 TextColor = Color.Black,
                 FontSize = 20,
             };
+            streetEntry.SetBinding(Entry.TextProperty, new Binding("StreetAddress"));
 
             var cityEntry = new MyEntry
             {
@@ -246,13 +271,15 @@ namespace AppointMaster.Pages
                 TextColor = Color.Black,
                 FontSize = 20,
             };
+            cityEntry.SetBinding(Entry.TextProperty, new Binding("City"));
 
             MyPicker statePicker = new MyPicker
             {
                 HeightRequest = 50,
-                WidthRequest = 120,
-                DisplayProperty = "State"
+                WidthRequest = 120
             };
+            statePicker.SetBinding(ExtendedPicker.ItemsSourceProperty, new Binding("StateList", BindingMode.TwoWay));
+            statePicker.SetBinding(ExtendedPicker.SelectedItemProperty, new Binding("SelectedState", BindingMode.TwoWay));
 
             var zipEntry = new MyEntry
             {
@@ -263,6 +290,7 @@ namespace AppointMaster.Pages
                 TextColor = Color.Black,
                 FontSize = 20
             };
+            zipEntry.SetBinding(Entry.TextProperty, new Binding("Zip"));
 
             var postalEntry = new MyEntry
             {
@@ -273,13 +301,21 @@ namespace AppointMaster.Pages
                 TextColor = Color.Black,
                 FontSize = 20
             };
+            postalEntry.SetBinding(Entry.TextProperty, new Binding("Zip"));
 
             var streetSl = new StackLayout
             {
                 HorizontalOptions = LayoutOptions.Center,
                 Children =
                 {
-                    labStreet,
+                    new Label
+                    {
+                        VerticalOptions = LayoutOptions.Start,
+                        HorizontalOptions = LayoutOptions.Start,
+                        Text = AppResources.Street_Address,
+                        TextColor = Color.Black,
+                        FontSize = 20
+                    },
                     streetEntry
                 }
             };
@@ -289,7 +325,14 @@ namespace AppointMaster.Pages
                 HorizontalOptions = LayoutOptions.Center,
                 Children =
                 {
-                   labCity,
+                   new Label
+                    {
+                        VerticalOptions = LayoutOptions.Start,
+                        HorizontalOptions = LayoutOptions.Start,
+                        Text = AppResources.City,
+                        TextColor = Color.Black,
+                        FontSize = 20
+                    },
                    cityEntry
                 }
             };
@@ -299,7 +342,14 @@ namespace AppointMaster.Pages
                 Padding = new Thickness(0, 0, 30, 0),
                 Children =
                 {
-                   labState,
+                    new Label
+                    {
+                        VerticalOptions = LayoutOptions.Start,
+                        HorizontalOptions = LayoutOptions.Start,
+                        Text = string.Format("{0}/{1}", AppResources.State, AppResources.Province),
+                        TextColor = Color.Black,
+                        FontSize = 20
+                    },
                    statePicker
                 }
             };
@@ -399,7 +449,21 @@ namespace AppointMaster.Pages
                 }
             };
 
-            var grid2 = new Grid();
+            btnStep2Next.Clicked += delegate
+            {
+                grid2.IsVisible = false;
+                grid3.IsVisible = true;
+                labStep.Text = AppResources.Registration_Step3;
+            };
+
+            btnStep2Back.Clicked += delegate
+            {
+                grid1.IsVisible = true;
+                grid2.IsVisible = false;
+                labStep.Text = AppResources.Registration_Step1;
+            };
+
+            grid2 = new Grid();
             grid2.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
             grid2.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
             grid2.RowDefinitions.Add(new RowDefinition { Height = new GridLength(120) });
@@ -412,21 +476,10 @@ namespace AppointMaster.Pages
             grid2.Children.Add(stateAndPostalSl, 0, 2);
 
             grid2.Children.Add(btnStep2Sl, 0, 3);
+        }
 
-            #endregion
-
-            //Step3
-            #region Step3
-
-            var labEmial = new Label
-            {
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Start,
-                Text = AppResources.Email,
-                TextColor = Color.Black,
-                FontSize = 20
-            };
-
+        private void Step3()
+        {
             var phoneEntry = new MyEntry
             {
                 VerticalOptions = LayoutOptions.Start,
@@ -436,6 +489,7 @@ namespace AppointMaster.Pages
                 TextColor = Color.Black,
                 FontSize = 20
             };
+            phoneEntry.SetBinding(Entry.TextProperty, new Binding("Phone"));
 
             var emailEntry = new MyEntry
             {
@@ -446,6 +500,7 @@ namespace AppointMaster.Pages
                 TextColor = Color.Black,
                 FontSize = 20
             };
+            emailEntry.SetBinding(Entry.TextProperty, new Binding("Email"));
 
             var phoneSl = new StackLayout
             {
@@ -469,8 +524,15 @@ namespace AppointMaster.Pages
                 HorizontalOptions = LayoutOptions.Center,
                 Children =
                 {
-                      labEmial,
-                      emailEntry
+                    new Label
+                    {
+                        VerticalOptions = LayoutOptions.Start,
+                        HorizontalOptions = LayoutOptions.Start,
+                        Text = AppResources.Email,
+                        TextColor = Color.Black,
+                        FontSize = 20
+                    },
+                    emailEntry
                 }
             };
 
@@ -486,6 +548,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BorderWidth = 2
             };
+
             Button btnStep3Cancel = new Button
             {
                 Text = AppResources.Cancel,
@@ -497,6 +560,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BorderWidth = 2
             };
+
             Button btnStep3Next = new Button
             {
                 Text = AppResources.Next,
@@ -522,7 +586,21 @@ namespace AppointMaster.Pages
                 }
             };
 
-            var grid3 = new Grid();
+            btnStep3Next.Clicked += delegate
+            {
+                grid3.IsVisible = false;
+                grid4.IsVisible = true;
+                labStep.Text = AppResources.Registration_Step4;
+            };
+
+            btnStep3Back.Clicked += delegate
+            {
+                grid2.IsVisible = true;
+                grid3.IsVisible = false;
+                labStep.Text = AppResources.Registration_Step2;
+            };
+
+            grid3 = new Grid();
             grid3.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
             grid3.RowDefinitions.Add(new RowDefinition { Height = new GridLength(120) });
             grid3.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50) });
@@ -532,44 +610,10 @@ namespace AppointMaster.Pages
             grid3.Children.Add(emailSl, 0, 1);
 
             grid3.Children.Add(btnStep3Sl, 0, 2);
+        }
 
-            #endregion
-
-            //Step4
-            #region Step4
-
-            Label labWhoIs = new Label
-            {
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Start,
-                Text = AppResources.Who_Is_With,
-                TextColor = Color.Black,
-                FontSize = 20
-            };
-
-            Label labPatientName = new Label
-            {
-                VerticalOptions = LayoutOptions.Center,
-                Text = "Fido",
-                TextColor = Color.Black,
-                FontSize = 20
-            };
-
-            Label labAddAnother = new Label
-            {
-                Text = AppResources.Add_Another,
-                TextColor = Color.Black,
-                FontSize = 20
-            };
-
-            Label labCompanion = new Label
-            {
-                HorizontalOptions = LayoutOptions.Center,
-                Text = AppResources.Companion,
-                TextColor = Color.Black,
-                FontSize = 20
-            };
-
+        private void Step4()
+        {
             BoxView line = new BoxView
             {
                 WidthRequest = 1,
@@ -590,6 +634,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BorderWidth = 2
             };
+
             Button btnStep4Cancel = new Button
             {
                 Text = AppResources.Cancel,
@@ -601,6 +646,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BorderWidth = 2
             };
+
             Button btnStep4Next = new Button
             {
                 Text = AppResources.Next,
@@ -630,7 +676,14 @@ namespace AppointMaster.Pages
             {
                 Children =
                 {
-                   labWhoIs,
+                   new Label
+                   {
+                        VerticalOptions = LayoutOptions.Start,
+                        HorizontalOptions = LayoutOptions.Start,
+                        Text = AppResources.Who_Is_With,
+                        TextColor = Color.Black,
+                        FontSize = 20
+                   },
                    line
                 }
             };
@@ -641,8 +694,19 @@ namespace AppointMaster.Pages
                 VerticalOptions = LayoutOptions.Center,
                 Children =
                 {
-                   labAddAnother,
-                   labCompanion
+                    new Label
+                    {
+                        Text = AppResources.Add_Another,
+                        TextColor = Color.Black,
+                        FontSize = 20
+                    },
+                    new Label
+                    {
+                        HorizontalOptions = LayoutOptions.Center,
+                        Text = AppResources.Companion,
+                        TextColor = Color.Black,
+                        FontSize = 20
+                    }
                 }
             };
 
@@ -707,7 +771,28 @@ namespace AppointMaster.Pages
             lstPatient.ItemTapped += LstPatient_ItemTapped;
             lstPatient.SetBinding(ListView.ItemsSourceProperty, new Binding("PatientList"));
 
-            var grid4 = new Grid();
+            var addAnotherSlClick = new TapGestureRecognizer();
+            addAnotherSlClick.Tapped += delegate
+            {
+                grid4.IsVisible = false;
+                grid4Add.IsVisible = true;
+            };
+            addAnotherSl.GestureRecognizers.Add(addAnotherSlClick);
+
+            btnStep4Next.Clicked += delegate
+            {
+                grid4.IsVisible = false;
+                grid5.IsVisible = true;
+            };
+
+            btnStep4Back.Clicked += delegate
+            {
+                grid3.IsVisible = true;
+                grid4.IsVisible = false;
+                labStep.Text = AppResources.Registration_Step3;
+            };
+
+            grid4 = new Grid();
             grid4.RowDefinitions.Add(new RowDefinition { Height = 80 });
             grid4.RowDefinitions.Add(new RowDefinition { Height = 40 });
             grid4.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -720,19 +805,10 @@ namespace AppointMaster.Pages
             grid4.Children.Add(lstPatient, 0, 2);
 
             grid4.Children.Add(btnStep4Sl, 0, 3);
-            #endregion
+        }
 
-            //Add Another
-            #region Add Another
-
-            Label labWhoIsAdd = new Label
-            {
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Start,
-                Text = AppResources.Who_Is_With,
-                TextColor = Color.Black,
-                FontSize = 20
-            };
+        private void Step4AddPaitent()
+        {
 
             var patientNameEntry = new MyEntry
             {
@@ -743,13 +819,21 @@ namespace AppointMaster.Pages
                 TextColor = Color.Black,
                 FontSize = 20,
             };
+            patientNameEntry.SetBinding(Entry.TextProperty, new Binding("PatientName"));
 
             StackLayout titleAndEntrySl = new StackLayout
             {
                 HorizontalOptions = LayoutOptions.Center,
                 Children =
                 {
-                    labWhoIsAdd,
+                    new Label
+                    {
+                        VerticalOptions = LayoutOptions.Start,
+                        HorizontalOptions = LayoutOptions.Start,
+                        Text = AppResources.Who_Is_With,
+                        TextColor = Color.Black,
+                        FontSize = 20
+                    },
                     patientNameEntry
                 }
             };
@@ -853,17 +937,6 @@ namespace AppointMaster.Pages
                 }
             };
 
-            StackLayout dogAndFishSl = new StackLayout
-            {
-                Orientation = StackOrientation.Horizontal,
-                HorizontalOptions = LayoutOptions.Center,
-                Children =
-                {
-                    dogSl,
-                    fishSl
-                }
-            };
-
             StackLayout catSl = new StackLayout
             {
                 Padding = new Thickness(0, 0, 100, 0),
@@ -897,17 +970,6 @@ namespace AppointMaster.Pages
                 }
             };
 
-            StackLayout catAndHamsterSl = new StackLayout
-            {
-                Orientation = StackOrientation.Horizontal,
-                HorizontalOptions = LayoutOptions.Center,
-                Children =
-                {
-                    catSl,
-                    hamsterSl
-                }
-            };
-
             StackLayout birdSl = new StackLayout
             {
                 Padding = new Thickness(0, 0, 100, 0),
@@ -925,6 +987,14 @@ namespace AppointMaster.Pages
                 }
             };
 
+            MyPicker breedPicker = new MyPicker
+            {
+                WidthRequest=80,
+                HeightRequest=50
+            };
+            breedPicker.SetBinding(ExtendedPicker.ItemsSourceProperty, new Binding("BreedList"));
+            breedPicker.SetBinding(ExtendedPicker.SelectedItemProperty, new Binding("SelectedBreed", BindingMode.TwoWay));
+
             StackLayout otherSl = new StackLayout
             {
                 Orientation = StackOrientation.Horizontal,
@@ -932,25 +1002,38 @@ namespace AppointMaster.Pages
                 {
                     imgOtherChecked,
                     imgOtherUnChecked,
-                    new Label
-                    {
-                        VerticalOptions=LayoutOptions.Center,
-                        Text = AppResources.Other,
-                        TextColor=Color.Black,
-                        FontSize=24
-                    }
+                    breedPicker
                 }
             };
 
-            StackLayout birdAndOtherSl = new StackLayout
+            StackLayout leftSl = new StackLayout
             {
-                Orientation = StackOrientation.Horizontal,
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Center,
                 Children =
                 {
-                    birdSl,
+                    dogSl,
+                    catSl,
+                    birdSl
+                }
+            };
+
+            StackLayout rightSl = new StackLayout
+            {
+                Children =
+                {
+                    fishSl,
+                    hamsterSl,
                     otherSl
+                }
+            };
+
+            StackLayout breedSl = new StackLayout
+            {
+                HorizontalOptions=LayoutOptions.Center,
+                Orientation= StackOrientation.Horizontal,
+                Children =
+                {
+                    leftSl,
+                    rightSl
                 }
             };
 
@@ -1032,36 +1115,48 @@ namespace AppointMaster.Pages
                 Command = new Command(() => SelectPatientSpecies("Other"))
             });
 
-            var grid4Add = new Grid();
+            btnStep4AddNext.Clicked += delegate
+            {
+                if (string.IsNullOrEmpty(RegistrationViewModel.PatientName))
+                {
+                    DisplayAlert(AppResources.Error, AppResources.Enter_Patient_Name, AppResources.OK);
+                    return;
+                }
+                grid4Add.IsVisible = false;
+                grid4Breed.IsVisible = true;
+
+                //if (RegistrationViewModel.PatientBreed == "Other")
+                //{
+                //    grid4Add.IsVisible = false;
+                //    grid4Breed.IsVisible = true;
+                //}
+                //else
+                //{
+                //    grid4Add.IsVisible = false;
+                //    grid5.IsVisible = true;
+                //}
+            };
+
+            btnStep4AddBack.Clicked += delegate
+            {
+                grid4.IsVisible = true;
+                grid4Add.IsVisible = false;
+            };
+
+            grid4Add = new Grid();
             grid4Add.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
-            grid4Add.RowDefinitions.Add(new RowDefinition { Height = new GridLength(60) });
-            grid4Add.RowDefinitions.Add(new RowDefinition { Height = new GridLength(60) });
-            grid4Add.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
-            grid4Add.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
+            grid4Add.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            grid4Add.RowDefinitions.Add(new RowDefinition { Height = new GridLength(80) });
 
             grid4Add.Children.Add(titleAndEntrySl, 0, 0);
 
-            grid4Add.Children.Add(dogAndFishSl, 0, 1);
+            grid4Add.Children.Add(breedSl, 0, 1);
 
-            grid4Add.Children.Add(catAndHamsterSl, 0, 2);
+            grid4Add.Children.Add(btnStep4AddSl, 0, 3);
+        }
 
-            grid4Add.Children.Add(birdAndOtherSl, 0, 3);
-
-            grid4Add.Children.Add(btnStep4AddSl, 0, 4);
-
-            #endregion
-
-            //Other
-            #region Other
-
-            Label labBreed = new Label
-            {
-                VerticalOptions = LayoutOptions.Center,
-                Text = AppResources.Breed,
-                TextColor = Color.Black,
-                FontSize = 20
-            };
-
+        private void Step4AddBreed()
+        {
             var breedEntry = new MyEntry
             {
                 VerticalOptions = LayoutOptions.Start,
@@ -1071,6 +1166,7 @@ namespace AppointMaster.Pages
                 TextColor = Color.Black,
                 FontSize = 20
             };
+            breedEntry.SetBinding(Entry.TextProperty, new Binding("Breed"));
 
             MyPicker genderPicker = new MyPicker
             {
@@ -1078,14 +1174,15 @@ namespace AppointMaster.Pages
                 WidthRequest = 150,
                 HeightRequest = 50
             };
-            genderPicker.Items.Add("Male");
-            genderPicker.Items.Add("Female");
+            genderPicker.SetBinding(ExtendedPicker.ItemsSourceProperty, new Binding("GenderList"));
+            genderPicker.SetBinding(ExtendedPicker.SelectedItemProperty, new Binding("PatientGender", BindingMode.TwoWay));
 
             MyDatePicker datePicker = new MyDatePicker
             {
                 WidthRequest = 150,
                 HeightRequest = 50
             };
+            datePicker.SetBinding(DatePicker.DateProperty, new Binding("PatientBirth",BindingMode.TwoWay));
 
             Button btnStep4OtherBack = new Button
             {
@@ -1099,6 +1196,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BorderWidth = 2
             };
+
             Button btnStep4OtherCancel = new Button
             {
                 Text = AppResources.Cancel,
@@ -1110,6 +1208,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BorderWidth = 2
             };
+
             Button btnStep4OtherNext = new Button
             {
                 Text = AppResources.Next,
@@ -1140,8 +1239,14 @@ namespace AppointMaster.Pages
                 HorizontalOptions = LayoutOptions.Center,
                 Children =
                 {
-                      labBreed,
-                      breedEntry
+                    new Label
+                    {
+                        VerticalOptions = LayoutOptions.Center,
+                        Text = AppResources.Breed,
+                        TextColor = Color.Black,
+                        FontSize = 20
+                    },
+                    breedEntry
                 }
             };
 
@@ -1202,21 +1307,45 @@ namespace AppointMaster.Pages
                 }
             };
 
-            var grid4Other = new Grid();
-            grid4Other.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
-            grid4Other.RowDefinitions.Add(new RowDefinition { Height = new GridLength(80) });
-            grid4Other.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
+            btnStep4OtherNext.Clicked += delegate
+            {
+                if( string.IsNullOrEmpty(RegistrationViewModel.Breed))
+                {
+                    DisplayAlert(AppResources.Error,AppResources.Enter_Breed, AppResources.OK);
+                    return;
+                }
+                RegistrationViewModel.SelectedPatientList.Add(new PatientInfo
+                {
+                    PatientName = RegistrationViewModel.PatientName,
+                    Breed = RegistrationViewModel.Breed,
+                    PatientGender = RegistrationViewModel.PatientGender,
+                    Birth = RegistrationViewModel.PatientBirth.ToString()
+                });
+                grid4Breed.IsVisible = false;
+                grid5.IsVisible = true;
+            };
 
-            grid4Other.Children.Add(breedSl, 0, 0);
+            btnStep4OtherBack.Clicked += delegate
+            {
+                grid4Add.IsVisible = true;
+                grid4Breed.IsVisible = false;
+            };
 
-            grid4Other.Children.Add(genderAndBirthSl, 0, 1);
+            grid4Breed = new Grid();
+            grid4Breed.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
+            grid4Breed.RowDefinitions.Add(new RowDefinition { Height = new GridLength(80) });
+            grid4Breed.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
 
-            grid4Other.Children.Add(btnStep4OtherSl, 0, 2);
+            grid4Breed.Children.Add(breedSl, 0, 0);
 
-            #endregion
+            grid4Breed.Children.Add(genderAndBirthSl, 0, 1);
 
-            //Confirm
-            #region Confirm
+            grid4Breed.Children.Add(btnStep4OtherSl, 0, 2);
+        }
+
+        private void Step5()
+        {
+            const int fontSize = 25;
 
             Button btnEditClient = new Button
             {
@@ -1225,43 +1354,92 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BorderWidth = 2,
                 BackgroundColor = Color.Transparent,
-                HeightRequest = 40
+                HeightRequest = 40,
+                TextColor = Color.Black
             };
 
             Label labTitle = new Label
             {
                 TextColor = Color.Black,
-                FontSize = 20
+                FontSize = fontSize
             };
 
             Label labFirstName = new Label
             {
                 TextColor = Color.Black,
-                FontSize = 20
+                FontSize = fontSize
             };
 
             Label labLastName = new Label
             {
                 TextColor = Color.Black,
-                FontSize = 20
+                FontSize = fontSize
+            };
+
+            Label labStreetAddress = new Label
+            {
+                TextColor = Color.Black,
+                FontSize = fontSize
+            };
+
+            Label labCity = new Label
+            {
+                TextColor = Color.Black,
+                FontSize = fontSize
+            };
+
+            Label labState = new Label
+            {
+                TextColor = Color.Black,
+                FontSize = fontSize
             };
 
             Label labZiP = new Label
             {
                 TextColor = Color.Black,
-                FontSize = 20
+                FontSize = fontSize
             };
 
             Label labPhone = new Label
             {
                 TextColor = Color.Black,
-                FontSize = 20
+                FontSize = fontSize
             };
 
-            Label labEmail= new Label
+            Label labEmail = new Label
             {
                 TextColor = Color.Black,
-                FontSize = 20
+                FontSize = fontSize
+            };
+
+            Label labPatientName = new Label
+            {
+                TextColor = Color.Black,
+                FontSize = fontSize
+            };
+
+            Label labPatientBreed = new Label
+            {
+                TextColor = Color.Black,
+                FontSize = fontSize
+            };
+
+            Label labBreed = new Label
+            {
+                TextColor = Color.Black,
+                FontSize = fontSize
+            };
+
+            Label labPatientGender = new Label
+            {
+                TextColor = Color.Black,
+                FontSize = fontSize
+            };
+
+            Label labPatientBirth = new Label
+            {
+                TextColor = Color.Black,
+                FontSize = fontSize
             };
 
             Grid clientInfoGrid = new Grid();
@@ -1278,29 +1456,10 @@ namespace AppointMaster.Pages
             }, 0, 0);
             clientInfoGrid.Children.Add(btnEditClient, 1, 0);
 
-            Button btnEditClientInfo = new Button
-            {
-                Text = AppResources.Edit,
-                TextColor = Color.Black,
-                BackgroundColor = Color.Transparent,
-                BorderColor = Color.Black,
-                BorderRadius = 1,
-                BorderWidth = 2
-            };
-
             StackLayout clientInfoSl = new StackLayout
             {
                 Children = {
-                    new StackLayout
-                    {
-                        Orientation=StackOrientation.Horizontal,
-                        Children =
-                        {
-                            labTitle,
-                            labFirstName,
-                            labLastName,
-                        }
-                    },
+                    clientInfoGrid,
 
                     new StackLayout
                     {
@@ -1309,187 +1468,76 @@ namespace AppointMaster.Pages
                         {
                             labTitle,
                             labFirstName,
-                            labLastName,
+                            labLastName
                         }
                     },
+
+                    labStreetAddress,
+
+                    new StackLayout
+                    {
+                        Orientation=StackOrientation.Horizontal,
+                        Children =
+                        {
+                            labCity,
+                            labState,
+                            labZiP
+                        }
+                    },
+
+                    labPhone,
+
+                    labEmail
                 }
             };
 
-            var gridConfirm = new Grid();
-            gridConfirm.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            gridConfirm.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            grid5 = new Grid();
+            grid5.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            grid5.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
-            gridConfirm.Children.Add(new StackLayout
-            {
-                WidthRequest = 100,
-                Orientation = StackOrientation.Horizontal,
-                Children =
-                {
-                    clientInfoSl,
-                    btnEditClientInfo
-                }
-            }, 0, 0);
-
-            gridConfirm.Children.Add(clientInfoSl, 0, 1);
+            grid5.Children.Add(clientInfoSl, 0, 0);
 
             //Binding
-            labTitle.SetBinding(Label.TextProperty, new Binding(""));
-            labTitle.SetBinding(Label.TextProperty, new Binding(""));
-            labTitle.SetBinding(Label.TextProperty, new Binding(""));
+            btnEditClient.Clicked += delegate { grid1.IsVisible = true; grid5.IsVisible = false; };
 
-            labTitle.SetBinding(Label.TextProperty, new Binding(""));
-            labTitle.SetBinding(Label.TextProperty, new Binding(""));
-            labTitle.SetBinding(Label.TextProperty, new Binding(""));
-            #endregion
+            labTitle.SetBinding(Label.TextProperty, new Binding("SelectedTitle"));
+            labFirstName.SetBinding(Label.TextProperty, new Binding("FirstName"));
+            labLastName.SetBinding(Label.TextProperty, new Binding("LastName"));
 
-            var grid = new Grid();
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(150) });
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            labStreetAddress.SetBinding(Label.TextProperty, new Binding("StreetAddress"));
+            labCity.SetBinding(Label.TextProperty, new Binding("City"));
+            labState.SetBinding(Label.TextProperty, new Binding("SelectedState.State"));
+            labZiP.SetBinding(Label.TextProperty, new Binding("Zip"));
 
-            grid.Children.Add(logoImage, 0, 0);
-            grid.Children.Add(labStep, 0, 0);
+            labPhone.SetBinding(Label.TextProperty, new Binding("Phone"));
+            labEmail.SetBinding(Label.TextProperty, new Binding("Email"));
 
-            grid.Children.Add(grid1, 0, 1);
-            grid.Children.Add(grid2, 0, 1);
-            grid.Children.Add(grid3, 0, 1);
-            grid.Children.Add(grid4, 0, 1);
-            grid.Children.Add(grid4Add, 0, 1);
-            grid.Children.Add(grid4Other, 0, 1);
-            grid.Children.Add(gridConfirm, 0, 1);
-
-            grid1.IsVisible = false;
-            grid2.IsVisible = false;
-            grid3.IsVisible = false;
-            grid4.IsVisible = false;
-            grid4Add.IsVisible = false;
-            grid4Other.IsVisible = false;
-            gridConfirm.IsVisible = true;
-
-            btnStep1Next.Clicked += delegate
-            {
-                grid1.IsVisible = false;
-                grid2.IsVisible = true;
-                labStep.Text = AppResources.Registration_Step2;
-            };
-
-            btnStep2Next.Clicked += delegate
-            {
-                grid2.IsVisible = false;
-                grid3.IsVisible = true;
-                labStep.Text = AppResources.Registration_Step3;
-            };
-
-            btnStep3Next.Clicked += delegate
-            {
-                grid3.IsVisible = false;
-                grid4.IsVisible = true;
-                labStep.Text = AppResources.Registration_Step4;
-            };
-
-            btnStep4Next.Clicked += delegate
-            {
-                grid4.IsVisible = false;
-                gridConfirm.IsVisible = true;
-            };
-
-            btnStep4AddNext.Clicked += delegate
-            {
-                if (RegistrationViewModel.PatientSpecies == "Other")
-                {
-                    grid4Add.IsVisible = false;
-                    grid4Other.IsVisible = true;
-                }
-                else
-                {
-                    grid4Add.IsVisible = false;
-                    gridConfirm.IsVisible = true;
-                }
-            };
-
-            btnStep4OtherNext.Clicked += delegate
-            {
-                grid4Other.IsVisible = false;
-                gridConfirm.IsVisible = true;
-            };
-
-            //Back
-            btnStep1Back.SetBinding(Button.CommandProperty, new Binding("ShowCheckInCommand"));
-
-            btnStep2Back.Clicked += delegate
-            {
-                grid1.IsVisible = true;
-                grid2.IsVisible = false;
-                labStep.Text = AppResources.Registration_Step1;
-            };
-
-            btnStep3Back.Clicked += delegate
-            {
-                grid2.IsVisible = true;
-                grid3.IsVisible = false;
-                labStep.Text = AppResources.Registration_Step2;
-            };
-
-            btnStep4Back.Clicked += delegate
-            {
-                grid3.IsVisible = true;
-                grid4.IsVisible = false;
-                labStep.Text = AppResources.Registration_Step3;
-            };
-
-            btnStep4AddBack.Clicked += delegate
-            {
-                grid4.IsVisible = true;
-                grid4Add.IsVisible = false;
-            };
-
-            btnStep4OtherBack.Clicked += delegate
-            {
-                grid4Add.IsVisible = true;
-                grid4Other.IsVisible = false;
-            };
-
-            var addAnotherSlClick = new TapGestureRecognizer();
-            addAnotherSlClick.Tapped += delegate
-            {
-                grid4.IsVisible = false;
-                grid4Add.IsVisible = true;
-            };
-            addAnotherSl.GestureRecognizers.Add(addAnotherSlClick);
-
-            //Binding
-            titlePicker.SetBinding(ExtendedPicker.ItemsSourceProperty, new Binding("TitleList", BindingMode.TwoWay));
-            titlePicker.SetBinding(ExtendedPicker.SelectedItemProperty, new Binding("SelectedTitle", BindingMode.TwoWay));
-
-            statePicker.SetBinding(ExtendedPicker.ItemsSourceProperty, new Binding("StateList", BindingMode.TwoWay));
-            statePicker.SetBinding(ExtendedPicker.SelectedItemProperty, new Binding("SelectedState", BindingMode.TwoWay));
-
-            firstEntry.SetBinding(Entry.TextProperty, new Binding("FirstName"));
-            lastEntry.SetBinding(Entry.TextProperty, new Binding("LastName"));
-
-            streetEntry.SetBinding(Entry.TextProperty, new Binding("StreetAddress"));
-            cityEntry.SetBinding(Entry.TextProperty, new Binding("City"));
-            zipEntry.SetBinding(Entry.TextProperty, new Binding("Zip"));
-
-            phoneEntry.SetBinding(Entry.TextProperty, new Binding("Phone"));
-            emailEntry.SetBinding(Entry.TextProperty, new Binding("Email"));
-
-            Content = grid;
+            //labPatientName.SetBinding(Label.TextProperty, new Binding("PatientName"));
+            //labPatientBreed.SetBinding(Label.TextProperty, new Binding("PatientBreed"));
+            //labBreed.SetBinding(Label.TextProperty, new Binding("Breed"));
+            //labPatientGender.SetBinding(Label.TextProperty, new Binding("PatientGender"));
+            //labPatientBirth.SetBinding(Label.TextProperty, new Binding("PatientBirth"));
         }
 
         private void LstPatient_ItemTapped(object sender, ItemTappedEventArgs e)
         {
+
             PatientInfo model = e.Item as PatientInfo;
             model.IsChecked = !model.IsChecked;
+            if (RegistrationViewModel.SelectedPatientList.Contains(model))
+                RegistrationViewModel.SelectedPatientList.Remove(model);
+            else
+                RegistrationViewModel.SelectedPatientList.Add(model);
         }
 
         private void SelectPatientSpecies(string species)
         {
-            if (!string.IsNullOrEmpty(RegistrationViewModel.PatientSpecies))
+            if (!string.IsNullOrEmpty(RegistrationViewModel.SelectedBreed))
             {
-                if (RegistrationViewModel.PatientSpecies == species)
+                if (RegistrationViewModel.SelectedBreed == species)
                     return;
 
-                switch (RegistrationViewModel.PatientSpecies)
+                switch (RegistrationViewModel.SelectedBreed)
                 {
                     case "Dog":
                         RegistrationViewModel.IsDog = false;
@@ -1534,7 +1582,7 @@ namespace AppointMaster.Pages
                     break;
             }
 
-            RegistrationViewModel.PatientSpecies = species;
+            RegistrationViewModel.SelectedBreed = species;
         }
 
         class TrueToFalseConverter : IValueConverter

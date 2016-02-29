@@ -1,4 +1,5 @@
-﻿using MvvmCross.Core.ViewModels;
+﻿using AppointMaster.Models;
+using MvvmCross.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,6 +20,28 @@ namespace AppointMaster.ViewModels
             {
                 _selectedTitle = value;
                 RaisePropertyChanged(() => SelectedTitle);
+            }
+        }
+
+        private string _selectedState;
+        public string SelectedState
+        {
+            get { return _selectedState; }
+            set
+            {
+                _selectedState = value;
+                RaisePropertyChanged(() => SelectedState);
+            }
+        }
+
+        private string _selectedBreed;
+        public string SelectedBreed
+        {
+            get { return _selectedBreed; }
+            set
+            {
+                _selectedBreed = value;
+                RaisePropertyChanged(() => SelectedBreed);
             }
         }
 
@@ -66,17 +89,6 @@ namespace AppointMaster.ViewModels
             }
         }
 
-        private StateModel _selectedState;
-        public StateModel SelectedState
-        {
-            get { return _selectedState; }
-            set
-            {
-                _selectedState = value;
-                RaisePropertyChanged(() => SelectedState);
-            }
-        }
-
         private string _zip;
         public string Zip
         {
@@ -110,18 +122,62 @@ namespace AppointMaster.ViewModels
             }
         }
 
-        //Check
-        private string _patientSpecies;
-        public string PatientSpecies
+        private string _patientName;
+        public string PatientName
         {
-            get { return _patientSpecies; }
+            get { return _patientName; }
             set
             {
-                _patientSpecies = value;
-                RaisePropertyChanged(() => PatientSpecies);
+                _patientName = value;
+                RaisePropertyChanged(() => PatientName);
             }
         }
 
+        //private string _patientBreed;
+        //public string PatientBreed
+        //{
+        //    get { return _patientBreed; }
+        //    set
+        //    {
+        //        _patientBreed = value;
+        //        RaisePropertyChanged(() => PatientBreed);
+        //    }
+        //}
+
+        private string _breed;
+        public string Breed
+        {
+            get { return _breed; }
+            set
+            {
+                _breed = value;
+                RaisePropertyChanged(() => Breed);
+            }
+        }
+
+        private string _patientGender;
+        public string PatientGender
+        {
+            get { return _patientGender; }
+            set
+            {
+                _patientGender = value;
+                RaisePropertyChanged(() => PatientGender);
+            }
+        }
+
+        private DateTime _patientBirth;
+        public DateTime PatientBirth
+        {
+            get { return _patientBirth; }
+            set
+            {
+                _patientBirth = value;
+                RaisePropertyChanged(() => PatientBirth);
+            }
+        }
+
+        //Check
         private bool _isDog;
         public bool IsDog
         {
@@ -188,11 +244,17 @@ namespace AppointMaster.ViewModels
             }
         }
 
-        public ObservableCollection<TitleModel> TitleList { get; set; }
+        public ObservableCollection<string> GenderList { get; set; }
 
-        public ObservableCollection<StateModel> StateList { get; set; }
+        public ObservableCollection<string> TitleList { get; set; }
+
+        public ObservableCollection<string> StateList { get; set; }
+
+        public ObservableCollection<string> BreedList { get; set; }
 
         public ObservableCollection<PatientInfo> PatientList { get; set; }
+
+        public ObservableCollection<PatientInfo> SelectedPatientList { get; set; }
 
         public MvxCommand ShowCheckInCommand
         {
@@ -204,70 +266,46 @@ namespace AppointMaster.ViewModels
 
         public RegistrationViewModel()
         {
-            TitleList = new ObservableCollection<TitleModel>();
-            TitleList.Add(new TitleModel { Title = "Mr." });
-            TitleList.Add(new TitleModel { Title = "Mrs." });
+            PatientBirth = DateTime.Now;
 
-            StateList = new ObservableCollection<StateModel>();
-            StateList.Add(new StateModel { State = "MD" });
-            StateList.Add(new StateModel { State = "AZ" });
-            StateList.Add(new StateModel { State = "AL" });
-            StateList.Add(new StateModel { State = "AK" });
+            BreedList = new ObservableCollection<string>();
+            SelectedBreed = "Dog";
+            BreedList.Add("Dog");
+            BreedList.Add("Cat");
+
+            GenderList = new ObservableCollection<string>();
+            PatientGender = "Male";
+            GenderList.Add("Male");
+            GenderList.Add("Female");
+
+            TitleList = new ObservableCollection<string>();
+            SelectedTitle = "Mr.";
+            TitleList.Add("Mr.");
+            TitleList.Add("Mrs.");
+
+            StateList = new ObservableCollection<string>();
+            SelectedState = "MD";
+            StateList.Add("MD");
+            StateList.Add("AZ");
+            StateList.Add("AL");
+            StateList.Add("AK");
 
             PatientList = new ObservableCollection<PatientInfo>();
             PatientList.Add(new PatientInfo { PatientName = "Fido", Image = "dog.png", IsChecked = false });
             PatientList.Add(new PatientInfo { PatientName = "Buddy", Image = "dog.png", IsChecked = false });
             PatientList.Add(new PatientInfo { PatientName = "Jasper", Image = "cat.png", IsChecked = false });
+
+            SelectedPatientList = new ObservableCollection<PatientInfo>();
         }
     }
 
-    public class TitleModel
-    {
-        public string Title { get; set; }
-    }
+    //public class TitleModel
+    //{
+    //    public string Title { get; set; }
+    //}
 
-    public class StateModel
-    {
-        public string State { get; set; }
-    }
-
-    public class PatientInfo: INotifyPropertyChanged
-    {
-        public string PatientName { get; set; }
-
-        //public string _isChecked;
-        //public string IsChecked
-        //{
-        //    get { return _isChecked; }
-        //    set
-        //    {
-        //        _isChecked = value;
-        //        OnPropertyChanged("IsChecked");
-        //    }
-        //}
-
-        public bool _isChecked;
-        public bool IsChecked
-        {
-            get { return _isChecked; }
-            set
-            {
-                _isChecked = value;
-                OnPropertyChanged("IsChecked");
-            }
-        }
-
-        //public bool IsChecked { get; set; }
-
-        public string Image { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
+    //public class StateModel
+    //{
+    //    public string State { get; set; }
+    //}
 }

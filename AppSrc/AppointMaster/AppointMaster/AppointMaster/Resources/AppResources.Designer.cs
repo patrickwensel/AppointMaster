@@ -188,6 +188,15 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter the breed.
+        /// </summary>
+        public static string Enter_Breed {
+            get {
+                return ResourceManager.GetString("Enter_Breed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter the Clinic ID.
         /// </summary>
         public static string Enter_Clinic_ID {
@@ -202,6 +211,15 @@ namespace AppointMaster.Resources {
         public static string Enter_Password {
             get {
                 return ResourceManager.GetString("Enter_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the patient name.
+        /// </summary>
+        public static string Enter_Patient_Name {
+            get {
+                return ResourceManager.GetString("Enter_Patient_Name", resourceCulture);
             }
         }
         
@@ -424,9 +442,9 @@ namespace AppointMaster.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Street Adress.
         /// </summary>
-        public static string Street_Adress {
+        public static string Street_Address {
             get {
-                return ResourceManager.GetString("Street_Adress", resourceCulture);
+                return ResourceManager.GetString("Street_Address", resourceCulture);
             }
         }
         

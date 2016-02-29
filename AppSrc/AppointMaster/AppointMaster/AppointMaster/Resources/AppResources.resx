@@ -159,11 +159,17 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="Enter_Breed" xml:space="preserve">
+    <value>Please enter the breed</value>
+  </data>
   <data name="Enter_Clinic_ID" xml:space="preserve">
     <value>Please enter the Clinic ID</value>
   </data>
   <data name="Enter_Password" xml:space="preserve">
     <value>Please enter the Password</value>
+  </data>
+  <data name="Enter_Patient_Name" xml:space="preserve">
+    <value>Please enter the patient name</value>
   </data>
   <data name="Enter_Settings_Section" xml:space="preserve">
     <value>Please enter the password to enter settings section</value>
@@ -237,7 +243,7 @@
   <data name="State" xml:space="preserve">
     <value>State</value>
   </data>
-  <data name="Street_Adress" xml:space="preserve">
+  <data name="Street_Address" xml:space="preserve">
     <value>Street Adress</value>
   </data>
   <data name="Title" xml:space="preserve">

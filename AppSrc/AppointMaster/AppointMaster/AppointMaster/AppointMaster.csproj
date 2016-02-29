@@ -43,6 +43,7 @@
     <Compile Include="Controls\MyListView.cs" />
     <Compile Include="Controls\MyPicker.cs" />
     <Compile Include="Models\CheckInInfoModel.cs" />
+    <Compile Include="Models\PatientInfo.cs" />
     <Compile Include="Pages\CheckInPage.cs" />
     <Compile Include="Pages\LoginPage.cs" />
     <Compile Include="Pages\MainPage.cs" />
