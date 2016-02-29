@@ -14,6 +14,7 @@ namespace AppointMaster.Models
 
         public string Image { get; set; }
 
+
         public bool _isChecked;
         public bool IsChecked
         {

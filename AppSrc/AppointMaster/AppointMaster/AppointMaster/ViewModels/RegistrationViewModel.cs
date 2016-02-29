@@ -291,9 +291,9 @@ namespace AppointMaster.ViewModels
             StateList.Add("AK");
 
             PatientList = new ObservableCollection<PatientInfo>();
-            PatientList.Add(new PatientInfo { PatientName = "Fido", Image = "dog.png", IsChecked = false });
-            PatientList.Add(new PatientInfo { PatientName = "Buddy", Image = "dog.png", IsChecked = false });
-            PatientList.Add(new PatientInfo { PatientName = "Jasper", Image = "cat.png", IsChecked = false });
+            PatientList.Add(new PatientInfo { PatientName = "Fido", Image = "dog.png", IsChecked = false, Breed = "Dog" ,PatientGender= "Male" });
+            PatientList.Add(new PatientInfo { PatientName = "Buddy", Image = "dog.png", IsChecked = false, Breed = "Dog" , PatientGender= "Male" });
+            PatientList.Add(new PatientInfo { PatientName = "Jasper", Image = "cat.png", IsChecked = false, Breed = "Cat", PatientGender= "Female" });
 
             SelectedPatientList = new ObservableCollection<PatientInfo>();
         }
