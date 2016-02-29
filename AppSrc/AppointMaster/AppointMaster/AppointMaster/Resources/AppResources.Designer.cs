@@ -125,6 +125,24 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please choose a breed.
+        /// </summary>
+        public static string Choose_Breed {
+            get {
+                return ResourceManager.GetString("Choose_Breed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please choose or add a patient.
+        /// </summary>
+        public static string Choose_Patient {
+            get {
+                return ResourceManager.GetString("Choose_Patient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to City.
         /// </summary>
         public static string City {
@@ -148,6 +166,15 @@ namespace AppointMaster.Resources {
         public static string Companion {
             get {
                 return ResourceManager.GetString("Companion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Complete.
+        /// </summary>
+        public static string Complete {
+            get {
+                return ResourceManager.GetString("Complete", resourceCulture);
             }
         }
         
@@ -409,6 +436,15 @@ namespace AppointMaster.Resources {
         public static string Registration_Step4 {
             get {
                 return ResourceManager.GetString("Registration_Step4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step 5 of 5 - Confirm.
+        /// </summary>
+        public static string Registration_Step5 {
+            get {
+                return ResourceManager.GetString("Registration_Step5", resourceCulture);
             }
         }
         

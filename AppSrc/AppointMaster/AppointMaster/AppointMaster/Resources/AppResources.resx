@@ -138,6 +138,12 @@
   <data name="Check_In" xml:space="preserve">
     <value>Check In</value>
   </data>
+  <data name="Choose_Breed" xml:space="preserve">
+    <value>Please choose a breed</value>
+  </data>
+  <data name="Choose_Patient" xml:space="preserve">
+    <value>Please choose or add a patient</value>
+  </data>
   <data name="City" xml:space="preserve">
     <value>City</value>
   </data>
@@ -146,6 +152,9 @@
   </data>
   <data name="Companion" xml:space="preserve">
     <value>Companion</value>
+  </data>
+  <data name="Complete" xml:space="preserve">
+    <value>Complete</value>
   </data>
   <data name="Disclaimer" xml:space="preserve">
     <value>Disclaimer</value>
@@ -233,6 +242,9 @@
   </data>
   <data name="Registration_Step4" xml:space="preserve">
     <value>Step 4 of 5 - Patient Information</value>
+  </data>
+  <data name="Registration_Step5" xml:space="preserve">
+    <value>Step 5 of 5 - Confirm</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>

@@ -175,6 +175,7 @@
   <ItemGroup>
     <Compile Include="CustomRenderer\MyDatePickerRenderer.cs" />
     <Compile Include="CustomRenderer\MyEntryRenderer.cs" />
+    <Compile Include="CustomRenderer\MyGridViewRenderer.cs" />
     <Compile Include="CustomRenderer\MyPickerRenderer.cs" />
     <Compile Include="CustomRenderer\MyViewCellRenderer.cs">
       <SubType>Code</SubType>

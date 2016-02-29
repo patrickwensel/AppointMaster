@@ -781,8 +781,14 @@ namespace AppointMaster.Pages
 
             btnStep4Next.Clicked += delegate
             {
+                if (RegistrationViewModel.SelectedPatientList.Count == 0)
+                {
+                    DisplayAlert(AppResources.Error,AppResources.Choose_Patient, AppResources.OK);
+                    return;
+                }
                 grid4.IsVisible = false;
                 grid5.IsVisible = true;
+                labStep.Text = AppResources.Registration_Step5;
             };
 
             btnStep4Back.Clicked += delegate
@@ -1049,6 +1055,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BorderWidth = 2
             };
+
             Button btnStep4AddCancel = new Button
             {
                 Text = AppResources.Cancel,
@@ -1060,6 +1067,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BorderWidth = 2
             };
+
             Button btnStep4AddNext = new Button
             {
                 Text = AppResources.Next,
@@ -1122,19 +1130,14 @@ namespace AppointMaster.Pages
                     DisplayAlert(AppResources.Error, AppResources.Enter_Patient_Name, AppResources.OK);
                     return;
                 }
+                //if (string.IsNullOrEmpty(RegistrationViewModel.SelectedBreed))
+                //{
+                //    DisplayAlert(AppResources.Error, AppResources.Choose_Breed, AppResources.OK);
+                //    return;
+                //}
                 grid4Add.IsVisible = false;
                 grid4Breed.IsVisible = true;
-
-                //if (RegistrationViewModel.PatientBreed == "Other")
-                //{
-                //    grid4Add.IsVisible = false;
-                //    grid4Breed.IsVisible = true;
-                //}
-                //else
-                //{
-                //    grid4Add.IsVisible = false;
-                //    grid5.IsVisible = true;
-                //}
+                labStep.Text = AppResources.Registration_Step5;
             };
 
             btnStep4AddBack.Clicked += delegate
@@ -1314,13 +1317,22 @@ namespace AppointMaster.Pages
                     DisplayAlert(AppResources.Error, AppResources.Enter_Breed, AppResources.OK);
                     return;
                 }
-                RegistrationViewModel.SelectedPatientList.Add(new PatientInfo
+                PatientInfo patientInfo = new PatientInfo
                 {
                     PatientName = RegistrationViewModel.PatientName,
                     Breed = RegistrationViewModel.Breed,
                     PatientGender = RegistrationViewModel.PatientGender,
-                    Birth = RegistrationViewModel.PatientBirth.ToString()
-                });
+                    Birth = RegistrationViewModel.PatientBirth.ToString("MM/dd/yyyy"),
+                    IsChecked = true
+                };
+
+                RegistrationViewModel.PatientName = null;
+                RegistrationViewModel.Breed = null;
+
+                RegistrationViewModel.PatientList.Add(patientInfo);
+                RegistrationViewModel.SelectedPatientList.Add(patientInfo);
+
+                labStep.Text = AppResources.Registration_Step5;
                 grid4Breed.IsVisible = false;
                 grid5.IsVisible = true;
             };
@@ -1407,29 +1419,29 @@ namespace AppointMaster.Pages
                 FontSize = fontSize
             };
 
-            Label labPatientBreed = new Label
-            {
-                TextColor = Color.Black,
-                FontSize = fontSize
-            };
+            //Label labPatientBreed = new Label
+            //{
+            //    TextColor = Color.Black,
+            //    FontSize = fontSize
+            //};
 
-            Label labBreed = new Label
-            {
-                TextColor = Color.Black,
-                FontSize = fontSize
-            };
+            //Label labBreed = new Label
+            //{
+            //    TextColor = Color.Black,
+            //    FontSize = fontSize
+            //};
 
-            Label labPatientGender = new Label
-            {
-                TextColor = Color.Black,
-                FontSize = fontSize
-            };
+            //Label labPatientGender = new Label
+            //{
+            //    TextColor = Color.Black,
+            //    FontSize = fontSize
+            //};
 
-            Label labPatientBirth = new Label
-            {
-                TextColor = Color.Black,
-                FontSize = fontSize
-            };
+            //Label labPatientBirth = new Label
+            //{
+            //    TextColor = Color.Black,
+            //    FontSize = fontSize
+            //};
 
             Button btnEditClient = new Button
             {
@@ -1440,6 +1452,12 @@ namespace AppointMaster.Pages
                 BackgroundColor = Color.Transparent,
                 HeightRequest = 40,
                 TextColor = Color.Black
+            };
+            btnEditClient.Clicked += delegate
+            {
+                grid1.IsVisible = true;
+                grid5.IsVisible = false;
+                labStep.Text = AppResources.Registration_Step1;
             };
 
             Grid clientInfoGrid = new Grid();
@@ -1466,6 +1484,24 @@ namespace AppointMaster.Pages
                 HeightRequest = 40,
                 TextColor = Color.Black
             };
+            btnEditPatient.Clicked += delegate
+            {
+                grid4.IsVisible = true;
+                grid5.IsVisible = false;
+                labStep.Text = AppResources.Registration_Step4;
+            };
+
+            Button btnComplete = new Button
+            {
+                Text = AppResources.Complete,
+                BorderColor = Color.Black,
+                BorderRadius = 1,
+                BorderWidth = 2,
+                BackgroundColor = Color.Transparent,
+                HeightRequest = 50,
+                TextColor = Color.Black
+            };
+            btnComplete.SetBinding(Button.CommandProperty, new Binding("ShowCheckInCommand"));
 
             Grid patientInfoGrid = new Grid();
             patientInfoGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -1521,6 +1557,9 @@ namespace AppointMaster.Pages
             //    ItemWidth = 200,
             //    ItemHeight = 300,
             //    HeightRequest = 500,
+            //    ColumnSpacing = 5,
+            //    WidthRequest = 500,
+            //    RowSpacing=5,
             //    ItemTemplate = new DataTemplate(() =>
             //    {
             //        Label labPName = new Label();
@@ -1547,8 +1586,8 @@ namespace AppointMaster.Pages
             //        patientBirthLable.VerticalOptions = LayoutOptions.Center;
             //        patientBirthLable.SetBinding(Label.TextProperty, "Birth");
 
-            //        return new ViewCell
-            //        {
+            //        return new MyViewCell
+            //        {  
             //            View = new StackLayout
             //            {
             //                Children =
@@ -1638,13 +1677,13 @@ namespace AppointMaster.Pages
 
             grid5 = new Grid();
             grid5.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            grid5.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });//new GridLength(200)
+            grid5.RowDefinitions.Add(new RowDefinition { Height = 500 });//new GridLength(200)
+            grid5.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid5.Children.Add(clientInfoSl, 0, 0);
             grid5.Children.Add(patientInfoSl, 0, 1);
+            grid5.Children.Add(new StackLayout { Padding = new Thickness(200, 0, 200, 0), Children = { btnComplete } }, 0, 2);
 
             //Binding
-            btnEditClient.Clicked += delegate { grid1.IsVisible = true; grid5.IsVisible = false; };
-
             labTitle.SetBinding(Label.TextProperty, new Binding("SelectedTitle"));
             labFirstName.SetBinding(Label.TextProperty, new Binding("FirstName"));
             labLastName.SetBinding(Label.TextProperty, new Binding("LastName"));

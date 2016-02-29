@@ -269,6 +269,7 @@ namespace AppointMaster.ViewModels
             PatientBirth = DateTime.Now;
 
             BreedList = new ObservableCollection<string>();
+            IsDog = true;
             SelectedBreed = "Dog";
             BreedList.Add("Dog");
             BreedList.Add("Cat");
@@ -291,9 +292,9 @@ namespace AppointMaster.ViewModels
             StateList.Add("AK");
 
             PatientList = new ObservableCollection<PatientInfo>();
-            PatientList.Add(new PatientInfo { PatientName = "Fido", Image = "dog.png", IsChecked = false, Breed = "Dog" ,PatientGender= "Male" });
-            PatientList.Add(new PatientInfo { PatientName = "Buddy", Image = "dog.png", IsChecked = false, Breed = "Dog" , PatientGender= "Male" });
-            PatientList.Add(new PatientInfo { PatientName = "Jasper", Image = "cat.png", IsChecked = false, Breed = "Cat", PatientGender= "Female" });
+            PatientList.Add(new PatientInfo { PatientName = "Fido", Image = "dog.png", IsChecked = false, Breed = "Dog" ,PatientGender= "Male",Birth="2/29/2016" });
+            PatientList.Add(new PatientInfo { PatientName = "Buddy", Image = "dog.png", IsChecked = false, Breed = "Dog" , PatientGender= "Male", Birth = "2/29/2016" });
+            PatientList.Add(new PatientInfo { PatientName = "Jasper", Image = "cat.png", IsChecked = false, Breed = "Cat", PatientGender= "Female", Birth = "2/29/2016" });
 
             SelectedPatientList = new ObservableCollection<PatientInfo>();
         }

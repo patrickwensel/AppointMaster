@@ -41,6 +41,7 @@ namespace AppointMaster.iOS
             //container.Register<IDevice>(t => AppleDevice.CurrentDevice);
             //container.Register<IGeolocator, Geolocator>();
             //Resolver.SetResolver(container.GetResolver());
+            var r = new GridViewRenderer();
 
             _window = new UIWindow(UIScreen.MainScreen.Bounds);
 
