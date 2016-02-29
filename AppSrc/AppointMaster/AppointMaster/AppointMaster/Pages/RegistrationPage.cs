@@ -48,16 +48,6 @@ namespace AppointMaster.Pages
 
             //Step1
             #region Step1
-
-            var labTitle = new Label
-            {
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Start,
-                Text = AppResources.Title,
-                TextColor = Color.Black,
-                FontSize = 20
-            };
-
             var labFirst = new Label
             {
                 VerticalOptions = LayoutOptions.Start,
@@ -109,7 +99,14 @@ namespace AppointMaster.Pages
                 Padding = new Thickness(Device.OnPlatform(130, 145, 0), 0, 0, 0),
                 Children =
                 {
-                    labTitle,
+                    new Label
+                    {
+                        VerticalOptions = LayoutOptions.Start,
+                        HorizontalOptions = LayoutOptions.Start,
+                        Text = AppResources.Title,
+                        TextColor = Color.Black,
+                        FontSize = 20
+                    },
                     titlePicker
                 }
             };
@@ -421,15 +418,6 @@ namespace AppointMaster.Pages
             //Step3
             #region Step3
 
-            var labPhone = new Label
-            {
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Start,
-                Text = AppResources.Phone,
-                TextColor = Color.Black,
-                FontSize = 20
-            };
-
             var labEmial = new Label
             {
                 VerticalOptions = LayoutOptions.Start,
@@ -464,7 +452,14 @@ namespace AppointMaster.Pages
                 HorizontalOptions = LayoutOptions.Center,
                 Children =
                 {
-                    labPhone,
+                    new Label
+                    {
+                        VerticalOptions = LayoutOptions.Start,
+                        HorizontalOptions = LayoutOptions.Start,
+                        Text = AppResources.Phone,
+                        TextColor = Color.Black,
+                        FontSize = 20
+                    },
                     phoneEntry
                 }
             };
@@ -1222,14 +1217,66 @@ namespace AppointMaster.Pages
 
             //Confirm
             #region Confirm
-            StackLayout clientInfoSl = new StackLayout
+
+            Button btnEditClient = new Button
+            {
+                Text = AppResources.Edit,
+                BorderColor = Color.Black,
+                BorderRadius = 1,
+                BorderWidth = 2,
+                BackgroundColor = Color.Transparent,
+                HeightRequest = 40
+            };
+
+            Label labTitle = new Label
+            {
+                TextColor = Color.Black,
+                FontSize = 20
+            };
+
+            Label labFirstName = new Label
+            {
+                TextColor = Color.Black,
+                FontSize = 20
+            };
+
+            Label labLastName = new Label
+            {
+                TextColor = Color.Black,
+                FontSize = 20
+            };
+
+            Label labZiP = new Label
+            {
+                TextColor = Color.Black,
+                FontSize = 20
+            };
+
+            Label labPhone = new Label
+            {
+                TextColor = Color.Black,
+                FontSize = 20
+            };
+
+            Label labEmail= new Label
+            {
+                TextColor = Color.Black,
+                FontSize = 20
+            };
+
+            Grid clientInfoGrid = new Grid();
+            clientInfoGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            clientInfoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = 300 });
+            clientInfoGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = 100 });
+            clientInfoGrid.Children.Add(new StackLayout
             {
                 Children =
                 {
-                    new Label { Text=AppResources.Client_Information},
-                    new BoxView { WidthRequest = 1, HeightRequest = 1, BackgroundColor = Color.Black, VerticalOptions = LayoutOptions.Start }
+                    new Label { Text=AppResources.Client_Information,TextColor=Color.Black,FontSize=25},
+                    new BoxView { WidthRequest = 1, HeightRequest = 2, BackgroundColor = Color.Black, VerticalOptions = LayoutOptions.Start }
                 }
-            };
+            }, 0, 0);
+            clientInfoGrid.Children.Add(btnEditClient, 1, 0);
 
             Button btnEditClientInfo = new Button
             {
@@ -1241,15 +1288,58 @@ namespace AppointMaster.Pages
                 BorderWidth = 2
             };
 
-            StackLayout clientInfoTitleSl = new StackLayout
+            StackLayout clientInfoSl = new StackLayout
             {
+                Children = {
+                    new StackLayout
+                    {
+                        Orientation=StackOrientation.Horizontal,
+                        Children =
+                        {
+                            labTitle,
+                            labFirstName,
+                            labLastName,
+                        }
+                    },
+
+                    new StackLayout
+                    {
+                        Orientation=StackOrientation.Horizontal,
+                        Children =
+                        {
+                            labTitle,
+                            labFirstName,
+                            labLastName,
+                        }
+                    },
+                }
+            };
+
+            var gridConfirm = new Grid();
+            gridConfirm.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            gridConfirm.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
+            gridConfirm.Children.Add(new StackLayout
+            {
+                WidthRequest = 100,
                 Orientation = StackOrientation.Horizontal,
                 Children =
                 {
                     clientInfoSl,
                     btnEditClientInfo
                 }
-            };
+            }, 0, 0);
+
+            gridConfirm.Children.Add(clientInfoSl, 0, 1);
+
+            //Binding
+            labTitle.SetBinding(Label.TextProperty, new Binding(""));
+            labTitle.SetBinding(Label.TextProperty, new Binding(""));
+            labTitle.SetBinding(Label.TextProperty, new Binding(""));
+
+            labTitle.SetBinding(Label.TextProperty, new Binding(""));
+            labTitle.SetBinding(Label.TextProperty, new Binding(""));
+            labTitle.SetBinding(Label.TextProperty, new Binding(""));
             #endregion
 
             var grid = new Grid();
@@ -1265,12 +1355,15 @@ namespace AppointMaster.Pages
             grid.Children.Add(grid4, 0, 1);
             grid.Children.Add(grid4Add, 0, 1);
             grid.Children.Add(grid4Other, 0, 1);
+            grid.Children.Add(gridConfirm, 0, 1);
 
+            grid1.IsVisible = false;
             grid2.IsVisible = false;
             grid3.IsVisible = false;
             grid4.IsVisible = false;
             grid4Add.IsVisible = false;
             grid4Other.IsVisible = false;
+            gridConfirm.IsVisible = true;
 
             btnStep1Next.Clicked += delegate
             {
@@ -1295,21 +1388,29 @@ namespace AppointMaster.Pages
 
             btnStep4Next.Clicked += delegate
             {
-                //grid4.IsVisible = false;
-                //grid4Add.IsVisible = true;
+                grid4.IsVisible = false;
+                gridConfirm.IsVisible = true;
             };
 
             btnStep4AddNext.Clicked += delegate
             {
-                grid4Add.IsVisible = false;
-                grid4Other.IsVisible = true;
+                if (RegistrationViewModel.PatientSpecies == "Other")
+                {
+                    grid4Add.IsVisible = false;
+                    grid4Other.IsVisible = true;
+                }
+                else
+                {
+                    grid4Add.IsVisible = false;
+                    gridConfirm.IsVisible = true;
+                }
             };
 
-            //btnStep4OtherNext.Clicked += delegate
-            //{
-            //    grid1.IsVisible = false;
-            //    grid2.IsVisible = true;
-            //};
+            btnStep4OtherNext.Clicked += delegate
+            {
+                grid4Other.IsVisible = false;
+                gridConfirm.IsVisible = true;
+            };
 
             //Back
             btnStep1Back.SetBinding(Button.CommandProperty, new Binding("ShowCheckInCommand"));
@@ -1376,7 +1477,7 @@ namespace AppointMaster.Pages
         }
 
         private void LstPatient_ItemTapped(object sender, ItemTappedEventArgs e)
-        { 
+        {
             PatientInfo model = e.Item as PatientInfo;
             model.IsChecked = !model.IsChecked;
         }
