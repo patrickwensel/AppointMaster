@@ -43,11 +43,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -168,7 +168,13 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Areas\TestData\Controllers\ClinicController.cs" />
+    <Compile Include="Areas\TestData\Controllers\AppointmentPatientsController.cs" />
+    <Compile Include="Areas\TestData\Controllers\AppointmentsController.cs" />
+    <Compile Include="Areas\TestData\Controllers\ClinicsController.cs" />
+    <Compile Include="Areas\TestData\Controllers\ClinicSpeciesController.cs" />
+    <Compile Include="Areas\TestData\Controllers\CulturesController.cs" />
+    <Compile Include="Areas\TestData\Controllers\PatientsController.cs" />
+    <Compile Include="Areas\TestData\Controllers\SpeciesController.cs" />
     <Compile Include="Areas\TestData\Controllers\TestDataController.cs" />
     <Compile Include="Areas\TestData\TestDataAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -215,7 +221,41 @@
     <Content Include="Areas\TestData\Views\_ViewStart.cshtml" />
     <Content Include="Areas\TestData\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\TestData\Views\TestData\Index.cshtml" />
-    <Content Include="Areas\TestData\Views\Clinic\Index.cshtml" />
+    <Content Include="Areas\TestData\Views\Cultures\Create.cshtml" />
+    <Content Include="Areas\TestData\Views\Cultures\Delete.cshtml" />
+    <Content Include="Areas\TestData\Views\Cultures\Details.cshtml" />
+    <Content Include="Areas\TestData\Views\Cultures\Edit.cshtml" />
+    <Content Include="Areas\TestData\Views\Cultures\Index.cshtml" />
+    <Content Include="Areas\TestData\Views\Species\Create.cshtml" />
+    <Content Include="Areas\TestData\Views\Species\Delete.cshtml" />
+    <Content Include="Areas\TestData\Views\Species\Details.cshtml" />
+    <Content Include="Areas\TestData\Views\Species\Edit.cshtml" />
+    <Content Include="Areas\TestData\Views\Species\Index.cshtml" />
+    <Content Include="Areas\TestData\Views\ClinicSpecies\Create.cshtml" />
+    <Content Include="Areas\TestData\Views\ClinicSpecies\Delete.cshtml" />
+    <Content Include="Areas\TestData\Views\ClinicSpecies\Details.cshtml" />
+    <Content Include="Areas\TestData\Views\ClinicSpecies\Edit.cshtml" />
+    <Content Include="Areas\TestData\Views\ClinicSpecies\Index.cshtml" />
+    <Content Include="Areas\TestData\Views\Clinics\Create.cshtml" />
+    <Content Include="Areas\TestData\Views\Clinics\Delete.cshtml" />
+    <Content Include="Areas\TestData\Views\Clinics\Details.cshtml" />
+    <Content Include="Areas\TestData\Views\Clinics\Edit.cshtml" />
+    <Content Include="Areas\TestData\Views\Clinics\Index.cshtml" />
+    <Content Include="Areas\TestData\Views\Patients\Create.cshtml" />
+    <Content Include="Areas\TestData\Views\Patients\Delete.cshtml" />
+    <Content Include="Areas\TestData\Views\Patients\Details.cshtml" />
+    <Content Include="Areas\TestData\Views\Patients\Edit.cshtml" />
+    <Content Include="Areas\TestData\Views\Patients\Index.cshtml" />
+    <Content Include="Areas\TestData\Views\AppointmentPatients\Create.cshtml" />
+    <Content Include="Areas\TestData\Views\AppointmentPatients\Delete.cshtml" />
+    <Content Include="Areas\TestData\Views\AppointmentPatients\Details.cshtml" />
+    <Content Include="Areas\TestData\Views\AppointmentPatients\Edit.cshtml" />
+    <Content Include="Areas\TestData\Views\AppointmentPatients\Index.cshtml" />
+    <Content Include="Areas\TestData\Views\Appointments\Create.cshtml" />
+    <Content Include="Areas\TestData\Views\Appointments\Delete.cshtml" />
+    <Content Include="Areas\TestData\Views\Appointments\Details.cshtml" />
+    <Content Include="Areas\TestData\Views\Appointments\Edit.cshtml" />
+    <Content Include="Areas\TestData\Views\Appointments\Index.cshtml" />
     <None Include="Properties\PublishProfiles\ASPNet.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -281,6 +321,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
+      <UserProperties UseCdnSupport="False" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

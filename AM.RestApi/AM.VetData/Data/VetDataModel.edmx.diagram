@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="24afc6b62f004b4aaea4e4e95c8e6f99" Name="Diagram1">
         <EntityTypeShape EntityType="VetDataModel.Appointment" Width="1.5" PointX="5.25" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="VetDataModel.AppointmentPatient" Width="1.5" PointX="7.5" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="VetDataModel.AppointmentPatient" Width="3.375" PointX="7.5" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="VetDataModel.Client" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="VetDataModel.Clinic" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="VetDataModel.ClinicSpecies" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="true" />
