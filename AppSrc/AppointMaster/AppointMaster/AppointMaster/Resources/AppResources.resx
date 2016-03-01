@@ -120,6 +120,9 @@
   <data name="Add_Another" xml:space="preserve">
     <value>+ Add Another</value>
   </data>
+  <data name="All_Checked_In" xml:space="preserve">
+    <value>You are all Checked In!</value>
+  </data>
   <data name="Back" xml:space="preserve">
     <value>&lt; Back</value>
   </data>
@@ -171,8 +174,20 @@
   <data name="Enter_Breed" xml:space="preserve">
     <value>Please enter the breed</value>
   </data>
+  <data name="Enter_City" xml:space="preserve">
+    <value>Please enter the city</value>
+  </data>
   <data name="Enter_Clinic_ID" xml:space="preserve">
     <value>Please enter the Clinic ID</value>
+  </data>
+  <data name="Enter_Email" xml:space="preserve">
+    <value>Please enter the email</value>
+  </data>
+  <data name="Enter_FristName" xml:space="preserve">
+    <value>Please enter the first name</value>
+  </data>
+  <data name="Enter_LaseName" xml:space="preserve">
+    <value>Please enter the last name</value>
   </data>
   <data name="Enter_Password" xml:space="preserve">
     <value>Please enter the Password</value>
@@ -180,8 +195,17 @@
   <data name="Enter_Patient_Name" xml:space="preserve">
     <value>Please enter the patient name</value>
   </data>
+  <data name="Enter_Phone" xml:space="preserve">
+    <value>Please enter the phone</value>
+  </data>
+  <data name="Enter_Postal_Code" xml:space="preserve">
+    <value>Please enter the postal code</value>
+  </data>
   <data name="Enter_Settings_Section" xml:space="preserve">
     <value>Please enter the password to enter settings section</value>
+  </data>
+  <data name="Enter_Street_Address" xml:space="preserve">
+    <value>Please enter the street address</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
@@ -202,7 +226,7 @@
     <value>Logout</value>
   </data>
   <data name="Main_Menu" xml:space="preserve">
-    <value>&lt; Main Menu</value>
+    <value>Main Menu</value>
   </data>
   <data name="Next" xml:space="preserve">
     <value>Next &gt;</value>
@@ -245,6 +269,9 @@
   </data>
   <data name="Registration_Step5" xml:space="preserve">
     <value>Step 5 of 5 - Confirm</value>
+  </data>
+  <data name="Return_Tablet" xml:space="preserve">
+    <value>Please return the tablet to the Front Desk</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>

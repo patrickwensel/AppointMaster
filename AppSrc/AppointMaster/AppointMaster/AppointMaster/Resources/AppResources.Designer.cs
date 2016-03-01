@@ -71,6 +71,15 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You are all Checked In!.
+        /// </summary>
+        public static string All_Checked_In {
+            get {
+                return ResourceManager.GetString("All_Checked_In", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt; Back.
         /// </summary>
         public static string Back {
@@ -224,11 +233,47 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter the city.
+        /// </summary>
+        public static string Enter_City {
+            get {
+                return ResourceManager.GetString("Enter_City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter the Clinic ID.
         /// </summary>
         public static string Enter_Clinic_ID {
             get {
                 return ResourceManager.GetString("Enter_Clinic_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the email.
+        /// </summary>
+        public static string Enter_Email {
+            get {
+                return ResourceManager.GetString("Enter_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the first name.
+        /// </summary>
+        public static string Enter_FristName {
+            get {
+                return ResourceManager.GetString("Enter_FristName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the last name.
+        /// </summary>
+        public static string Enter_LaseName {
+            get {
+                return ResourceManager.GetString("Enter_LaseName", resourceCulture);
             }
         }
         
@@ -251,11 +296,38 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter the phone.
+        /// </summary>
+        public static string Enter_Phone {
+            get {
+                return ResourceManager.GetString("Enter_Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the postal code.
+        /// </summary>
+        public static string Enter_Postal_Code {
+            get {
+                return ResourceManager.GetString("Enter_Postal_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter the password to enter settings section.
         /// </summary>
         public static string Enter_Settings_Section {
             get {
                 return ResourceManager.GetString("Enter_Settings_Section", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the street address.
+        /// </summary>
+        public static string Enter_Street_Address {
+            get {
+                return ResourceManager.GetString("Enter_Street_Address", resourceCulture);
             }
         }
         
@@ -314,7 +386,7 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt; Main Menu.
+        ///   Looks up a localized string similar to Main Menu.
         /// </summary>
         public static string Main_Menu {
             get {
@@ -445,6 +517,15 @@ namespace AppointMaster.Resources {
         public static string Registration_Step5 {
             get {
                 return ResourceManager.GetString("Registration_Step5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please return the tablet to the Front Desk.
+        /// </summary>
+        public static string Return_Tablet {
+            get {
+                return ResourceManager.GetString("Return_Tablet", resourceCulture);
             }
         }
         

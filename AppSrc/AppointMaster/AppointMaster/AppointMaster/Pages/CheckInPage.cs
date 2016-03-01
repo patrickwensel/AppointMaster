@@ -67,7 +67,7 @@ namespace AppointMaster.Pages
                 WidthRequest = 200,
                 VerticalOptions = LayoutOptions.End,
                 HorizontalOptions = LayoutOptions.Start,
-                Text = AppResources.Main_Menu,
+                Text = string.Format("< {0}", AppResources.Main_Menu),
                 TextColor = Color.Black,
                 FontSize = 20,
                 BackgroundColor = Color.Transparent,
@@ -116,7 +116,7 @@ namespace AppointMaster.Pages
                         TextColor = Color.Black
                     };
 
-                    return new ViewCell
+                    return new MyViewCell
                     {
                         View = new StackLayout
                         {

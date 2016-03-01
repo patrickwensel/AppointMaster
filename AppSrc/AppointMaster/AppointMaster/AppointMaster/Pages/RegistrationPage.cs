@@ -228,6 +228,16 @@ namespace AppointMaster.Pages
 
             btnStep1Next.Clicked += delegate
             {
+                if (string.IsNullOrEmpty(RegistrationViewModel.FirstName))
+                {
+                    DisplayAlert(AppResources.Error, AppResources.Enter_FristName, AppResources.OK);
+                    return;
+                }
+                if (string.IsNullOrEmpty(RegistrationViewModel.LastName))
+                {
+                    DisplayAlert(AppResources.Error, AppResources.Enter_LaseName, AppResources.OK);
+                    return;
+                }
                 grid1.IsVisible = false;
                 grid2.IsVisible = true;
                 labStep.Text = AppResources.Registration_Step2;
@@ -451,6 +461,21 @@ namespace AppointMaster.Pages
 
             btnStep2Next.Clicked += delegate
             {
+                if (string.IsNullOrEmpty(RegistrationViewModel.StreetAddress))
+                {
+                    DisplayAlert(AppResources.Error, AppResources.Enter_Street_Address, AppResources.OK);
+                    return;
+                }
+                if (string.IsNullOrEmpty(RegistrationViewModel.City))
+                {
+                    DisplayAlert(AppResources.Error, AppResources.Enter_City, AppResources.OK);
+                    return;
+                }
+                if (string.IsNullOrEmpty(RegistrationViewModel.Zip))
+                {
+                    DisplayAlert(AppResources.Error, AppResources.Enter_Postal_Code, AppResources.OK);
+                    return;
+                }
                 grid2.IsVisible = false;
                 grid3.IsVisible = true;
                 labStep.Text = AppResources.Registration_Step3;
@@ -588,6 +613,16 @@ namespace AppointMaster.Pages
 
             btnStep3Next.Clicked += delegate
             {
+                if (string.IsNullOrEmpty(RegistrationViewModel.Phone))
+                {
+                    DisplayAlert(AppResources.Error, AppResources.Enter_Phone, AppResources.OK);
+                    return;
+                }
+                if (string.IsNullOrEmpty(RegistrationViewModel.Email))
+                {
+                    DisplayAlert(AppResources.Error, AppResources.Enter_Email, AppResources.OK);
+                    return;
+                }
                 grid3.IsVisible = false;
                 grid4.IsVisible = true;
                 labStep.Text = AppResources.Registration_Step4;
