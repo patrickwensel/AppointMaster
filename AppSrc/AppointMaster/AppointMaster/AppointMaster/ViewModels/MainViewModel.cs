@@ -1,8 +1,10 @@
 ﻿using AppointMaster.Resources;
 using MvvmCross.Core.ViewModels;
+using PCLCrypto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -21,7 +23,7 @@ namespace AppointMaster.ViewModels
 
         public MainViewModel()
         {
-
+            //GetClinicInfo();
         }
 
         public MvxCommand ShowCheckInCommand
@@ -45,6 +47,52 @@ namespace AppointMaster.ViewModels
             get
             {
                 return new MvxCommand(() => ShowViewModel<LoginViewModel>());
+            }
+        }
+
+        private async void ValidatedPassword()
+        {
+            //try
+            //{
+            //    byte[] inputBytes = Encoding.UTF8.GetBytes(Password);
+            //    var hasher = WinRTCrypto.HashAlgorithmProvider.OpenAlgorithm(HashAlgorithm.Sha1);
+            //    byte[] hash = hasher.HashData(inputBytes);
+            //    string hashPass = Convert.ToBase64String(hash);
+
+            //    string authorization = string.Format("{0}|{1}|{2}", "VetMobile", UserName, hashPass);
+            //    string authorizationBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(authorization));
+
+            //    string url = "http://ppgservices-001-site6.ctempurl.com/Help/Api/GET-api-v1-VetClinic-Authorize";
+            //    HttpClient client = new HttpClient();
+            //    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Services.DataHelper.GetInstance().GetAuthorization());
+            //    HttpResponseMessage response = await client.GetAsync(url);
+            //    if (response.IsSuccessStatusCode)
+            //    {
+            //        string responseBody = await response.Content.ReadAsStringAsync();
+            //    }
+            //}
+            //catch (Exception)
+            //{
+
+            //}
+        }
+
+        private async void GetClinicInfo()
+        {
+            try
+            {
+                string url = "http://ppgservices-001-site6.ctempurl.com/api/v1/ClinicProperties";
+                HttpClient client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Services.DataHelper.GetInstance().GetAuthorization());
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                }
+            }
+            catch (Exception)
+            {
+
             }
         }
 

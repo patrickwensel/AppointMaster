@@ -169,6 +169,11 @@ namespace AppointMaster.Pages
 
         private void ShowSettingPopUp(PopupLayout popupLayout, StackLayout sl)
         {
+            if (string.IsNullOrEmpty(MainViewModel.Password))
+            {
+                DisplayAlert(AppResources.Error, AppResources.Enter_Password, AppResources.OK);
+                return;
+            }
             sl.IsVisible = true;
             popupLayout.IsVisible = true;
             if (popupLayout.IsPopupActive)
@@ -177,17 +182,6 @@ namespace AppointMaster.Pages
             }
             else
             {
-                //var list = new ListView()
-                //{
-                //    BackgroundColor = Color.White,
-                //    ItemsSource = new[] { "1", "2", "3" },
-                //    HeightRequest = this.Height * .5,
-                //    WidthRequest = this.Width * .8
-                //};
-
-                //list.ItemSelected += (s, args) =>
-                //    popupLayout.DismissPopup();
-
                 Button btnLogout = new Button
                 {
                     Text = AppResources.Logout,

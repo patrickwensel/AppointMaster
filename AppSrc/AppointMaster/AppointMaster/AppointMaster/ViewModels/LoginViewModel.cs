@@ -63,12 +63,12 @@ namespace AppointMaster.ViewModels
                 return;
             }
 
-            ShowViewModel<MainViewModel>();
-            return;
+            //ShowViewModel<MainViewModel>();
+            //return;
 
             try
             {
-                byte[] inputBytes = Encoding.UTF8.GetBytes("K!ll3r");
+                byte[] inputBytes = Encoding.UTF8.GetBytes(Password);
                 var hasher = WinRTCrypto.HashAlgorithmProvider.OpenAlgorithm(HashAlgorithm.Sha1);
                 byte[] hash = hasher.HashData(inputBytes);
                 string hashPass = Convert.ToBase64String(hash);

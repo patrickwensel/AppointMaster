@@ -156,12 +156,10 @@ namespace AppointMaster.Pages
             grid.Children.Add(btnMainMenu, 0, 4);
 
             Content = grid;
+
+            Device.StartTimer(new TimeSpan(0,0,5), () => { DisplayAlert("Alert", "This fired after 2 seconds","ok"); return true; });
+
         }
 
-        protected override bool OnBackButtonPressed()
-        {
-            return false;
-            //return base.OnBackButtonPressed();
-        }
     }
 }
