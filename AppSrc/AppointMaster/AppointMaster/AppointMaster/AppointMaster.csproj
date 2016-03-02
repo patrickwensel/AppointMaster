@@ -43,8 +43,13 @@
     <Compile Include="Controls\MyEntry.cs" />
     <Compile Include="Controls\MyListView.cs" />
     <Compile Include="Controls\MyPicker.cs" />
+    <Compile Include="Models\AppointmentModel.cs" />
     <Compile Include="Models\CheckInInfoModel.cs" />
+    <Compile Include="Models\ClientModel.cs" />
+    <Compile Include="Models\ClinicModel.cs" />
+    <Compile Include="Models\CultureModel.cs" />
     <Compile Include="Models\PatientInfo.cs" />
+    <Compile Include="Models\PatientModel.cs" />
     <Compile Include="Pages\CheckedInPage.cs" />
     <Compile Include="Pages\CheckInPage.cs" />
     <Compile Include="Pages\LoginPage.cs" />
@@ -93,6 +98,10 @@
     </Reference>
     <Reference Include="MvvmCross.Platform, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MvvmCross.Platform.4.0.0\lib\portable-net45+win+wpa81+wp80\MvvmCross.Platform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.8.0.2\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PCLCrypto, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d4421c8a4786956c, processorArchitecture=MSIL">

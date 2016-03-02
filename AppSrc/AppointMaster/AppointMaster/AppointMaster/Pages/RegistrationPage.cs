@@ -286,7 +286,7 @@ namespace AppointMaster.Pages
             MyPicker statePicker = new MyPicker
             {
                 HeightRequest = 50,
-                WidthRequest = 120
+                WidthRequest = 200
             };
             statePicker.SetBinding(ExtendedPicker.ItemsSourceProperty, new Binding("StateList", BindingMode.TwoWay));
             statePicker.SetBinding(ExtendedPicker.SelectedItemProperty, new Binding("SelectedState", BindingMode.TwoWay));
@@ -307,7 +307,7 @@ namespace AppointMaster.Pages
                 VerticalOptions = LayoutOptions.Start,
                 HorizontalOptions = LayoutOptions.Start,
                 HeightRequest = 50,
-                WidthRequest = 130,
+                WidthRequest = 200,//130
                 TextColor = Color.Black,
                 FontSize = 20
             };
@@ -349,7 +349,7 @@ namespace AppointMaster.Pages
 
             var stateSl = new StackLayout
             {
-                Padding = new Thickness(0, 0, 30, 0),
+                Padding = new Thickness(0, 0, 60, 0),//30
                 Children =
                 {
                     new Label
@@ -366,7 +366,7 @@ namespace AppointMaster.Pages
 
             var postalSl = new StackLayout
             {
-                Padding = new Thickness(0, 0, 30, 0),
+                //Padding = new Thickness(0, 0, 30, 0),
                 Children =
                 {
                    new Label
@@ -405,7 +405,7 @@ namespace AppointMaster.Pages
                 {
                   stateSl,
                   postalSl,
-                  zipSl
+                  //zipSl
                 }
             };
 
