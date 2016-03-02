@@ -1554,6 +1554,7 @@ namespace AppointMaster.Pages
 
             StackLayout clientInfoSl = new StackLayout
             {
+                Padding = new Thickness(0, 0, 0, 30),
                 Children = {
                     clientInfoGrid,
 
@@ -1712,7 +1713,7 @@ namespace AppointMaster.Pages
 
             grid5 = new Grid();
             grid5.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            grid5.RowDefinitions.Add(new RowDefinition { Height = 500 });//new GridLength(200)
+            grid5.RowDefinitions.Add(new RowDefinition { Height = 400 });//new GridLength(200)
             grid5.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid5.Children.Add(clientInfoSl, 0, 0);
             grid5.Children.Add(patientInfoSl, 0, 1);
