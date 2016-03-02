@@ -33,13 +33,12 @@ namespace AM.RestApi.Controllers
                 Phone = c.Phone,
                 Email = c.EmailAddress,
                 Fax = c.Fax,
-                //Logo = c.Logo,
+                Logo = c.Logo,
                 DefaultCulture = c.DefaultCultureCode,
                 PrimaryColor = c.PrimaryColor,
                 SecondaryColor = c.SecondaryColor,
-                //SpeciesSupported=c.ClinicSpecies
+                SpeciesSupported=c.ClinicSpecies.Select(x=>x.SpeciesID.Value).ToList()
             });
-
 
             return clinic;
         }

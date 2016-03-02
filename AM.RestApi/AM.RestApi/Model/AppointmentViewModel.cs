@@ -16,8 +16,8 @@ namespace AM.RestApi.Model
 
         public ClientViewModel Client { get; set; }
         public ClinicViewModel Clinic { get; set; }
-        public List<AppointmentPatient> AppointmentPatients { get; set; }
+        //public List<AppointmentPatientViewModel> AppointmentPatients { get; set; }
 
-        public List<Patient> Patients { get; set; }
+        public List<PatientViewModel> Patients { get; set; }
     }
 }

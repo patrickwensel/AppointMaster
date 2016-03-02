@@ -9,11 +9,11 @@ namespace AM.RestApi.Model
     {
         public int ID { get; set; }
         public int ClientID { get; set; }
-        public int SpeciesID { get; set; }
+        public int? SpeciesID { get; set; }
         public string Name { get; set; }
         public string Breed { get; set; }
         public string Gender { get; set; }
-        public DateTime Birthdate { get; set; }
+        public DateTime? Birthdate { get; set; }
 
         //public List<AppointmentPatient> AppointmentPatients { get; set; }
         //public Species Species { get; set; }

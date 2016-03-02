@@ -19,7 +19,8 @@ namespace AM.RestApi.Model
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Fax { get; set; }
-        public Image Logo { get; set; }
+        //public Image Logo { get; set; }
+        public byte[] Logo { get; set; }
         public string DefaultCulture { get; set; }
         public string PrimaryColor { get; set; }
         public string SecondaryColor { get; set; }

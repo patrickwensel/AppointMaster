@@ -186,6 +186,7 @@
     </Compile>
     <Compile Include="Handlers\WebApiKeyHandler.cs" />
     <Compile Include="Identities\ClinicPrincipal.cs" />
+    <Compile Include="Model\AppointmentPatientViewModel.cs" />
     <Compile Include="Model\AppointmentViewModel.cs" />
     <Compile Include="Model\ClientViewModel.cs" />
     <Compile Include="Model\ClinicViewModel.cs" />
