@@ -69,7 +69,7 @@ namespace AM.RestApi.Controllers
 
 					}).ToList()
 
-				});
+				}).FirstOrDefault();
 
 			return appointments;
 		}

@@ -77,11 +77,6 @@ namespace AM.RestApi.Areas.TestData.Controllers
             return View(clinic);
         }
 
-        public ActionResult GetLogo(byte[] logo)
-        {
-            return File(logo, "image/png");
-        }
-
         // GET: TestData/Clinics/Edit/5
         public ActionResult Edit(int? id)
         {
