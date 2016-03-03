@@ -7,10 +7,10 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create","Clinics", FormMethod.Post,new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Clinic</h4>
         <hr />
@@ -106,8 +106,9 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Logo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Logo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Logo, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.Logo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Logo, "", new { @class = "text-danger" })*@
+                <input id="logoImage" name="logoImage" class="file" type="file" data-min-file-count="1" data-show-upload="false" >
             </div>
         </div>
 
@@ -150,3 +151,19 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#logoImage").fileinput(
+            {
+                type: 'POST',
+                showCaption: false,
+                maxFileCount: 1,
+                allowedFileExtensions: ['png'],
+                enctype: 'multipart/form-data',
+                @*uploadUrl: '@Url.Action("Create", "Clinics")',*@
+            });
+    });
+</script>

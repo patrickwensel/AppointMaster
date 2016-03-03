@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AM.VetData.Data;
+using System.IO;
 
 namespace AM.RestApi.Areas.TestData.Controllers
 {
@@ -52,6 +53,21 @@ namespace AM.RestApi.Areas.TestData.Controllers
         {
             if (ModelState.IsValid)
             {
+                try
+                {
+                    if (Request.Files != null && Request.Files.Count > 0)
+                    {
+                        var files = Request.Files["logoImage"];
+                        MemoryStream target = new MemoryStream();
+                        files.InputStream.CopyTo(target);
+                        clinic.Logo = target.ToArray();
+                    }
+                }
+                catch
+                {
+
+                }
+
                 db.Clinics.Add(clinic);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -59,6 +75,11 @@ namespace AM.RestApi.Areas.TestData.Controllers
 
             ViewBag.DefaultCultureCode = new SelectList(db.Cultures, "CultureCode", "CountryCode", clinic.DefaultCultureCode);
             return View(clinic);
+        }
+
+        public ActionResult GetLogo(byte[] logo)
+        {
+            return File(logo, "image/png");
         }
 
         // GET: TestData/Clinics/Edit/5
@@ -86,6 +107,20 @@ namespace AM.RestApi.Areas.TestData.Controllers
         {
             if (ModelState.IsValid)
             {
+                try
+                {
+                    if (Request.Files != null && Request.Files.Count > 0)
+                    {
+                        var files = Request.Files["logoImage"];
+                        MemoryStream target = new MemoryStream();
+                        files.InputStream.CopyTo(target);
+                        clinic.Logo = target.ToArray();
+                    }
+                }
+                catch
+                {
+
+                }
                 db.Entry(clinic).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -2,6 +2,13 @@
 
 @{
     ViewBag.Title = "Details";
+
+    string imgSrc = null;
+    if (Model.Logo != null)
+    {
+        var base64 = Convert.ToBase64String(Model.Logo);
+        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    }
 }
 
 <h2>Details</h2>
@@ -103,7 +110,9 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Logo)
+            @*@Html.DisplayFor(model => model.Logo)*@
+            @*<img src="@Url.Action("GetLogo","Clinics", new { logo = Model.Logo })" />*@
+            <img src="@imgSrc" />
         </dd>
 
         <dt>
