@@ -170,6 +170,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Areas\TestData\Controllers\AppointmentPatientsController.cs" />
     <Compile Include="Areas\TestData\Controllers\AppointmentsController.cs" />
+    <Compile Include="Areas\TestData\Controllers\ClientsController.cs" />
     <Compile Include="Areas\TestData\Controllers\ClinicsController.cs" />
     <Compile Include="Areas\TestData\Controllers\ClinicSpeciesController.cs" />
     <Compile Include="Areas\TestData\Controllers\CulturesController.cs" />
@@ -246,11 +247,6 @@
     <Content Include="Areas\TestData\Views\Clinics\Details.cshtml" />
     <Content Include="Areas\TestData\Views\Clinics\Edit.cshtml" />
     <Content Include="Areas\TestData\Views\Clinics\Index.cshtml" />
-    <Content Include="Areas\TestData\Views\Patients\Create.cshtml" />
-    <Content Include="Areas\TestData\Views\Patients\Delete.cshtml" />
-    <Content Include="Areas\TestData\Views\Patients\Details.cshtml" />
-    <Content Include="Areas\TestData\Views\Patients\Edit.cshtml" />
-    <Content Include="Areas\TestData\Views\Patients\Index.cshtml" />
     <Content Include="Areas\TestData\Views\AppointmentPatients\Create.cshtml" />
     <Content Include="Areas\TestData\Views\AppointmentPatients\Delete.cshtml" />
     <Content Include="Areas\TestData\Views\AppointmentPatients\Details.cshtml" />
@@ -261,6 +257,16 @@
     <Content Include="Areas\TestData\Views\Appointments\Details.cshtml" />
     <Content Include="Areas\TestData\Views\Appointments\Edit.cshtml" />
     <Content Include="Areas\TestData\Views\Appointments\Index.cshtml" />
+    <Content Include="Areas\TestData\Views\Clients\Create.cshtml" />
+    <Content Include="Areas\TestData\Views\Clients\Delete.cshtml" />
+    <Content Include="Areas\TestData\Views\Clients\Details.cshtml" />
+    <Content Include="Areas\TestData\Views\Clients\Edit.cshtml" />
+    <Content Include="Areas\TestData\Views\Clients\Index.cshtml" />
+    <Content Include="Areas\TestData\Views\Patients\Create.cshtml" />
+    <Content Include="Areas\TestData\Views\Patients\Delete.cshtml" />
+    <Content Include="Areas\TestData\Views\Patients\Details.cshtml" />
+    <Content Include="Areas\TestData\Views\Patients\Edit.cshtml" />
+    <Content Include="Areas\TestData\Views\Patients\Index.cshtml" />
     <None Include="Properties\PublishProfiles\ASPNet.pubxml" />
     <None Include="Properties\PublishProfiles\TestAPI.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

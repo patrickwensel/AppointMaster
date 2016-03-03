@@ -20,7 +20,7 @@ namespace AM.VetData.Data
         }
     
         public int ID { get; set; }
-        public Nullable<int> ClientID { get; set; }
+        public int ClientID { get; set; }
         public Nullable<int> SpeciesID { get; set; }
         public string Name { get; set; }
         public string Breed { get; set; }
@@ -29,5 +29,6 @@ namespace AM.VetData.Data
     
         public virtual ICollection<AppointmentPatient> AppointmentPatients { get; set; }
         public virtual Species Species { get; set; }
+        public virtual Client Client { get; set; }
     }
 }

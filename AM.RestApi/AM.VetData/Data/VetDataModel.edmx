@@ -19,9 +19,9 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ClinicID" Type="int" />
-          <Property Name="ClientID" Type="int" />
-          <Property Name="Time" Type="datetime" />
+          <Property Name="ClinicID" Type="int" Nullable="false" />
+          <Property Name="ClientID" Type="int" Nullable="false" />
+          <Property Name="Time" Type="datetime" Nullable="false" />
           <Property Name="CheckedIn" Type="bit" />
         </EntityType>
         <EntityType Name="VetAppointmentPatient">
@@ -91,7 +91,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ClientID" Type="int" />
+          <Property Name="ClientID" Type="int" Nullable="false" />
           <Property Name="SpeciesID" Type="int" />
           <Property Name="Name" Type="nvarchar" MaxLength="150" />
           <Property Name="Breed" Type="nvarchar" MaxLength="150" />
@@ -118,7 +118,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_VetAppointment_VetClient">
-          <End Role="VetClient" Type="Self.VetClient" Multiplicity="0..1" />
+          <End Role="VetClient" Type="Self.VetClient" Multiplicity="1" />
           <End Role="VetAppointment" Type="Self.VetAppointment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="VetClient">
@@ -130,14 +130,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_VetAppointment_VetClinic">
-          <End Role="VetClinic" Type="Self.VetClinic" Multiplicity="0..1" />
+          <End Role="VetClinic" Type="Self.VetClinic" Multiplicity="1" />
           <End Role="VetAppointment" Type="Self.VetAppointment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="VetClinic">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="VetAppointment">
-              <PropertyRef Name="ClientID" />
+              <PropertyRef Name="ClinicID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -213,6 +213,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_VetPatient_VetClient">
+          <End Role="VetClient" Type="Self.VetClient" Multiplicity="1" />
+          <End Role="VetPatient" Type="Self.VetPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VetClient">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VetPatient">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_VetPatient_VetSpecies">
           <End Role="VetSpecies" Type="Self.VetSpecies" Multiplicity="0..1" />
           <End Role="VetPatient" Type="Self.VetPatient" Multiplicity="*" />
@@ -271,6 +283,10 @@
             <End Role="VetSpecies" EntitySet="VetSpecies" />
             <End Role="VetClinicSpecies" EntitySet="VetClinicSpecies" />
           </AssociationSet>
+          <AssociationSet Name="FK_VetPatient_VetClient" Association="Self.FK_VetPatient_VetClient">
+            <End Role="VetClient" EntitySet="VetClient" />
+            <End Role="VetPatient" EntitySet="VetPatient" />
+          </AssociationSet>
           <AssociationSet Name="FK_VetPatient_VetSpecies" Association="Self.FK_VetPatient_VetSpecies">
             <End Role="VetSpecies" EntitySet="VetSpecies" />
             <End Role="VetPatient" EntitySet="VetPatient" />
@@ -285,13 +301,13 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClinicID" Type="Int32" />
-          <Property Name="ClientID" Type="Int32" />
-          <Property Name="Time" Type="DateTime" Precision="3" />
+          <Property Name="ClinicID" Type="Int32" Nullable="false" />
+          <Property Name="ClientID" Type="Int32" Nullable="false" />
+          <Property Name="Time" Type="DateTime" Precision="3" Nullable="false" />
           <Property Name="CheckedIn" Type="Boolean" />
-          <NavigationProperty Name="Client" Relationship="Self.FK_VetAppointment_VetClient" FromRole="VetAppointment" ToRole="VetClient" />
-          <NavigationProperty Name="Clinic" Relationship="Self.FK_VetAppointment_VetClinic" FromRole="VetAppointment" ToRole="VetClinic" />
           <NavigationProperty Name="AppointmentPatients" Relationship="Self.FK_VetAppointmentPatient_VetAppointment" FromRole="VetAppointment" ToRole="VetAppointmentPatient" />
+          <NavigationProperty Name="Client" Relationship="VetDataModel.FK_VetAppointment_VetClient" FromRole="Appointment" ToRole="Client" />
+          <NavigationProperty Name="Clinic" Relationship="VetDataModel.FK_VetAppointment_VetClinic" FromRole="Appointment" ToRole="Clinic" />
         </EntityType>
         <EntityType Name="AppointmentPatient">
           <Key>
@@ -318,8 +334,9 @@
           <Property Name="Phone" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="DefaultCultureCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Appointments" Relationship="Self.FK_VetAppointment_VetClient" FromRole="VetClient" ToRole="VetAppointment" />
           <NavigationProperty Name="Culture" Relationship="Self.FK_VetClient_VetCulture" FromRole="VetClient" ToRole="VetCulture" />
+          <NavigationProperty Name="Appointments" Relationship="VetDataModel.FK_VetAppointment_VetClient" FromRole="Client" ToRole="Appointment" />
+          <NavigationProperty Name="Patients" Relationship="VetDataModel.FK_VetPatient_VetClient" FromRole="Client" ToRole="Patient" />
         </EntityType>
         <EntityType Name="Clinic">
           <Key>
@@ -341,10 +358,10 @@
           <Property Name="DefaultCultureCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PrimaryColor" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="SecondaryColor" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Appointments" Relationship="Self.FK_VetAppointment_VetClinic" FromRole="VetClinic" ToRole="VetAppointment" />
           <NavigationProperty Name="Culture" Relationship="Self.FK_VetClinic_VetClinic" FromRole="VetClinic" ToRole="VetCulture" />
           <NavigationProperty Name="ClinicSpecies" Relationship="Self.FK_VetClinicSpecies_VetClinicSpecies" FromRole="VetClinic" ToRole="VetClinicSpecies" />
           <NavigationProperty Name="APIUsers" Relationship="VetDataModel.FK_VetAPIUser_VetClinic" FromRole="Clinic" ToRole="VetAPIUser" />
+          <NavigationProperty Name="Appointments" Relationship="VetDataModel.FK_VetAppointment_VetClinic" FromRole="Clinic" ToRole="Appointment" />
         </EntityType>
         <EntityType Name="ClinicSpecies">
           <Key>
@@ -372,7 +389,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClientID" Type="Int32" />
+          <Property Name="ClientID" Type="Int32" Nullable="false" />
           <Property Name="SpeciesID" Type="Int32" />
           <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Breed" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
@@ -380,6 +397,7 @@
           <Property Name="Birthdate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="AppointmentPatients" Relationship="Self.FK_VetAppointmentPatient_VetPatient" FromRole="VetPatient" ToRole="VetAppointmentPatient" />
           <NavigationProperty Name="Species" Relationship="Self.FK_VetPatient_VetSpecies" FromRole="VetPatient" ToRole="VetSpecies" />
+          <NavigationProperty Name="Client" Relationship="VetDataModel.FK_VetPatient_VetClient" FromRole="Patient" ToRole="Client" />
         </EntityType>
         <EntityType Name="Species">
           <Key>
@@ -390,30 +408,6 @@
           <NavigationProperty Name="ClinicSpecies" Relationship="Self.FK_VetClinicSpecies_VetSpecies" FromRole="VetSpecies" ToRole="VetClinicSpecies" />
           <NavigationProperty Name="Patients" Relationship="Self.FK_VetPatient_VetSpecies" FromRole="VetSpecies" ToRole="VetPatient" />
         </EntityType>
-        <Association Name="FK_VetAppointment_VetClient">
-          <End Role="VetClient" Type="VetDataModel.Client" Multiplicity="0..1" />
-          <End Role="VetAppointment" Type="VetDataModel.Appointment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VetClient">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="VetAppointment">
-              <PropertyRef Name="ClientID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VetAppointment_VetClinic">
-          <End Role="VetClinic" Type="VetDataModel.Clinic" Multiplicity="0..1" />
-          <End Role="VetAppointment" Type="VetDataModel.Appointment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VetClinic">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="VetAppointment">
-              <PropertyRef Name="ClientID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_VetAppointmentPatient_VetAppointment">
           <End Role="VetAppointment" Type="VetDataModel.Appointment" Multiplicity="0..1" />
           <End Role="VetAppointmentPatient" Type="VetDataModel.AppointmentPatient" Multiplicity="*" />
@@ -507,14 +501,6 @@
           <EntitySet Name="Cultures" EntityType="VetDataModel.Culture" />
           <EntitySet Name="Patients" EntityType="VetDataModel.Patient" />
           <EntitySet Name="Speciess" EntityType="VetDataModel.Species" />
-          <AssociationSet Name="FK_VetAppointment_VetClient" Association="Self.FK_VetAppointment_VetClient">
-            <End Role="VetClient" EntitySet="Clients" />
-            <End Role="VetAppointment" EntitySet="Appointments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VetAppointment_VetClinic" Association="Self.FK_VetAppointment_VetClinic">
-            <End Role="VetClinic" EntitySet="Clinics" />
-            <End Role="VetAppointment" EntitySet="Appointments" />
-          </AssociationSet>
           <AssociationSet Name="FK_VetAppointmentPatient_VetAppointment" Association="Self.FK_VetAppointmentPatient_VetAppointment">
             <End Role="VetAppointment" EntitySet="Appointments" />
             <End Role="VetAppointmentPatient" EntitySet="AppointmentPatients" />
@@ -548,6 +534,18 @@
             <End Role="Clinic" EntitySet="Clinics" />
             <End Role="VetAPIUser" EntitySet="APIUsers" />
           </AssociationSet>
+          <AssociationSet Name="FK_VetAppointment_VetClient" Association="VetDataModel.FK_VetAppointment_VetClient">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VetAppointment_VetClinic" Association="VetDataModel.FK_VetAppointment_VetClinic">
+            <End Role="Clinic" EntitySet="Clinics" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VetPatient_VetClient" Association="VetDataModel.FK_VetPatient_VetClient">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Patient" EntitySet="Patients" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="APIUser">
           <Key>
@@ -568,6 +566,42 @@
             </Principal>
             <Dependent Role="VetAPIUser">
               <PropertyRef Name="ClinicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VetAppointment_VetClient">
+          <End Type="VetDataModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="VetDataModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VetAppointment_VetClinic">
+          <End Type="VetDataModel.Clinic" Role="Clinic" Multiplicity="1" />
+          <End Type="VetDataModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clinic">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="ClinicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VetPatient_VetClient">
+          <End Type="VetDataModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="VetDataModel.Patient" Role="Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Patient">
+              <PropertyRef Name="ClientID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

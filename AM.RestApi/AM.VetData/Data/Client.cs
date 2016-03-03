@@ -17,6 +17,7 @@ namespace AM.VetData.Data
         public Client()
         {
             this.Appointments = new HashSet<Appointment>();
+            this.Patients = new HashSet<Patient>();
         }
     
         public int ID { get; set; }
@@ -31,7 +32,8 @@ namespace AM.VetData.Data
         public string Email { get; set; }
         public string DefaultCultureCode { get; set; }
     
-        public virtual ICollection<Appointment> Appointments { get; set; }
         public virtual Culture Culture { get; set; }
+        public virtual ICollection<Appointment> Appointments { get; set; }
+        public virtual ICollection<Patient> Patients { get; set; }
     }
 }

@@ -20,13 +20,13 @@ namespace AM.VetData.Data
         }
     
         public int ID { get; set; }
-        public Nullable<int> ClinicID { get; set; }
-        public Nullable<int> ClientID { get; set; }
-        public Nullable<System.DateTime> Time { get; set; }
+        public int ClinicID { get; set; }
+        public int ClientID { get; set; }
+        public System.DateTime Time { get; set; }
         public Nullable<bool> CheckedIn { get; set; }
     
+        public virtual ICollection<AppointmentPatient> AppointmentPatients { get; set; }
         public virtual Client Client { get; set; }
         public virtual Clinic Clinic { get; set; }
-        public virtual ICollection<AppointmentPatient> AppointmentPatients { get; set; }
     }
 }

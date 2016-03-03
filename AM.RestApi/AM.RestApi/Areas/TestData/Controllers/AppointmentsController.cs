@@ -39,8 +39,16 @@ namespace AM.RestApi.Areas.TestData.Controllers
         // GET: TestData/Appointments/Create
         public ActionResult Create()
         {
-            ViewBag.ClientID = new SelectList(db.Clients, "ID", "Title");
-            ViewBag.ClientID = new SelectList(db.Clinics, "ID", "Name");
+			ViewBag.ClientID = new SelectList((from s in db.Clients
+											   select new
+											   {
+												   ID = s.ID,
+												   FullName = s.FirstName + " " + s.LastName
+											   }),
+				"ID",
+				"FullName",
+				null);
+			ViewBag.ClinicID = new SelectList(db.Clinics, "ID", "Name");
             return View();
         }
 
@@ -58,8 +66,16 @@ namespace AM.RestApi.Areas.TestData.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ClientID = new SelectList(db.Clients, "ID", "Title", appointment.ClientID);
-            ViewBag.ClientID = new SelectList(db.Clinics, "ID", "Name", appointment.ClientID);
+			ViewBag.ClientID = new SelectList((from s in db.Clients
+											   select new
+											   {
+												   ID = s.ID,
+												   FullName = s.FirstName + " " + s.LastName
+											   }),
+				"ID",
+				"FullName",
+				appointment.ClientID);
+			ViewBag.ClinicID = new SelectList(db.Clinics, "ID", "Name", appointment.ClinicID);
             return View(appointment);
         }
 
@@ -75,8 +91,19 @@ namespace AM.RestApi.Areas.TestData.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ClientID = new SelectList(db.Clients, "ID", "Title", appointment.ClientID);
-            ViewBag.ClientID = new SelectList(db.Clinics, "ID", "Name", appointment.ClientID);
+
+	        ViewBag.ClientID = new SelectList((from s in db.Clients
+											 select new
+		        {
+			        ID = s.ID,
+			        FullName = s.FirstName + " " + s.LastName
+		        }),
+		        "ID",
+		        "FullName",
+				appointment.ClientID);
+
+			//ViewBag.ClientID = new SelectList(db.Clients, "ID", "FirstName" + "LastName", appointment.ClientID);
+            ViewBag.ClinicID = new SelectList(db.Clinics, "ID", "Name", appointment.ClinicID);
             return View(appointment);
         }
 
@@ -93,8 +120,16 @@ namespace AM.RestApi.Areas.TestData.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ClientID = new SelectList(db.Clients, "ID", "Title", appointment.ClientID);
-            ViewBag.ClientID = new SelectList(db.Clinics, "ID", "Name", appointment.ClientID);
+			ViewBag.ClientID = new SelectList((from s in db.Clients
+											   select new
+											   {
+												   ID = s.ID,
+												   FullName = s.FirstName + " " + s.LastName
+											   }),
+				"ID",
+				"FullName",
+				appointment.ClientID);
+			ViewBag.ClinicID = new SelectList(db.Clinics, "ID", "Name", appointment.ClinicID);
             return View(appointment);
         }
 
