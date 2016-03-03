@@ -44,10 +44,10 @@ namespace AppointMaster.ViewModels
             //Items.Add(new CheckInInfoModel { Date = "9:00", Info = "John Smith with Fido and Buddy" });
             //Items.Add(new CheckInInfoModel { Date = "9:10", Info = "John Smith with Felicia" });
             //Items.Add(new CheckInInfoModel { Date = "9:20", Info = "John Doe with Sir Barks-a-lot" });
-            GetAppointments();
+            GetAppointmentIDs();
         }
 
-        public async void GetAppointments()
+        public async void GetAppointmentIDs()
         {
             IsBusy = true;
             try
@@ -58,44 +58,75 @@ namespace AppointMaster.ViewModels
                 HttpResponseMessage response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
-                    Items.Clear();
-
                     string responseBody = await response.Content.ReadAsStringAsync();
+                    List<int> appointmentIDs = JsonConvert.DeserializeObject<List<int>>(responseBody);
 
-                    List<AppointmentModel> appointments = JsonConvert.DeserializeObject<List<AppointmentModel>>(responseBody);
-
-                    if (appointments != null)
+                    if (appointmentIDs != null)
                     {
-                        foreach (var item in appointments)
+                        foreach (var appointmentItem in Items)
                         {
-                            string patientName = null;
-                            foreach (var patientItem in item.Patients)
+                            if (appointmentIDs.Contains(appointmentItem.ID))
                             {
-                                patientName += string.Format("{0} and", patientItem.Name);
+                                Items.Remove(appointmentItem);
                             }
-                            Items.Add(new DisplayAppointmentModel
-                            {
-                                ID = item.ID,
-                                ClientID = item.ClientID,
-                                ClinicID = item.ClinicID,
-                                Time = item.Time,
-                                CheckedIn = item.CheckedIn,
-                                Client = item.Client,
-                                Clinic = item.Clinic,
-                                Patients = item.Patients,
-                                PatientName = string.Format("with {0}", patientName.Substring(0, patientName.Length - 3)),
-                            });
+                        }
+
+                        foreach (var itemID in appointmentIDs)
+                        {
+                            await GetAppointmentByID(itemID);
                         }
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
             }
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        public async Task GetAppointmentByID(int id)
+        {
+            try
+            {
+                string url = "http://ppgservices-001-site6.ctempurl.com/api/v1/VetAppointment/" + id + "";
+                HttpClient client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Services.DataHelper.GetInstance().GetAuthorization());
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+
+                    AppointmentModel appointment = JsonConvert.DeserializeObject<AppointmentModel>(responseBody);
+
+                    if (appointment != null)
+                    {
+                        string patientName = null;
+                        foreach (var patientItem in appointment.Patients)
+                        {
+                            patientName += string.Format("{0} and", patientItem.Name);
+                        }
+                        Items.Add(new DisplayAppointmentModel
+                        {
+                            ID = appointment.ID,
+                            ClientID = appointment.ClientID,
+                            ClinicID = appointment.ClinicID,
+                            Time = appointment.Time,
+                            CheckedIn = appointment.CheckedIn,
+                            Client = appointment.Client,
+                            Clinic = appointment.Clinic,
+                            Patients = appointment.Patients,
+                            PatientName = string.Format("with {0}", patientName.Substring(0, patientName.Length - 3)),
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }

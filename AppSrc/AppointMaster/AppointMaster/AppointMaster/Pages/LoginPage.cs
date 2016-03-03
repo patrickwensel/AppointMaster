@@ -2,6 +2,8 @@
 using AppointMaster.Resources;
 using AppointMaster.ViewModels;
 using Xamarin.Forms;
+using XLabs.Ioc;
+using XLabs.Platform.Services;
 
 namespace AppointMaster.Pages
 {
@@ -128,6 +130,12 @@ namespace AppointMaster.Pages
             });
 
             Content = grid;
+        }
+
+        private void SetBaseAPI()
+        {
+            //var secureStorage = Resolver.Resolve<ISecureStorage>();
+            //secureStorage.Store("BaseAPI", "");
         }
     }
 }

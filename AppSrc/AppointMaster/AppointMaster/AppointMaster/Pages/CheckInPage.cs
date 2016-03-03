@@ -195,7 +195,7 @@ namespace AppointMaster.Pages
 
             Content = grid;
 
-            Device.StartTimer(new TimeSpan(0,0,15), () => { CheckInViewModel.GetAppointments(); return true; });
+            //Device.StartTimer(new TimeSpan(0,0,15), () => { CheckInViewModel.GetAppointments(); return true; });
         }
 
     }
