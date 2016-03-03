@@ -1,4 +1,5 @@
 ﻿using AppointMaster.Controls;
+using AppointMaster.Models;
 using AppointMaster.Resources;
 using AppointMaster.ViewModels;
 using System;
@@ -22,7 +23,6 @@ namespace AppointMaster.Pages
             BackgroundColor = Color.White;
             NavigationPage.SetHasNavigationBar(this, false);
 
-            //Padding = new Thickness(20, Device.OnPlatform(40, 20, 20), 20, 20);
             var padding = new Thickness(20, Device.OnPlatform(40, 20, 20), 20, 20);
 
             var resImage = new Image
@@ -121,7 +121,7 @@ namespace AppointMaster.Pages
                     lineLable.FontSize = 20;
                     lineLable.VerticalOptions = LayoutOptions.Center;
 
-                    Button btn = new Button
+                    Button btnCheckIn = new Button
                     {
                         BorderWidth = 2,
                         BorderColor = Color.Black,
@@ -133,6 +133,13 @@ namespace AppointMaster.Pages
                         VerticalOptions = LayoutOptions.Center,
                         TextColor = Color.Black
                     };
+                    btnCheckIn.SetBinding(Button.CommandParameterProperty, new Binding("ID"));
+                    btnCheckIn.Clicked += (sender, e) =>
+                    {
+                        int id = (int)((Button)sender).CommandParameter;
+                        AppointmentModel item = CheckInViewModel.Items.Where(x => x.ID == id).FirstOrDefault();
+                        CheckInViewModel.ShowCheckedIn(item);
+                    };
 
                     return new MyViewCell
                     {
@@ -142,7 +149,7 @@ namespace AppointMaster.Pages
                             Orientation = StackOrientation.Horizontal,
                             Children =
                             {
-                               btn,
+                               btnCheckIn,
                                dateLabel,
                                lineLable,
                                firstLable,
@@ -155,6 +162,7 @@ namespace AppointMaster.Pages
             };
 
             listView.SetBinding(ListView.ItemsSourceProperty, new Binding("Items"));
+            //listView.SetBinding(ListView.SelectedItemProperty, new Binding("SelectedAppointment", BindingMode.TwoWay));
 
             var loadingGrid = new Grid();
             loadingGrid.BackgroundColor = Color.Black;
@@ -195,7 +203,7 @@ namespace AppointMaster.Pages
 
             Content = grid;
 
-            //Device.StartTimer(new TimeSpan(0,0,15), () => { CheckInViewModel.GetAppointments(); return true; });
+            //Device.StartTimer(new TimeSpan(0,0,15), () => { CheckInViewModel.GetAppointmentIDs(); return true; });
         }
 
     }

@@ -20,13 +20,16 @@ namespace AppointMaster.ViewModels
             set { _isBusy = value; RaisePropertyChanged(() => IsBusy); }
         }
 
-        public MvxCommand ShowRegistrationCommand
-        {
-            get
-            {
-                return new MvxCommand(() => ShowViewModel<RegistrationViewModel>());
-            }
-        }
+        //private AppointmentModel _selectedAppointment;
+        //public AppointmentModel SelectedAppointment
+        //{
+        //    get { return _selectedAppointment; }
+        //    set
+        //    {
+        //        _selectedAppointment = value;
+        //        RaisePropertyChanged(() => SelectedAppointment);
+        //    }
+        //}
 
         public MvxCommand ShowMainCommand
         {
@@ -36,15 +39,23 @@ namespace AppointMaster.ViewModels
             }
         }
 
+        public MvxCommand ShowRegistrationCommand
+        {
+            get
+            {
+                return new MvxCommand(() => ShowViewModel<RegistrationViewModel>());
+            }
+        }
+
+
+
         public ObservableCollection<DisplayAppointmentModel> Items { get; set; }
 
         public CheckInViewModel()
         {
             Items = new ObservableCollection<DisplayAppointmentModel>();
-            //Items.Add(new CheckInInfoModel { Date = "9:00", Info = "John Smith with Fido and Buddy" });
-            //Items.Add(new CheckInInfoModel { Date = "9:10", Info = "John Smith with Felicia" });
-            //Items.Add(new CheckInInfoModel { Date = "9:20", Info = "John Doe with Sir Barks-a-lot" });
-            GetAppointmentIDs();
+            Items.Add(new DisplayAppointmentModel { Time = DateTime.Now, ID = 1000, Client = new ClientModel { Title = "Mr.", FirstName = "first", LastName = "last" } });
+            //GetAppointmentIDs();
         }
 
         public async void GetAppointmentIDs()
@@ -100,10 +111,11 @@ namespace AppointMaster.ViewModels
                 {
                     string responseBody = await response.Content.ReadAsStringAsync();
 
-                    AppointmentModel appointment = JsonConvert.DeserializeObject<AppointmentModel>(responseBody);
+                    var appointment = JsonConvert.DeserializeObject<AppointmentModel>(responseBody);
 
                     if (appointment != null)
                     {
+                        //var appointment = appointments[0];
                         string patientName = null;
                         foreach (var patientItem in appointment.Patients)
                         {
@@ -119,7 +131,7 @@ namespace AppointMaster.ViewModels
                             Client = appointment.Client,
                             Clinic = appointment.Clinic,
                             Patients = appointment.Patients,
-                            PatientName = string.Format("with {0}", patientName.Substring(0, patientName.Length - 3)),
+                            PatientName = string.IsNullOrEmpty(patientName) ? null : string.Format("with {0}", patientName.Substring(0, patientName.Length - 3)),
                         });
                     }
                 }
@@ -128,6 +140,12 @@ namespace AppointMaster.ViewModels
             {
 
             }
+        }
+
+        public void ShowCheckedIn(AppointmentModel model)
+        {
+            Services.DataHelper.GetInstance().SetSelectedAppointment(model);
+            ShowViewModel<RegistrationViewModel>();
         }
     }
 }

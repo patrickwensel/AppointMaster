@@ -133,17 +133,6 @@ namespace AppointMaster.ViewModels
             }
         }
 
-        //private string _patientBreed;
-        //public string PatientBreed
-        //{
-        //    get { return _patientBreed; }
-        //    set
-        //    {
-        //        _patientBreed = value;
-        //        RaisePropertyChanged(() => PatientBreed);
-        //    }
-        //}
-
         private string _breed;
         public string Breed
         {
@@ -266,47 +255,56 @@ namespace AppointMaster.ViewModels
 
         public RegistrationViewModel()
         {
+            if (Services.DataHelper.GetInstance().GetSelectedAppointment() != null)
+            {
+                CheckedAppointment();
+            }
+            else
+            {
+                SelectedTitle = "Mr.";
+                SelectedState = "MD";
+                PatientGender = "Male";
+                SelectedBreed = "Dog";
+            }
+
             PatientBirth = DateTime.Now;
 
             BreedList = new ObservableCollection<string>();
             IsDog = true;
-            SelectedBreed = "Dog";
             BreedList.Add("Dog");
             BreedList.Add("Cat");
 
             GenderList = new ObservableCollection<string>();
-            PatientGender = "Male";
             GenderList.Add("Male");
             GenderList.Add("Female");
 
             TitleList = new ObservableCollection<string>();
-            SelectedTitle = "Mr.";
             TitleList.Add("Mr.");
             TitleList.Add("Mrs.");
 
             StateList = new ObservableCollection<string>();
-            SelectedState = "MD";
             StateList.Add("MD");
             StateList.Add("AZ");
             StateList.Add("AL");
             StateList.Add("AK");
 
             PatientList = new ObservableCollection<PatientInfo>();
-            PatientList.Add(new PatientInfo { PatientName = "Fido", Image = "dog.png", IsChecked = false, Breed = "Dog" ,PatientGender= "Male",Birth="2/29/2016" });
-            PatientList.Add(new PatientInfo { PatientName = "Buddy", Image = "dog.png", IsChecked = false, Breed = "Dog" , PatientGender= "Male", Birth = "2/29/2016" });
-            PatientList.Add(new PatientInfo { PatientName = "Jasper", Image = "cat.png", IsChecked = false, Breed = "Cat", PatientGender= "Female", Birth = "2/29/2016" });
+            PatientList.Add(new PatientInfo { PatientName = "Fido", Image = "dog.png", IsChecked = false, Breed = "Dog", PatientGender = "Male", Birth = "2/29/2016" });
+            PatientList.Add(new PatientInfo { PatientName = "Buddy", Image = "dog.png", IsChecked = false, Breed = "Dog", PatientGender = "Male", Birth = "2/29/2016" });
+            PatientList.Add(new PatientInfo { PatientName = "Jasper", Image = "cat.png", IsChecked = false, Breed = "Cat", PatientGender = "Female", Birth = "2/29/2016" });
 
             SelectedPatientList = new ObservableCollection<PatientInfo>();
         }
+
+        private void CheckedAppointment()
+        {
+            AppointmentModel model = Services.DataHelper.GetInstance().GetSelectedAppointment();
+
+            SelectedTitle = model.Client.Title;
+            FirstName = model.Client.FirstName;
+            LastName = model.Client.LastName;
+
+            Services.DataHelper.GetInstance().SetSelectedAppointment(null);
+        }
     }
-
-    //public class TitleModel
-    //{
-    //    public string Title { get; set; }
-    //}
-
-    //public class StateModel
-    //{
-    //    public string State { get; set; }
-    //}
 }

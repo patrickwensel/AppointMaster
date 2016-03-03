@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AppointMaster.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace AppointMaster.Services
         static DataHelper me;
 
         string authorization;
+        AppointmentModel model;
 
         public string GetAuthorization()
         {
@@ -20,6 +22,16 @@ namespace AppointMaster.Services
         public void SetAuthorization(string value)
         {
             authorization = value;
+        }
+
+        public AppointmentModel GetSelectedAppointment()
+        {
+            return model;
+        }
+
+        public void SetSelectedAppointment(AppointmentModel value)
+        {
+            model = value;
         }
 
         public static DataHelper GetInstance()
