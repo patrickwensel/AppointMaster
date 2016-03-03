@@ -4,8 +4,8 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="24afc6b62f004b4aaea4e4e95c8e6f99" Name="Diagram1">
-        <EntityTypeShape EntityType="VetDataModel.Appointment" Width="1.5" PointX="5.25" PointY="6.875" IsExpanded="true" />
+      <Diagram DiagramId="24afc6b62f004b4aaea4e4e95c8e6f99" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="VetDataModel.Appointment" Width="1.5" PointX="5.5" PointY="6.625" IsExpanded="true" />
         <EntityTypeShape EntityType="VetDataModel.AppointmentPatient" Width="3.375" PointX="7.5" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="VetDataModel.Client" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="VetDataModel.Clinic" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
@@ -13,8 +13,6 @@
         <EntityTypeShape EntityType="VetDataModel.Culture" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="VetDataModel.Patient" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="VetDataModel.Species" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
-        <AssociationConnector Association="VetDataModel.FK_VetAppointment_VetClient" ManuallyRouted="false" />
-        <AssociationConnector Association="VetDataModel.FK_VetAppointment_VetClinic" ManuallyRouted="false" />
         <AssociationConnector Association="VetDataModel.FK_VetAppointmentPatient_VetAppointment" ManuallyRouted="false" />
         <AssociationConnector Association="VetDataModel.FK_VetAppointmentPatient_VetPatient" ManuallyRouted="false" />
         <AssociationConnector Association="VetDataModel.FK_VetClient_VetCulture" ManuallyRouted="false" />
@@ -24,6 +22,9 @@
         <AssociationConnector Association="VetDataModel.FK_VetPatient_VetSpecies" ManuallyRouted="false" />
         <EntityTypeShape EntityType="VetDataModel.APIUser" Width="1.5" PointX="8.75" PointY="0.75" />
         <AssociationConnector Association="VetDataModel.FK_VetAPIUser_VetClinic" />
+        <AssociationConnector Association="VetDataModel.FK_VetAppointment_VetClient" />
+        <AssociationConnector Association="VetDataModel.FK_VetAppointment_VetClinic" />
+        <AssociationConnector Association="VetDataModel.FK_VetPatient_VetClient" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

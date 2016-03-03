@@ -13,11 +13,7 @@ namespace AM.RestApi.Model
         public int ClientID { get; set; }
         public DateTime Time { get; set; }
         public bool CheckedIn { get; set; }
-
         public ClientViewModel Client { get; set; }
-        public ClinicViewModel Clinic { get; set; }
-        //public List<AppointmentPatientViewModel> AppointmentPatients { get; set; }
-
         public List<PatientViewModel> Patients { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace AM.RestApi.Areas.TestData.Controllers
         // GET: TestData/Patients
         public ActionResult Index()
         {
-            var patients = db.Patients.Include(p => p.Species);
+            var patients = db.Patients.Include(p => p.Species).Include(p => p.Client);
             return View(patients.ToList());
         }
 
@@ -40,7 +40,16 @@ namespace AM.RestApi.Areas.TestData.Controllers
         public ActionResult Create()
         {
             ViewBag.SpeciesID = new SelectList(db.Speciess, "ID", "Name");
-            return View();
+			ViewBag.ClientID = new SelectList((from s in db.Clients
+											   select new
+											   {
+												   ID = s.ID,
+												   FullName = s.FirstName + " " + s.LastName
+											   }),
+				"ID",
+				"FullName",
+				null);
+			return View();
         }
 
         // POST: TestData/Patients/Create
@@ -58,6 +67,16 @@ namespace AM.RestApi.Areas.TestData.Controllers
             }
 
             ViewBag.SpeciesID = new SelectList(db.Speciess, "ID", "Name", patient.SpeciesID);
+			ViewBag.ClientID = new SelectList((from s in db.Clients
+											   select new
+											   {
+												   ID = s.ID,
+												   FullName = s.FirstName + " " + s.LastName
+											   }),
+				"ID",
+				"FullName",
+				patient.ClientID);
+			
             return View(patient);
         }
 
@@ -74,7 +93,16 @@ namespace AM.RestApi.Areas.TestData.Controllers
                 return HttpNotFound();
             }
             ViewBag.SpeciesID = new SelectList(db.Speciess, "ID", "Name", patient.SpeciesID);
-            return View(patient);
+			ViewBag.ClientID = new SelectList((from s in db.Clients
+											   select new
+											   {
+												   ID = s.ID,
+												   FullName = s.FirstName + " " + s.LastName
+											   }),
+	"ID",
+	"FullName",
+	patient.ClientID);
+			return View(patient);
         }
 
         // POST: TestData/Patients/Edit/5
@@ -91,7 +119,16 @@ namespace AM.RestApi.Areas.TestData.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.SpeciesID = new SelectList(db.Speciess, "ID", "Name", patient.SpeciesID);
-            return View(patient);
+			ViewBag.ClientID = new SelectList((from s in db.Clients
+											   select new
+											   {
+												   ID = s.ID,
+												   FullName = s.FirstName + " " + s.LastName
+											   }),
+	"ID",
+	"FullName",
+	patient.ClientID);
+			return View(patient);
         }
 
         // GET: TestData/Patients/Delete/5
