@@ -40,10 +40,9 @@ namespace AM.RestApi.Controllers
 					SpeciesID = x.SpeciesID,
 					Logo = x.Logo,
 					PrimaryDisplay = x.PrimaryDisplay
+                }).ToList()
 
-                }
-				).ToList()
-            });
+            }).FirstOrDefault();
 
             return clinic;
         }

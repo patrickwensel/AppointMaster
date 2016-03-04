@@ -13,6 +13,7 @@ namespace AM.RestApi.Model
         public string Name { get; set; }
         public string Breed { get; set; }
         public string Gender { get; set; }
+        public byte[] Logo { get; set; }
         public DateTime? Birthdate { get; set; }
 
         //public List<AppointmentPatient> AppointmentPatients { get; set; }

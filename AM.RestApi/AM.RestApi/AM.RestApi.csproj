@@ -134,6 +134,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\TestData\Models\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\VetPatient\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\VetAppointmentController.cs" />
     <Compile Include="Controllers\VetClinicController.cs" />
+    <Compile Include="Controllers\VetPatientController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
