@@ -241,6 +241,8 @@ namespace AppointMaster.ViewModels
 
         public ObservableCollection<string> BreedList { get; set; }
 
+        public ObservableCollection<SpeciesModel> SpeciesList { get; set; }
+
         public ObservableCollection<DisplayPatientModel> PatientList { get; set; }
 
         public ObservableCollection<DisplayPatientModel> SelectedPatientList { get; set; }
@@ -298,6 +300,11 @@ namespace AppointMaster.ViewModels
 
             PatientList = new ObservableCollection<DisplayPatientModel>();
             SelectedPatientList = new ObservableCollection<DisplayPatientModel>();
+
+            SpeciesList = new ObservableCollection<SpeciesModel>();
+            SpeciesList.Add(new SpeciesModel { ID=1});
+            SpeciesList.Add(new SpeciesModel { ID = 1 });
+            SpeciesList.Add(new SpeciesModel { ID = 1 });
         }
 
         private void CheckedAppointment()

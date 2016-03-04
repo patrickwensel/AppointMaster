@@ -80,11 +80,11 @@ namespace AppointMaster.Pages
             grid.Children.Add(grid4Breed, 0, 1);
             grid.Children.Add(grid5, 0, 1);
 
-            grid1.IsVisible = true;
+            grid1.IsVisible = false;
             grid2.IsVisible = false;
             grid3.IsVisible = false;
             grid4.IsVisible = false;
-            grid4Add.IsVisible = false;
+            grid4Add.IsVisible = true;
             grid4Breed.IsVisible = false;
             grid5.IsVisible = false;
 
@@ -247,7 +247,6 @@ namespace AppointMaster.Pages
 
             btnStep1Cancel.SetBinding(Button.CommandProperty, new Binding("ShowCancelCommand"));
 
-
             grid1 = new Grid();
             grid1.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
             grid1.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
@@ -295,17 +294,6 @@ namespace AppointMaster.Pages
             statePicker.SetBinding(ExtendedPicker.ItemsSourceProperty, new Binding("StateList", BindingMode.TwoWay));
             statePicker.SetBinding(ExtendedPicker.SelectedItemProperty, new Binding("SelectedState", BindingMode.TwoWay));
 
-            var zipEntry = new MyEntry
-            {
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Start,
-                HeightRequest = 50,
-                WidthRequest = 130,
-                TextColor = Color.Black,
-                FontSize = 20
-            };
-            zipEntry.SetBinding(Entry.TextProperty, new Binding("Zip"));
-
             var postalEntry = new MyEntry
             {
                 VerticalOptions = LayoutOptions.Start,
@@ -315,7 +303,7 @@ namespace AppointMaster.Pages
                 TextColor = Color.Black,
                 FontSize = 20
             };
-            postalEntry.SetBinding(Entry.TextProperty, new Binding("Zip"));
+            postalEntry.SetBinding(Entry.TextProperty, new Binding("PostalCode"));
 
             var streetSl = new StackLayout
             {
@@ -353,7 +341,7 @@ namespace AppointMaster.Pages
 
             var stateSl = new StackLayout
             {
-                Padding = new Thickness(0, 0, 60, 0),//30
+                Padding = new Thickness(0, 0, 60, 0),
                 Children =
                 {
                     new Label
@@ -370,7 +358,6 @@ namespace AppointMaster.Pages
 
             var postalSl = new StackLayout
             {
-                //Padding = new Thickness(0, 0, 30, 0),
                 Children =
                 {
                    new Label
@@ -385,22 +372,6 @@ namespace AppointMaster.Pages
                 }
             };
 
-            var zipSl = new StackLayout
-            {
-                Children =
-                {
-                   new Label
-                   {
-                        VerticalOptions = LayoutOptions.Start,
-                        HorizontalOptions = LayoutOptions.Start,
-                        Text = AppResources.Zip,
-                        TextColor = Color.Black,
-                        FontSize = 20
-                   },
-                   zipEntry
-                }
-            };
-
             var stateAndPostalSl = new StackLayout
             {
                 HorizontalOptions = LayoutOptions.Center,
@@ -408,8 +379,7 @@ namespace AppointMaster.Pages
                 Children =
                 {
                   stateSl,
-                  postalSl,
-                  //zipSl
+                  postalSl
                 }
             };
 
@@ -437,6 +407,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BorderWidth = 2
             };
+            btnStep2Cancel.SetBinding(Button.CommandProperty, new Binding("ShowCancelCommand"));
 
             Button btnStep2Next = new Button
             {
@@ -589,6 +560,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BorderWidth = 2
             };
+            btnStep3Cancel.SetBinding(Button.CommandProperty, new Binding("ShowCancelCommand"));
 
             Button btnStep3Next = new Button
             {
@@ -685,6 +657,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BorderWidth = 2
             };
+            btnStep4Cancel.SetBinding(Button.CommandProperty, new Binding("ShowCancelCommand"));
 
             Button btnStep4Next = new Button
             {
@@ -822,7 +795,7 @@ namespace AppointMaster.Pages
             {
                 if (RegistrationViewModel.SelectedPatientList.Count == 0)
                 {
-                    DisplayAlert(AppResources.Error,AppResources.Choose_Patient, AppResources.OK);
+                    DisplayAlert(AppResources.Error, AppResources.Choose_Patient, AppResources.OK);
                     return;
                 }
                 grid4.IsVisible = false;
@@ -854,19 +827,18 @@ namespace AppointMaster.Pages
 
         private void Step4AddPatient()
         {
-
             var patientNameEntry = new MyEntry
             {
                 VerticalOptions = LayoutOptions.Start,
                 HorizontalOptions = LayoutOptions.Center,
                 HeightRequest = 50,
-                WidthRequest = 470,
+                WidthRequest = 500,
                 TextColor = Color.Black,
                 FontSize = 20,
             };
             patientNameEntry.SetBinding(Entry.TextProperty, new Binding("PatientName"));
 
-            StackLayout titleAndEntrySl = new StackLayout
+            StackLayout patientNameSl = new StackLayout
             {
                 HorizontalOptions = LayoutOptions.Center,
                 Children =
@@ -880,205 +852,6 @@ namespace AppointMaster.Pages
                         FontSize = 20
                     },
                     patientNameEntry
-                }
-            };
-
-            //Dog
-            Image imgDogChecked = new Image();
-            imgDogChecked.VerticalOptions = LayoutOptions.Center;
-            imgDogChecked.Source = "checked_checkbox.png";
-            imgDogChecked.SetBinding(Image.IsVisibleProperty, new Binding("IsDog"));
-
-            Image imgDogUnChecked = new Image();
-            imgDogUnChecked.VerticalOptions = LayoutOptions.Center;
-            imgDogUnChecked.Source = "unchecked_checkbox.png";
-            imgDogUnChecked.SetBinding(Image.IsVisibleProperty, "IsDog", BindingMode.Default, new TrueToFalseConverter());
-
-            //Fish
-            Image imgFishChecked = new Image();
-            imgFishChecked.VerticalOptions = LayoutOptions.Center;
-            imgFishChecked.Source = "checked_checkbox.png";
-            imgFishChecked.SetBinding(Image.IsVisibleProperty, new Binding("IsFish"));
-
-            Image imgFishUnChecked = new Image();
-            imgFishUnChecked.VerticalOptions = LayoutOptions.Center;
-            imgFishUnChecked.Source = "unchecked_checkbox.png";
-            imgFishUnChecked.SetBinding(Image.IsVisibleProperty, "IsFish", BindingMode.Default, new TrueToFalseConverter());
-
-            //Cat
-            Image imgCatChecked = new Image();
-            imgCatChecked.VerticalOptions = LayoutOptions.Center;
-            imgCatChecked.Source = "checked_checkbox.png";
-            imgCatChecked.SetBinding(Image.IsVisibleProperty, new Binding("IsCat"));
-
-            Image imgCatUnChecked = new Image();
-            imgCatUnChecked.VerticalOptions = LayoutOptions.Center;
-            imgCatUnChecked.Source = "unchecked_checkbox.png";
-            imgCatUnChecked.SetBinding(Image.IsVisibleProperty, "IsCat", BindingMode.Default, new TrueToFalseConverter());
-
-            //Hamster
-            Image imgHamsterChecked = new Image();
-            imgHamsterChecked.VerticalOptions = LayoutOptions.Center;
-            imgHamsterChecked.Source = "checked_checkbox.png";
-            imgHamsterChecked.SetBinding(Image.IsVisibleProperty, new Binding("IsHamster"));
-
-            Image imgHamsterUnChecked = new Image();
-            imgHamsterUnChecked.VerticalOptions = LayoutOptions.Center;
-            imgHamsterUnChecked.Source = "unchecked_checkbox.png";
-            imgHamsterUnChecked.SetBinding(Image.IsVisibleProperty, "IsHamster", BindingMode.Default, new TrueToFalseConverter());
-
-            //Bird
-            Image imgBirdChecked = new Image();
-            imgBirdChecked.VerticalOptions = LayoutOptions.Center;
-            imgBirdChecked.Source = "checked_checkbox.png";
-            imgBirdChecked.SetBinding(Image.IsVisibleProperty, new Binding("IsBird"));
-
-            Image imgBirdUnChecked = new Image();
-            imgBirdUnChecked.VerticalOptions = LayoutOptions.Center;
-            imgBirdUnChecked.Source = "unchecked_checkbox.png";
-            imgBirdUnChecked.SetBinding(Image.IsVisibleProperty, "IsBird", BindingMode.Default, new TrueToFalseConverter());
-
-            //Other
-            Image imgOtherChecked = new Image();
-            imgOtherChecked.VerticalOptions = LayoutOptions.Center;
-            imgOtherChecked.Source = "checked_checkbox.png";
-            imgOtherChecked.SetBinding(Image.IsVisibleProperty, new Binding("IsOther"));
-
-            Image imgOtherUnChecked = new Image();
-            imgOtherUnChecked.VerticalOptions = LayoutOptions.Center;
-            imgOtherUnChecked.Source = "unchecked_checkbox.png";
-            imgOtherUnChecked.SetBinding(Image.IsVisibleProperty, "IsOther", BindingMode.Default, new TrueToFalseConverter());
-
-            StackLayout dogSl = new StackLayout
-            {
-                Padding = new Thickness(0, 0, 100, 0),
-                Orientation = StackOrientation.Horizontal,
-                Children =
-                {
-                    imgDogChecked,
-                    imgDogUnChecked,
-                    new Image
-                    {
-                        Source = "dog.png",
-                        HeightRequest = 60,
-                        WidthRequest = 61
-                    }
-                }
-            };
-
-            StackLayout fishSl = new StackLayout
-            {
-                Orientation = StackOrientation.Horizontal,
-                Children =
-                {
-                   imgFishChecked,
-                   imgFishUnChecked,
-                    new Image
-                    {
-                        Source = "fish.png",
-                        HeightRequest = 60,
-                        WidthRequest = 61
-                    }
-                }
-            };
-
-            StackLayout catSl = new StackLayout
-            {
-                Padding = new Thickness(0, 0, 100, 0),
-                Orientation = StackOrientation.Horizontal,
-                Children =
-                {
-                    imgCatChecked,
-                    imgCatUnChecked,
-                    new Image
-                    {
-                        Source = "cat.png",
-                        HeightRequest = 60,
-                        WidthRequest = 61
-                    }
-                }
-            };
-
-            StackLayout hamsterSl = new StackLayout
-            {
-                Orientation = StackOrientation.Horizontal,
-                Children =
-                {
-                    imgHamsterChecked,
-                    imgHamsterUnChecked,
-                    new Image
-                    {
-                        Source = "hamster.png",
-                        HeightRequest = 60,
-                        WidthRequest = 61
-                    }
-                }
-            };
-
-            StackLayout birdSl = new StackLayout
-            {
-                Padding = new Thickness(0, 0, 100, 0),
-                Orientation = StackOrientation.Horizontal,
-                Children =
-                {
-                    imgBirdChecked,
-                    imgBirdUnChecked,
-                    new Image
-                    {
-                        Source = "bird.png",
-                        HeightRequest = 60,
-                        WidthRequest = 61
-                    }
-                }
-            };
-
-            MyPicker breedPicker = new MyPicker
-            {
-                WidthRequest = 80,
-                HeightRequest = 50
-            };
-            breedPicker.SetBinding(ExtendedPicker.ItemsSourceProperty, new Binding("BreedList"));
-            breedPicker.SetBinding(ExtendedPicker.SelectedItemProperty, new Binding("SelectedBreed", BindingMode.TwoWay));
-
-            StackLayout otherSl = new StackLayout
-            {
-                Orientation = StackOrientation.Horizontal,
-                Children =
-                {
-                    imgOtherChecked,
-                    imgOtherUnChecked,
-                    breedPicker
-                }
-            };
-
-            StackLayout leftSl = new StackLayout
-            {
-                Children =
-                {
-                    dogSl,
-                    catSl,
-                    birdSl
-                }
-            };
-
-            StackLayout rightSl = new StackLayout
-            {
-                Children =
-                {
-                    fishSl,
-                    hamsterSl,
-                    otherSl
-                }
-            };
-
-            StackLayout breedSl = new StackLayout
-            {
-                HorizontalOptions = LayoutOptions.Center,
-                Orientation = StackOrientation.Horizontal,
-                Children =
-                {
-                    leftSl,
-                    rightSl
                 }
             };
 
@@ -1106,6 +879,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BorderWidth = 2
             };
+            btnStep4AddCancel.SetBinding(Button.CommandProperty, new Binding("ShowCancelCommand"));
 
             Button btnStep4AddNext = new Button
             {
@@ -1132,36 +906,6 @@ namespace AppointMaster.Pages
                 }
             };
 
-            dogSl.GestureRecognizers.Add(new TapGestureRecognizer
-            {
-                Command = new Command(() => SelectPatientSpecies("Dog"))
-            });
-
-            fishSl.GestureRecognizers.Add(new TapGestureRecognizer
-            {
-                Command = new Command(() => SelectPatientSpecies("Fish"))
-            });
-
-            catSl.GestureRecognizers.Add(new TapGestureRecognizer
-            {
-                Command = new Command(() => SelectPatientSpecies("Cat"))
-            });
-
-            hamsterSl.GestureRecognizers.Add(new TapGestureRecognizer
-            {
-                Command = new Command(() => SelectPatientSpecies("Hamster"))
-            });
-
-            birdSl.GestureRecognizers.Add(new TapGestureRecognizer
-            {
-                Command = new Command(() => SelectPatientSpecies("Bird"))
-            });
-
-            otherSl.GestureRecognizers.Add(new TapGestureRecognizer
-            {
-                Command = new Command(() => SelectPatientSpecies("Other"))
-            });
-
             btnStep4AddNext.Clicked += delegate
             {
                 if (string.IsNullOrEmpty(RegistrationViewModel.PatientName))
@@ -1169,11 +913,6 @@ namespace AppointMaster.Pages
                     DisplayAlert(AppResources.Error, AppResources.Enter_Patient_Name, AppResources.OK);
                     return;
                 }
-                //if (string.IsNullOrEmpty(RegistrationViewModel.SelectedBreed))
-                //{
-                //    DisplayAlert(AppResources.Error, AppResources.Choose_Breed, AppResources.OK);
-                //    return;
-                //}
                 grid4Add.IsVisible = false;
                 grid4Breed.IsVisible = true;
                 labStep.Text = AppResources.Registration_Step5;
@@ -1185,16 +924,137 @@ namespace AppointMaster.Pages
                 grid4Add.IsVisible = false;
             };
 
+            MyListView lstBreedPrimary = new MyListView
+            {
+                WidthRequest = 225,
+                ItemTemplate = new DataTemplate(() =>
+                {
+                    Image imgChecked = new Image();
+                    imgChecked.VerticalOptions = LayoutOptions.Center;
+                    imgChecked.Source = "checked_checkbox.png";
+                    //imgChecked.SetBinding(Image.IsVisibleProperty, new Binding("IsChecked"));
+
+                    //Image imgUnChecked = new Image();
+                    //imgUnChecked.VerticalOptions = LayoutOptions.Center;
+                    //imgUnChecked.Source = "unchecked_checkbox.png";
+                    //imgUnChecked.SetBinding(Image.IsVisibleProperty, "IsChecked", BindingMode.Default, new TrueToFalseConverter());
+
+                    Image patientImg = new Image();
+                    patientImg.Source = "cat.png";
+                    patientImg.HeightRequest = 60;
+                    patientImg.WidthRequest = 61;
+                    patientImg.VerticalOptions = LayoutOptions.Center;
+                    //patientImg.SetBinding(Image.SourceProperty, new Binding("Image"));
+
+                    return new MyViewCell
+                    {
+                        View = new StackLayout
+                        {
+                            Padding = new Thickness(0, 5, 0, 5),
+                            Orientation = StackOrientation.Horizontal,
+                            Children =
+                            {
+                               imgChecked,
+                               //imgUnChecked,
+                               patientImg
+                            }
+                        }
+                    };
+                })
+            };
+
+            MyListView lstBreedNotPrimary = new MyListView
+            {
+                WidthRequest = 225,
+                ItemTemplate = new DataTemplate(() =>
+                {
+                    Image imgChecked = new Image();
+                    imgChecked.VerticalOptions = LayoutOptions.Center;
+                    imgChecked.Source = "checked_checkbox.png";
+                    //imgChecked.SetBinding(Image.IsVisibleProperty, new Binding("IsChecked"));
+
+                    //Image imgUnChecked = new Image();
+                    //imgUnChecked.VerticalOptions = LayoutOptions.Center;
+                    //imgUnChecked.Source = "unchecked_checkbox.png";
+                    //imgUnChecked.SetBinding(Image.IsVisibleProperty, "IsChecked", BindingMode.Default, new TrueToFalseConverter());
+
+                    Image patientImg = new Image();
+                    patientImg.Source = "dog.png";
+                    patientImg.HeightRequest = 60;
+                    patientImg.WidthRequest = 61;
+                    patientImg.VerticalOptions = LayoutOptions.Center;
+                    //patientImg.SetBinding(Image.SourceProperty, new Binding("Image"));
+
+                    return new MyViewCell
+                    {
+                        View = new StackLayout
+                        {
+                            Padding = new Thickness(0, 5, 0, 5),
+                            Orientation = StackOrientation.Horizontal,
+                            Children =
+                            {
+                               imgChecked,
+                               //imgUnChecked,
+                               patientImg
+                            }
+                        }
+                    };
+                })
+            };
+
+            lstBreedNotPrimary.IsVisible = false;
+
+            lstBreedPrimary.SetBinding(ListView.ItemsSourceProperty, new Binding("SpeciesList"));
+            lstBreedNotPrimary.SetBinding(ListView.ItemsSourceProperty, new Binding("SpeciesList"));
+
+            Button btnOther = new Button
+            {
+                TextColor = Color.Black,
+                BorderColor = Color.Black,
+                BorderRadius = 1,
+                BorderWidth = 2,
+                HeightRequest = 50,
+                WidthRequest = 225,
+                BackgroundColor = Color.Transparent
+            };
+            btnOther.Clicked += delegate
+            {
+                if (lstBreedNotPrimary.IsVisible)
+                    lstBreedNotPrimary.IsVisible = false;
+                else
+                    lstBreedNotPrimary.IsVisible = true;
+            };
+
+            StackLayout notPrimarySl = new StackLayout
+            {
+                Children =
+                {
+                    new Label {Text=AppResources.Other,TextColor=Color.Black,FontSize=20, },
+                    btnOther,
+                    lstBreedNotPrimary
+                }
+            };
+
             grid4Add = new Grid();
             grid4Add.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
             grid4Add.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid4Add.RowDefinitions.Add(new RowDefinition { Height = new GridLength(80) });
 
-            grid4Add.Children.Add(titleAndEntrySl, 0, 0);
+            grid4Add.Children.Add(patientNameSl, 0, 0);
 
-            grid4Add.Children.Add(breedSl, 0, 1);
+            grid4Add.Children.Add(new StackLayout
+            {
+                Orientation = StackOrientation.Horizontal,
+                HorizontalOptions = LayoutOptions.Center,
+                Children =
+                {
+                    new StackLayout {Padding=new Thickness(0,0,45,0),Children= { lstBreedPrimary } } ,
+                    notPrimarySl
+                }
+            }, 0, 1);
+            //grid4Add.Children.Add(breedSl, 0, 1);
 
-            grid4Add.Children.Add(btnStep4AddSl, 0, 3);
+            //grid4Add.Children.Add(btnStep4AddSl, 0, 3);
         }
 
         private void Step4AddBreed()
@@ -1250,6 +1110,7 @@ namespace AppointMaster.Pages
                 BorderRadius = 1,
                 BorderWidth = 2
             };
+            btnStep4OtherCancel.SetBinding(Button.CommandProperty, new Binding("ShowCancelCommand"));
 
             Button btnStep4OtherNext = new Button
             {

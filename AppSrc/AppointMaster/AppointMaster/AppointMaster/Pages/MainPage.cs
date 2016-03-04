@@ -1,5 +1,6 @@
 ﻿using AppointMaster.Controls;
 using AppointMaster.Resources;
+using AppointMaster.Services;
 using AppointMaster.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -25,37 +26,65 @@ namespace AppointMaster.Pages
         {
             BackgroundColor = Color.White;
             NavigationPage.SetHasNavigationBar(this, false);
-            var padding = new Thickness(20, Device.OnPlatform(40, 20, 20), 20, 20);
+            Thickness padding = new Thickness(20, Device.OnPlatform(40, 20, 20), 20, 20);
 
-            var label1 = new Label
+            Label labName = new Label
             {
-                Text = "Some Veterinary Clinic",
                 FontSize = 20,
                 TextColor = Color.Black
             };
+            labName.SetBinding(Label.TextProperty, new Binding("ClinicName"));
 
-            var label2 = new Label
+            Label labAddress = new Label
             {
-                Text = "123 Some Road",
                 FontSize = 20,
                 TextColor = Color.Black
             };
+            labAddress.SetBinding(Label.TextProperty, new Binding("Address"));
 
-            var label3 = new Label
+            Label labCity = new Label
             {
-                Text = "Somewhereville, US 12345",
                 FontSize = 20,
                 TextColor = Color.Black
+            };
+            labAddress.SetBinding(Label.TextProperty, new Binding("City"));
+
+            Label labState = new Label
+            {
+                FontSize = 20,
+                TextColor = Color.Black
+            };
+            labAddress.SetBinding(Label.TextProperty, new Binding("StateProvince", stringFormat:("{0}, ")));
+
+            Label labPostalCode = new Label
+            {
+                FontSize = 20,
+                TextColor = Color.Black
+            };
+            labAddress.SetBinding(Label.TextProperty, new Binding("PostalCode"));
+
+            StackLayout cityAndZipSl = new StackLayout
+            {
+                Orientation=StackOrientation.Horizontal,
+                Children =
+                {
+                    labCity,
+                    labState,
+                    labPostalCode
+                }
             };
 
             Image logoImage = new Image
             {
-                Source = "logo.png",
                 VerticalOptions = LayoutOptions.Start,
                 HorizontalOptions = LayoutOptions.End,
                 HeightRequest = 100,
                 WidthRequest = 207
             };
+            if (DataHelper.GetInstance().Clinic.Logo!=null)
+            {
+                logoImage.Source = ImageSource.FromStream(() => new System.IO.MemoryStream(DataHelper.GetInstance().Clinic.Logo));
+            }
 
             StackLayout logoImageSl = new StackLayout
             {
@@ -69,9 +98,9 @@ namespace AppointMaster.Pages
             {
                 Padding = padding,
                 Children = {
-                    label1,
-                    label2,
-                    label3,
+                    labName,
+                    labAddress,
+                    cityAndZipSl
                 }
             };
 
@@ -225,15 +254,6 @@ namespace AppointMaster.Pages
                     popupLayout.IsVisible = false;
                 };
 
-                //MyEntry passEntry = new MyEntry
-                //{
-                //    WidthRequest = 300,
-                //    HeightRequest = 50,
-                //    TextColor = Color.Black,
-                //    IsPassword=true
-                //};
-                //passEntry.SetBinding(Entry.TextProperty, new Binding("Password"));
-
                 btnLogout.SetBinding(Button.CommandProperty, new Binding("LogoutCommand"));
                 btnSettings.SetBinding(Button.CommandProperty, new Binding("ShowSettingsCommand"));
 
@@ -243,12 +263,7 @@ namespace AppointMaster.Pages
                     Children =
                     {
                         new StackLayout {Padding=padding, Children={ btnLogout } },
-                        //new StackLayout {Padding=padding10,Children= {new BoxView { WidthRequest = 1, HeightRequest = 1, BackgroundColor = Color.Black}} },
-                        //new StackLayout {Children={new Label { Text=AppResources.Settings,TextColor=Color.Black,HorizontalOptions=LayoutOptions.Center} } },
-                        //new StackLayout {Padding=padding10, Children={ new Label { Text=AppResources.Enter_Settings_Section,TextColor=Color.Black, HorizontalOptions = LayoutOptions.Center } } },
-                        //new StackLayout {Padding=padding20, Children={ passEntry } },
                         new StackLayout {Padding=padding, Children={ btnSettings } },
-
                         new StackLayout {Padding=padding, Children={ btnBack } }
                     }
                 };
@@ -259,11 +274,10 @@ namespace AppointMaster.Pages
                     HorizontalOptions = LayoutOptions.Center,
                     VerticalOptions = LayoutOptions.Center
                 };
+
                 grid.Padding = new Thickness(20, 20, 20, 0);
-                //grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
                 grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
                 grid.Children.Add(contentSl, 0, 0);
-                //grid.Children.Add(new StackLayout { Padding = new Thickness(0, 20, 300, 0), Children = { btnBack } }, 0, 1);
 
                 Grid settingGrid = new Grid
                 {
