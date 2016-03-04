@@ -224,6 +224,15 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter the base API address.
+        /// </summary>
+        public static string Enter_BaseAPI {
+            get {
+                return ResourceManager.GetString("Enter_BaseAPI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter the breed.
         /// </summary>
         public static string Enter_Breed {

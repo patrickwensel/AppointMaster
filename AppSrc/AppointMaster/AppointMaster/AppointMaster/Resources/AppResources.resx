@@ -171,6 +171,9 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="Enter_BaseAPI" xml:space="preserve">
+    <value>Please enter the base API address</value>
+  </data>
   <data name="Enter_Breed" xml:space="preserve">
     <value>Please enter the breed</value>
   </data>

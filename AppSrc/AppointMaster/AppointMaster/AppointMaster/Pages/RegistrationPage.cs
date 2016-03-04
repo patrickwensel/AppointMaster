@@ -15,7 +15,7 @@ using AppointMaster.Models;
 
 namespace AppointMaster.Pages
 {
-    public class RegistrationPage : ContentPage //IndexedPages
+    public class RegistrationPage : ContentPage
     {
         private RegistrationViewModel RegistrationViewModel
         {
@@ -242,7 +242,11 @@ namespace AppointMaster.Pages
                 grid2.IsVisible = true;
                 labStep.Text = AppResources.Registration_Step2;
             };
+
             btnStep1Back.SetBinding(Button.CommandProperty, new Binding("ShowCheckInCommand"));
+
+            btnStep1Cancel.SetBinding(Button.CommandProperty, new Binding("ShowCancelCommand"));
+
 
             grid1 = new Grid();
             grid1.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });

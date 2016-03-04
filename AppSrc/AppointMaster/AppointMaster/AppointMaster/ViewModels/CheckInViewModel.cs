@@ -47,8 +47,6 @@ namespace AppointMaster.ViewModels
             }
         }
 
-
-
         public ObservableCollection<DisplayAppointmentModel> Items { get; set; }
 
         public CheckInViewModel()

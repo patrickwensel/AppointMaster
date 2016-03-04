@@ -9,18 +9,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using XLabs.Ioc;
+using XLabs.Platform.Services;
 
 namespace AppointMaster.ViewModels
 {
     public class MainViewModel:MvxViewModel
     {
-        private string _password;
-        public string Password
-        {
-            get { return _password; }
-            set { _password = value; RaisePropertyChanged(() => Password); }
-        }
-
         public MainViewModel()
         {
             //GetClinicInfo();
@@ -38,43 +33,16 @@ namespace AppointMaster.ViewModels
         {
             get
             {
-                return new MvxCommand(() => ShowSettingsPage());
+                return new MvxCommand(() => ShowViewModel<SettingsViewModel>());
             }
         }
 
-        public MvxCommand ShowLoginCommand
+        public MvxCommand LogoutCommand
         {
             get
             {
-                return new MvxCommand(() => ShowViewModel<LoginViewModel>());
+                return new MvxCommand(() => Logout());
             }
-        }
-
-        private async void ValidatedPassword()
-        {
-            //try
-            //{
-            //    byte[] inputBytes = Encoding.UTF8.GetBytes(Password);
-            //    var hasher = WinRTCrypto.HashAlgorithmProvider.OpenAlgorithm(HashAlgorithm.Sha1);
-            //    byte[] hash = hasher.HashData(inputBytes);
-            //    string hashPass = Convert.ToBase64String(hash);
-
-            //    string authorization = string.Format("{0}|{1}|{2}", "VetMobile", UserName, hashPass);
-            //    string authorizationBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(authorization));
-
-            //    string url = "http://ppgservices-001-site6.ctempurl.com/Help/Api/GET-api-v1-VetClinic-Authorize";
-            //    HttpClient client = new HttpClient();
-            //    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Services.DataHelper.GetInstance().GetAuthorization());
-            //    HttpResponseMessage response = await client.GetAsync(url);
-            //    if (response.IsSuccessStatusCode)
-            //    {
-            //        string responseBody = await response.Content.ReadAsStringAsync();
-            //    }
-            //}
-            //catch (Exception)
-            //{
-
-            //}
         }
 
         private async void GetClinicInfo()
@@ -96,14 +64,12 @@ namespace AppointMaster.ViewModels
             }
         }
 
-        private void ShowSettingsPage()
+        private void Logout()
         {
-            if (string.IsNullOrEmpty(Password))
-            {
-                DisplayAlert(AppResources.Enter_Password);
-                return;
-            }
-            ShowViewModel<SettingsViewModel>();
+            //var secureStorage = Resolver.Resolve<ISecureStorage>();
+            //secureStorage.Delete("UserName");
+            //secureStorage.Delete("BaseAPI");
+            ShowViewModel<LoginViewModel>();
         }
 
         private void DisplayAlert(string message)

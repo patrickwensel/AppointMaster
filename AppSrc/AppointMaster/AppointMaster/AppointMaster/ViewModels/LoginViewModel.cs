@@ -1,4 +1,5 @@
 ﻿using AppointMaster.Resources;
+using AppointMaster.Services;
 using MvvmCross.Core.ViewModels;
 using PCLCrypto;
 using System;
@@ -8,6 +9,8 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using XLabs.Ioc;
+using XLabs.Platform.Services;
 
 namespace AppointMaster.ViewModels
 {
@@ -63,11 +66,18 @@ namespace AppointMaster.ViewModels
                 return;
             }
 
-            //ShowViewModel<MainViewModel>();
-            //return;
+            var secureStorage = Resolver.Resolve<ISecureStorage>();
+
+            secureStorage.Store("UserName", Encoding.UTF8.GetBytes(UserName));
+            ShowViewModel<MainViewModel>();
+            return;
 
             try
             {
+                byte[] bytes = secureStorage.Retrieve("BaseAPI");
+
+                DataHelper.GetInstance().BaseAPI = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+
                 byte[] inputBytes = Encoding.UTF8.GetBytes(Password);
                 var hasher = WinRTCrypto.HashAlgorithmProvider.OpenAlgorithm(HashAlgorithm.Sha1);
                 byte[] hash = hasher.HashData(inputBytes);
@@ -78,13 +88,16 @@ namespace AppointMaster.ViewModels
 
                 Services.DataHelper.GetInstance().SetAuthorization(authorizationBase64);
 
-                string url = "http://ppgservices-001-site6.ctempurl.com/api/v1/VetClinic";
+                string url = DataHelper.GetInstance().BaseAPI + "VetClinic";
                 HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", authorizationBase64);
                 HttpResponseMessage response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
                     string responseBody = await response.Content.ReadAsStringAsync();
+
+                    secureStorage.Store("UserName", Encoding.UTF8.GetBytes(UserName));
+
                     ShowViewModel<MainViewModel>();
                 }
             }
@@ -101,6 +114,11 @@ namespace AppointMaster.ViewModels
         public void DisplayAlert(string message)
         {
             MessagingCenter.Send<LoginViewModel, string>(this, "DisplayAlert", message);
+        }
+
+        public void ShowSetting()
+        {
+            ShowViewModel<SettingsViewModel>();
         }
     }
 }

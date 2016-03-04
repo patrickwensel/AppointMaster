@@ -132,10 +132,19 @@ namespace AppointMaster.Pages
             Content = grid;
         }
 
-        private void SetBaseAPI()
+        protected override void OnAppearing()
         {
-            //var secureStorage = Resolver.Resolve<ISecureStorage>();
-            //secureStorage.Store("BaseAPI", "");
+            base.OnAppearing();
+
+            try
+            {
+                var secureStorage = Resolver.Resolve<ISecureStorage>();
+                secureStorage.Retrieve("BaseAPI");
+            }
+            catch (System.Exception)
+            {
+                LoginViewModel.ShowSetting();
+            }
         }
     }
 }

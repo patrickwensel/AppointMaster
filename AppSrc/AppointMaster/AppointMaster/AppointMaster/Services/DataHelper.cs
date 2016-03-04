@@ -14,6 +14,8 @@ namespace AppointMaster.Services
         string authorization;
         AppointmentModel model;
 
+        public string BaseAPI { get; set; }
+
         public string GetAuthorization()
         {
             return authorization;

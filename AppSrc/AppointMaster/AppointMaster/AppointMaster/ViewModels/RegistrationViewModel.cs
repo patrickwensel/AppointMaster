@@ -89,17 +89,6 @@ namespace AppointMaster.ViewModels
             }
         }
 
-        //private string _zip;
-        //public string Zip
-        //{
-        //    get { return _zip; }
-        //    set
-        //    {
-        //        _zip = value;
-        //        RaisePropertyChanged(() => Zip);
-        //    }
-        //}
-
         private string _postalCode;
         public string PostalCode
         {
@@ -264,6 +253,14 @@ namespace AppointMaster.ViewModels
             }
         }
 
+        public MvxCommand ShowCancelCommand
+        {
+            get
+            {
+                return new MvxCommand(() => ShowViewModel<RegistrationCancelViewModel>());
+            }
+        }
+
         public RegistrationViewModel()
         {
             if (Services.DataHelper.GetInstance().GetSelectedAppointment() != null)
@@ -301,11 +298,6 @@ namespace AppointMaster.ViewModels
 
             PatientList = new ObservableCollection<DisplayPatientModel>();
             SelectedPatientList = new ObservableCollection<DisplayPatientModel>();
-            //PatientList.Add(new PatientInfo { PatientName = "Fido", Image = "dog.png", IsChecked = false, Breed = "Dog", PatientGender = "Male", Birth = "2/29/2016" });
-            //PatientList.Add(new PatientInfo { PatientName = "Buddy", Image = "dog.png", IsChecked = false, Breed = "Dog", PatientGender = "Male", Birth = "2/29/2016" });
-            //PatientList.Add(new PatientInfo { PatientName = "Jasper", Image = "cat.png", IsChecked = false, Breed = "Cat", PatientGender = "Female", Birth = "2/29/2016" });
-
-
         }
 
         private void CheckedAppointment()

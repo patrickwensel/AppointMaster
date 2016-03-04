@@ -2,6 +2,9 @@ using Android.App;
 using Android.Content.PM;
 using MvvmCross.Droid.Views;
 using Xamarin.Forms;
+using XLabs.Ioc;
+using XLabs.Platform.Device;
+using XLabs.Platform.Services;
 
 namespace AppointMaster.Droid
 {

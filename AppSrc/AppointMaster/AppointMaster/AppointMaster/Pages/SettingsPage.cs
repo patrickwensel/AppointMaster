@@ -1,5 +1,6 @@
 ﻿using AppointMaster.Controls;
 using AppointMaster.Resources;
+using AppointMaster.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,11 @@ namespace AppointMaster.Pages
 {
     public class SettingsPage : ContentPage
     {
+        private SettingsViewModel SettingsViewModel
+        {
+            get { return BindingContext as SettingsViewModel; }
+        }
+
         public SettingsPage()
         {
             BackgroundColor = Color.White;
@@ -48,19 +54,19 @@ namespace AppointMaster.Pages
                 TextColor = Color.Black,
             };
 
-            var btnCheckIn = new Button
-            {
-                WidthRequest = 200,
-                VerticalOptions = LayoutOptions.End,
-                HorizontalOptions = LayoutOptions.Start,
-                Text = string.Format("< {0}", AppResources.Check_In),
-                TextColor = Color.Black,
-                FontSize = 20,
-                BackgroundColor = Color.Transparent,
-                BorderColor = Color.Black,
-                BorderRadius = 1,
-                BorderWidth = 2
-            };
+            //var btnCheckIn = new Button
+            //{
+            //    WidthRequest = 200,
+            //    VerticalOptions = LayoutOptions.End,
+            //    HorizontalOptions = LayoutOptions.Start,
+            //    Text = string.Format("< {0}", AppResources.Check_In),
+            //    TextColor = Color.Black,
+            //    FontSize = 20,
+            //    BackgroundColor = Color.Transparent,
+            //    BorderColor = Color.Black,
+            //    BorderRadius = 1,
+            //    BorderWidth = 2
+            //};
 
             StackLayout apiSL = new StackLayout
             {
@@ -76,7 +82,7 @@ namespace AppointMaster.Pages
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50) });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(120) });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50) });
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1,GridUnitType.Star) });
+            //grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1,GridUnitType.Star) });
 
             grid.Children.Add(logoImage, 0, 0);
 
@@ -86,13 +92,18 @@ namespace AppointMaster.Pages
 
             grid.Children.Add(btnSave, 0, 3);
 
-            grid.Children.Add(btnCheckIn, 0, 4);
+            //grid.Children.Add(btnCheckIn, 0, 4);
 
             apiEntry.SetBinding(Entry.TextProperty, new Binding("BaseAPIAddress"));
             btnSave.SetBinding(Button.CommandProperty, new Binding("SaveCommand"));
-            btnCheckIn.SetBinding(Button.CommandProperty, new Binding("ShowCheckInCommand"));
+            //btnCheckIn.SetBinding(Button.CommandProperty, new Binding("ShowCheckInCommand"));
 
             Content = grid;
+
+            MessagingCenter.Subscribe<SettingsViewModel, string>(this, "DisplayAlert", (sender, value) =>
+            {
+                DisplayAlert(AppResources.Error, AppResources.Enter_BaseAPI, AppResources.OK);
+            });
         }
     }
 }
