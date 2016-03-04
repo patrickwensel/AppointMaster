@@ -24,6 +24,6 @@ namespace AM.RestApi.Model
         public string DefaultCulture { get; set; }
         public string PrimaryColor { get; set; }
         public string SecondaryColor { get; set; }
-        public List<int> SpeciesSupported { get; set; } 
+        public List<SpeciesViewModel> SpeciesSupported { get; set; } 
     }
 }

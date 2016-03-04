@@ -16,14 +16,14 @@ namespace AM.VetData.Data
     {
         public Species()
         {
-            this.ClinicSpecies = new HashSet<ClinicSpecies>();
             this.Patients = new HashSet<Patient>();
+            this.ClinicSpecies = new HashSet<ClinicSpecies>();
         }
     
         public int ID { get; set; }
         public string Name { get; set; }
     
-        public virtual ICollection<ClinicSpecies> ClinicSpecies { get; set; }
         public virtual ICollection<Patient> Patients { get; set; }
+        public virtual ICollection<ClinicSpecies> ClinicSpecies { get; set; }
     }
 }

@@ -29,10 +29,10 @@ namespace AM.VetData.Data
         public DbSet<AppointmentPatient> AppointmentPatients { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<Clinic> Clinics { get; set; }
-        public DbSet<ClinicSpecies> ClinicSpeciess { get; set; }
         public DbSet<Culture> Cultures { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Species> Speciess { get; set; }
         public DbSet<APIUser> APIUsers { get; set; }
+        public DbSet<ClinicSpecies> ClinicSpeciess { get; set; }
     }
 }

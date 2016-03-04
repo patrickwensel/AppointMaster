@@ -1,13 +1,20 @@
 ﻿@model AM.VetData.Data.ClinicSpecies
 
 @{
-    ViewBag.Title = "Edit";
+	ViewBag.Title = "Edit";
+
+	string imgSrc = null;
+	if (Model.Logo != null)
+	{
+		var base64 = Convert.ToBase64String(Model.Logo);
+		imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+	}
 }
 
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "ClinicSpecies", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -42,6 +49,21 @@
                 </div>
             </div>
         </div>
+		<div class="form-group">
+			@Html.LabelFor(model => model.DisplayOrder, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.DisplayOrder, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.DisplayOrder, "", new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="form-group">
+			@Html.LabelFor(model => model.Logo, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@*@Html.EditorFor(model => model.Logo, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Logo, "", new { @class = "text-danger" })*@
+				<input id="logoImage" name="logoImage" class="file" type="file" data-min-file-count="1" data-show-upload="false">
+			</div>
+		</div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -58,3 +80,28 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#logoImage").fileinput(
+            {
+                type: 'POST',
+                showCaption: false,
+                maxFileCount: 1,
+                allowedFileExtensions: ['png'],
+                enctype: 'multipart/form-data',
+                initialPreview: [
+                     "<img style='height:160px' src='@imgSrc'>",
+                ],
+                initialPreviewConfig: [
+                     { caption: "logo.png", width: "120px", key: 1 },//url: "/site/file-delete",
+                ],
+                //uploadExtraData: {
+                //    img_key: "1000",
+                //    img_keywords: "happy, people",
+                //}
+            });
+    });
+</script>

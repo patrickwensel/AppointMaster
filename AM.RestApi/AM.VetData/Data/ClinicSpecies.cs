@@ -15,9 +15,11 @@ namespace AM.VetData.Data
     public partial class ClinicSpecies
     {
         public int ID { get; set; }
-        public Nullable<int> ClinicID { get; set; }
-        public Nullable<int> SpeciesID { get; set; }
-        public Nullable<bool> PrimaryDisplay { get; set; }
+        public int ClinicID { get; set; }
+        public int SpeciesID { get; set; }
+        public bool PrimaryDisplay { get; set; }
+        public byte[] Logo { get; set; }
+        public Nullable<int> DisplayOrder { get; set; }
     
         public virtual Clinic Clinic { get; set; }
         public virtual Species Species { get; set; }

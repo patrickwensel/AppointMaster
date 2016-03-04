@@ -193,6 +193,7 @@
     <Compile Include="Model\ClinicViewModel.cs" />
     <Compile Include="Model\CultureViewModel.cs" />
     <Compile Include="Model\PatientViewModel.cs" />
+    <Compile Include="Model\SpeciesViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -238,11 +239,6 @@
     <Content Include="Areas\TestData\Views\Species\Details.cshtml" />
     <Content Include="Areas\TestData\Views\Species\Edit.cshtml" />
     <Content Include="Areas\TestData\Views\Species\Index.cshtml" />
-    <Content Include="Areas\TestData\Views\ClinicSpecies\Create.cshtml" />
-    <Content Include="Areas\TestData\Views\ClinicSpecies\Delete.cshtml" />
-    <Content Include="Areas\TestData\Views\ClinicSpecies\Details.cshtml" />
-    <Content Include="Areas\TestData\Views\ClinicSpecies\Edit.cshtml" />
-    <Content Include="Areas\TestData\Views\ClinicSpecies\Index.cshtml" />
     <Content Include="Areas\TestData\Views\Clinics\Create.cshtml" />
     <Content Include="Areas\TestData\Views\Clinics\Delete.cshtml" />
     <Content Include="Areas\TestData\Views\Clinics\Details.cshtml" />
@@ -268,6 +264,11 @@
     <Content Include="Areas\TestData\Views\Patients\Details.cshtml" />
     <Content Include="Areas\TestData\Views\Patients\Edit.cshtml" />
     <Content Include="Areas\TestData\Views\Patients\Index.cshtml" />
+    <Content Include="Areas\TestData\Views\ClinicSpecies\Create.cshtml" />
+    <Content Include="Areas\TestData\Views\ClinicSpecies\Delete.cshtml" />
+    <Content Include="Areas\TestData\Views\ClinicSpecies\Details.cshtml" />
+    <Content Include="Areas\TestData\Views\ClinicSpecies\Edit.cshtml" />
+    <Content Include="Areas\TestData\Views\ClinicSpecies\Index.cshtml" />
     <None Include="Properties\PublishProfiles\ASPNet.pubxml" />
     <None Include="Properties\PublishProfiles\TestAPI.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

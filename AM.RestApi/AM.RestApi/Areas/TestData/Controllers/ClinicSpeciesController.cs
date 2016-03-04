@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -49,11 +50,25 @@ namespace AM.RestApi.Areas.TestData.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ClinicID,SpeciesID,PrimaryDisplay")] ClinicSpecies clinicSpecies)
+        public ActionResult Create([Bind(Include = "ID,ClinicID,SpeciesID,PrimaryDisplay,Logo,DisplayOrder")] ClinicSpecies clinicSpecies)
         {
             if (ModelState.IsValid)
             {
-                db.ClinicSpeciess.Add(clinicSpecies);
+				try
+				{
+					if (Request.Files != null && Request.Files.Count > 0)
+					{
+						var files = Request.Files["logoImage"];
+						MemoryStream target = new MemoryStream();
+						files.InputStream.CopyTo(target);
+						clinicSpecies.Logo = target.ToArray();
+					}
+				}
+				catch
+				{
+
+				}
+				db.ClinicSpeciess.Add(clinicSpecies);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -85,11 +100,26 @@ namespace AM.RestApi.Areas.TestData.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ClinicID,SpeciesID,PrimaryDisplay")] ClinicSpecies clinicSpecies)
+        public ActionResult Edit([Bind(Include = "ID,ClinicID,SpeciesID,PrimaryDisplay,Logo,DisplayOrder")] ClinicSpecies clinicSpecies)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(clinicSpecies).State = EntityState.Modified;
+				try
+				{
+					if (Request.Files != null && Request.Files.Count > 0)
+					{
+						var files = Request.Files["logoImage"];
+						MemoryStream target = new MemoryStream();
+						files.InputStream.CopyTo(target);
+						clinicSpecies.Logo = target.ToArray();
+					}
+				}
+				catch
+				{
+
+				}
+
+				db.Entry(clinicSpecies).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

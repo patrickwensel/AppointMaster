@@ -1,7 +1,14 @@
 ﻿@model AM.VetData.Data.ClinicSpecies
 
 @{
-    ViewBag.Title = "Details";
+	ViewBag.Title = "Details";
+
+	string imgSrc = null;
+	if (Model.Logo != null)
+	{
+		var base64 = Convert.ToBase64String(Model.Logo);
+		imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+	}
 }
 
 <h2>Details</h2>
@@ -16,6 +23,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.PrimaryDisplay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Logo)
+        </dt>
+
+        <dd>
+			<img src="@imgSrc" />
         </dd>
 
         <dt>
