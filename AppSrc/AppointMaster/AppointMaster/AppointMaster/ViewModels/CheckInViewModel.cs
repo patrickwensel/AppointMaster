@@ -53,7 +53,7 @@ namespace AppointMaster.ViewModels
         {
             Items = new ObservableCollection<DisplayAppointmentModel>();
             //Items.Add(new DisplayAppointmentModel { Time = DateTime.Now, ID = 1000, Client = new ClientModel { Title = "Mr.", FirstName = "first", LastName = "last" } });
-            //GetAppointmentIDs();
+            GetAppointmentIDs();
         }
 
         public async void GetAppointmentIDs()

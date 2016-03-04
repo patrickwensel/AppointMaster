@@ -24,8 +24,8 @@ namespace AppointMaster.Pages
                 Aspect = Aspect.AspectFit,
                 Source = "logo.png",
                 VerticalOptions = LayoutOptions.Start,
-                HeightRequest = 112,
-                WidthRequest = 350
+                HeightRequest = 100,
+                WidthRequest = 207
             };
 
             var userEntry = new MyEntry
@@ -104,7 +104,7 @@ namespace AppointMaster.Pages
             loadingGrid.SetBinding(Grid.IsVisibleProperty, new Binding("IsBusy"));
 
             var grid = new Grid();
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(180) });
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(150) });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(120) });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(130) });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });

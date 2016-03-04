@@ -16,8 +16,6 @@ namespace AppointMaster.Services
 
         public string BaseAPI { get; set; }
 
-        public ClinicModel Clinic { get; set; }
-
         public string GetAuthorization()
         {
             return authorization;
@@ -36,11 +34,6 @@ namespace AppointMaster.Services
         public void SetSelectedAppointment(AppointmentModel value)
         {
             model = value;
-        }
-
-        public DataHelper()
-        {
-            Clinic = new ClinicModel();
         }
 
         public static DataHelper GetInstance()

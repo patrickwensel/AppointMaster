@@ -1,5 +1,4 @@
 ﻿using AppointMaster.Resources;
-using AppointMaster.Services;
 using MvvmCross.Core.ViewModels;
 using PCLCrypto;
 using System;
@@ -17,39 +16,9 @@ namespace AppointMaster.ViewModels
 {
     public class MainViewModel:MvxViewModel
     {
-        private string _clinicName;
-        public string ClinicName
+        public MainViewModel()
         {
-            get { return _clinicName; }
-            set { _clinicName = value;RaisePropertyChanged(() => ClinicName); }
-        }
-
-        private string _address;
-        public string Address
-        {
-            get { return _address; }
-            set { _address = value; RaisePropertyChanged(() => Address); }
-        }
-
-        private string _city;
-        public string City
-        {
-            get { return _city; }
-            set { _city = value; RaisePropertyChanged(() => City); }
-        }
-
-        private string _stateProvince;
-        public string StateProvince
-        {
-            get { return _stateProvince; }
-            set { _stateProvince = value; RaisePropertyChanged(() => StateProvince); }
-        }
-
-        private string _postalCode;
-        public string PostalCode
-        {
-            get { return _postalCode; }
-            set { _postalCode = value; RaisePropertyChanged(() => PostalCode); }
+            //GetClinicInfo();
         }
 
         public MvxCommand ShowCheckInCommand
@@ -74,15 +43,6 @@ namespace AppointMaster.ViewModels
             {
                 return new MvxCommand(() => Logout());
             }
-        }
-
-        public MainViewModel()
-        {
-            ClinicName = DataHelper.GetInstance().Clinic.Name;
-            Address = DataHelper.GetInstance().Clinic.Address1;
-            City = DataHelper.GetInstance().Clinic.City;
-            StateProvince = DataHelper.GetInstance().Clinic.StateProvince;
-            PostalCode = DataHelper.GetInstance().Clinic.PostalCode;
         }
 
         private async void GetClinicInfo()
