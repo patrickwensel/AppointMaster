@@ -74,9 +74,11 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ClinicID" Type="int" />
-          <Property Name="SpeciesID" Type="int" />
-          <Property Name="PrimaryDisplay" Type="bit" />
+          <Property Name="ClinicID" Type="int" Nullable="false" />
+          <Property Name="SpeciesID" Type="int" Nullable="false" />
+          <Property Name="PrimaryDisplay" Type="bit" Nullable="false" />
+          <Property Name="Logo" Type="image" />
+          <Property Name="DisplayOrder" Type="int" />
         </EntityType>
         <EntityType Name="VetCulture">
           <Key>
@@ -190,7 +192,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_VetClinicSpecies_VetClinicSpecies">
-          <End Role="VetClinic" Type="Self.VetClinic" Multiplicity="0..1" />
+          <End Role="VetClinic" Type="Self.VetClinic" Multiplicity="1" />
           <End Role="VetClinicSpecies" Type="Self.VetClinicSpecies" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="VetClinic">
@@ -202,7 +204,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_VetClinicSpecies_VetSpecies">
-          <End Role="VetSpecies" Type="Self.VetSpecies" Multiplicity="0..1" />
+          <End Role="VetSpecies" Type="Self.VetSpecies" Multiplicity="1" />
           <End Role="VetClinicSpecies" Type="Self.VetClinicSpecies" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="VetSpecies">
@@ -359,20 +361,9 @@
           <Property Name="PrimaryColor" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="SecondaryColor" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Culture" Relationship="Self.FK_VetClinic_VetClinic" FromRole="VetClinic" ToRole="VetCulture" />
-          <NavigationProperty Name="ClinicSpecies" Relationship="Self.FK_VetClinicSpecies_VetClinicSpecies" FromRole="VetClinic" ToRole="VetClinicSpecies" />
           <NavigationProperty Name="APIUsers" Relationship="VetDataModel.FK_VetAPIUser_VetClinic" FromRole="Clinic" ToRole="VetAPIUser" />
           <NavigationProperty Name="Appointments" Relationship="VetDataModel.FK_VetAppointment_VetClinic" FromRole="Clinic" ToRole="Appointment" />
-        </EntityType>
-        <EntityType Name="ClinicSpecies">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClinicID" Type="Int32" />
-          <Property Name="SpeciesID" Type="Int32" />
-          <Property Name="PrimaryDisplay" Type="Boolean" />
-          <NavigationProperty Name="Clinic" Relationship="Self.FK_VetClinicSpecies_VetClinicSpecies" FromRole="VetClinicSpecies" ToRole="VetClinic" />
-          <NavigationProperty Name="Species" Relationship="Self.FK_VetClinicSpecies_VetSpecies" FromRole="VetClinicSpecies" ToRole="VetSpecies" />
+          <NavigationProperty Name="ClinicSpecies" Relationship="VetDataModel.FK_VetClinicSpecies_VetClinicSpecies" FromRole="Clinic" ToRole="ClinicSpecies" />
         </EntityType>
         <EntityType Name="Culture">
           <Key>
@@ -405,8 +396,8 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ClinicSpecies" Relationship="Self.FK_VetClinicSpecies_VetSpecies" FromRole="VetSpecies" ToRole="VetClinicSpecies" />
           <NavigationProperty Name="Patients" Relationship="Self.FK_VetPatient_VetSpecies" FromRole="VetSpecies" ToRole="VetPatient" />
+          <NavigationProperty Name="ClinicSpecies" Relationship="VetDataModel.FK_VetClinicSpecies_VetSpecies" FromRole="Species" ToRole="ClinicSpecies" />
         </EntityType>
         <Association Name="FK_VetAppointmentPatient_VetAppointment">
           <End Role="VetAppointment" Type="VetDataModel.Appointment" Multiplicity="0..1" />
@@ -456,30 +447,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_VetClinicSpecies_VetClinicSpecies">
-          <End Role="VetClinic" Type="VetDataModel.Clinic" Multiplicity="0..1" />
-          <End Role="VetClinicSpecies" Type="VetDataModel.ClinicSpecies" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VetClinic">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="VetClinicSpecies">
-              <PropertyRef Name="ClinicID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_VetClinicSpecies_VetSpecies">
-          <End Role="VetSpecies" Type="VetDataModel.Species" Multiplicity="0..1" />
-          <End Role="VetClinicSpecies" Type="VetDataModel.ClinicSpecies" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="VetSpecies">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="VetClinicSpecies">
-              <PropertyRef Name="SpeciesID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_VetPatient_VetSpecies">
           <End Role="VetSpecies" Type="VetDataModel.Species" Multiplicity="0..1" />
           <End Role="VetPatient" Type="VetDataModel.Patient" Multiplicity="*" />
@@ -497,7 +464,6 @@
           <EntitySet Name="AppointmentPatients" EntityType="VetDataModel.AppointmentPatient" />
           <EntitySet Name="Clients" EntityType="VetDataModel.Client" />
           <EntitySet Name="Clinics" EntityType="VetDataModel.Clinic" />
-          <EntitySet Name="ClinicSpeciess" EntityType="VetDataModel.ClinicSpecies" />
           <EntitySet Name="Cultures" EntityType="VetDataModel.Culture" />
           <EntitySet Name="Patients" EntityType="VetDataModel.Patient" />
           <EntitySet Name="Speciess" EntityType="VetDataModel.Species" />
@@ -516,14 +482,6 @@
           <AssociationSet Name="FK_VetClinic_VetClinic" Association="Self.FK_VetClinic_VetClinic">
             <End Role="VetCulture" EntitySet="Cultures" />
             <End Role="VetClinic" EntitySet="Clinics" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VetClinicSpecies_VetClinicSpecies" Association="Self.FK_VetClinicSpecies_VetClinicSpecies">
-            <End Role="VetClinic" EntitySet="Clinics" />
-            <End Role="VetClinicSpecies" EntitySet="ClinicSpeciess" />
-          </AssociationSet>
-          <AssociationSet Name="FK_VetClinicSpecies_VetSpecies" Association="Self.FK_VetClinicSpecies_VetSpecies">
-            <End Role="VetSpecies" EntitySet="Speciess" />
-            <End Role="VetClinicSpecies" EntitySet="ClinicSpeciess" />
           </AssociationSet>
           <AssociationSet Name="FK_VetPatient_VetSpecies" Association="Self.FK_VetPatient_VetSpecies">
             <End Role="VetSpecies" EntitySet="Speciess" />
@@ -545,6 +503,15 @@
           <AssociationSet Name="FK_VetPatient_VetClient" Association="VetDataModel.FK_VetPatient_VetClient">
             <End Role="Client" EntitySet="Clients" />
             <End Role="Patient" EntitySet="Patients" />
+          </AssociationSet>
+          <EntitySet Name="ClinicSpeciess" EntityType="VetDataModel.ClinicSpecies" />
+          <AssociationSet Name="FK_VetClinicSpecies_VetClinicSpecies" Association="VetDataModel.FK_VetClinicSpecies_VetClinicSpecies">
+            <End Role="Clinic" EntitySet="Clinics" />
+            <End Role="ClinicSpecies" EntitySet="ClinicSpeciess" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VetClinicSpecies_VetSpecies" Association="VetDataModel.FK_VetClinicSpecies_VetSpecies">
+            <End Role="Species" EntitySet="Speciess" />
+            <End Role="ClinicSpecies" EntitySet="ClinicSpeciess" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="APIUser">
@@ -602,6 +569,43 @@
             </Principal>
             <Dependent Role="Patient">
               <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ClinicSpecies">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClinicID" Type="Int32" Nullable="false" />
+          <Property Name="SpeciesID" Type="Int32" Nullable="false" />
+          <Property Name="PrimaryDisplay" Type="Boolean" Nullable="false" />
+          <Property Name="Logo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Clinic" Relationship="VetDataModel.FK_VetClinicSpecies_VetClinicSpecies" FromRole="ClinicSpecies" ToRole="Clinic" />
+          <NavigationProperty Name="Species" Relationship="VetDataModel.FK_VetClinicSpecies_VetSpecies" FromRole="ClinicSpecies" ToRole="Species" />
+          <Property Name="DisplayOrder" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_VetClinicSpecies_VetClinicSpecies">
+          <End Type="VetDataModel.Clinic" Role="Clinic" Multiplicity="1" />
+          <End Type="VetDataModel.ClinicSpecies" Role="ClinicSpecies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clinic">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ClinicSpecies">
+              <PropertyRef Name="ClinicID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VetClinicSpecies_VetSpecies">
+          <End Type="VetDataModel.Species" Role="Species" Multiplicity="1" />
+          <End Type="VetDataModel.ClinicSpecies" Role="ClinicSpecies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Species">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ClinicSpecies">
+              <PropertyRef Name="SpeciesID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -670,16 +674,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ClinicSpeciess">
-            <EntityTypeMapping TypeName="VetDataModel.ClinicSpecies">
-              <MappingFragment StoreEntitySet="VetClinicSpecies">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="ClinicID" ColumnName="ClinicID" />
-                <ScalarProperty Name="SpeciesID" ColumnName="SpeciesID" />
-                <ScalarProperty Name="PrimaryDisplay" ColumnName="PrimaryDisplay" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Cultures">
             <EntityTypeMapping TypeName="VetDataModel.Culture">
               <MappingFragment StoreEntitySet="VetCulture">
@@ -715,6 +709,18 @@
               <MappingFragment StoreEntitySet="VetAPIUser">
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="APIKey" ColumnName="APIKey" />
+                <ScalarProperty Name="ClinicID" ColumnName="ClinicID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClinicSpeciess">
+            <EntityTypeMapping TypeName="VetDataModel.ClinicSpecies">
+              <MappingFragment StoreEntitySet="VetClinicSpecies">
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+                <ScalarProperty Name="PrimaryDisplay" ColumnName="PrimaryDisplay" />
+                <ScalarProperty Name="SpeciesID" ColumnName="SpeciesID" />
                 <ScalarProperty Name="ClinicID" ColumnName="ClinicID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>

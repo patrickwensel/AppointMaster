@@ -17,9 +17,12 @@
         <th>
             @Html.DisplayNameFor(model => model.Clinic.Name)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Species.Name)
-        </th>
+	    <th>
+		    @Html.DisplayNameFor(model => model.Species.Name)
+	    </th>
+		<th>
+			@Html.DisplayNameFor(model => model.DisplayOrder)
+		</th>
         <th></th>
     </tr>
 
@@ -31,9 +34,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.Clinic.Name)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Species.Name)
-        </td>
+	    <td>
+		    @Html.DisplayFor(modelItem => item.Species.Name)
+	    </td>
+		<td>
+			@Html.DisplayFor(modelItem => item.DisplayOrder)
+		</td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |

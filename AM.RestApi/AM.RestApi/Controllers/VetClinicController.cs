@@ -1,12 +1,8 @@
 ﻿using System.Linq;
-using System.Net.Http;
-using System.Security.Principal;
-using System.Threading;
 using System.Web.Http;
 using AM.RestApi.Identities;
 using AM.RestApi.Model;
 using AM.VetData.Data;
-using Newtonsoft.Json;
 
 namespace AM.RestApi.Controllers
 {
@@ -37,13 +33,22 @@ namespace AM.RestApi.Controllers
                 DefaultCulture = c.DefaultCultureCode,
                 PrimaryColor = c.PrimaryColor,
                 SecondaryColor = c.SecondaryColor,
-                SpeciesSupported=c.ClinicSpecies.Select(x=>x.SpeciesID.Value).ToList()
+                SpeciesSupported=c.ClinicSpecies.Select(x=> new SpeciesViewModel
+                {
+	                ID = x.ID,
+					ClinicID = x.ClinicID,
+					SpeciesID = x.SpeciesID,
+					Logo = x.Logo,
+					PrimaryDisplay = x.PrimaryDisplay
+
+                }
+				).ToList()
             });
 
             return clinic;
         }
-
-        [Route("~/api/v1/VetClinic/Authorize")]
+		
+		[Route("~/api/v1/VetClinic/Authorize")]
         [HttpGet]
         public void Authorize()
         {

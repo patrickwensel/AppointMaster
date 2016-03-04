@@ -39,7 +39,7 @@
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Culture.CountryCode)
+            @Html.DisplayNameFor(model => model.Culture.CultureCode)
         </th>
         <th></th>
     </tr>
@@ -74,7 +74,7 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Culture.CountryCode)
+            @Html.DisplayFor(modelItem => item.Culture.CultureCode)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |

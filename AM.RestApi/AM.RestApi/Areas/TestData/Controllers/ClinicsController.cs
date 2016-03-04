@@ -40,7 +40,7 @@ namespace AM.RestApi.Areas.TestData.Controllers
         // GET: TestData/Clinics/Create
         public ActionResult Create()
         {
-            ViewBag.DefaultCultureCode = new SelectList(db.Cultures, "CultureCode", "CountryCode");
+            ViewBag.DefaultCultureCode = new SelectList(db.Cultures, "CultureCode", "CultureCode");
             return View();
         }
 
@@ -73,7 +73,7 @@ namespace AM.RestApi.Areas.TestData.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.DefaultCultureCode = new SelectList(db.Cultures, "CultureCode", "CountryCode", clinic.DefaultCultureCode);
+            ViewBag.DefaultCultureCode = new SelectList(db.Cultures, "CultureCode", "CultureCode", clinic.DefaultCultureCode);
             return View(clinic);
         }
 
@@ -89,7 +89,7 @@ namespace AM.RestApi.Areas.TestData.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.DefaultCultureCode = new SelectList(db.Cultures, "CultureCode", "CountryCode", clinic.DefaultCultureCode);
+            ViewBag.DefaultCultureCode = new SelectList(db.Cultures, "CultureCode", "CultureCode", clinic.DefaultCultureCode);
             return View(clinic);
         }
 
@@ -120,7 +120,7 @@ namespace AM.RestApi.Areas.TestData.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.DefaultCultureCode = new SelectList(db.Cultures, "CultureCode", "CountryCode", clinic.DefaultCultureCode);
+            ViewBag.DefaultCultureCode = new SelectList(db.Cultures, "CultureCode", "CultureCode", clinic.DefaultCultureCode);
             return View(clinic);
         }
 

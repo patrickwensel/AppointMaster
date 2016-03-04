@@ -16,9 +16,9 @@ namespace AM.VetData.Data
     {
         public Clinic()
         {
-            this.ClinicSpecies = new HashSet<ClinicSpecies>();
             this.APIUsers = new HashSet<APIUser>();
             this.Appointments = new HashSet<Appointment>();
+            this.ClinicSpecies = new HashSet<ClinicSpecies>();
         }
     
         public int ID { get; set; }
@@ -39,8 +39,8 @@ namespace AM.VetData.Data
         public string SecondaryColor { get; set; }
     
         public virtual Culture Culture { get; set; }
-        public virtual ICollection<ClinicSpecies> ClinicSpecies { get; set; }
         public virtual ICollection<APIUser> APIUsers { get; set; }
         public virtual ICollection<Appointment> Appointments { get; set; }
+        public virtual ICollection<ClinicSpecies> ClinicSpecies { get; set; }
     }
 }
