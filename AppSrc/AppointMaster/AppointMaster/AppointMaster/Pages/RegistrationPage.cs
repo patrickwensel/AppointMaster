@@ -471,7 +471,7 @@ namespace AppointMaster.Pages
                     DisplayAlert(AppResources.Error, AppResources.Enter_City, AppResources.OK);
                     return;
                 }
-                if (string.IsNullOrEmpty(RegistrationViewModel.Zip))
+                if (string.IsNullOrEmpty(RegistrationViewModel.PostalCode))
                 {
                     DisplayAlert(AppResources.Error, AppResources.Enter_Postal_Code, AppResources.OK);
                     return;
@@ -1352,12 +1352,13 @@ namespace AppointMaster.Pages
                     DisplayAlert(AppResources.Error, AppResources.Enter_Breed, AppResources.OK);
                     return;
                 }
-                PatientInfo patientInfo = new PatientInfo
+
+                DisplayPatientModel patientInfo = new DisplayPatientModel
                 {
-                    PatientName = RegistrationViewModel.PatientName,
+                    Name = RegistrationViewModel.PatientName,
                     Breed = RegistrationViewModel.Breed,
-                    PatientGender = RegistrationViewModel.PatientGender,
-                    Birth = RegistrationViewModel.PatientBirth.ToString("MM/dd/yyyy"),
+                    Gender = RegistrationViewModel.PatientGender,
+                    Birthdate = RegistrationViewModel.PatientBirth.Date,
                     IsChecked = true
                 };
 
@@ -1727,7 +1728,7 @@ namespace AppointMaster.Pages
             labStreetAddress.SetBinding(Label.TextProperty, new Binding("StreetAddress"));
             labCity.SetBinding(Label.TextProperty, new Binding("City"));
             labState.SetBinding(Label.TextProperty, new Binding("SelectedState.State"));
-            labZiP.SetBinding(Label.TextProperty, new Binding("Zip"));
+            labZiP.SetBinding(Label.TextProperty, new Binding("PostalCode"));
 
             labPhone.SetBinding(Label.TextProperty, new Binding("Phone"));
             labEmail.SetBinding(Label.TextProperty, new Binding("Email"));
@@ -1735,7 +1736,7 @@ namespace AppointMaster.Pages
 
         private void LstPatient_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            PatientInfo model = e.Item as PatientInfo;
+            DisplayPatientModel model = e.Item as DisplayPatientModel;
             model.IsChecked = !model.IsChecked;
             if (RegistrationViewModel.SelectedPatientList.Contains(model))
                 RegistrationViewModel.SelectedPatientList.Remove(model);

@@ -6,7 +6,7 @@ using Xamarin.Forms;
 namespace AppointMaster.Droid
 {
     [Activity(
-        Label = "AppointMaster"
+        Label = "Vet Desk"
         , MainLauncher = true
         , Theme = "@style/Theme.Splash"
         , NoHistory = true

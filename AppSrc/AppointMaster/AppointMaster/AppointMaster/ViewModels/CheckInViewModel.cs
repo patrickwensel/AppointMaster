@@ -54,8 +54,8 @@ namespace AppointMaster.ViewModels
         public CheckInViewModel()
         {
             Items = new ObservableCollection<DisplayAppointmentModel>();
-            Items.Add(new DisplayAppointmentModel { Time = DateTime.Now, ID = 1000, Client = new ClientModel { Title = "Mr.", FirstName = "first", LastName = "last" } });
-            //GetAppointmentIDs();
+            //Items.Add(new DisplayAppointmentModel { Time = DateTime.Now, ID = 1000, Client = new ClientModel { Title = "Mr.", FirstName = "first", LastName = "last" } });
+            GetAppointmentIDs();
         }
 
         public async void GetAppointmentIDs()

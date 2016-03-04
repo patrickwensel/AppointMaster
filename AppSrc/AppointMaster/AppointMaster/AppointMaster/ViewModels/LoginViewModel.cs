@@ -63,8 +63,8 @@ namespace AppointMaster.ViewModels
                 return;
             }
 
-            ShowViewModel<MainViewModel>();
-            return;
+            //ShowViewModel<MainViewModel>();
+            //return;
 
             try
             {

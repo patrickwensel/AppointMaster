@@ -89,14 +89,25 @@ namespace AppointMaster.ViewModels
             }
         }
 
-        private string _zip;
-        public string Zip
+        //private string _zip;
+        //public string Zip
+        //{
+        //    get { return _zip; }
+        //    set
+        //    {
+        //        _zip = value;
+        //        RaisePropertyChanged(() => Zip);
+        //    }
+        //}
+
+        private string _postalCode;
+        public string PostalCode
         {
-            get { return _zip; }
+            get { return _postalCode; }
             set
             {
-                _zip = value;
-                RaisePropertyChanged(() => Zip);
+                _postalCode = value;
+                RaisePropertyChanged(() => PostalCode);
             }
         }
 
@@ -241,9 +252,9 @@ namespace AppointMaster.ViewModels
 
         public ObservableCollection<string> BreedList { get; set; }
 
-        public ObservableCollection<PatientInfo> PatientList { get; set; }
+        public ObservableCollection<DisplayPatientModel> PatientList { get; set; }
 
-        public ObservableCollection<PatientInfo> SelectedPatientList { get; set; }
+        public ObservableCollection<DisplayPatientModel> SelectedPatientList { get; set; }
 
         public MvxCommand ShowCheckInCommand
         {
@@ -288,12 +299,13 @@ namespace AppointMaster.ViewModels
             StateList.Add("AL");
             StateList.Add("AK");
 
-            PatientList = new ObservableCollection<PatientInfo>();
-            PatientList.Add(new PatientInfo { PatientName = "Fido", Image = "dog.png", IsChecked = false, Breed = "Dog", PatientGender = "Male", Birth = "2/29/2016" });
-            PatientList.Add(new PatientInfo { PatientName = "Buddy", Image = "dog.png", IsChecked = false, Breed = "Dog", PatientGender = "Male", Birth = "2/29/2016" });
-            PatientList.Add(new PatientInfo { PatientName = "Jasper", Image = "cat.png", IsChecked = false, Breed = "Cat", PatientGender = "Female", Birth = "2/29/2016" });
+            PatientList = new ObservableCollection<DisplayPatientModel>();
+            SelectedPatientList = new ObservableCollection<DisplayPatientModel>();
+            //PatientList.Add(new PatientInfo { PatientName = "Fido", Image = "dog.png", IsChecked = false, Breed = "Dog", PatientGender = "Male", Birth = "2/29/2016" });
+            //PatientList.Add(new PatientInfo { PatientName = "Buddy", Image = "dog.png", IsChecked = false, Breed = "Dog", PatientGender = "Male", Birth = "2/29/2016" });
+            //PatientList.Add(new PatientInfo { PatientName = "Jasper", Image = "cat.png", IsChecked = false, Breed = "Cat", PatientGender = "Female", Birth = "2/29/2016" });
 
-            SelectedPatientList = new ObservableCollection<PatientInfo>();
+
         }
 
         private void CheckedAppointment()
@@ -301,8 +313,23 @@ namespace AppointMaster.ViewModels
             AppointmentModel model = Services.DataHelper.GetInstance().GetSelectedAppointment();
 
             SelectedTitle = model.Client.Title;
+            SelectedState = model.Client.StateProvince;
+            
             FirstName = model.Client.FirstName;
             LastName = model.Client.LastName;
+            StreetAddress = model.Client.Address;
+            City = model.Client.City;
+            PostalCode = model.Client.PostalCode;
+            Phone = model.Client.Phone;
+            Email = model.Client.Email;
+
+            foreach (var item in model.Patients)
+            {
+                PatientList.Add(new DisplayPatientModel
+                {
+                   
+                });
+            }
 
             Services.DataHelper.GetInstance().SetSelectedAppointment(null);
         }

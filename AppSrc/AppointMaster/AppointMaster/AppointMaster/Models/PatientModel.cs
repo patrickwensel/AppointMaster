@@ -16,4 +16,9 @@ namespace AppointMaster.Models
         public string Gender { get; set; }
         public DateTime? Birthdate { get; set; }
     }
+
+    public class DisplayPatientModel : PatientModel
+    {
+        public bool IsChecked { get; set; }
+    }
 }
