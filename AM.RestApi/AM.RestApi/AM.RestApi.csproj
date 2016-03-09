@@ -135,6 +135,7 @@
     <Folder Include="Areas\TestData\Models\" />
     <Folder Include="Models\" />
     <Folder Include="Views\VetPatient\" />
+    <Folder Include="Views\VetSpecies\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />

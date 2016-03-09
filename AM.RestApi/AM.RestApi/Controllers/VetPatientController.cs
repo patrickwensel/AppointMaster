@@ -22,19 +22,13 @@ namespace AM.RestApi.Controllers
             int clinicID = (User as ClinicPrincipal).ClinicID;
             var patients = context.Patients.Where(x => x.ClientID == clientID).Select(x => new PatientViewModel
             {
-                Name = x.Name,
                 ID = x.ID,
+                Name = x.Name,
                 ClientID = x.ClientID,
                 SpeciesID = x.SpeciesID,
                 Breed = x.Breed,
                 Birthdate = x.Birthdate,
-                Gender = x.Gender,
-                //Species= context.Speciess.Where(m=>m.ID==x.SpeciesID).Select(m=>new SpeciesViewModel {
-                //    Name=m.Name,
-                //    ID=m.ID,
-                //    Logo= context.ClinicSpeciess.Where(m => m.SpeciesID == x.SpeciesID && m.Clinic.ID == clinicID).Select(m => m.Logo).FirstOrDefault()
-                //}).FirstOrDefault()
-                Logo = context.ClinicSpeciess.Where(m => m.SpeciesID == x.SpeciesID && m.Clinic.ID == clinicID).Select(m => m.Logo).FirstOrDefault(),
+                Gender = x.Gender
             });
             return patients;
         }

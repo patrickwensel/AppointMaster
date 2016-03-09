@@ -33,21 +33,22 @@ namespace AM.RestApi.Controllers
                 DefaultCulture = c.DefaultCultureCode,
                 PrimaryColor = c.PrimaryColor,
                 SecondaryColor = c.SecondaryColor,
-                SpeciesSupported=c.ClinicSpecies.Select(x=> new SpeciesViewModel
+                SpeciesSupported = c.ClinicSpecies.Select(x => new SpeciesViewModel
                 {
-	                ID = x.ID,
-					ClinicID = x.ClinicID,
-					SpeciesID = x.SpeciesID,
-					Logo = x.Logo,
-					PrimaryDisplay = x.PrimaryDisplay
+                    ID = x.ID,
+                    Name = x.Species.Name,
+                    ClinicID = x.ClinicID,
+                    SpeciesID = x.SpeciesID,
+                    Logo = x.Logo,
+                    PrimaryDisplay = x.PrimaryDisplay
                 }).ToList()
 
             }).FirstOrDefault();
 
             return clinic;
         }
-		
-		[Route("~/api/v1/VetClinic/Authorize")]
+
+        [Route("~/api/v1/VetClinic/Authorize")]
         [HttpGet]
         public void Authorize()
         {
