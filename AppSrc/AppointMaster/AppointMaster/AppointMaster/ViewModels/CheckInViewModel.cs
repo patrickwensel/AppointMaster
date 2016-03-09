@@ -20,17 +20,6 @@ namespace AppointMaster.ViewModels
             set { _isBusy = value; RaisePropertyChanged(() => IsBusy); }
         }
 
-        //private AppointmentModel _selectedAppointment;
-        //public AppointmentModel SelectedAppointment
-        //{
-        //    get { return _selectedAppointment; }
-        //    set
-        //    {
-        //        _selectedAppointment = value;
-        //        RaisePropertyChanged(() => SelectedAppointment);
-        //    }
-        //}
-
         public MvxCommand ShowMainCommand
         {
             get
@@ -52,7 +41,24 @@ namespace AppointMaster.ViewModels
         public CheckInViewModel()
         {
             Items = new ObservableCollection<DisplayAppointmentModel>();
-            //Items.Add(new DisplayAppointmentModel { Time = DateTime.Now, ID = 1000, Client = new ClientModel { Title = "Mr.", FirstName = "first", LastName = "last" } });
+            Items.Add(new DisplayAppointmentModel
+            {
+                ID = 1000,
+                Time = DateTime.Now,
+                PatientName = "Fido",
+                Client = new ClientModel
+                {
+                    Title = "Mr.",
+                    FirstName = "first",
+                    LastName = "last",
+                    Phone = "(410)555-1212",
+                    Email = "sameone@gmail.com",
+                    Address = "123 Some Road",
+                    City = "Somewhereville",
+                    StateProvince = "MD",
+                    PostalCode = "12345",
+                }
+            });
             //GetAppointmentIDs();
         }
 
@@ -113,7 +119,6 @@ namespace AppointMaster.ViewModels
 
                     if (appointment != null)
                     {
-                        //var appointment = appointments[0];
                         string patientName = null;
                         foreach (var patientItem in appointment.Patients)
                         {
@@ -140,7 +145,7 @@ namespace AppointMaster.ViewModels
             }
         }
 
-        public void ShowCheckedIn(AppointmentModel model)
+        public void ShowCheckedIn(DisplayAppointmentModel model)
         {
             Services.DataHelper.GetInstance().SetSelectedAppointment(model);
             ShowViewModel<RegistrationViewModel>();

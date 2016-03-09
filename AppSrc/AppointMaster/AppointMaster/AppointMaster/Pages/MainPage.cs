@@ -2,12 +2,6 @@
 using AppointMaster.Resources;
 using AppointMaster.Services;
 using AppointMaster.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-
 using Xamarin.Forms;
 using XLabs.Forms.Controls;
 
@@ -22,50 +16,56 @@ namespace AppointMaster.Pages
 
         StackLayout blackSl;
 
+        Style labStyle = new Style(typeof(Label))
+        {
+            Setters = {
+                new Setter { Property = Label.FontSizeProperty, Value = 20 },
+                new Setter { Property = Label.TextColorProperty, Value = Color.Black },
+            }
+        };
+
         public MainPage()
         {
+            //Application.Current.Resources["backgroundColor"] = Color.White;
+            //Application.Current.Resources["backgroundColor"] = Color.Black;
+
             BackgroundColor = Color.White;
             NavigationPage.SetHasNavigationBar(this, false);
             Thickness padding = new Thickness(20, Device.OnPlatform(40, 20, 20), 20, 20);
 
             Label labName = new Label
             {
-                FontSize = 20,
-                TextColor = Color.Black
+                Style = labStyle
             };
             labName.SetBinding(Label.TextProperty, new Binding("ClinicName"));
 
             Label labAddress = new Label
             {
-                FontSize = 20,
-                TextColor = Color.Black
+                Style = labStyle
             };
             labAddress.SetBinding(Label.TextProperty, new Binding("Address"));
 
             Label labCity = new Label
             {
-                FontSize = 20,
-                TextColor = Color.Black
+                Style = labStyle
             };
-            labAddress.SetBinding(Label.TextProperty, new Binding("City"));
+            labCity.SetBinding(Label.TextProperty, new Binding("City"));
 
             Label labState = new Label
             {
-                FontSize = 20,
-                TextColor = Color.Black
+                Style = labStyle
             };
-            labAddress.SetBinding(Label.TextProperty, new Binding("StateProvince", stringFormat:("{0}, ")));
+            labState.SetBinding(Label.TextProperty, new Binding("StateProvince", stringFormat: ("{0}, ")));
 
             Label labPostalCode = new Label
             {
-                FontSize = 20,
-                TextColor = Color.Black
+                Style = labStyle
             };
-            labAddress.SetBinding(Label.TextProperty, new Binding("PostalCode"));
+            labPostalCode.SetBinding(Label.TextProperty, new Binding("PostalCode"));
 
             StackLayout cityAndZipSl = new StackLayout
             {
-                Orientation=StackOrientation.Horizontal,
+                Orientation = StackOrientation.Horizontal,
                 Children =
                 {
                     labCity,
@@ -81,7 +81,7 @@ namespace AppointMaster.Pages
                 HeightRequest = 100,
                 WidthRequest = 207
             };
-            if (DataHelper.GetInstance().Clinic.Logo!=null)
+            if (DataHelper.GetInstance().Clinic.Logo != null)
             {
                 logoImage.Source = ImageSource.FromStream(() => new System.IO.MemoryStream(DataHelper.GetInstance().Clinic.Logo));
             }
@@ -234,6 +234,7 @@ namespace AppointMaster.Pages
                     TextColor = Color.Black,
                     BackgroundColor = Color.Transparent
                 };
+                //btnSettings.SetDynamicResource(Button.BackgroundColorProperty, "backgroundColor");
 
                 Button btnBack = new Button
                 {

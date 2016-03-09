@@ -12,6 +12,7 @@ using XLabs.Forms.Controls;
 using System.Runtime.CompilerServices;
 using System.Globalization;
 using AppointMaster.Models;
+using AppointMaster.Services;
 
 namespace AppointMaster.Pages
 {
@@ -22,7 +23,6 @@ namespace AppointMaster.Pages
             get { return BindingContext as RegistrationViewModel; }
         }
 
-
         Grid grid1;
         Grid grid2;
         Grid grid3;
@@ -30,7 +30,45 @@ namespace AppointMaster.Pages
         Grid grid4Add;
         Grid grid4Breed;
         Grid grid5;
+
         Label labStep;
+        Label labCheckIn;
+        MyListView lstBreedNotPrimary;
+
+        DisplayPatientModel selectPatientToCheckInItem;
+
+        Style buttonStyle = new Style(typeof(Button))
+        {
+            Setters = {
+              //new Setter { Property = Button.BackgroundColorProperty, Value = Color.FromHex ("#eee") },
+              new Setter { Property = Button.BackgroundColorProperty, Value = Color.Transparent },
+              new Setter { Property = Button.TextColorProperty, Value = Color.Black },
+              new Setter { Property = Button.BorderRadiusProperty, Value = 1 },
+              new Setter { Property = Button.BorderWidthProperty, Value = 2 },
+              new Setter { Property = Button.BorderColorProperty, Value = Color.Black },
+              new Setter { Property = Button.WidthRequestProperty, Value = 120 },
+              new Setter { Property = Button.HeightRequestProperty, Value = 50 },
+            }
+        };
+
+        Style entryStyle = new Style(typeof(Entry))
+        {
+            Setters = {
+              //new Setter { Property = Button.BackgroundColorProperty, Value = Color.FromHex ("#eee") },
+              new Setter { Property = Entry.TextColorProperty, Value = Color.Black },
+              new Setter { Property = Entry.FontSizeProperty, Value = 20 },
+              new Setter { Property = Entry.WidthRequestProperty, Value = 470 },
+              new Setter { Property = Entry.HeightRequestProperty, Value = 50 },
+            }
+        };
+
+        Style labStyle = new Style(typeof(Label))
+        {
+            Setters = {
+              new Setter { Property = Label.TextColorProperty, Value = Color.Black },
+              new Setter { Property = Label.FontSizeProperty, Value = 20 },
+            }
+        };
 
         public RegistrationPage()
         {
@@ -38,15 +76,18 @@ namespace AppointMaster.Pages
             NavigationPage.SetHasNavigationBar(this, false);
             Padding = new Thickness(20, Device.OnPlatform(40, 20, 20), 20, 20);
 
-            var logoImage = new Image
+            Image imgLogo = new Image
             {
                 Aspect = Aspect.AspectFit,
-                Source = "logo.png",
                 VerticalOptions = LayoutOptions.Start,
                 HorizontalOptions = LayoutOptions.End,
                 HeightRequest = 100,
                 WidthRequest = 207
             };
+            if (DataHelper.GetInstance().Clinic.Logo != null)
+            {
+                imgLogo.Source = ImageSource.FromStream(() => new System.IO.MemoryStream(DataHelper.GetInstance().Clinic.Logo));
+            }
 
             labStep = new Label
             {
@@ -66,10 +107,10 @@ namespace AppointMaster.Pages
             Step5();
 
             var grid = new Grid();
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(150) });
+            grid.RowDefinitions.Add(new RowDefinition { Height = 150 });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
-            grid.Children.Add(logoImage, 0, 0);
+            grid.Children.Add(imgLogo, 0, 0);
             grid.Children.Add(labStep, 0, 0);
 
             grid.Children.Add(grid1, 0, 1);
@@ -80,11 +121,11 @@ namespace AppointMaster.Pages
             grid.Children.Add(grid4Breed, 0, 1);
             grid.Children.Add(grid5, 0, 1);
 
-            grid1.IsVisible = false;
+            grid1.IsVisible = true;
             grid2.IsVisible = false;
             grid3.IsVisible = false;
             grid4.IsVisible = false;
-            grid4Add.IsVisible = true;
+            grid4Add.IsVisible = false;
             grid4Breed.IsVisible = false;
             grid5.IsVisible = false;
 
@@ -103,23 +144,13 @@ namespace AppointMaster.Pages
 
             var firstEntry = new MyEntry
             {
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Start,
-                HeightRequest = 50,
-                WidthRequest = 470,
-                TextColor = Color.Black,
-                FontSize = 20,
+                Style = entryStyle
             };
             firstEntry.SetBinding(Entry.TextProperty, new Binding("FirstName"));
 
             var lastEntry = new MyEntry
             {
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Start,
-                HeightRequest = 50,
-                WidthRequest = 470,
-                TextColor = Color.Black,
-                FontSize = 20,
+                Style = entryStyle
             };
             lastEntry.SetBinding(Entry.TextProperty, new Binding("LastName"));
 
@@ -131,11 +162,8 @@ namespace AppointMaster.Pages
                 {
                     new Label
                     {
-                        VerticalOptions = LayoutOptions.Start,
-                        HorizontalOptions = LayoutOptions.Start,
                         Text = AppResources.Title,
-                        TextColor = Color.Black,
-                        FontSize = 20
+                        Style=labStyle
                     },
                     titlePicker
                 }
@@ -148,11 +176,8 @@ namespace AppointMaster.Pages
                 {
                     new Label
                     {
-                        VerticalOptions = LayoutOptions.Start,
-                        HorizontalOptions = LayoutOptions.Start,
                         Text = AppResources.FirstName,
-                        TextColor = Color.Black,
-                        FontSize = 20
+                        Style=labStyle
                     },
                     firstEntry
                 }
@@ -165,11 +190,8 @@ namespace AppointMaster.Pages
                 {
                     new Label
                     {
-                        VerticalOptions = LayoutOptions.Start,
-                        HorizontalOptions = LayoutOptions.Start,
                         Text = AppResources.LastName,
-                        TextColor = Color.Black,
-                        FontSize = 20
+                        Style=labStyle
                     },
                     lastEntry
                 }
@@ -178,45 +200,29 @@ namespace AppointMaster.Pages
             Button btnStep1Back = new Button
             {
                 Text = AppResources.Back,
-                TextColor = Color.Black,
-                BackgroundColor = Color.Transparent,
-                WidthRequest = 120,
-                HeightRequest = 50,
+                Style = buttonStyle,
                 HorizontalOptions = LayoutOptions.Start,
-                BorderColor = Color.Black,
-                BorderRadius = 1,
-                BorderWidth = 2
             };
 
             Button btnStep1Cancel = new Button
             {
                 Text = AppResources.Cancel,
-                TextColor = Color.Black,
-                BackgroundColor = Color.Transparent,
-                WidthRequest = 120,
+                Style = buttonStyle,
                 HorizontalOptions = LayoutOptions.Center,
-                BorderColor = Color.Black,
-                BorderRadius = 1,
-                BorderWidth = 2
             };
 
             Button btnStep1Next = new Button
             {
                 Text = AppResources.Next,
-                TextColor = Color.Black,
-                BackgroundColor = Color.Transparent,
-                WidthRequest = 120,
+                Style = buttonStyle,
                 HorizontalOptions = LayoutOptions.End,
-                BorderColor = Color.Black,
-                BorderRadius = 1,
-                BorderWidth = 2
             };
 
             var btnStep1Sl = new StackLayout
             {
-                HorizontalOptions = LayoutOptions.Center,
                 Orientation = StackOrientation.Horizontal,
                 VerticalOptions = LayoutOptions.Start,
+                HorizontalOptions = LayoutOptions.Center,
                 Children =
                 {
                     new StackLayout {Padding=new Thickness(0,0,50,0), Children= { btnStep1Back } },
@@ -244,7 +250,6 @@ namespace AppointMaster.Pages
             };
 
             btnStep1Back.SetBinding(Button.CommandProperty, new Binding("ShowCheckInCommand"));
-
             btnStep1Cancel.SetBinding(Button.CommandProperty, new Binding("ShowCancelCommand"));
 
             grid1 = new Grid();
@@ -266,23 +271,13 @@ namespace AppointMaster.Pages
         {
             var streetEntry = new MyEntry
             {
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Start,
-                HeightRequest = 50,
-                WidthRequest = 470,
-                TextColor = Color.Black,
-                FontSize = 20,
+                Style = entryStyle
             };
             streetEntry.SetBinding(Entry.TextProperty, new Binding("StreetAddress"));
 
             var cityEntry = new MyEntry
             {
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Start,
-                HeightRequest = 50,
-                WidthRequest = 470,
-                TextColor = Color.Black,
-                FontSize = 20,
+                Style = entryStyle
             };
             cityEntry.SetBinding(Entry.TextProperty, new Binding("City"));
 
@@ -296,10 +291,8 @@ namespace AppointMaster.Pages
 
             var postalEntry = new MyEntry
             {
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Start,
                 HeightRequest = 50,
-                WidthRequest = 200,//130
+                WidthRequest = 200,
                 TextColor = Color.Black,
                 FontSize = 20
             };
@@ -312,11 +305,8 @@ namespace AppointMaster.Pages
                 {
                     new Label
                     {
-                        VerticalOptions = LayoutOptions.Start,
-                        HorizontalOptions = LayoutOptions.Start,
                         Text = AppResources.Street_Address,
-                        TextColor = Color.Black,
-                        FontSize = 20
+                        Style=labStyle
                     },
                     streetEntry
                 }
@@ -329,11 +319,8 @@ namespace AppointMaster.Pages
                 {
                    new Label
                     {
-                        VerticalOptions = LayoutOptions.Start,
-                        HorizontalOptions = LayoutOptions.Start,
                         Text = AppResources.City,
-                        TextColor = Color.Black,
-                        FontSize = 20
+                        Style=labStyle
                     },
                    cityEntry
                 }
@@ -346,11 +333,8 @@ namespace AppointMaster.Pages
                 {
                     new Label
                     {
-                        VerticalOptions = LayoutOptions.Start,
-                        HorizontalOptions = LayoutOptions.Start,
                         Text = string.Format("{0}/{1}", AppResources.State, AppResources.Province),
-                        TextColor = Color.Black,
-                        FontSize = 20
+                        Style=labStyle
                     },
                    statePicker
                 }
@@ -362,11 +346,8 @@ namespace AppointMaster.Pages
                 {
                    new Label
                    {
-                        VerticalOptions = LayoutOptions.Start,
-                        HorizontalOptions = LayoutOptions.Start,
                         Text = AppResources.Postal_Code,
-                        TextColor = Color.Black,
-                        FontSize = 20
+                        Style=labStyle
                    },
                    postalEntry
                 }
@@ -374,8 +355,8 @@ namespace AppointMaster.Pages
 
             var stateAndPostalSl = new StackLayout
             {
-                HorizontalOptions = LayoutOptions.Center,
                 Orientation = StackOrientation.Horizontal,
+                HorizontalOptions = LayoutOptions.Center,
                 Children =
                 {
                   stateSl,
@@ -386,39 +367,24 @@ namespace AppointMaster.Pages
             Button btnStep2Back = new Button
             {
                 Text = AppResources.Back,
-                TextColor = Color.Black,
-                BackgroundColor = Color.Transparent,
-                WidthRequest = 120,
-                HeightRequest = 50,
+                Style = buttonStyle,
                 HorizontalOptions = LayoutOptions.Start,
-                BorderColor = Color.Black,
-                BorderRadius = 1,
-                BorderWidth = 2
+
             };
 
             Button btnStep2Cancel = new Button
             {
                 Text = AppResources.Cancel,
-                TextColor = Color.Black,
-                BackgroundColor = Color.Transparent,
-                WidthRequest = 120,
+                Style = buttonStyle,
                 HorizontalOptions = LayoutOptions.Center,
-                BorderColor = Color.Black,
-                BorderRadius = 1,
-                BorderWidth = 2
             };
             btnStep2Cancel.SetBinding(Button.CommandProperty, new Binding("ShowCancelCommand"));
 
             Button btnStep2Next = new Button
             {
                 Text = AppResources.Next,
-                TextColor = Color.Black,
-                BackgroundColor = Color.Transparent,
-                WidthRequest = 120,
+                Style = buttonStyle,
                 HorizontalOptions = LayoutOptions.End,
-                BorderColor = Color.Black,
-                BorderRadius = 1,
-                BorderWidth = 2
             };
 
             var btnStep2Sl = new StackLayout
@@ -446,6 +412,7 @@ namespace AppointMaster.Pages
                     DisplayAlert(AppResources.Error, AppResources.Enter_City, AppResources.OK);
                     return;
                 }
+                //|| !System.Text.RegularExpressions.Regex.IsMatch(RegistrationViewModel.PostalCode, @"/^\d{5}$/")
                 if (string.IsNullOrEmpty(RegistrationViewModel.PostalCode))
                 {
                     DisplayAlert(AppResources.Error, AppResources.Enter_Postal_Code, AppResources.OK);
@@ -482,23 +449,13 @@ namespace AppointMaster.Pages
         {
             var phoneEntry = new MyEntry
             {
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Start,
-                HeightRequest = 50,
-                WidthRequest = 470,
-                TextColor = Color.Black,
-                FontSize = 20
+                Style = entryStyle
             };
             phoneEntry.SetBinding(Entry.TextProperty, new Binding("Phone"));
 
             var emailEntry = new MyEntry
             {
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Start,
-                HeightRequest = 50,
-                WidthRequest = 470,
-                TextColor = Color.Black,
-                FontSize = 20
+                Style = entryStyle
             };
             emailEntry.SetBinding(Entry.TextProperty, new Binding("Email"));
 
@@ -509,11 +466,8 @@ namespace AppointMaster.Pages
                 {
                     new Label
                     {
-                        VerticalOptions = LayoutOptions.Start,
-                        HorizontalOptions = LayoutOptions.Start,
                         Text = AppResources.Phone,
-                        TextColor = Color.Black,
-                        FontSize = 20
+                        Style=labStyle
                     },
                     phoneEntry
                 }
@@ -526,11 +480,8 @@ namespace AppointMaster.Pages
                 {
                     new Label
                     {
-                        VerticalOptions = LayoutOptions.Start,
-                        HorizontalOptions = LayoutOptions.Start,
                         Text = AppResources.Email,
-                        TextColor = Color.Black,
-                        FontSize = 20
+                        Style=labStyle
                     },
                     emailEntry
                 }
@@ -539,39 +490,22 @@ namespace AppointMaster.Pages
             Button btnStep3Back = new Button
             {
                 Text = AppResources.Back,
-                TextColor = Color.Black,
-                BackgroundColor = Color.Transparent,
-                WidthRequest = 120,
-                HeightRequest = 50,
-                HorizontalOptions = LayoutOptions.Start,
-                BorderColor = Color.Black,
-                BorderRadius = 1,
-                BorderWidth = 2
+                Style = buttonStyle,
             };
 
             Button btnStep3Cancel = new Button
             {
                 Text = AppResources.Cancel,
-                TextColor = Color.Black,
-                BackgroundColor = Color.Transparent,
-                WidthRequest = 120,
+                Style = buttonStyle,
                 HorizontalOptions = LayoutOptions.Center,
-                BorderColor = Color.Black,
-                BorderRadius = 1,
-                BorderWidth = 2
             };
             btnStep3Cancel.SetBinding(Button.CommandProperty, new Binding("ShowCancelCommand"));
 
             Button btnStep3Next = new Button
             {
                 Text = AppResources.Next,
-                TextColor = Color.Black,
-                BackgroundColor = Color.Transparent,
-                WidthRequest = 120,
+                Style = buttonStyle,
                 HorizontalOptions = LayoutOptions.End,
-                BorderColor = Color.Black,
-                BorderRadius = 1,
-                BorderWidth = 2
             };
 
             var btnStep3Sl = new StackLayout
@@ -594,7 +528,7 @@ namespace AppointMaster.Pages
                     DisplayAlert(AppResources.Error, AppResources.Enter_Phone, AppResources.OK);
                     return;
                 }
-                if (string.IsNullOrEmpty(RegistrationViewModel.Email))
+                if (string.IsNullOrEmpty(RegistrationViewModel.Email) || !System.Text.RegularExpressions.Regex.IsMatch(RegistrationViewModel.Email, @"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$"))
                 {
                     DisplayAlert(AppResources.Error, AppResources.Enter_Email, AppResources.OK);
                     return;
@@ -636,46 +570,28 @@ namespace AppointMaster.Pages
             Button btnStep4Back = new Button
             {
                 Text = AppResources.Back,
-                TextColor = Color.Black,
-                BackgroundColor = Color.Transparent,
-                WidthRequest = 120,
-                HeightRequest = 50,
-                HorizontalOptions = LayoutOptions.Start,
-                BorderColor = Color.Black,
-                BorderRadius = 1,
-                BorderWidth = 2
+                Style = buttonStyle,
             };
 
             Button btnStep4Cancel = new Button
             {
                 Text = AppResources.Cancel,
-                TextColor = Color.Black,
-                BackgroundColor = Color.Transparent,
-                WidthRequest = 120,
+                Style = buttonStyle,
                 HorizontalOptions = LayoutOptions.Center,
-                BorderColor = Color.Black,
-                BorderRadius = 1,
-                BorderWidth = 2
             };
             btnStep4Cancel.SetBinding(Button.CommandProperty, new Binding("ShowCancelCommand"));
 
             Button btnStep4Next = new Button
             {
                 Text = AppResources.Next,
-                TextColor = Color.Black,
-                BackgroundColor = Color.Transparent,
-                WidthRequest = 120,
+                Style = buttonStyle,
                 HorizontalOptions = LayoutOptions.End,
-                BorderColor = Color.Black,
-                BorderRadius = 1,
-                BorderWidth = 2
             };
 
             var btnStep4Sl = new StackLayout
             {
                 HorizontalOptions = LayoutOptions.Center,
                 Orientation = StackOrientation.Horizontal,
-                VerticalOptions = LayoutOptions.Start,
                 Children =
                 {
                     new StackLayout {Padding=new Thickness(0,0,50,0), Children= { btnStep4Back } },
@@ -690,8 +606,6 @@ namespace AppointMaster.Pages
                 {
                    new Label
                    {
-                        VerticalOptions = LayoutOptions.Start,
-                        HorizontalOptions = LayoutOptions.Start,
                         Text = AppResources.Who_Is_With,
                         TextColor = Color.Black,
                         FontSize = 20
@@ -709,15 +623,13 @@ namespace AppointMaster.Pages
                     new Label
                     {
                         Text = AppResources.Add_Another,
-                        TextColor = Color.Black,
-                        FontSize = 20
+                        Style=labStyle
                     },
                     new Label
                     {
                         HorizontalOptions = LayoutOptions.Center,
                         Text = AppResources.Companion,
-                        TextColor = Color.Black,
-                        FontSize = 20
+                        Style=labStyle
                     }
                 }
             };
@@ -739,27 +651,62 @@ namespace AppointMaster.Pages
             {
                 ItemTemplate = new DataTemplate(() =>
                 {
+                    Button btnCheckIn = new Button
+                    {
+                        BorderWidth = 2,
+                        BorderColor = Color.Black,
+                        WidthRequest = 100,
+                        HeightRequest = 40,
+                        BackgroundColor = Color.Transparent,
+                        BorderRadius = 1,
+                        Text = AppResources.Check_In,
+                        VerticalOptions = LayoutOptions.Center,
+                        TextColor = Color.Black
+                    };
+                    btnCheckIn.SetBinding(Button.CommandParameterProperty, new Binding("ID"));
+                    btnCheckIn.SetBinding(Image.IsVisibleProperty, "IsChecked", BindingMode.Default, new TrueToFalseConverter());
+                    btnCheckIn.Clicked += (sender, e) =>
+                    {
+                        int id = (int)((Button)sender).CommandParameter;
+
+                        selectPatientToCheckInItem = RegistrationViewModel.PatientList.Where(x => x.ID == id).FirstOrDefault();
+
+                        RegistrationViewModel.PatientName = selectPatientToCheckInItem.Name;
+
+                        var item = RegistrationViewModel.SpeciesList.Where(x => x.IsChecked == true).FirstOrDefault();
+                        if (item != null)
+                            item.IsChecked = false;
+
+                        var selectedItem = RegistrationViewModel.SpeciesList.Where(x => x.ID == selectPatientToCheckInItem.SpeciesID).FirstOrDefault();
+                        selectedItem.IsChecked = true;
+                        RegistrationViewModel.SelectedSpecies = selectedItem;
+                        if (!selectedItem.PrimaryDisplay)
+                            RegistrationViewModel.NotPrimarySpeciesName = selectedItem.Name;
+
+                        RegistrationViewModel.Breed = selectPatientToCheckInItem.Breed;
+                        RegistrationViewModel.PatientGender = selectPatientToCheckInItem.Gender;
+                        RegistrationViewModel.PatientBirth = selectPatientToCheckInItem.Birthdate;
+
+                        grid4.IsVisible = false;
+                        grid4Add.IsVisible = true;
+                    };
+
                     Image imgChecked = new Image();
                     imgChecked.VerticalOptions = LayoutOptions.Center;
                     imgChecked.Source = "checked_checkbox.png";
                     imgChecked.SetBinding(Image.IsVisibleProperty, new Binding("IsChecked"));
 
-                    Image imgUnChecked = new Image();
-                    imgUnChecked.VerticalOptions = LayoutOptions.Center;
-                    imgUnChecked.Source = "unchecked_checkbox.png";
-                    imgUnChecked.SetBinding(Image.IsVisibleProperty, "IsChecked", BindingMode.Default, new TrueToFalseConverter());
+                    Image imgPatient = new Image();
+                    imgPatient.HeightRequest = 60;
+                    imgPatient.WidthRequest = 61;
+                    imgPatient.VerticalOptions = LayoutOptions.Center;
+                    imgPatient.SetBinding(Image.SourceProperty, new Binding("ImgLogo"));
 
-                    Image patientImg = new Image();
-                    patientImg.HeightRequest = 60;
-                    patientImg.WidthRequest = 61;
-                    patientImg.VerticalOptions = LayoutOptions.Center;
-                    patientImg.SetBinding(Image.SourceProperty, new Binding("Image"));
-
-                    Label nameLable = new Label();
-                    nameLable.TextColor = Color.Black;
-                    nameLable.FontSize = 20;
-                    nameLable.VerticalOptions = LayoutOptions.Center;
-                    nameLable.SetBinding(Label.TextProperty, "PatientName");
+                    Label labName = new Label();
+                    labName.TextColor = Color.Black;
+                    labName.FontSize = 20;
+                    labName.VerticalOptions = LayoutOptions.Center;
+                    labName.SetBinding(Label.TextProperty, "Name");
 
                     return new MyViewCell
                     {
@@ -769,10 +716,18 @@ namespace AppointMaster.Pages
                             Orientation = StackOrientation.Horizontal,
                             Children =
                             {
-                               imgChecked,
-                               imgUnChecked,
-                               patientImg,
-                               nameLable
+                               new StackLayout
+                               {
+                                   WidthRequest=100,
+                                   Orientation=StackOrientation.Horizontal,
+                                   Children =
+                                   {
+                                       btnCheckIn,
+                                       imgChecked
+                                   }
+                               },
+                               imgPatient,
+                               labName
                             }
                         }
                     };
@@ -780,7 +735,6 @@ namespace AppointMaster.Pages
             };
 
             lstPatient.HeightRequest = 300;
-            lstPatient.ItemTapped += LstPatient_ItemTapped;
             lstPatient.SetBinding(ListView.ItemsSourceProperty, new Binding("PatientList"));
 
             var addAnotherSlClick = new TapGestureRecognizer();
@@ -793,11 +747,20 @@ namespace AppointMaster.Pages
 
             btnStep4Next.Clicked += delegate
             {
-                if (RegistrationViewModel.SelectedPatientList.Count == 0)
+                var item = RegistrationViewModel.PatientList.Where(x => x.IsChecked == true).FirstOrDefault();
+                if (item == null)
                 {
                     DisplayAlert(AppResources.Error, AppResources.Choose_Patient, AppResources.OK);
                     return;
                 }
+
+                RegistrationViewModel.CheckedPatientList.Clear();
+                var patients = RegistrationViewModel.PatientList.Where(x => x.IsChecked == true).ToList();
+                foreach (var patientItem in patients)
+                {
+                    RegistrationViewModel.CheckedPatientList.Add(patientItem);
+                }
+
                 grid4.IsVisible = false;
                 grid5.IsVisible = true;
                 labStep.Text = AppResources.Registration_Step5;
@@ -810,6 +773,16 @@ namespace AppointMaster.Pages
                 labStep.Text = AppResources.Registration_Step3;
             };
 
+            labCheckIn = new Label
+            {
+                Text = AppResources.Check_In_A_New_Patient,
+                FontSize = 20,
+                TextColor = Color.Black,
+                IsVisible = false,
+                HeightRequest = 300
+            };
+            labCheckIn.SetBinding(ListView.IsVisibleProperty, "IsCheckeInOrAdd");//, BindingMode.Default, converter: new TrueToFalseConverter()
+
             grid4 = new Grid();
             grid4.RowDefinitions.Add(new RowDefinition { Height = 80 });
             grid4.RowDefinitions.Add(new RowDefinition { Height = 40 });
@@ -820,6 +793,7 @@ namespace AppointMaster.Pages
 
             grid4.Children.Add(whoIsSl, 0, 1);
 
+            grid4.Children.Add(labCheckIn, 0, 2);
             grid4.Children.Add(lstPatient, 0, 2);
 
             grid4.Children.Add(btnStep4Sl, 0, 3);
@@ -829,12 +803,8 @@ namespace AppointMaster.Pages
         {
             var patientNameEntry = new MyEntry
             {
-                VerticalOptions = LayoutOptions.Start,
                 HorizontalOptions = LayoutOptions.Center,
-                HeightRequest = 50,
-                WidthRequest = 500,
-                TextColor = Color.Black,
-                FontSize = 20,
+                Style = entryStyle
             };
             patientNameEntry.SetBinding(Entry.TextProperty, new Binding("PatientName"));
 
@@ -845,11 +815,8 @@ namespace AppointMaster.Pages
                 {
                     new Label
                     {
-                        VerticalOptions = LayoutOptions.Start,
-                        HorizontalOptions = LayoutOptions.Start,
                         Text = AppResources.Who_Is_With,
-                        TextColor = Color.Black,
-                        FontSize = 20
+                        Style=labStyle
                     },
                     patientNameEntry
                 }
@@ -858,46 +825,28 @@ namespace AppointMaster.Pages
             Button btnStep4AddBack = new Button
             {
                 Text = AppResources.Back,
-                TextColor = Color.Black,
-                BackgroundColor = Color.Transparent,
-                WidthRequest = 120,
-                HeightRequest = 50,
-                HorizontalOptions = LayoutOptions.Start,
-                BorderColor = Color.Black,
-                BorderRadius = 1,
-                BorderWidth = 2
+                Style = buttonStyle,
             };
 
             Button btnStep4AddCancel = new Button
             {
                 Text = AppResources.Cancel,
-                TextColor = Color.Black,
-                BackgroundColor = Color.Transparent,
-                WidthRequest = 120,
+                Style = buttonStyle,
                 HorizontalOptions = LayoutOptions.Center,
-                BorderColor = Color.Black,
-                BorderRadius = 1,
-                BorderWidth = 2
             };
             btnStep4AddCancel.SetBinding(Button.CommandProperty, new Binding("ShowCancelCommand"));
 
             Button btnStep4AddNext = new Button
             {
                 Text = AppResources.Next,
-                TextColor = Color.Black,
-                BackgroundColor = Color.Transparent,
-                WidthRequest = 120,
+                Style = buttonStyle,
                 HorizontalOptions = LayoutOptions.End,
-                BorderColor = Color.Black,
-                BorderRadius = 1,
-                BorderWidth = 2
             };
 
             var btnStep4AddSl = new StackLayout
             {
                 HorizontalOptions = LayoutOptions.Center,
                 Orientation = StackOrientation.Horizontal,
-                VerticalOptions = LayoutOptions.Start,
                 Children =
                 {
                     new StackLayout {Padding=new Thickness(0,0,50,0), Children= { btnStep4AddBack } },
@@ -913,38 +862,43 @@ namespace AppointMaster.Pages
                     DisplayAlert(AppResources.Error, AppResources.Enter_Patient_Name, AppResources.OK);
                     return;
                 }
+                if (RegistrationViewModel.SelectedSpecies == null)
+                {
+                    DisplayAlert(AppResources.Error, AppResources.Choose_Species, AppResources.OK);
+                    return;
+                }
                 grid4Add.IsVisible = false;
                 grid4Breed.IsVisible = true;
-                labStep.Text = AppResources.Registration_Step5;
             };
 
             btnStep4AddBack.Clicked += delegate
             {
+                selectPatientToCheckInItem = null;
+
                 grid4.IsVisible = true;
                 grid4Add.IsVisible = false;
             };
 
             MyListView lstBreedPrimary = new MyListView
             {
-                WidthRequest = 225,
+                WidthRequest = 200,
                 ItemTemplate = new DataTemplate(() =>
                 {
                     Image imgChecked = new Image();
                     imgChecked.VerticalOptions = LayoutOptions.Center;
                     imgChecked.Source = "checked_checkbox.png";
-                    //imgChecked.SetBinding(Image.IsVisibleProperty, new Binding("IsChecked"));
+                    imgChecked.SetBinding(Image.IsVisibleProperty, new Binding("IsChecked"));
 
-                    //Image imgUnChecked = new Image();
-                    //imgUnChecked.VerticalOptions = LayoutOptions.Center;
-                    //imgUnChecked.Source = "unchecked_checkbox.png";
-                    //imgUnChecked.SetBinding(Image.IsVisibleProperty, "IsChecked", BindingMode.Default, new TrueToFalseConverter());
+                    Image imgUnChecked = new Image();
+                    imgUnChecked.VerticalOptions = LayoutOptions.Center;
+                    imgUnChecked.Source = "unchecked_checkbox.png";
+                    imgUnChecked.SetBinding(Image.IsVisibleProperty, "IsChecked", BindingMode.Default, new TrueToFalseConverter());
 
-                    Image patientImg = new Image();
-                    patientImg.Source = "cat.png";
-                    patientImg.HeightRequest = 60;
-                    patientImg.WidthRequest = 61;
-                    patientImg.VerticalOptions = LayoutOptions.Center;
-                    //patientImg.SetBinding(Image.SourceProperty, new Binding("Image"));
+                    Image imgPatient = new Image();
+                    imgPatient.HeightRequest = 60;
+                    imgPatient.WidthRequest = 61;
+                    imgPatient.VerticalOptions = LayoutOptions.Center;
+                    imgPatient.SetBinding(Image.SourceProperty, new Binding("ImgLogo"));
 
                     return new MyViewCell
                     {
@@ -955,35 +909,34 @@ namespace AppointMaster.Pages
                             Children =
                             {
                                imgChecked,
-                               //imgUnChecked,
-                               patientImg
+                               imgUnChecked,
+                               imgPatient
                             }
                         }
                     };
                 })
             };
 
-            MyListView lstBreedNotPrimary = new MyListView
+            lstBreedNotPrimary = new MyListView
             {
-                WidthRequest = 225,
+                WidthRequest = 200,
                 ItemTemplate = new DataTemplate(() =>
                 {
                     Image imgChecked = new Image();
                     imgChecked.VerticalOptions = LayoutOptions.Center;
                     imgChecked.Source = "checked_checkbox.png";
-                    //imgChecked.SetBinding(Image.IsVisibleProperty, new Binding("IsChecked"));
+                    imgChecked.SetBinding(Image.IsVisibleProperty, new Binding("IsChecked"));
 
-                    //Image imgUnChecked = new Image();
-                    //imgUnChecked.VerticalOptions = LayoutOptions.Center;
-                    //imgUnChecked.Source = "unchecked_checkbox.png";
-                    //imgUnChecked.SetBinding(Image.IsVisibleProperty, "IsChecked", BindingMode.Default, new TrueToFalseConverter());
+                    Image imgUnChecked = new Image();
+                    imgUnChecked.VerticalOptions = LayoutOptions.Center;
+                    imgUnChecked.Source = "unchecked_checkbox.png";
+                    imgUnChecked.SetBinding(Image.IsVisibleProperty, "IsChecked", BindingMode.Default, new TrueToFalseConverter());
 
-                    Image patientImg = new Image();
-                    patientImg.Source = "dog.png";
-                    patientImg.HeightRequest = 60;
-                    patientImg.WidthRequest = 61;
-                    patientImg.VerticalOptions = LayoutOptions.Center;
-                    //patientImg.SetBinding(Image.SourceProperty, new Binding("Image"));
+                    Image imgPatient = new Image();
+                    imgPatient.HeightRequest = 60;
+                    imgPatient.WidthRequest = 61;
+                    imgPatient.VerticalOptions = LayoutOptions.Center;
+                    imgPatient.SetBinding(Image.SourceProperty, new Binding("ImgLogo"));
 
                     return new MyViewCell
                     {
@@ -994,8 +947,8 @@ namespace AppointMaster.Pages
                             Children =
                             {
                                imgChecked,
-                               //imgUnChecked,
-                               patientImg
+                               imgUnChecked,
+                               imgPatient
                             }
                         }
                     };
@@ -1004,8 +957,14 @@ namespace AppointMaster.Pages
 
             lstBreedNotPrimary.IsVisible = false;
 
-            lstBreedPrimary.SetBinding(ListView.ItemsSourceProperty, new Binding("SpeciesList"));
-            lstBreedNotPrimary.SetBinding(ListView.ItemsSourceProperty, new Binding("SpeciesList"));
+            lstBreedPrimary.SetBinding(ListView.ItemsSourceProperty, new Binding("SpeciesPrimaryList"));
+            lstBreedNotPrimary.SetBinding(ListView.ItemsSourceProperty, new Binding("SpeciesNotPrimaryList"));
+
+            lstBreedPrimary.SetBinding(ListView.SelectedItemProperty, new Binding("SelectedSpecies", BindingMode.TwoWay));
+            lstBreedNotPrimary.SetBinding(ListView.SelectedItemProperty, new Binding("SelectedSpecies", BindingMode.TwoWay));
+
+            lstBreedPrimary.ItemTapped += LstBreedPrimary_ItemTapped;
+            lstBreedNotPrimary.ItemTapped += LstBreedPrimary_ItemTapped;
 
             Button btnOther = new Button
             {
@@ -1017,6 +976,7 @@ namespace AppointMaster.Pages
                 WidthRequest = 225,
                 BackgroundColor = Color.Transparent
             };
+            btnOther.SetBinding(Button.TextProperty, "NotPrimarySpeciesName");
             btnOther.Clicked += delegate
             {
                 if (lstBreedNotPrimary.IsVisible)
@@ -1036,9 +996,9 @@ namespace AppointMaster.Pages
             };
 
             grid4Add = new Grid();
-            grid4Add.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
-            grid4Add.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            grid4Add.RowDefinitions.Add(new RowDefinition { Height = new GridLength(80) });
+            grid4Add.RowDefinitions.Add(new RowDefinition { Height = 100 });
+            grid4Add.RowDefinitions.Add(new RowDefinition { Height = 300 });
+            grid4Add.RowDefinitions.Add(new RowDefinition { Height = 80 });
 
             grid4Add.Children.Add(patientNameSl, 0, 0);
 
@@ -1048,21 +1008,18 @@ namespace AppointMaster.Pages
                 HorizontalOptions = LayoutOptions.Center,
                 Children =
                 {
-                    new StackLayout {Padding=new Thickness(0,0,45,0),Children= { lstBreedPrimary } } ,
+                    new StackLayout {Padding=new Thickness(0,0,40,0),Children= { lstBreedPrimary } } ,
                     notPrimarySl
                 }
             }, 0, 1);
-            //grid4Add.Children.Add(breedSl, 0, 1);
 
-            //grid4Add.Children.Add(btnStep4AddSl, 0, 3);
+            grid4Add.Children.Add(btnStep4AddSl, 0, 2);
         }
 
         private void Step4AddBreed()
         {
             var breedEntry = new MyEntry
             {
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Start,
                 HeightRequest = 50,
                 WidthRequest = 470,
                 TextColor = Color.Black,
@@ -1089,39 +1046,23 @@ namespace AppointMaster.Pages
             Button btnStep4OtherBack = new Button
             {
                 Text = AppResources.Back,
-                TextColor = Color.Black,
-                BackgroundColor = Color.Transparent,
-                WidthRequest = 120,
-                HeightRequest = 50,
+                Style = buttonStyle,
                 HorizontalOptions = LayoutOptions.Start,
-                BorderColor = Color.Black,
-                BorderRadius = 1,
-                BorderWidth = 2
             };
 
             Button btnStep4OtherCancel = new Button
             {
                 Text = AppResources.Cancel,
-                TextColor = Color.Black,
-                BackgroundColor = Color.Transparent,
-                WidthRequest = 120,
+                Style = buttonStyle,
                 HorizontalOptions = LayoutOptions.Center,
-                BorderColor = Color.Black,
-                BorderRadius = 1,
-                BorderWidth = 2
             };
             btnStep4OtherCancel.SetBinding(Button.CommandProperty, new Binding("ShowCancelCommand"));
 
             Button btnStep4OtherNext = new Button
             {
                 Text = AppResources.Next,
-                TextColor = Color.Black,
-                BackgroundColor = Color.Transparent,
+                Style = buttonStyle,
                 WidthRequest = 120,
-                HorizontalOptions = LayoutOptions.End,
-                BorderColor = Color.Black,
-                BorderRadius = 1,
-                BorderWidth = 2
             };
 
             var btnStep4OtherSl = new StackLayout
@@ -1146,8 +1087,7 @@ namespace AppointMaster.Pages
                     {
                         VerticalOptions = LayoutOptions.Center,
                         Text = AppResources.Breed,
-                        TextColor = Color.Black,
-                        FontSize = 20
+                        Style=labStyle
                     },
                     breedEntry
                 }
@@ -1162,8 +1102,7 @@ namespace AppointMaster.Pages
                       {
                         VerticalOptions = LayoutOptions.Center,
                         Text = AppResources.Gender,
-                        TextColor = Color.Black,
-                        FontSize = 20
+                        Style=labStyle
                       },
                       genderPicker
                 }
@@ -1192,8 +1131,7 @@ namespace AppointMaster.Pages
                       {
                         VerticalOptions = LayoutOptions.Center,
                         Text = AppResources.Birthdate,
-                        TextColor = Color.Black,
-                        FontSize = 20
+                        Style=labStyle
                       },
                       datePickerSl
                 }
@@ -1218,24 +1156,42 @@ namespace AppointMaster.Pages
                     return;
                 }
 
-                DisplayPatientModel patientInfo = new DisplayPatientModel
+                if (selectPatientToCheckInItem == null)
                 {
-                    Name = RegistrationViewModel.PatientName,
-                    Breed = RegistrationViewModel.Breed,
-                    Gender = RegistrationViewModel.PatientGender,
-                    Birthdate = RegistrationViewModel.PatientBirth.Date,
-                    IsChecked = true
-                };
+                    if (RegistrationViewModel.IsCheckeInOrAdd)
+                        RegistrationViewModel.IsCheckeInOrAdd = false;
 
-                RegistrationViewModel.PatientName = null;
-                RegistrationViewModel.Breed = null;
+                    DisplayPatientModel patientInfo = new DisplayPatientModel
+                    {
+                        IsChecked = true,
+                        Name = RegistrationViewModel.PatientName,
+                        Breed = RegistrationViewModel.Breed,
+                        Gender = RegistrationViewModel.PatientGender,
+                        Birthdate = RegistrationViewModel.PatientBirth,
+                        SpeciesID = RegistrationViewModel.SelectedSpecies.ID,
+                        ImgLogo = RegistrationViewModel.SelectedSpecies.ImgLogo,
+                        Species = RegistrationViewModel.SelectedSpecies.Name
+                    };
+                    RegistrationViewModel.PatientList.Add(patientInfo);
+                    RegistrationViewModel.Breed = null;
+                    RegistrationViewModel.PatientName = null;
+                }
+                else
+                {
+                    var item = RegistrationViewModel.PatientList.Where(x => x.ID == selectPatientToCheckInItem.ID).FirstOrDefault();
+                    item.IsChecked = true;
+                    item.Name = RegistrationViewModel.PatientName;
+                    item.Gender = RegistrationViewModel.PatientGender;
+                    item.Breed = RegistrationViewModel.Breed;
+                    item.Birthdate = RegistrationViewModel.PatientBirth;
+                    item.Species = RegistrationViewModel.SelectedSpecies.Name;
 
-                RegistrationViewModel.PatientList.Add(patientInfo);
-                RegistrationViewModel.SelectedPatientList.Add(patientInfo);
+                    selectPatientToCheckInItem = null;
+                }
 
-                labStep.Text = AppResources.Registration_Step5;
+                labStep.Text = AppResources.Registration_Step4;
                 grid4Breed.IsVisible = false;
-                grid5.IsVisible = true;
+                grid4.IsVisible = true;
             };
 
             btnStep4OtherBack.Clicked += delegate
@@ -1319,30 +1275,6 @@ namespace AppointMaster.Pages
                 TextColor = Color.Black,
                 FontSize = fontSize
             };
-
-            //Label labPatientBreed = new Label
-            //{
-            //    TextColor = Color.Black,
-            //    FontSize = fontSize
-            //};
-
-            //Label labBreed = new Label
-            //{
-            //    TextColor = Color.Black,
-            //    FontSize = fontSize
-            //};
-
-            //Label labPatientGender = new Label
-            //{
-            //    TextColor = Color.Black,
-            //    FontSize = fontSize
-            //};
-
-            //Label labPatientBirth = new Label
-            //{
-            //    TextColor = Color.Black,
-            //    FontSize = fontSize
-            //};
 
             Button btnEditClient = new Button
             {
@@ -1454,93 +1386,40 @@ namespace AppointMaster.Pages
                 }
             };
 
-            //GridView gridView = new GridView
-            //{
-            //    ItemWidth = 200,
-            //    ItemHeight = 300,
-            //    HeightRequest = 500,
-            //    ColumnSpacing = 5,
-            //    WidthRequest = 500,
-            //    RowSpacing=5,
-            //    ItemTemplate = new DataTemplate(() =>
-            //    {
-            //        Label labPName = new Label();
-            //        labPName.TextColor = Color.Black;
-            //        labPName.FontSize = 25;
-            //        labPName.VerticalOptions = LayoutOptions.Center;
-            //        labPName.SetBinding(Label.TextProperty, "PatientName");
-
-            //        Label breedLable = new Label();
-            //        breedLable.TextColor = Color.Black;
-            //        breedLable.FontSize = 25;
-            //        breedLable.VerticalOptions = LayoutOptions.Center;
-            //        breedLable.SetBinding(Label.TextProperty, "Breed");
-
-            //        Label patientGenderLable = new Label();
-            //        patientGenderLable.TextColor = Color.Black;
-            //        patientGenderLable.FontSize = 25;
-            //        patientGenderLable.VerticalOptions = LayoutOptions.Center;
-            //        patientGenderLable.SetBinding(Label.TextProperty, "PatientGender");
-
-            //        Label patientBirthLable = new Label();
-            //        patientBirthLable.TextColor = Color.Black;
-            //        patientBirthLable.FontSize = 25;
-            //        patientBirthLable.VerticalOptions = LayoutOptions.Center;
-            //        patientBirthLable.SetBinding(Label.TextProperty, "Birth");
-
-            //        return new MyViewCell
-            //        {  
-            //            View = new StackLayout
-            //            {
-            //                Children =
-            //                {
-            //                   labPName,
-            //                   breedLable,
-            //                   new StackLayout
-            //                   {
-            //                       Orientation=StackOrientation.Horizontal,
-            //                       Children=
-            //                       {
-            //                           patientGenderLable,
-            //                           new Label { FontSize=25,Text="-",VerticalOptions=LayoutOptions.Center },
-            //                           patientBirthLable
-            //                       }
-            //                   }
-            //                }
-            //            }
-            //        };
-            //    })
-            //};
-            //gridView.SetBinding(GridView.ItemsSourceProperty, new Binding("SelectedPatientList"));
-
-            ListView gridView = new MyListView
+            ListView lstPatient = new MyListView
             {
                 HasUnevenRows = true,
                 ItemTemplate = new DataTemplate(() =>
                 {
-                    Label labPName = new Label();
-                    labPName.TextColor = Color.Black;
-                    labPName.FontSize = 25;
-                    labPName.VerticalOptions = LayoutOptions.Center;
-                    labPName.SetBinding(Label.TextProperty, "PatientName");
+                    Label labName = new Label();
+                    labName.TextColor = Color.Black;
+                    labName.FontSize = 25;
+                    labName.VerticalOptions = LayoutOptions.Center;
+                    labName.SetBinding(Label.TextProperty, "Name");
 
-                    Label breedLable = new Label();
-                    breedLable.TextColor = Color.Black;
-                    breedLable.FontSize = 25;
-                    breedLable.VerticalOptions = LayoutOptions.Center;
-                    breedLable.SetBinding(Label.TextProperty, "Breed");
+                    Label labSpecies = new Label();
+                    labSpecies.TextColor = Color.Black;
+                    labSpecies.FontSize = 25;
+                    labSpecies.VerticalOptions = LayoutOptions.Center;
+                    labSpecies.SetBinding(Label.TextProperty, "Species");
 
-                    Label patientGenderLable = new Label();
-                    patientGenderLable.TextColor = Color.Black;
-                    patientGenderLable.FontSize = 25;
-                    patientGenderLable.VerticalOptions = LayoutOptions.Center;
-                    patientGenderLable.SetBinding(Label.TextProperty, "PatientGender");
+                    Label labBreed = new Label();
+                    labBreed.TextColor = Color.Black;
+                    labBreed.FontSize = 25;
+                    labBreed.VerticalOptions = LayoutOptions.Center;
+                    labBreed.SetBinding(Label.TextProperty, "Breed");
 
-                    Label patientBirthLable = new Label();
-                    patientBirthLable.TextColor = Color.Black;
-                    patientBirthLable.FontSize = 25;
-                    patientBirthLable.VerticalOptions = LayoutOptions.Center;
-                    patientBirthLable.SetBinding(Label.TextProperty, "Birth");
+                    Label labPatientGender = new Label();
+                    labPatientGender.TextColor = Color.Black;
+                    labPatientGender.FontSize = 25;
+                    labPatientGender.VerticalOptions = LayoutOptions.Center;
+                    labPatientGender.SetBinding(Label.TextProperty, "Gender");
+
+                    Label labPatientBirth = new Label();
+                    labPatientBirth.TextColor = Color.Black;
+                    labPatientBirth.FontSize = 25;
+                    labPatientBirth.VerticalOptions = LayoutOptions.Center;
+                    labPatientBirth.SetBinding(Label.TextProperty, new Binding("Birthdate", stringFormat:("{0:dd/MM/yyyy}")));
 
                     return new MyViewCell
                     {
@@ -1549,16 +1428,17 @@ namespace AppointMaster.Pages
                             Orientation = StackOrientation.Vertical,
                             Children =
                             {
-                               labPName,
-                               breedLable,
+                               labName,
+                               labSpecies,
+                               labBreed,
                                new StackLayout
                                {
                                    Orientation=StackOrientation.Horizontal,
                                    Children=
                                    {
-                                       patientGenderLable,
+                                       labPatientGender,
                                        new Label { FontSize=25,Text="-",VerticalOptions=LayoutOptions.Center,TextColor=Color.Black },
-                                       patientBirthLable
+                                       labPatientBirth
                                    }
                                }
                             }
@@ -1566,20 +1446,20 @@ namespace AppointMaster.Pages
                     };
                 })
             };
-            gridView.SetBinding(ListView.ItemsSourceProperty, new Binding("SelectedPatientList"));
+            lstPatient.SetBinding(ListView.ItemsSourceProperty, new Binding("CheckedPatientList"));
 
             StackLayout patientInfoSl = new StackLayout
             {
                 Children =
                 {
                     patientInfoGrid,
-                    gridView
+                    lstPatient
                 }
             };
 
             grid5 = new Grid();
             grid5.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            grid5.RowDefinitions.Add(new RowDefinition { Height = 400 });//new GridLength(200)
+            grid5.RowDefinitions.Add(new RowDefinition { Height = 400 });
             grid5.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid5.Children.Add(clientInfoSl, 0, 0);
             grid5.Children.Add(patientInfoSl, 0, 1);
@@ -1599,69 +1479,42 @@ namespace AppointMaster.Pages
             labEmail.SetBinding(Label.TextProperty, new Binding("Email"));
         }
 
-        private void LstPatient_ItemTapped(object sender, ItemTappedEventArgs e)
+        private void LstBreedPrimary_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            DisplayPatientModel model = e.Item as DisplayPatientModel;
-            model.IsChecked = !model.IsChecked;
-            if (RegistrationViewModel.SelectedPatientList.Contains(model))
-                RegistrationViewModel.SelectedPatientList.Remove(model);
-            else
-                RegistrationViewModel.SelectedPatientList.Add(model);
-        }
+            SpeciesModel model = e.Item as SpeciesModel;
+            if (model.IsChecked)
+                return;
 
-        private void SelectPatientSpecies(string species)
-        {
-            if (!string.IsNullOrEmpty(RegistrationViewModel.SelectedBreed))
+            foreach (var item in RegistrationViewModel.SpeciesNotPrimaryList)
             {
-                if (RegistrationViewModel.SelectedBreed == species)
-                    return;
-
-                switch (RegistrationViewModel.SelectedBreed)
+                if (item.IsChecked == true)
                 {
-                    case "Dog":
-                        RegistrationViewModel.IsDog = false;
-                        break;
-                    case "Fish":
-                        RegistrationViewModel.IsFish = false;
-                        break;
-                    case "Cat":
-                        RegistrationViewModel.IsCat = false;
-                        break;
-                    case "Hamster":
-                        RegistrationViewModel.IsHamster = false;
-                        break;
-                    case "Bird":
-                        RegistrationViewModel.IsBird = false;
-                        break;
-                    case "Other":
-                        RegistrationViewModel.IsOther = false;
-                        break;
+                    item.IsChecked = false;
+                    break;
                 }
             }
 
-            switch (species)
+            foreach (var item in RegistrationViewModel.SpeciesPrimaryList)
             {
-                case "Dog":
-                    RegistrationViewModel.IsDog = true;
+                if (item.IsChecked == true)
+                {
+                    item.IsChecked = false;
                     break;
-                case "Fish":
-                    RegistrationViewModel.IsFish = true;
-                    break;
-                case "Cat":
-                    RegistrationViewModel.IsCat = true;
-                    break;
-                case "Hamster":
-                    RegistrationViewModel.IsHamster = true;
-                    break;
-                case "Bird":
-                    RegistrationViewModel.IsBird = true;
-                    break;
-                case "Other":
-                    RegistrationViewModel.IsOther = true;
-                    break;
+                }
+            }
+            model.IsChecked = true;
+
+            if (model.PrimaryDisplay)
+                RegistrationViewModel.NotPrimarySpeciesName = null;
+            else
+            {
+                lstBreedNotPrimary.IsVisible = false;
+                RegistrationViewModel.NotPrimarySpeciesName = model.Name;
             }
 
-            RegistrationViewModel.SelectedBreed = species;
+
+            if (selectPatientToCheckInItem != null)
+                RegistrationViewModel.PatientList.Where(x => x.ID == selectPatientToCheckInItem.ID).FirstOrDefault().SpeciesID = model.ID;
         }
 
         class TrueToFalseConverter : IValueConverter

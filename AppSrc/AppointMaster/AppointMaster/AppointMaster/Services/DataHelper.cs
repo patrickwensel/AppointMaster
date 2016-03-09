@@ -12,7 +12,7 @@ namespace AppointMaster.Services
         static DataHelper me;
 
         string authorization;
-        AppointmentModel model;
+        DisplayAppointmentModel model;
 
         public string BaseAPI { get; set; }
 
@@ -28,12 +28,12 @@ namespace AppointMaster.Services
             authorization = value;
         }
 
-        public AppointmentModel GetSelectedAppointment()
+        public DisplayAppointmentModel GetSelectedAppointment()
         {
             return model;
         }
 
-        public void SetSelectedAppointment(AppointmentModel value)
+        public void SetSelectedAppointment(DisplayAppointmentModel value)
         {
             model = value;
         }

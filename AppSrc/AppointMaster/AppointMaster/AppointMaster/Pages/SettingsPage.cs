@@ -1,5 +1,6 @@
 ﻿using AppointMaster.Controls;
 using AppointMaster.Resources;
+using AppointMaster.Services;
 using AppointMaster.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -24,15 +25,19 @@ namespace AppointMaster.Pages
             NavigationPage.SetHasNavigationBar(this, false);
             Padding = new Thickness(100, Device.OnPlatform(40, 20, 20), 100, 20);
 
-            var logoImage = new Image
+            Image imgLogo = new Image
             {
                 Aspect = Aspect.AspectFit,
                 Source = "logo.png",
-                VerticalOptions=LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Start,
+                HorizontalOptions = LayoutOptions.End,
                 HeightRequest = 100,
                 WidthRequest = 207
             };
+            if (DataHelper.GetInstance().Clinic.Logo != null)
+            {
+                imgLogo.Source = ImageSource.FromStream(() => new System.IO.MemoryStream(DataHelper.GetInstance().Clinic.Logo));
+            }
 
             var apiEntry = new MyEntry
             {
@@ -54,20 +59,6 @@ namespace AppointMaster.Pages
                 TextColor = Color.Black,
             };
 
-            //var btnCheckIn = new Button
-            //{
-            //    WidthRequest = 200,
-            //    VerticalOptions = LayoutOptions.End,
-            //    HorizontalOptions = LayoutOptions.Start,
-            //    Text = string.Format("< {0}", AppResources.Check_In),
-            //    TextColor = Color.Black,
-            //    FontSize = 20,
-            //    BackgroundColor = Color.Transparent,
-            //    BorderColor = Color.Black,
-            //    BorderRadius = 1,
-            //    BorderWidth = 2
-            //};
-
             StackLayout apiSL = new StackLayout
             {
                 Children =
@@ -82,9 +73,8 @@ namespace AppointMaster.Pages
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50) });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(120) });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(50) });
-            //grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1,GridUnitType.Star) });
 
-            grid.Children.Add(logoImage, 0, 0);
+            grid.Children.Add(imgLogo, 0, 0);
 
             grid.Children.Add(new Label { Text = AppResources.Settings, TextColor = Color.Black, FontSize = 30,FontFamily="Bold" },0,1);
 
@@ -92,11 +82,8 @@ namespace AppointMaster.Pages
 
             grid.Children.Add(btnSave, 0, 3);
 
-            //grid.Children.Add(btnCheckIn, 0, 4);
-
             apiEntry.SetBinding(Entry.TextProperty, new Binding("BaseAPIAddress"));
             btnSave.SetBinding(Button.CommandProperty, new Binding("SaveCommand"));
-            //btnCheckIn.SetBinding(Button.CommandProperty, new Binding("ShowCheckInCommand"));
 
             Content = grid;
 

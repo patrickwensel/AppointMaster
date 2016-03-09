@@ -29,6 +29,11 @@ namespace AM.RestApi.Controllers
                 Breed = x.Breed,
                 Birthdate = x.Birthdate,
                 Gender = x.Gender,
+                //Species= context.Speciess.Where(m=>m.ID==x.SpeciesID).Select(m=>new SpeciesViewModel {
+                //    Name=m.Name,
+                //    ID=m.ID,
+                //    Logo= context.ClinicSpeciess.Where(m => m.SpeciesID == x.SpeciesID && m.Clinic.ID == clinicID).Select(m => m.Logo).FirstOrDefault()
+                //}).FirstOrDefault()
                 Logo = context.ClinicSpeciess.Where(m => m.SpeciesID == x.SpeciesID && m.Clinic.ID == clinicID).Select(m => m.Logo).FirstOrDefault(),
             });
             return patients;

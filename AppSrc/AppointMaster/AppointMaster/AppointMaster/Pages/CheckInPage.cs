@@ -1,6 +1,7 @@
 ﻿using AppointMaster.Controls;
 using AppointMaster.Models;
 using AppointMaster.Resources;
+using AppointMaster.Services;
 using AppointMaster.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -38,12 +39,15 @@ namespace AppointMaster.Pages
             var logoImage = new Image
             {
                 Aspect = Aspect.AspectFit,
-                Source = "logo.png",
                 VerticalOptions = LayoutOptions.Start,
                 HorizontalOptions = LayoutOptions.End,
                 HeightRequest = 100,
                 WidthRequest = 207
             };
+            if (DataHelper.GetInstance().Clinic.Logo != null)
+            {
+                logoImage.Source = ImageSource.FromStream(() => new System.IO.MemoryStream(DataHelper.GetInstance().Clinic.Logo));
+            }
 
             var labCheckIn = new Label
             {
@@ -137,7 +141,7 @@ namespace AppointMaster.Pages
                     btnCheckIn.Clicked += (sender, e) =>
                     {
                         int id = (int)((Button)sender).CommandParameter;
-                        AppointmentModel item = CheckInViewModel.Items.Where(x => x.ID == id).FirstOrDefault();
+                        DisplayAppointmentModel item = CheckInViewModel.Items.Where(x => x.ID == id).FirstOrDefault();
                         CheckInViewModel.ShowCheckedIn(item);
                     };
 
@@ -162,7 +166,6 @@ namespace AppointMaster.Pages
             };
 
             listView.SetBinding(ListView.ItemsSourceProperty, new Binding("Items"));
-            //listView.SetBinding(ListView.SelectedItemProperty, new Binding("SelectedAppointment", BindingMode.TwoWay));
 
             var loadingGrid = new Grid();
             loadingGrid.BackgroundColor = Color.Black;

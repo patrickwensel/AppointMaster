@@ -1,4 +1,5 @@
 ﻿using AppointMaster.Resources;
+using AppointMaster.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,20 @@ namespace AppointMaster.Pages
             BackgroundColor = Color.White;
             NavigationPage.SetHasNavigationBar(this, false);
             Padding = new Thickness(20, Device.OnPlatform(40, 20, 20), 20, 20);
+
+            Image imgLogo = new Image
+            {
+                Aspect = Aspect.AspectFit,
+                Source = "logo.png",
+                VerticalOptions = LayoutOptions.Start,
+                HorizontalOptions = LayoutOptions.End,
+                HeightRequest = 100,
+                WidthRequest = 207
+            };
+            if (DataHelper.GetInstance().Clinic.Logo != null)
+            {
+                imgLogo.Source = ImageSource.FromStream(() => new System.IO.MemoryStream(DataHelper.GetInstance().Clinic.Logo));
+            }
 
             Button btnMain = new Button
             {
@@ -45,22 +60,14 @@ namespace AppointMaster.Pages
                 HeightRequest = 50,
                 TextColor = Color.Black
             };
-            btnRegistration.SetBinding(Button.CommandProperty, new Binding("ShowRegistertionCommand"));
+            btnRegistration.SetBinding(Button.CommandProperty, new Binding("ShowRegistrationCommand"));
 
             Grid grid = new Grid();
             grid.RowDefinitions.Add(new RowDefinition { Height = 150 });
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
 
-            grid.Children.Add(new Image
-            {
-                Aspect = Aspect.AspectFit,
-                Source = "logo.png",
-                VerticalOptions = LayoutOptions.Start,
-                HorizontalOptions = LayoutOptions.End,
-                HeightRequest = 100,
-                WidthRequest = 207
-            }, 0, 0);
+            grid.Children.Add(imgLogo, 0, 0);
 
             grid.Children.Add(new StackLayout
             {

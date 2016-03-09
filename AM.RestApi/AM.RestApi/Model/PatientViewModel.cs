@@ -17,6 +17,6 @@ namespace AM.RestApi.Model
         public DateTime? Birthdate { get; set; }
 
         //public List<AppointmentPatient> AppointmentPatients { get; set; }
-        //public Species Species { get; set; }
+        //public SpeciesViewModel Species { get; set; }
     }
 }

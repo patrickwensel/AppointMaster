@@ -141,11 +141,14 @@
   <data name="Check_In" xml:space="preserve">
     <value>Check In</value>
   </data>
-  <data name="Choose_Breed" xml:space="preserve">
-    <value>Please choose a breed</value>
+  <data name="Check_In_A_New_Patient" xml:space="preserve">
+    <value>Check In a new Patient</value>
   </data>
   <data name="Choose_Patient" xml:space="preserve">
-    <value>Please choose or add a patient</value>
+    <value>Please select a patient to check in</value>
+  </data>
+  <data name="Choose_Species" xml:space="preserve">
+    <value>Please select a species</value>
   </data>
   <data name="City" xml:space="preserve">
     <value>City</value>
@@ -154,7 +157,7 @@
     <value>Client Information</value>
   </data>
   <data name="Companion" xml:space="preserve">
-    <value>Companion</value>
+    <value>Patient</value>
   </data>
   <data name="Complete" xml:space="preserve">
     <value>Complete</value>

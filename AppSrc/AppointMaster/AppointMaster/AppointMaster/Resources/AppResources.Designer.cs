@@ -134,20 +134,29 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please choose a breed.
+        ///   Looks up a localized string similar to Check In a new Patient.
         /// </summary>
-        public static string Choose_Breed {
+        public static string Check_In_A_New_Patient {
             get {
-                return ResourceManager.GetString("Choose_Breed", resourceCulture);
+                return ResourceManager.GetString("Check_In_A_New_Patient", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please choose or add a patient.
+        ///   Looks up a localized string similar to Please select a patient to check in.
         /// </summary>
         public static string Choose_Patient {
             get {
                 return ResourceManager.GetString("Choose_Patient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a species.
+        /// </summary>
+        public static string Choose_Species {
+            get {
+                return ResourceManager.GetString("Choose_Species", resourceCulture);
             }
         }
         
@@ -170,7 +179,7 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Companion.
+        ///   Looks up a localized string similar to Patient.
         /// </summary>
         public static string Companion {
             get {

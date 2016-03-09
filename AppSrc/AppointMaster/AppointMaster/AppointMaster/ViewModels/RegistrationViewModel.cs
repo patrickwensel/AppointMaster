@@ -34,14 +34,36 @@ namespace AppointMaster.ViewModels
             }
         }
 
-        private string _selectedBreed;
-        public string SelectedBreed
+        private SpeciesModel _selectedSpecies;
+        public SpeciesModel SelectedSpecies
         {
-            get { return _selectedBreed; }
+            get { return _selectedSpecies; }
             set
             {
-                _selectedBreed = value;
-                RaisePropertyChanged(() => SelectedBreed);
+                _selectedSpecies = value;
+                RaisePropertyChanged(() => SelectedSpecies);
+            }
+        }
+
+        private bool _isCheckeInOrAdd;
+        public bool IsCheckeInOrAdd
+        {
+            get { return _isCheckeInOrAdd; }
+            set
+            {
+                _isCheckeInOrAdd = value;
+                RaisePropertyChanged(() => IsCheckeInOrAdd);
+            }
+        }
+
+        private string _notPrimarySpeciesName;
+        public string NotPrimarySpeciesName
+        {
+            get { return _notPrimarySpeciesName; }
+            set
+            {
+                _notPrimarySpeciesName = value;
+                RaisePropertyChanged(() => NotPrimarySpeciesName);
             }
         }
 
@@ -51,7 +73,7 @@ namespace AppointMaster.ViewModels
             get { return _firstName; }
             set
             {
-                _firstName = value;
+                _firstName = value.Substring(0, 1).ToUpper() + value.Substring(1);
                 RaisePropertyChanged(() => FirstName);
             }
         }
@@ -62,7 +84,7 @@ namespace AppointMaster.ViewModels
             get { return _lastName; }
             set
             {
-                _lastName = value;
+                _lastName = value.Substring(0, 1).ToUpper() + value.Substring(1);
                 RaisePropertyChanged(() => LastName);
             }
         }
@@ -155,8 +177,8 @@ namespace AppointMaster.ViewModels
             }
         }
 
-        private DateTime _patientBirth;
-        public DateTime PatientBirth
+        private DateTime? _patientBirth;
+        public DateTime? PatientBirth
         {
             get { return _patientBirth; }
             set
@@ -166,86 +188,17 @@ namespace AppointMaster.ViewModels
             }
         }
 
-        //Check
-        private bool _isDog;
-        public bool IsDog
-        {
-            get { return _isDog; }
-            set
-            {
-                _isDog = value;
-                RaisePropertyChanged(() => IsDog);
-            }
-        }
-
-        private bool _isfish;
-        public bool IsFish
-        {
-            get { return _isfish; }
-            set
-            {
-                _isfish = value;
-                RaisePropertyChanged(() => IsFish);
-            }
-        }
-
-        private bool _isCat;
-        public bool IsCat
-        {
-            get { return _isCat; }
-            set
-            {
-                _isCat = value;
-                RaisePropertyChanged(() => IsCat);
-            }
-        }
-
-        private bool _isHamster;
-        public bool IsHamster
-        {
-            get { return _isHamster; }
-            set
-            {
-                _isHamster = value;
-                RaisePropertyChanged(() => IsHamster);
-            }
-        }
-
-        private bool _isBird;
-        public bool IsBird
-        {
-            get { return _isBird; }
-            set
-            {
-                _isBird = value;
-                RaisePropertyChanged(() => IsBird);
-            }
-        }
-
-        private bool _isOther;
-        public bool IsOther
-        {
-            get { return _isOther; }
-            set
-            {
-                _isOther = value;
-                RaisePropertyChanged(() => IsOther);
-            }
-        }
-
         public ObservableCollection<string> GenderList { get; set; }
 
         public ObservableCollection<string> TitleList { get; set; }
 
         public ObservableCollection<string> StateList { get; set; }
 
-        public ObservableCollection<string> BreedList { get; set; }
-
-        public ObservableCollection<SpeciesModel> SpeciesList { get; set; }
-
         public ObservableCollection<DisplayPatientModel> PatientList { get; set; }
-
-        public ObservableCollection<DisplayPatientModel> SelectedPatientList { get; set; }
+        public ObservableCollection<DisplayPatientModel> CheckedPatientList { get; set; }
+        public ObservableCollection<SpeciesModel> SpeciesList { get; set; }
+        public ObservableCollection<SpeciesModel> SpeciesPrimaryList { get; set; }
+        public ObservableCollection<SpeciesModel> SpeciesNotPrimaryList { get; set; }
 
         public MvxCommand ShowCheckInCommand
         {
@@ -265,24 +218,7 @@ namespace AppointMaster.ViewModels
 
         public RegistrationViewModel()
         {
-            if (Services.DataHelper.GetInstance().GetSelectedAppointment() != null)
-            {
-                CheckedAppointment();
-            }
-            else
-            {
-                SelectedTitle = "Mr.";
-                SelectedState = "MD";
-                PatientGender = "Male";
-                SelectedBreed = "Dog";
-            }
-
             PatientBirth = DateTime.Now;
-
-            BreedList = new ObservableCollection<string>();
-            IsDog = true;
-            BreedList.Add("Dog");
-            BreedList.Add("Cat");
 
             GenderList = new ObservableCollection<string>();
             GenderList.Add("Male");
@@ -299,21 +235,92 @@ namespace AppointMaster.ViewModels
             StateList.Add("AK");
 
             PatientList = new ObservableCollection<DisplayPatientModel>();
-            SelectedPatientList = new ObservableCollection<DisplayPatientModel>();
+            CheckedPatientList = new ObservableCollection<DisplayPatientModel>();
 
             SpeciesList = new ObservableCollection<SpeciesModel>();
-            SpeciesList.Add(new SpeciesModel { ID=1});
-            SpeciesList.Add(new SpeciesModel { ID = 1 });
-            SpeciesList.Add(new SpeciesModel { ID = 1 });
+            SpeciesPrimaryList = new ObservableCollection<SpeciesModel>();
+            SpeciesNotPrimaryList = new ObservableCollection<SpeciesModel>();
+
+            if (Services.DataHelper.GetInstance().GetSelectedAppointment() != null)
+            {
+                IsCheckeInOrAdd = false;
+
+                CheckedAppointment();
+
+                GetAllPatients();
+            }
+            else
+            {
+                IsCheckeInOrAdd = true;
+
+                SelectedTitle = "Mr.";
+                SelectedState = "MD";
+                PatientGender = "Male";
+            }
+
+            GetAllSpecies();
+            foreach (var item in SpeciesList)
+            {
+                if (item.PrimaryDisplay)
+
+                    SpeciesPrimaryList.Add(item);
+                else
+                    SpeciesNotPrimaryList.Add(item);
+            }
+        }
+
+        private void GetAllPatients()
+        {
+            PatientList.Add(new DisplayPatientModel
+            {
+                ID = 1,
+                IsChecked = false,
+                Name = "Fido",
+                SpeciesID = 1,
+                Gender = "Male",
+                Breed = "Mutt",
+                Birthdate = DateTime.Now.Date.AddDays(-2),
+                ImgLogo = "dog.png"
+            });
+            PatientList.Add(new DisplayPatientModel
+            {
+                ID = 2,
+                IsChecked = false,
+                Name = "Buddy",
+                SpeciesID = 2,
+                Gender = "Female",
+                Breed = "Mutt",
+                Birthdate = DateTime.Now.Date.AddDays(-1),
+                ImgLogo = "cat.png"
+            });
+            PatientList.Add(new DisplayPatientModel
+            {
+                ID = 3,
+                IsChecked = false,
+                Name = "Tabitha",
+                SpeciesID = 5,
+                Gender = "Female",
+                Breed = "Mutt",
+                Birthdate = DateTime.Now.Date.AddDays(-1),
+                ImgLogo = "other.png"
+            });
+        }
+        private void GetAllSpecies()
+        {
+            SpeciesList.Add(new SpeciesModel { ID = 1, IsChecked = false, Name = "Dog", PrimaryDisplay = true, ImgLogo = "dog.png" });
+            SpeciesList.Add(new SpeciesModel { ID = 2, IsChecked = false, Name = "Cat", PrimaryDisplay = true, ImgLogo = "cat.png" });
+            SpeciesList.Add(new SpeciesModel { ID = 3, IsChecked = false, Name = "Bird", PrimaryDisplay = true, ImgLogo = "bird.png" });
+            SpeciesList.Add(new SpeciesModel { ID = 4, IsChecked = false, Name = "Fish", PrimaryDisplay = false, ImgLogo = "fish.png" });
+            SpeciesList.Add(new SpeciesModel { ID = 5, IsChecked = false, Name = "Other", PrimaryDisplay = false, ImgLogo = "other.png" });
         }
 
         private void CheckedAppointment()
         {
-            AppointmentModel model = Services.DataHelper.GetInstance().GetSelectedAppointment();
+            DisplayAppointmentModel model = Services.DataHelper.GetInstance().GetSelectedAppointment();
 
             SelectedTitle = model.Client.Title;
             SelectedState = model.Client.StateProvince;
-            
+
             FirstName = model.Client.FirstName;
             LastName = model.Client.LastName;
             StreetAddress = model.Client.Address;
@@ -322,15 +329,17 @@ namespace AppointMaster.ViewModels
             Phone = model.Client.Phone;
             Email = model.Client.Email;
 
-            foreach (var item in model.Patients)
-            {
-                PatientList.Add(new DisplayPatientModel
-                {
-                   
-                });
-            }
-
             Services.DataHelper.GetInstance().SetSelectedAppointment(null);
         }
+
+        private void Complete()
+        {
+
+        }
+
+        //public void ShowCheckInPage()
+        //{
+        //    ShowViewModel<CheckInViewModel>();
+        //}
     }
 }
