@@ -1,5 +1,6 @@
 ﻿using AppointMaster.Controls;
 using AppointMaster.Resources;
+using AppointMaster.Services;
 using AppointMaster.ViewModels;
 using Xamarin.Forms;
 using XLabs.Forms.Controls;
