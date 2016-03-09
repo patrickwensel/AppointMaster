@@ -252,6 +252,7 @@ namespace AppointMaster.Pages
             btnStep1Back.SetBinding(Button.CommandProperty, new Binding("ShowCheckInCommand"));
             btnStep1Cancel.SetBinding(Button.CommandProperty, new Binding("ShowCancelCommand"));
 
+
             grid1 = new Grid();
             grid1.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
             grid1.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
@@ -724,11 +725,11 @@ namespace AppointMaster.Pages
                                    {
                                        btnCheckIn,
                                        imgChecked
-                                   }
+                            }
                                },
                                imgPatient,
                                labName
-                            }
+                        }
                         }
                     };
                 })
@@ -1161,20 +1162,20 @@ namespace AppointMaster.Pages
                     if (RegistrationViewModel.IsCheckeInOrAdd)
                         RegistrationViewModel.IsCheckeInOrAdd = false;
 
-                    DisplayPatientModel patientInfo = new DisplayPatientModel
-                    {
+                DisplayPatientModel patientInfo = new DisplayPatientModel
+                {
                         IsChecked = true,
-                        Name = RegistrationViewModel.PatientName,
-                        Breed = RegistrationViewModel.Breed,
-                        Gender = RegistrationViewModel.PatientGender,
+                    Name = RegistrationViewModel.PatientName,
+                    Breed = RegistrationViewModel.Breed,
+                    Gender = RegistrationViewModel.PatientGender,
                         Birthdate = RegistrationViewModel.PatientBirth,
                         SpeciesID = RegistrationViewModel.SelectedSpecies.ID,
                         ImgLogo = RegistrationViewModel.SelectedSpecies.ImgLogo,
                         Species = RegistrationViewModel.SelectedSpecies.Name
-                    };
+                };
                     RegistrationViewModel.PatientList.Add(patientInfo);
                     RegistrationViewModel.Breed = null;
-                    RegistrationViewModel.PatientName = null;
+                RegistrationViewModel.PatientName = null;
                 }
                 else
                 {
@@ -1486,9 +1487,9 @@ namespace AppointMaster.Pages
                 return;
 
             foreach (var item in RegistrationViewModel.SpeciesNotPrimaryList)
-            {
+        {
                 if (item.IsChecked == true)
-                {
+            {
                     item.IsChecked = false;
                     break;
                 }
@@ -1499,7 +1500,7 @@ namespace AppointMaster.Pages
                 if (item.IsChecked == true)
                 {
                     item.IsChecked = false;
-                    break;
+                        break;
                 }
             }
             model.IsChecked = true;

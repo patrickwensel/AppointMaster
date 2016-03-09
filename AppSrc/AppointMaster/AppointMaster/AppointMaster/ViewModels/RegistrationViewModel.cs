@@ -320,7 +320,7 @@ namespace AppointMaster.ViewModels
 
             SelectedTitle = model.Client.Title;
             SelectedState = model.Client.StateProvince;
-
+            
             FirstName = model.Client.FirstName;
             LastName = model.Client.LastName;
             StreetAddress = model.Client.Address;
@@ -333,9 +333,9 @@ namespace AppointMaster.ViewModels
         }
 
         private void Complete()
-        {
-
-        }
+                {
+                   
+            }
 
         //public void ShowCheckInPage()
         //{

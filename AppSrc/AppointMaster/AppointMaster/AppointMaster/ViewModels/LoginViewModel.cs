@@ -1,8 +1,6 @@
-﻿using AppointMaster.Models;
-using AppointMaster.Resources;
+﻿using AppointMaster.Resources;
 using AppointMaster.Services;
 using MvvmCross.Core.ViewModels;
-using Newtonsoft.Json;
 using PCLCrypto;
 using System;
 using System.Collections.Generic;
@@ -88,7 +86,7 @@ namespace AppointMaster.ViewModels
                 string authorization = string.Format("{0}|{1}|{2}", "VetMobile", UserName, hashPass);
                 string authorizationBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(authorization));
 
-                DataHelper.GetInstance().SetAuthorization(authorizationBase64);
+                Services.DataHelper.GetInstance().SetAuthorization(authorizationBase64);
 
                 string url = DataHelper.GetInstance().BaseAPI + "VetClinic";
                 HttpClient client = new HttpClient();
@@ -98,16 +96,12 @@ namespace AppointMaster.ViewModels
                 {
                     string responseBody = await response.Content.ReadAsStringAsync();
 
-                    var clinicItem = JsonConvert.DeserializeObject<ClinicModel>(responseBody);
-
-                    DataHelper.GetInstance().Clinic = clinicItem;
-
                     secureStorage.Store("UserName", Encoding.UTF8.GetBytes(UserName));
 
                     ShowViewModel<MainViewModel>();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }

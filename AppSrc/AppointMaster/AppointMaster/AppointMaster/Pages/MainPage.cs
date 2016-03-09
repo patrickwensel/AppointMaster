@@ -1,6 +1,5 @@
 ﻿using AppointMaster.Controls;
 using AppointMaster.Resources;
-using AppointMaster.Services;
 using AppointMaster.ViewModels;
 using Xamarin.Forms;
 using XLabs.Forms.Controls;
@@ -37,13 +36,11 @@ namespace AppointMaster.Pages
             {
                 Style = labStyle
             };
-            labName.SetBinding(Label.TextProperty, new Binding("ClinicName"));
 
             Label labAddress = new Label
             {
                 Style = labStyle
             };
-            labAddress.SetBinding(Label.TextProperty, new Binding("Address"));
 
             Label labCity = new Label
             {
