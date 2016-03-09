@@ -48,7 +48,6 @@
     <Compile Include="Models\ClientModel.cs" />
     <Compile Include="Models\ClinicModel.cs" />
     <Compile Include="Models\CultureModel.cs" />
-    <Compile Include="Models\PatientInfo.cs" />
     <Compile Include="Models\PatientModel.cs" />
     <Compile Include="Models\SpeciesModel.cs" />
     <Compile Include="Pages\CheckedInPage.cs" />

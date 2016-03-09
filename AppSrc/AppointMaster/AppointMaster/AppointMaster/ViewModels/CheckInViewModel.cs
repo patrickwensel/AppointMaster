@@ -1,4 +1,5 @@
 ﻿using AppointMaster.Models;
+using AppointMaster.Services;
 using MvvmCross.Core.ViewModels;
 using Newtonsoft.Json;
 using System;
@@ -41,25 +42,25 @@ namespace AppointMaster.ViewModels
         public CheckInViewModel()
         {
             Items = new ObservableCollection<DisplayAppointmentModel>();
-            Items.Add(new DisplayAppointmentModel
-            {
-                ID = 1000,
-                Time = DateTime.Now,
-                PatientName = "Fido",
-                Client = new ClientModel
-                {
-                    Title = "Mr.",
-                    FirstName = "first",
-                    LastName = "last",
-                    Phone = "(410)555-1212",
-                    Email = "sameone@gmail.com",
-                    Address = "123 Some Road",
-                    City = "Somewhereville",
-                    StateProvince = "MD",
-                    PostalCode = "12345",
-                }
-            });
-            //GetAppointmentIDs();
+            //Items.Add(new DisplayAppointmentModel
+            //{
+            //    ID = 1000,
+            //    Time = DateTime.Now,
+            //    PatientName = "Fido",
+            //    Client = new ClientModel
+            //    {
+            //        Title = "Mr.",
+            //        FirstName = "first",
+            //        LastName = "last",
+            //        Phone = "(410)555-1212",
+            //        Email = "sameone@gmail.com",
+            //        Address = "123 Some Road",
+            //        City = "Somewhereville",
+            //        StateProvince = "MD",
+            //        PostalCode = "12345",
+            //    }
+            //});
+            GetAppointmentIDs();
         }
 
         public async void GetAppointmentIDs()
@@ -67,7 +68,7 @@ namespace AppointMaster.ViewModels
             IsBusy = true;
             try
             {
-                string url = "http://ppgservices-001-site6.ctempurl.com/api/v1/VetAppointment";
+                string url = DataHelper.GetInstance().BaseAPI + "api/v1/VetAppointment";
                 HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Services.DataHelper.GetInstance().GetAuthorization());
                 HttpResponseMessage response = await client.GetAsync(url);

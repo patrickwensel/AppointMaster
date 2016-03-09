@@ -16,6 +16,18 @@ namespace AppointMaster.Models
         public bool PrimaryDisplay { get; set; }
         public byte[] Logo { get; set; }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    public class DisplaySpeciesModel : SpeciesModel
+    {
         private bool _isChecked;
         public bool IsChecked
         {
@@ -29,14 +41,5 @@ namespace AppointMaster.Models
 
         //test data
         public string ImgLogo { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
     }
 }

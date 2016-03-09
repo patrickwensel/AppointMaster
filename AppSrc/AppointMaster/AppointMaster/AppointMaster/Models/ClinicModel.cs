@@ -23,6 +23,6 @@ namespace AppointMaster.Models
         public string DefaultCulture { get; set; }
         public string PrimaryColor { get; set; }
         public string SecondaryColor { get; set; }
-        //public List<int> SpeciesSupported { get; set; }
+        public List<SpeciesModel> SpeciesSupported { get; set; }
     }
 }

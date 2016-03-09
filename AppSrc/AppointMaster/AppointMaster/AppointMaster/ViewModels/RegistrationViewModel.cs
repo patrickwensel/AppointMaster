@@ -1,10 +1,13 @@
 ﻿using AppointMaster.Models;
+using AppointMaster.Services;
 using MvvmCross.Core.ViewModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,8 +37,8 @@ namespace AppointMaster.ViewModels
             }
         }
 
-        private SpeciesModel _selectedSpecies;
-        public SpeciesModel SelectedSpecies
+        private DisplaySpeciesModel _selectedSpecies;
+        public DisplaySpeciesModel SelectedSpecies
         {
             get { return _selectedSpecies; }
             set
@@ -196,9 +199,9 @@ namespace AppointMaster.ViewModels
 
         public ObservableCollection<DisplayPatientModel> PatientList { get; set; }
         public ObservableCollection<DisplayPatientModel> CheckedPatientList { get; set; }
-        public ObservableCollection<SpeciesModel> SpeciesList { get; set; }
-        public ObservableCollection<SpeciesModel> SpeciesPrimaryList { get; set; }
-        public ObservableCollection<SpeciesModel> SpeciesNotPrimaryList { get; set; }
+        public ObservableCollection<DisplaySpeciesModel> SpeciesList { get; set; }
+        public ObservableCollection<DisplaySpeciesModel> SpeciesPrimaryList { get; set; }
+        public ObservableCollection<DisplaySpeciesModel> SpeciesNotPrimaryList { get; set; }
 
         public MvxCommand ShowCheckInCommand
         {
@@ -237,9 +240,9 @@ namespace AppointMaster.ViewModels
             PatientList = new ObservableCollection<DisplayPatientModel>();
             CheckedPatientList = new ObservableCollection<DisplayPatientModel>();
 
-            SpeciesList = new ObservableCollection<SpeciesModel>();
-            SpeciesPrimaryList = new ObservableCollection<SpeciesModel>();
-            SpeciesNotPrimaryList = new ObservableCollection<SpeciesModel>();
+            SpeciesList = new ObservableCollection<DisplaySpeciesModel>();
+            SpeciesPrimaryList = new ObservableCollection<DisplaySpeciesModel>();
+            SpeciesNotPrimaryList = new ObservableCollection<DisplaySpeciesModel>();
 
             if (Services.DataHelper.GetInstance().GetSelectedAppointment() != null)
             {
@@ -269,7 +272,7 @@ namespace AppointMaster.ViewModels
             }
         }
 
-        private void GetAllPatients()
+        private async void GetAllPatients()
         {
             PatientList.Add(new DisplayPatientModel
             {
@@ -304,23 +307,72 @@ namespace AppointMaster.ViewModels
                 Birthdate = DateTime.Now.Date.AddDays(-1),
                 ImgLogo = "other.png"
             });
+
+            try
+            {
+                string url = DataHelper.GetInstance().BaseAPI + "VetPatient/" + DataHelper.GetInstance().GetSelectedAppointment().ClientID;
+                HttpClient client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", DataHelper.GetInstance().GetAuthorization());
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    var patients = JsonConvert.DeserializeObject<List<PatientModel>>(responseBody);
+                    foreach (var item in patients)
+                    {
+                        PatientList.Add(new DisplayPatientModel
+                        {
+                            ID = item.ID,
+                            Name = item.Name,
+                            SpeciesID = item.SpeciesID,
+                            Breed = item.Breed,
+                            Gender = item.Gender,
+                            Logo = item.Logo,
+                            Birthdate = item.Birthdate
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
         }
         private void GetAllSpecies()
         {
-            SpeciesList.Add(new SpeciesModel { ID = 1, IsChecked = false, Name = "Dog", PrimaryDisplay = true, ImgLogo = "dog.png" });
-            SpeciesList.Add(new SpeciesModel { ID = 2, IsChecked = false, Name = "Cat", PrimaryDisplay = true, ImgLogo = "cat.png" });
-            SpeciesList.Add(new SpeciesModel { ID = 3, IsChecked = false, Name = "Bird", PrimaryDisplay = true, ImgLogo = "bird.png" });
-            SpeciesList.Add(new SpeciesModel { ID = 4, IsChecked = false, Name = "Fish", PrimaryDisplay = false, ImgLogo = "fish.png" });
-            SpeciesList.Add(new SpeciesModel { ID = 5, IsChecked = false, Name = "Other", PrimaryDisplay = false, ImgLogo = "other.png" });
+            SpeciesList.Add(new DisplaySpeciesModel { ID = 1, IsChecked = false, Name = "Dog", PrimaryDisplay = true, ImgLogo = "dog.png" });
+            SpeciesList.Add(new DisplaySpeciesModel { ID = 2, IsChecked = false, Name = "Cat", PrimaryDisplay = true, ImgLogo = "cat.png" });
+            SpeciesList.Add(new DisplaySpeciesModel { ID = 3, IsChecked = false, Name = "Bird", PrimaryDisplay = true, ImgLogo = "bird.png" });
+            SpeciesList.Add(new DisplaySpeciesModel { ID = 4, IsChecked = false, Name = "Fish", PrimaryDisplay = false, ImgLogo = "fish.png" });
+            SpeciesList.Add(new DisplaySpeciesModel { ID = 5, IsChecked = false, Name = "Other", PrimaryDisplay = false, ImgLogo = "other.png" });
+
+            try
+            {
+                foreach (var item in DataHelper.GetInstance().Clinic.SpeciesSupported)
+                {
+                    SpeciesList.Add(new DisplaySpeciesModel
+                    {
+                        ID = item.ID,
+                        Name = item.Name,
+                        ClinicID = item.ClinicID,
+                        SpeciesID = item.SpeciesID,
+                        PrimaryDisplay = item.PrimaryDisplay,
+                        Logo = item.Logo,
+                        IsChecked = false
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         private void CheckedAppointment()
         {
-            DisplayAppointmentModel model = Services.DataHelper.GetInstance().GetSelectedAppointment();
+            DisplayAppointmentModel model = DataHelper.GetInstance().GetSelectedAppointment();
 
             SelectedTitle = model.Client.Title;
             SelectedState = model.Client.StateProvince;
-            
+
             FirstName = model.Client.FirstName;
             LastName = model.Client.LastName;
             StreetAddress = model.Client.Address;
@@ -333,9 +385,9 @@ namespace AppointMaster.ViewModels
         }
 
         private void Complete()
-                {
-                   
-            }
+        {
+
+        }
 
         //public void ShowCheckInPage()
         //{

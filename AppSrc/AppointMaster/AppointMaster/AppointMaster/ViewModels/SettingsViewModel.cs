@@ -42,7 +42,8 @@ namespace AppointMaster.ViewModels
         {
             try
             {
-                BaseAPIAddress = "http://ppgservices-001-site6.ctempurl.com/api/v1/";
+                BaseAPIAddress = "http://ppgservices-001-site6.ctempurl.com/api/v1/"; 
+                //BaseAPIAddress = "http://192.168.1.108:58204/api/v1/";
 
                 secureStorage = Resolver.Resolve<ISecureStorage>();
 

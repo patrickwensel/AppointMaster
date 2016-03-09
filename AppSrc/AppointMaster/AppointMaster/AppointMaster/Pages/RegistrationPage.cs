@@ -1162,20 +1162,20 @@ namespace AppointMaster.Pages
                     if (RegistrationViewModel.IsCheckeInOrAdd)
                         RegistrationViewModel.IsCheckeInOrAdd = false;
 
-                DisplayPatientModel patientInfo = new DisplayPatientModel
-                {
+                    DisplayPatientModel patientInfo = new DisplayPatientModel
+                    {
                         IsChecked = true,
-                    Name = RegistrationViewModel.PatientName,
-                    Breed = RegistrationViewModel.Breed,
-                    Gender = RegistrationViewModel.PatientGender,
+                        Name = RegistrationViewModel.PatientName,
+                        Breed = RegistrationViewModel.Breed,
+                        Gender = RegistrationViewModel.PatientGender,
                         Birthdate = RegistrationViewModel.PatientBirth,
                         SpeciesID = RegistrationViewModel.SelectedSpecies.ID,
                         ImgLogo = RegistrationViewModel.SelectedSpecies.ImgLogo,
                         Species = RegistrationViewModel.SelectedSpecies.Name
-                };
+                    };
                     RegistrationViewModel.PatientList.Add(patientInfo);
                     RegistrationViewModel.Breed = null;
-                RegistrationViewModel.PatientName = null;
+                    RegistrationViewModel.PatientName = null;
                 }
                 else
                 {
@@ -1420,7 +1420,7 @@ namespace AppointMaster.Pages
                     labPatientBirth.TextColor = Color.Black;
                     labPatientBirth.FontSize = 25;
                     labPatientBirth.VerticalOptions = LayoutOptions.Center;
-                    labPatientBirth.SetBinding(Label.TextProperty, new Binding("Birthdate", stringFormat:("{0:dd/MM/yyyy}")));
+                    labPatientBirth.SetBinding(Label.TextProperty, new Binding("Birthdate", stringFormat: ("{0:dd/MM/yyyy}")));
 
                     return new MyViewCell
                     {
@@ -1482,14 +1482,14 @@ namespace AppointMaster.Pages
 
         private void LstBreedPrimary_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            SpeciesModel model = e.Item as SpeciesModel;
+            DisplaySpeciesModel model = e.Item as DisplaySpeciesModel;
             if (model.IsChecked)
                 return;
 
             foreach (var item in RegistrationViewModel.SpeciesNotPrimaryList)
-        {
-                if (item.IsChecked == true)
             {
+                if (item.IsChecked == true)
+                {
                     item.IsChecked = false;
                     break;
                 }
@@ -1500,7 +1500,7 @@ namespace AppointMaster.Pages
                 if (item.IsChecked == true)
                 {
                     item.IsChecked = false;
-                        break;
+                    break;
                 }
             }
             model.IsChecked = true;

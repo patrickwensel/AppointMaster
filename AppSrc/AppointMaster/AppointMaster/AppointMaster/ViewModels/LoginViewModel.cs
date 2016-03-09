@@ -1,6 +1,8 @@
-﻿using AppointMaster.Resources;
+﻿using AppointMaster.Models;
+using AppointMaster.Resources;
 using AppointMaster.Services;
 using MvvmCross.Core.ViewModels;
+using Newtonsoft.Json;
 using PCLCrypto;
 using System;
 using System.Collections.Generic;
@@ -68,9 +70,9 @@ namespace AppointMaster.ViewModels
 
             var secureStorage = Resolver.Resolve<ISecureStorage>();
 
-            secureStorage.Store("UserName", Encoding.UTF8.GetBytes(UserName));
-            ShowViewModel<MainViewModel>();
-            return;
+            //secureStorage.Store("UserName", Encoding.UTF8.GetBytes(UserName));
+            //ShowViewModel<MainViewModel>();
+            //return;
 
             try
             {
@@ -78,30 +80,36 @@ namespace AppointMaster.ViewModels
 
                 DataHelper.GetInstance().BaseAPI = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
 
-                byte[] inputBytes = Encoding.UTF8.GetBytes(Password);
-                var hasher = WinRTCrypto.HashAlgorithmProvider.OpenAlgorithm(HashAlgorithm.Sha1);
-                byte[] hash = hasher.HashData(inputBytes);
-                string hashPass = Convert.ToBase64String(hash);
+                //byte[] inputBytes = Encoding.UTF8.GetBytes(Password);
+                //var hasher = WinRTCrypto.HashAlgorithmProvider.OpenAlgorithm(HashAlgorithm.Sha1);
+                //byte[] hash = hasher.HashData(inputBytes);
+                //string hashPass = Convert.ToBase64String(hash);
 
-                string authorization = string.Format("{0}|{1}|{2}", "VetMobile", UserName, hashPass);
-                string authorizationBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(authorization));
+                //string authorization = string.Format("{0}|{1}|{2}", "VetMobile", UserName, hashPass);
+                //string authorizationBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(authorization));
 
-                Services.DataHelper.GetInstance().SetAuthorization(authorizationBase64);
+                //DataHelper.GetInstance().SetAuthorization(authorizationBase64);
 
+                DataHelper.GetInstance().SetAuthorization("VmV0TW9iaWxlfGMwYTBmNzZkLTI2MWMtNDc0YS04ZGI5LWQ1ZjgxNWU0MDk1OHxxMzhDbXVZNWk2ZjFyZDRxUnRVdWx1UW1YT1U9");
+             
                 string url = DataHelper.GetInstance().BaseAPI + "VetClinic";
                 HttpClient client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", authorizationBase64);
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", DataHelper.GetInstance().GetAuthorization());
                 HttpResponseMessage response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
                     string responseBody = await response.Content.ReadAsStringAsync();
+
+                    var clinicItem = JsonConvert.DeserializeObject<ClinicModel>(responseBody);
+
+                    DataHelper.GetInstance().Clinic = clinicItem;
 
                     secureStorage.Store("UserName", Encoding.UTF8.GetBytes(UserName));
 
                     ShowViewModel<MainViewModel>();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
             }
