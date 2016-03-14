@@ -1,4 +1,5 @@
 ﻿using AppointMaster.Controls;
+using AppointMaster.Converters;
 using AppointMaster.Models;
 using AppointMaster.Resources;
 using AppointMaster.Services;
@@ -88,37 +89,37 @@ namespace AppointMaster.Pages
             };
             btnMainMenu.SetBinding(Button.CommandProperty, new Binding("ShowMainCommand"));
 
-            var btnCheck = new Button
+            Button btnCheck = new Button
             {
                 WidthRequest = 200,
                 Text = AppResources.Check_In,
                 TextColor = Color.Black,
                 FontSize = 20,
-                BackgroundColor = DataHelper.GetInstance().SecondaryColor,
+                BackgroundColor = DataHelper.GetInstance().PrimaryColor,
                 BorderColor = Color.Black,
                 BorderRadius = 1,
                 BorderWidth = 2
             };
-            btnCheck.SetBinding(Button.CommandProperty, new Binding("ShowMainCommand"));
-
-            var boxView = new BoxView { WidthRequest = 1, HeightRequest = 1, BackgroundColor = Color.Black, VerticalOptions = LayoutOptions.Start };
+            btnCheck.SetBinding(Button.CommandProperty, new Binding("CheckInCommand"));
 
             MyEntry entryDigit = new MyEntry
             {
                 TextColor = Color.Black,
-                WidthRequest = 400,
                 HeightRequest = 50,
                 FontSize = 20
             };
+           
             entryDigit.SetBinding(Entry.TextProperty, "AppointmentCode");
 
             StackLayout digitSl = new StackLayout
             {
+                Padding = new Thickness(20, 0, 300, 0),
                 Children =
-                    {
-                        entryDigit,
-                        btnCheck
-                    }
+                {
+                    new Label { Text=AppResources.Enter_4_Digit,TextColor=Color.Black,FontSize=20},
+                    new StackLayout { Padding=new Thickness(0,30,0,30), Children= { entryDigit } },
+                    btnCheck
+                }
             };
             digitSl.SetBinding(StackLayout.IsVisibleProperty, "IsDigit");
 
@@ -195,8 +196,12 @@ namespace AppointMaster.Pages
                     };
                 })
             };
-            listView.SetBinding(ListView.IsVisibleProperty, "IsDigit");
             listView.SetBinding(ListView.ItemsSourceProperty, new Binding("Items"));
+
+            StackLayout lstSl = new StackLayout { Padding = new Thickness(20, 0, 20, 0), Children = { listView } };
+            lstSl.SetBinding(ListView.IsVisibleProperty, "IsDigit",BindingMode.Default,converter:new TrueToFalseConverter());
+
+            var boxView = new BoxView { WidthRequest = 1, HeightRequest = 1, BackgroundColor = Color.Black, VerticalOptions = LayoutOptions.Start };
 
             var loadingGrid = new Grid();
             loadingGrid.BackgroundColor = Color.Black;
@@ -227,9 +232,9 @@ namespace AppointMaster.Pages
 
             grid.Children.Add(new StackLayout { Padding = new Thickness(20, 0, 20, 0), Children = { boxView } }, 0, 3);
 
-            grid.Children.Add(new StackLayout { Padding = new Thickness(20, 0, 20, 0), Children = { digitSl } }, 0, 4);
+            grid.Children.Add(lstSl, 0, 4);
 
-            grid.Children.Add(new StackLayout { Padding = new Thickness(20, 0, 20, 0), Children = { listView } }, 0, 4);
+            grid.Children.Add(digitSl, 0, 4);
 
             grid.Children.Add(new StackLayout { VerticalOptions = LayoutOptions.End, Padding = new Thickness(20, 0, 0, 20), Children = { btnMainMenu } }, 0, 4);
 
@@ -237,8 +242,6 @@ namespace AppointMaster.Pages
             Grid.SetRowSpan(loadingGrid, 5);
 
             Content = grid;
-
-            //Device.StartTimer(new TimeSpan(0,0,15), () => { CheckInViewModel.GetAppointmentIDs(); return true; });
         }
     }
 }

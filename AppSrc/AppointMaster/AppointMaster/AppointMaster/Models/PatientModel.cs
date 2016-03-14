@@ -32,6 +32,8 @@ namespace AppointMaster.Models
 
     public class DisplayPatientModel : PatientModel
     {
+        public int RegistrationID { get; set; }
+
         private bool _isChecked;
         public bool IsChecked
         {

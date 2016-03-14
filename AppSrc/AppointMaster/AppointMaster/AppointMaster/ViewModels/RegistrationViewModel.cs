@@ -49,6 +49,13 @@ namespace AppointMaster.ViewModels
             }
         }
 
+        private bool _isShowNotPrimarySl;
+        public bool IsShowNotPrimarySl
+        {
+            get { return _isShowNotPrimarySl; }
+            set { _isShowNotPrimarySl = value; RaisePropertyChanged(() => IsShowNotPrimarySl); }
+        }
+
         private bool _isBusy;
         public bool IsBusy
         {
@@ -140,9 +147,9 @@ namespace AppointMaster.ViewModels
             set
             {
                 _phone = value;
-                if (value.Length == 10)
+                if (value != null && value.Length == 10)
                 {
-                    _phone = string.Format("({0}) {1}-{2}", value.Substring(0, 3),value.Substring(3, 3), value.Substring(6, 4));
+                    _phone = string.Format("({0}) {1}-{2}", value.Substring(0, 3), value.Substring(3, 3), value.Substring(6, 4));
                 }
                 RaisePropertyChanged(() => Phone);
             }
@@ -248,8 +255,9 @@ namespace AppointMaster.ViewModels
             GenderList.Add("Female");
 
             TitleList = new ObservableCollection<string>();
-            TitleList.Add("Mr.");
-            TitleList.Add("Mrs.");
+            TitleList.Add("Mr");
+            TitleList.Add("Dr");
+            TitleList.Add("Mrs");
 
             StateList = new ObservableCollection<string>();
             StateList.Add("MD");
@@ -330,10 +338,12 @@ namespace AppointMaster.ViewModels
                 HttpResponseMessage response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
+                    int i = 0;
                     string responseBody = await response.Content.ReadAsStringAsync();
                     var patients = JsonConvert.DeserializeObject<List<PatientModel>>(responseBody);
                     foreach (var item in patients)
                     {
+                        i++;
                         PatientList.Add(new DisplayPatientModel
                         {
                             ID = item.ID,
@@ -342,7 +352,8 @@ namespace AppointMaster.ViewModels
                             Breed = item.Breed,
                             Gender = item.Gender,
                             Logo = SpeciesList.Where(x => x.ID == item.SpeciesID).FirstOrDefault().Logo,
-                            Birthdate = item.Birthdate
+                            Birthdate = item.Birthdate,
+                            RegistrationID = i
                         });
                     }
                 }
@@ -355,6 +366,7 @@ namespace AppointMaster.ViewModels
                 IsBusy = false;
             }
         }
+
         private void GetAllSpecies()
         {
             //SpeciesList.Add(new DisplaySpeciesModel { ID = 1, IsChecked = false, Name = "Dog", PrimaryDisplay = true, ImgLogo = "dog.png" });
@@ -385,6 +397,11 @@ namespace AppointMaster.ViewModels
                     else
                         SpeciesNotPrimaryList.Add(model);
                 }
+
+                if (SpeciesNotPrimaryList.Count == 0)
+                    IsShowNotPrimarySl = false;
+                else
+                    IsShowNotPrimarySl = true;
             }
             catch (Exception ex)
             {
@@ -415,25 +432,6 @@ namespace AppointMaster.ViewModels
 
                 List<PatientModel> lstPatient = new List<PatientModel>();
 
-                //if (CheckedPatientList.Count == 0)
-                //{
-                    
-                //}
-                //else
-                //{
-                //    lstPatient = CheckedPatientList.Select(x => new PatientModel
-                //    {
-                //        ID = x.ID,
-                //        Name = x.Name,
-                //        Breed = x.Breed,
-                //        Gender = x.Gender,
-                //        ClientID = x.ClientID,
-                //        SpeciesID = x.SpeciesID,
-                //        Birthdate = x.Birthdate
-
-                //    }).ToList()
-                //}
-
                 var appointment = DataHelper.GetInstance().GetSelectedAppointment();
 
                 PostModel model = new PostModel
@@ -452,6 +450,7 @@ namespace AppointMaster.ViewModels
                         Email = Email,
                         DefaultCultureCode = appointment != null ? appointment.Client.DefaultCultureCode : "en-US",
                     },
+
                     AppointmentModel = new AppointmentModel
                     {
                         ID = appointment != null ? appointment.ID : 0,
@@ -461,7 +460,19 @@ namespace AppointMaster.ViewModels
                         CheckedIn = false,
                     },
 
-                    PatientList = CheckedPatientList.Select(x => new PatientModel
+                    //PatientList = CheckedPatientList.Select(x => new PatientModel
+                    //{
+                    //    ID = x.ID,
+                    //    Name = x.Name,
+                    //    Breed = x.Breed,
+                    //    Gender = x.Gender,
+                    //    ClientID = x.ClientID,
+                    //    SpeciesID = x.SpeciesID,
+                    //    Birthdate = x.Birthdate
+
+                    //}).ToList()
+
+                    PatientList = PatientList.Select(x => new DisplayPatientModel
                     {
                         ID = x.ID,
                         Name = x.Name,
@@ -469,7 +480,8 @@ namespace AppointMaster.ViewModels
                         Gender = x.Gender,
                         ClientID = x.ClientID,
                         SpeciesID = x.SpeciesID,
-                        Birthdate = x.Birthdate
+                        Birthdate = x.Birthdate,
+                        IsChecked = x.IsChecked
 
                     }).ToList()
                 };
@@ -505,7 +517,7 @@ namespace AppointMaster.ViewModels
 
             public AppointmentModel AppointmentModel { get; set; }
 
-            public List<PatientModel> PatientList { get; set; }
+            public List<DisplayPatientModel> PatientList { get; set; }
         }
     }
 }

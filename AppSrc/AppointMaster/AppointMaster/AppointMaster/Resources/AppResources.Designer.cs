@@ -278,6 +278,15 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter the 4 digit check in code:.
+        /// </summary>
+        public static string Enter_4_Digit {
+            get {
+                return ResourceManager.GetString("Enter_4_Digit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter the base API address.
         /// </summary>
         public static string Enter_BaseAPI {
@@ -310,6 +319,15 @@ namespace AppointMaster.Resources {
         public static string Enter_Clinic_ID {
             get {
                 return ResourceManager.GetString("Enter_Clinic_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the appointment code.
+        /// </summary>
+        public static string Enter_Code {
+            get {
+                return ResourceManager.GetString("Enter_Code", resourceCulture);
             }
         }
         
@@ -418,6 +436,15 @@ namespace AppointMaster.Resources {
         public static string Gender {
             get {
                 return ResourceManager.GetString("Gender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid appointment code.
+        /// </summary>
+        public static string Invalid_Appointment_Code {
+            get {
+                return ResourceManager.GetString("Invalid_Appointment_Code", resourceCulture);
             }
         }
         

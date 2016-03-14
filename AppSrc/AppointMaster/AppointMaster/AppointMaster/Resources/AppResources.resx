@@ -189,6 +189,9 @@
   <data name="Enable_Local" xml:space="preserve">
     <value>Enable local data only</value>
   </data>
+  <data name="Enter_4_Digit" xml:space="preserve">
+    <value>Please enter the 4 digit check in code:</value>
+  </data>
   <data name="Enter_BaseAPI" xml:space="preserve">
     <value>Please enter the base API address</value>
   </data>
@@ -200,6 +203,9 @@
   </data>
   <data name="Enter_Clinic_ID" xml:space="preserve">
     <value>Please enter the Clinic ID</value>
+  </data>
+  <data name="Enter_Code" xml:space="preserve">
+    <value>Please enter the appointment code</value>
   </data>
   <data name="Enter_Email" xml:space="preserve">
     <value>Please enter the email</value>
@@ -236,6 +242,9 @@
   </data>
   <data name="Gender" xml:space="preserve">
     <value>Gender</value>
+  </data>
+  <data name="Invalid_Appointment_Code" xml:space="preserve">
+    <value>Invalid appointment code</value>
   </data>
   <data name="Invalid_User" xml:space="preserve">
     <value>Invalid user name or password.</value>

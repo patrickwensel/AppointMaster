@@ -77,7 +77,7 @@ namespace AppointMaster.ViewModels
                 return;
             }
 
-            var secureStorage = Resolver.Resolve<ISecureStorage>();
+            var secureStorage = DataHelper.GetInstance().SecureStorage;
 
             //secureStorage.Store("UserName", Encoding.UTF8.GetBytes(UserName));
             //ShowViewModel<MainViewModel>();

@@ -279,7 +279,6 @@ namespace AppointMaster.Pages
             btnStep1Back.SetBinding(Button.CommandProperty, new Binding("ShowCheckInCommand"));
             btnStep1Cancel.SetBinding(Button.CommandProperty, new Binding("ShowCancelCommand"));
 
-
             grid1 = new Grid();
             grid1.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
             grid1.RowDefinitions.Add(new RowDefinition { Height = new GridLength(100) });
@@ -692,13 +691,14 @@ namespace AppointMaster.Pages
                         VerticalOptions = LayoutOptions.Center,
                         TextColor = Color.Black
                     };
-                    btnCheckIn.SetBinding(Button.CommandParameterProperty, new Binding("ID"));
-                    btnCheckIn.SetBinding(Image.IsVisibleProperty, "IsChecked", BindingMode.Default, new TrueToFalseConverter());
+
+                    btnCheckIn.SetBinding(Button.CommandParameterProperty, new Binding("RegistrationID"));
+                    btnCheckIn.SetBinding(Button.IsVisibleProperty, "IsChecked", BindingMode.Default, new TrueToFalseConverter());
                     btnCheckIn.Clicked += (sender, e) =>
                     {
                         int id = (int)((Button)sender).CommandParameter;
 
-                        selectPatientToCheckInItem = RegistrationViewModel.PatientList.Where(x => x.ID == id).FirstOrDefault();
+                        selectPatientToCheckInItem = RegistrationViewModel.PatientList.Where(x => x.RegistrationID == id).FirstOrDefault();
 
                         RegistrationViewModel.PatientName = selectPatientToCheckInItem.Name;
 
@@ -714,7 +714,8 @@ namespace AppointMaster.Pages
 
                         RegistrationViewModel.Breed = selectPatientToCheckInItem.Breed;
                         RegistrationViewModel.PatientGender = RegistrationViewModel.GenderList.Where(x => x == selectPatientToCheckInItem.Gender).FirstOrDefault();
-                        RegistrationViewModel.PatientBirth = selectPatientToCheckInItem.Birthdate;
+                        if (selectPatientToCheckInItem.Birthdate != null)
+                            RegistrationViewModel.PatientBirth = selectPatientToCheckInItem.Birthdate;
 
                         grid4.IsVisible = false;
                         grid4Add.IsVisible = true;
@@ -753,7 +754,7 @@ namespace AppointMaster.Pages
                                    {
                                        btnCheckIn,
                                        imgChecked
-                            }
+                                   }
                                },
                                imgPatient,
                                labName
@@ -771,7 +772,6 @@ namespace AppointMaster.Pages
             {
                 grid4.IsVisible = false;
                 grid4Add.IsVisible = true;
-                DataHelper.GetInstance().SetSelectedAppointment(null);
             };
             addAnotherSl.GestureRecognizers.Add(addAnotherSlClick);
 
@@ -1025,8 +1025,7 @@ namespace AppointMaster.Pages
                     lstBreedNotPrimary
                 }
             };
-            if (RegistrationViewModel.SpeciesNotPrimaryList.Count == 0)
-                notPrimarySl.IsVisible = false;
+            notPrimarySl.SetBinding(StackLayout.IsVisibleProperty, "IsShowNotPrimarySl");
 
             grid4Add = new Grid();
             grid4Add.RowDefinitions.Add(new RowDefinition { Height = 100 });
@@ -1203,15 +1202,14 @@ namespace AppointMaster.Pages
                         Birthdate = RegistrationViewModel.PatientBirth,
                         SpeciesID = RegistrationViewModel.SelectedSpecies.ID,
                         Logo = RegistrationViewModel.SelectedSpecies.Logo,
-                        Species = RegistrationViewModel.SelectedSpecies.Name
+                        Species = RegistrationViewModel.SelectedSpecies.Name,
+                        RegistrationID = RegistrationViewModel.PatientList.Select(x => x.RegistrationID).Max() + 1
                     };
                     RegistrationViewModel.PatientList.Add(patientInfo);
-                    RegistrationViewModel.Breed = null;
-                    RegistrationViewModel.PatientName = null;
                 }
                 else
                 {
-                    var item = RegistrationViewModel.PatientList.Where(x => x.ID == selectPatientToCheckInItem.ID).FirstOrDefault();
+                    var item = RegistrationViewModel.PatientList.Where(x => x.RegistrationID == selectPatientToCheckInItem.RegistrationID).FirstOrDefault();
                     item.IsChecked = true;
                     item.Name = RegistrationViewModel.PatientName;
                     item.Gender = RegistrationViewModel.PatientGender;
@@ -1221,6 +1219,9 @@ namespace AppointMaster.Pages
 
                     selectPatientToCheckInItem = null;
                 }
+
+                RegistrationViewModel.Breed = null;
+                RegistrationViewModel.PatientName = null;
 
                 labStep.Text = AppResources.Registration_Step4;
                 grid4Breed.IsVisible = false;

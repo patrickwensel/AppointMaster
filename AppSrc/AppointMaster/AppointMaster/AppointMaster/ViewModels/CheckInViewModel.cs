@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace AppointMaster.ViewModels
 {
@@ -33,7 +34,14 @@ namespace AppointMaster.ViewModels
         public string AppointmentCode
         {
             get { return _appointmentCode; }
-            set { _appointmentCode = value; RaisePropertyChanged(() => AppointmentCode); }
+            set
+            {
+                if (value != null && System.Text.RegularExpressions.Regex.IsMatch(value, @"^[a-zA-Z0-9-]{1,4}$"))
+                {
+                    _appointmentCode = value;
+                }
+                RaisePropertyChanged(() => AppointmentCode);
+            }
         }
 
         public MvxCommand ShowMainCommand
@@ -49,6 +57,14 @@ namespace AppointMaster.ViewModels
             get
             {
                 return new MvxCommand(() => ShowViewModel<RegistrationViewModel>());
+            }
+        }
+
+        public MvxCommand CheckInCommand
+        {
+            get
+            {
+                return new MvxCommand(() => CheckIn());
             }
         }
 
@@ -83,7 +99,7 @@ namespace AppointMaster.ViewModels
                 {
                     IsDigit = false;
                     GetAppointmentIDs();
-                    Xamarin.Forms.Device.StartTimer(new TimeSpan(0, 0, 15), () => { GetAppointmentIDs(); return true; });
+                    Device.StartTimer(new TimeSpan(0, 0, 15), () => { GetAppointmentIDs(); return true; });
                 }
                 else
                 {
@@ -113,7 +129,7 @@ namespace AppointMaster.ViewModels
                     {
                         foreach (var appointmentItem in Items)
                         {
-                            if (appointmentIDs.Contains(appointmentItem.ID))
+                            if (!appointmentIDs.Contains(appointmentItem.ID))
                             {
                                 Items.Remove(appointmentItem);
                             }
@@ -121,7 +137,31 @@ namespace AppointMaster.ViewModels
 
                         foreach (var itemID in appointmentIDs)
                         {
-                            await GetAppointmentByID(itemID);
+                            if (Items.Select(x => x.ID).Contains(itemID))
+                                continue;
+
+                            string appointmentUrl = DataHelper.GetInstance().BaseAPI + "VetAppointment/" + itemID + "";
+                            var appointment = await GetAppointmentByUrl(appointmentUrl);
+                            if (appointment != null)
+                            {
+                                string patientName = null;
+                                foreach (var patientItem in appointment.Patients)
+                                {
+                                    patientName += string.Format("{0} and ", patientItem.Name);
+                                }
+                                Items.Add(new DisplayAppointmentModel
+                                {
+                                    ID = appointment.ID,
+                                    ClientID = appointment.ClientID,
+                                    ClinicID = appointment.ClinicID,
+                                    Time = appointment.Time,
+                                    CheckedIn = appointment.CheckedIn,
+                                    Client = appointment.Client,
+                                    Clinic = appointment.Clinic,
+                                    Patients = appointment.Patients,
+                                    PatientName = string.IsNullOrEmpty(patientName) ? null : string.Format("with {0}", patientName.Substring(0, patientName.Length - 4)),
+                                });
+                            }
                         }
                     }
                 }
@@ -136,11 +176,10 @@ namespace AppointMaster.ViewModels
             }
         }
 
-        public async Task GetAppointmentByID(int id)
+        public async Task<AppointmentModel> GetAppointmentByUrl(string url)
         {
             try
             {
-                string url = DataHelper.GetInstance().BaseAPI + "VetAppointment/" + id + "";
                 HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", DataHelper.GetInstance().GetAuthorization());
                 HttpResponseMessage response = await client.GetAsync(url);
@@ -150,32 +189,14 @@ namespace AppointMaster.ViewModels
 
                     var appointment = JsonConvert.DeserializeObject<AppointmentModel>(responseBody);
 
-                    if (appointment != null)
-                    {
-                        string patientName = null;
-                        foreach (var patientItem in appointment.Patients)
-                        {
-                            patientName += string.Format("{0} and ", patientItem.Name);
-                        }
-                        Items.Add(new DisplayAppointmentModel
-                        {
-                            ID = appointment.ID,
-                            ClientID = appointment.ClientID,
-                            ClinicID = appointment.ClinicID,
-                            Time = appointment.Time,
-                            CheckedIn = appointment.CheckedIn,
-                            Client = appointment.Client,
-                            Clinic = appointment.Clinic,
-                            Patients = appointment.Patients,
-                            PatientName = string.IsNullOrEmpty(patientName) ? null : string.Format("with {0}", patientName.Substring(0, patientName.Length - 4)),
-                        });
-                    }
+                    return appointment;
                 }
             }
             catch (Exception ex)
             {
 
             }
+            return null;
         }
 
         public void ShowCheckedIn(DisplayAppointmentModel model)
@@ -183,6 +204,63 @@ namespace AppointMaster.ViewModels
             DataHelper.GetInstance().SetSelectedAppointment(model);
 
             ShowViewModel<RegistrationViewModel>();
+        }
+
+        private async void CheckIn()
+        {
+            if (string.IsNullOrEmpty(AppointmentCode))
+            {
+                DisplayAlert(AppResources.Enter_Code);
+                return;
+            }
+            try
+            {
+                IsBusy = true;
+
+                string url = DataHelper.GetInstance().BaseAPI + "VetTestAppointment/" + AppointmentCode + "";
+                var appointment = await GetAppointmentByUrl(url);
+
+                if (appointment != null)
+                {
+                    string patientName = null;
+                    foreach (var patientItem in appointment.Patients)
+                    {
+                        patientName += string.Format("{0} and ", patientItem.Name);
+                    }
+
+                    DataHelper.GetInstance().SetSelectedAppointment(new DisplayAppointmentModel
+                    {
+                        ID = appointment.ID,
+                        ClientID = appointment.ClientID,
+                        ClinicID = appointment.ClinicID,
+                        Time = appointment.Time,
+                        CheckedIn = appointment.CheckedIn,
+                        Client = appointment.Client,
+                        Clinic = appointment.Clinic,
+                        Patients = appointment.Patients,
+                        PatientName = string.IsNullOrEmpty(patientName) ? null : string.Format("with {0}", patientName.Substring(0, patientName.Length - 4)),
+                    });
+
+                    ShowViewModel<RegistrationViewModel>();
+                }
+                else
+                {
+                    DisplayAlert(AppResources.Invalid_Appointment_Code);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        public void DisplayAlert(string message)
+        {
+            MessagingCenter.Send<CheckInViewModel, string>(this, "DisplayAlert", message);
         }
     }
 }
