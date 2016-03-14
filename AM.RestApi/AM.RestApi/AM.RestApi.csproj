@@ -190,13 +190,13 @@
     </Compile>
     <Compile Include="Handlers\WebApiKeyHandler.cs" />
     <Compile Include="Identities\ClinicPrincipal.cs" />
-    <Compile Include="Model\AppointmentPatientViewModel.cs" />
-    <Compile Include="Model\AppointmentViewModel.cs" />
-    <Compile Include="Model\ClientViewModel.cs" />
-    <Compile Include="Model\ClinicViewModel.cs" />
-    <Compile Include="Model\CultureViewModel.cs" />
-    <Compile Include="Model\PatientViewModel.cs" />
-    <Compile Include="Model\SpeciesViewModel.cs" />
+    <Compile Include="Model\AppointmentPatientModel.cs" />
+    <Compile Include="Model\AppointmentModel.cs" />
+    <Compile Include="Model\ClientModel.cs" />
+    <Compile Include="Model\ClinicModel.cs" />
+    <Compile Include="Model\CultureModel.cs" />
+    <Compile Include="Model\PatientModel.cs" />
+    <Compile Include="Model\SpeciesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

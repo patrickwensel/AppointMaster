@@ -5,7 +5,7 @@ using System.Web;
 
 namespace AM.RestApi.Model
 {
-    public class CultureViewModel
+    public class CultureModel
     {
         public string CultureCode { get; set; }
         public string CountryCode { get; set; }

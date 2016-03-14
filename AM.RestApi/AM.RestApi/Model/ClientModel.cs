@@ -5,7 +5,7 @@ using System.Web;
 
 namespace AM.RestApi.Model
 {
-    public class ClientViewModel
+    public class ClientModel
     {
         public int ID { get; set; }
         public string Title { get; set; }
@@ -18,7 +18,7 @@ namespace AM.RestApi.Model
         public string Phone { get; set; }
         public string Email { get; set; }
         public string DefaultCultureCode { get; set; }
-        public List<AppointmentViewModel> Appointments { get; set; }
-        public CultureViewModel Culture { get; set; }
+        public List<AppointmentModel> Appointments { get; set; }
+        public CultureModel Culture { get; set; }
     }
 }

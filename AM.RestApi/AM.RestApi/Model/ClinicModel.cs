@@ -6,7 +6,7 @@ using System.Web;
 
 namespace AM.RestApi.Model
 {
-    public class ClinicViewModel
+    public class ClinicModel
     {
         public int ID { get; set; }
         public string Name { get; set; }
@@ -24,6 +24,6 @@ namespace AM.RestApi.Model
         public string DefaultCulture { get; set; }
         public string PrimaryColor { get; set; }
         public string SecondaryColor { get; set; }
-        public List<SpeciesViewModel> SpeciesSupported { get; set; } 
+        public List<SpeciesModel> SpeciesSupported { get; set; } 
     }
 }

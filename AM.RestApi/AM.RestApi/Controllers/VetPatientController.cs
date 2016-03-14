@@ -20,7 +20,7 @@ namespace AM.RestApi.Controllers
         public object Get(int clientID)
         {
             int clinicID = (User as ClinicPrincipal).ClinicID;
-            var patients = context.Patients.Where(x => x.ClientID == clientID).Select(x => new PatientViewModel
+            var patients = context.Patients.Where(x => x.ClientID == clientID).Select(x => new PatientModel
             {
                 ID = x.ID,
                 Name = x.Name,

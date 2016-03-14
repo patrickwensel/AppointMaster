@@ -5,7 +5,7 @@ using System.Web;
 
 namespace AM.RestApi.Model
 {
-    public class AppointmentPatientViewModel
+    public class AppointmentPatientModel
     {
         public int ID { get; set; }
         public int? AppointmentID { get; set; }

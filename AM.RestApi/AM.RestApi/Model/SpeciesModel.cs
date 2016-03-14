@@ -5,7 +5,7 @@ using System.Web;
 
 namespace AM.RestApi.Model
 {
-	public class SpeciesViewModel
+	public class SpeciesModel
 	{
 		public int ID { get; set; }
         public string Name { get; set; }

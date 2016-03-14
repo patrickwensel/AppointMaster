@@ -16,7 +16,7 @@ namespace AM.RestApi.Controllers
             VetDataContext context = new VetDataContext();
 
             int clinicID = (User as ClinicPrincipal).ClinicID;
-            var clinic = context.Clinics.Where(x => x.ID == clinicID).Select(c => new ClinicViewModel
+            var clinic = context.Clinics.Where(x => x.ID == clinicID).Select(c => new ClinicModel
             {
                 ID = c.ID,
                 Name = c.Name,
@@ -33,9 +33,9 @@ namespace AM.RestApi.Controllers
                 DefaultCulture = c.DefaultCultureCode,
                 PrimaryColor = c.PrimaryColor,
                 SecondaryColor = c.SecondaryColor,
-                SpeciesSupported = c.ClinicSpecies.Select(x => new SpeciesViewModel
+                SpeciesSupported = c.ClinicSpecies.Select(x => new SpeciesModel
                 {
-                    ID = x.ID,
+                    ID = x.Species.ID,
                     Name = x.Species.Name,
                     ClinicID = x.ClinicID,
                     SpeciesID = x.SpeciesID,
