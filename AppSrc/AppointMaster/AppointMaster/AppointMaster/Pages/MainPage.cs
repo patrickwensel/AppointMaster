@@ -26,9 +26,6 @@ namespace AppointMaster.Pages
 
         public MainPage()
         {
-            //Application.Current.Resources["backgroundColor"] = Color.White;
-            //Application.Current.Resources["backgroundColor"] = Color.Black;
-
             BackgroundColor = Color.White;
             NavigationPage.SetHasNavigationBar(this, false);
             Thickness padding = new Thickness(20, Device.OnPlatform(40, 20, 20), 20, 20);
@@ -108,8 +105,16 @@ namespace AppointMaster.Pages
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.Center,
                 Children = {
-                   new Image { Source="clipbaord.png",WidthRequest=50,HeightRequest=68},
-                   new Label { Text=AppResources.Registration,VerticalOptions=LayoutOptions.Center,TextColor=Color.Black,FontSize=22}
+                   new Image {
+                       Source ="clipbaord.png",
+                       WidthRequest =50,
+                       HeightRequest =68
+                   },
+                   new Label {
+                       Text =AppResources.Registration,
+                       VerticalOptions =LayoutOptions.Center,
+                       TextColor =Color.Black,FontSize=22
+                   }
                 }
             };
 
@@ -127,7 +132,7 @@ namespace AppointMaster.Pages
                 BorderColor = Color.Black,
                 BorderWidth = 2,
                 BorderRadius = 1,
-                BackgroundColor = Color.Transparent,
+                BackgroundColor = DataHelper.GetInstance().SecondaryColor
             }, 0, 0);
             registrationGrid.Children.Add(slReg, 0, 0);
 
@@ -218,7 +223,7 @@ namespace AppointMaster.Pages
                     WidthRequest = 200,
                     HeightRequest = 50,
                     TextColor = Color.Black,
-                    BackgroundColor = Color.Transparent
+                    BackgroundColor = DataHelper.GetInstance().SecondaryColor
                 };
 
                 Button btnSettings = new Button
@@ -230,9 +235,8 @@ namespace AppointMaster.Pages
                     WidthRequest = 200,
                     HeightRequest = 50,
                     TextColor = Color.Black,
-                    BackgroundColor = Color.Transparent
+                    BackgroundColor = DataHelper.GetInstance().SecondaryColor
                 };
-                //btnSettings.SetDynamicResource(Button.BackgroundColorProperty, "backgroundColor");
 
                 Button btnBack = new Button
                 {
@@ -243,9 +247,10 @@ namespace AppointMaster.Pages
                     WidthRequest = 100,
                     HeightRequest = 50,
                     TextColor = Color.Black,
-                    BackgroundColor = Color.Transparent,
-                    VerticalOptions = LayoutOptions.End
+                    VerticalOptions = LayoutOptions.End,
+                    BackgroundColor = DataHelper.GetInstance().SecondaryColor
                 };
+
                 btnBack.Clicked += delegate
                 {
                     popupLayout.DismissPopup();

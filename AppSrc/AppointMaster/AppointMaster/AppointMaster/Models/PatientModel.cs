@@ -18,7 +18,6 @@ namespace AppointMaster.Models
 
         public string Breed { get; set; }
         public string Gender { get; set; }
-        public byte[] Logo { get; set; }
         public DateTime? Birthdate { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -41,8 +40,6 @@ namespace AppointMaster.Models
         }
 
         public string Species { get; set; }
-
-        //test data
-        public string ImgLogo { get; set; }
+        public byte[] Logo { get; set; }
     }
 }

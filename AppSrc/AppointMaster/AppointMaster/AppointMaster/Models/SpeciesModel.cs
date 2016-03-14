@@ -38,8 +38,5 @@ namespace AppointMaster.Models
                 OnPropertyChanged("IsChecked");
             }
         }
-
-        //test data
-        public string ImgLogo { get; set; }
     }
 }

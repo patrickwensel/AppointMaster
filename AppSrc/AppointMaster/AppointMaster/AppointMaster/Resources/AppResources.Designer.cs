@@ -80,6 +80,15 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Appointment List.
+        /// </summary>
+        public static string Appointment_List {
+            get {
+                return ResourceManager.GetString("Appointment_List", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt; Back.
         /// </summary>
         public static string Back {
@@ -143,6 +152,15 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check-in Model.
+        /// </summary>
+        public static string CheckIn_Model {
+            get {
+                return ResourceManager.GetString("CheckIn_Model", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please select a patient to check in.
         /// </summary>
         public static string Choose_Patient {
@@ -197,6 +215,24 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Demo Model.
+        /// </summary>
+        public static string Demo_Model {
+            get {
+                return ResourceManager.GetString("Demo_Model", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 4 digit Selection.
+        /// </summary>
+        public static string Digit_Selection {
+            get {
+                return ResourceManager.GetString("Digit_Selection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disclaimer.
         /// </summary>
         public static string Disclaimer {
@@ -229,6 +265,15 @@ namespace AppointMaster.Resources {
         public static string Email {
             get {
                 return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable local data only.
+        /// </summary>
+        public static string Enable_Local {
+            get {
+                return ResourceManager.GetString("Enable_Local", resourceCulture);
             }
         }
         
@@ -373,6 +418,15 @@ namespace AppointMaster.Resources {
         public static string Gender {
             get {
                 return ResourceManager.GetString("Gender", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid user name or password..
+        /// </summary>
+        public static string Invalid_User {
+            get {
+                return ResourceManager.GetString("Invalid_User", resourceCulture);
             }
         }
         
@@ -575,7 +629,7 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Street Adress.
+        ///   Looks up a localized string similar to Street Address.
         /// </summary>
         public static string Street_Address {
             get {

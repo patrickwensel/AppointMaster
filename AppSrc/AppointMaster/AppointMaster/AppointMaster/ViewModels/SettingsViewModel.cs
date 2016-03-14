@@ -1,6 +1,10 @@
-﻿using MvvmCross.Core.ViewModels;
+﻿using AppointMaster.Resources;
+using AppointMaster.Services;
+using MvvmCross.Core.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -13,11 +17,35 @@ namespace AppointMaster.ViewModels
 {
     public class SettingsViewModel : MvxViewModel
     {
-        public string _baseAPIAddress;
+        private bool _isChecked;
+        public bool IsChecked
+        {
+            get { return _isChecked; }
+            set { _isChecked = value; RaisePropertyChanged(() => IsChecked); }
+        }
+
+        private string _baseAPIAddress;
         public string BaseAPIAddress
         {
             get { return _baseAPIAddress; }
-            set { _baseAPIAddress = value; RaisePropertyChanged(() => BaseAPIAddress); }
+            set
+            {
+                _baseAPIAddress = value;
+                RaisePropertyChanged(() => BaseAPIAddress);
+            }
+        }
+
+
+        private CheckInModel _selectedCheckInModel;
+        public CheckInModel SelectedCheckInModel
+        {
+            get { return _selectedCheckInModel; }
+            set
+            {
+                _selectedCheckInModel = value;
+
+                RaisePropertyChanged(() => SelectedCheckInModel);
+            }
         }
 
         public MvxCommand ShowCheckInCommand
@@ -36,18 +64,28 @@ namespace AppointMaster.ViewModels
             }
         }
 
-        ISecureStorage secureStorage;
+        public ObservableCollection<CheckInModel> Items { get; set; }
 
         public SettingsViewModel()
         {
             try
             {
-                BaseAPIAddress = "http://ppgservices-001-site6.ctempurl.com/api/v1/"; 
-                //BaseAPIAddress = "http://192.168.1.108:58204/api/v1/";
+                BaseAPIAddress = "http://ppgservices-001-site6.ctempurl.com/api/v1/";
 
-                secureStorage = Resolver.Resolve<ISecureStorage>();
+                Items = new ObservableCollection<CheckInModel>();
+                Items.Add(new CheckInModel { Name = AppResources.Digit_Selection, IsDigitModel = false });
+                Items.Add(new CheckInModel { Name = AppResources.Appointment_List, IsDigitModel = false });
 
-                var bytes =secureStorage.Retrieve("BaseAPI");
+                SelectedCheckInModel = Items.Where(x => x.Name == AppResources.Appointment_List).FirstOrDefault();
+                SelectedCheckInModel.IsDigitModel = true;
+
+                var bytes = DataHelper.GetInstance().SecureStorage.Retrieve("BaseAPI");
+
+                var checkInModelBytes = DataHelper.GetInstance().SecureStorage.Retrieve("CheckInModel");
+                string checkInModel = Encoding.UTF8.GetString(checkInModelBytes, 0, checkInModelBytes.Length);
+                Items.Where(x => x.IsDigitModel).FirstOrDefault().IsDigitModel = false;
+                SelectedCheckInModel = Items.Where(x => x.Name == checkInModel).FirstOrDefault();
+                SelectedCheckInModel.IsDigitModel = true;
 
                 BaseAPIAddress = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
             }
@@ -63,18 +101,36 @@ namespace AppointMaster.ViewModels
                 MessagingCenter.Send<SettingsViewModel, string>(this, "DisplayAlert", "");
                 return;
             }
-          
+
             try
             {
-                secureStorage.Store("BaseAPI", Encoding.UTF8.GetBytes(BaseAPIAddress));
-                Services.DataHelper.GetInstance().BaseAPI = BaseAPIAddress;
-                secureStorage.Retrieve("UserName");
+                DataHelper.GetInstance().SecureStorage.Store("BaseAPI", Encoding.UTF8.GetBytes(BaseAPIAddress));
+                DataHelper.GetInstance().SecureStorage.Store("CheckInModel", Encoding.UTF8.GetBytes(SelectedCheckInModel.Name));
+
+                DataHelper.GetInstance().SecureStorage.Retrieve("UserName");
 
                 ShowViewModel<MainViewModel>();
             }
             catch (Exception)
             {
                 ShowViewModel<LoginViewModel>();
+            }
+        }
+
+        public class CheckInModel : INotifyPropertyChanged
+        {
+            public string Name { get; set; }
+
+            private bool _isDigitModel;
+            public bool IsDigitModel { get { return _isDigitModel; } set { _isDigitModel = value; OnPropertyChanged("IsDigitModel"); } }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+            protected void OnPropertyChanged(string propertyName)
+            {
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                }
             }
         }
     }

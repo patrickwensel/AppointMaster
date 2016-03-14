@@ -40,6 +40,15 @@ namespace AppointMaster.Droid
             Resolver.SetResolver(resolverContainer.GetResolver());
 
             Mvx.Resolve<IMvxAppStart>().Start();
+
+        }
+        public override bool OnKeyDown(Keycode keyCode, KeyEvent e)
+        {
+            if (keyCode == Keycode.Back)
+            {
+                return true;
+            }
+            return base.OnKeyDown(keyCode, e);
         }
     }
 }

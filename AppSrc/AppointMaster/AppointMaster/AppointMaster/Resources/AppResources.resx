@@ -123,6 +123,9 @@
   <data name="All_Checked_In" xml:space="preserve">
     <value>You are all Checked In!</value>
   </data>
+  <data name="Appointment_List" xml:space="preserve">
+    <value>Appointment List</value>
+  </data>
   <data name="Back" xml:space="preserve">
     <value>&lt; Back</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="CheckIn_Model" xml:space="preserve">
+    <value>Check-in Model</value>
   </data>
   <data name="Check_In" xml:space="preserve">
     <value>Check In</value>
@@ -162,6 +168,12 @@
   <data name="Complete" xml:space="preserve">
     <value>Complete</value>
   </data>
+  <data name="Demo_Model" xml:space="preserve">
+    <value>Demo Model</value>
+  </data>
+  <data name="Digit_Selection" xml:space="preserve">
+    <value>4 digit Selection</value>
+  </data>
   <data name="Disclaimer" xml:space="preserve">
     <value>Disclaimer</value>
   </data>
@@ -173,6 +185,9 @@
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
+  </data>
+  <data name="Enable_Local" xml:space="preserve">
+    <value>Enable local data only</value>
   </data>
   <data name="Enter_BaseAPI" xml:space="preserve">
     <value>Please enter the base API address</value>
@@ -221,6 +236,9 @@
   </data>
   <data name="Gender" xml:space="preserve">
     <value>Gender</value>
+  </data>
+  <data name="Invalid_User" xml:space="preserve">
+    <value>Invalid user name or password.</value>
   </data>
   <data name="LastName" xml:space="preserve">
     <value>Last Name</value>
@@ -289,7 +307,7 @@
     <value>State</value>
   </data>
   <data name="Street_Address" xml:space="preserve">
-    <value>Street Adress</value>
+    <value>Street Address</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Title</value>

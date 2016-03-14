@@ -1,4 +1,5 @@
 ﻿using AppointMaster.Models;
+using AppointMaster.Resources;
 using AppointMaster.Services;
 using MvvmCross.Core.ViewModels;
 using Newtonsoft.Json;
@@ -14,11 +15,25 @@ namespace AppointMaster.ViewModels
 {
     public class CheckInViewModel : MvxViewModel
     {
+        private bool _isDigit;
+        public bool IsDigit
+        {
+            get { return _isDigit; }
+            set { _isDigit = value; RaisePropertyChanged(() => IsDigit); }
+        }
+
         private bool _isBusy;
         public bool IsBusy
         {
             get { return _isBusy; }
             set { _isBusy = value; RaisePropertyChanged(() => IsBusy); }
+        }
+
+        private string _appointmentCode;
+        public string AppointmentCode
+        {
+            get { return _appointmentCode; }
+            set { _appointmentCode = value; RaisePropertyChanged(() => AppointmentCode); }
         }
 
         public MvxCommand ShowMainCommand
@@ -60,7 +75,24 @@ namespace AppointMaster.ViewModels
             //        PostalCode = "12345",
             //    }
             //});
-            GetAppointmentIDs();
+
+            try
+            {
+                var bytes = DataHelper.GetInstance().SecureStorage.Retrieve("CheckInModel");
+                if (Encoding.UTF8.GetString(bytes, 0, bytes.Length) == AppResources.Appointment_List)
+                {
+                    IsDigit = false;
+                    GetAppointmentIDs();
+                    Xamarin.Forms.Device.StartTimer(new TimeSpan(0, 0, 15), () => { GetAppointmentIDs(); return true; });
+                }
+                else
+                {
+                    IsDigit = true;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
         }
 
         public async void GetAppointmentIDs()
@@ -68,9 +100,9 @@ namespace AppointMaster.ViewModels
             IsBusy = true;
             try
             {
-                string url = DataHelper.GetInstance().BaseAPI + "api/v1/VetAppointment";
+                string url = DataHelper.GetInstance().BaseAPI + "VetAppointment";
                 HttpClient client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Services.DataHelper.GetInstance().GetAuthorization());
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", DataHelper.GetInstance().GetAuthorization());
                 HttpResponseMessage response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
@@ -108,9 +140,9 @@ namespace AppointMaster.ViewModels
         {
             try
             {
-                string url = "http://ppgservices-001-site6.ctempurl.com/api/v1/VetAppointment/" + id + "";
+                string url = DataHelper.GetInstance().BaseAPI + "VetAppointment/" + id + "";
                 HttpClient client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Services.DataHelper.GetInstance().GetAuthorization());
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", DataHelper.GetInstance().GetAuthorization());
                 HttpResponseMessage response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
@@ -123,7 +155,7 @@ namespace AppointMaster.ViewModels
                         string patientName = null;
                         foreach (var patientItem in appointment.Patients)
                         {
-                            patientName += string.Format("{0} and", patientItem.Name);
+                            patientName += string.Format("{0} and ", patientItem.Name);
                         }
                         Items.Add(new DisplayAppointmentModel
                         {
@@ -135,7 +167,7 @@ namespace AppointMaster.ViewModels
                             Client = appointment.Client,
                             Clinic = appointment.Clinic,
                             Patients = appointment.Patients,
-                            PatientName = string.IsNullOrEmpty(patientName) ? null : string.Format("with {0}", patientName.Substring(0, patientName.Length - 3)),
+                            PatientName = string.IsNullOrEmpty(patientName) ? null : string.Format("with {0}", patientName.Substring(0, patientName.Length - 4)),
                         });
                     }
                 }
@@ -148,7 +180,8 @@ namespace AppointMaster.ViewModels
 
         public void ShowCheckedIn(DisplayAppointmentModel model)
         {
-            Services.DataHelper.GetInstance().SetSelectedAppointment(model);
+            DataHelper.GetInstance().SetSelectedAppointment(model);
+
             ShowViewModel<RegistrationViewModel>();
         }
     }

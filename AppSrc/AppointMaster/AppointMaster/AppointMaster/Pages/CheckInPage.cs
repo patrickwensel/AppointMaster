@@ -66,11 +66,12 @@ namespace AppointMaster.Pages
                 Text = AppResources.Walk_In,
                 TextColor = Color.Black,
                 FontSize = 20,
-                BackgroundColor = Color.Transparent,
+                BackgroundColor = DataHelper.GetInstance().SecondaryColor,
                 BorderColor = Color.Black,
                 BorderRadius = 1,
                 BorderWidth = 2
             };
+            btnNewReg.SetBinding(Button.CommandProperty, new Binding("ShowRegistrationCommand"));
 
             var btnMainMenu = new Button
             {
@@ -80,16 +81,46 @@ namespace AppointMaster.Pages
                 Text = string.Format("< {0}", AppResources.Main_Menu),
                 TextColor = Color.Black,
                 FontSize = 20,
-                BackgroundColor = Color.Transparent,
+                BackgroundColor = DataHelper.GetInstance().SecondaryColor,
                 BorderColor = Color.Black,
                 BorderRadius = 1,
                 BorderWidth = 2
             };
-
             btnMainMenu.SetBinding(Button.CommandProperty, new Binding("ShowMainCommand"));
-            btnNewReg.SetBinding(Button.CommandProperty, new Binding("ShowRegistrationCommand"));
+
+            var btnCheck = new Button
+            {
+                WidthRequest = 200,
+                Text = AppResources.Check_In,
+                TextColor = Color.Black,
+                FontSize = 20,
+                BackgroundColor = DataHelper.GetInstance().SecondaryColor,
+                BorderColor = Color.Black,
+                BorderRadius = 1,
+                BorderWidth = 2
+            };
+            btnCheck.SetBinding(Button.CommandProperty, new Binding("ShowMainCommand"));
 
             var boxView = new BoxView { WidthRequest = 1, HeightRequest = 1, BackgroundColor = Color.Black, VerticalOptions = LayoutOptions.Start };
+
+            MyEntry entryDigit = new MyEntry
+            {
+                TextColor = Color.Black,
+                WidthRequest = 400,
+                HeightRequest = 50,
+                FontSize = 20
+            };
+            entryDigit.SetBinding(Entry.TextProperty, "AppointmentCode");
+
+            StackLayout digitSl = new StackLayout
+            {
+                Children =
+                    {
+                        entryDigit,
+                        btnCheck
+                    }
+            };
+            digitSl.SetBinding(StackLayout.IsVisibleProperty, "IsDigit");
 
             MyListView listView = new MyListView()
             {
@@ -131,7 +162,7 @@ namespace AppointMaster.Pages
                         BorderColor = Color.Black,
                         WidthRequest = 100,
                         HeightRequest = 40,
-                        BackgroundColor = Color.Transparent,
+                        BackgroundColor = DataHelper.GetInstance().PrimaryColor,
                         BorderRadius = 1,
                         Text = AppResources.Check_In,
                         VerticalOptions = LayoutOptions.Center,
@@ -164,7 +195,7 @@ namespace AppointMaster.Pages
                     };
                 })
             };
-
+            listView.SetBinding(ListView.IsVisibleProperty, "IsDigit");
             listView.SetBinding(ListView.ItemsSourceProperty, new Binding("Items"));
 
             var loadingGrid = new Grid();
@@ -178,7 +209,6 @@ namespace AppointMaster.Pages
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.Center
             });
-
             loadingGrid.SetBinding(Grid.IsVisibleProperty, new Binding("IsBusy"));
 
             var grid = new Grid();
@@ -197,6 +227,8 @@ namespace AppointMaster.Pages
 
             grid.Children.Add(new StackLayout { Padding = new Thickness(20, 0, 20, 0), Children = { boxView } }, 0, 3);
 
+            grid.Children.Add(new StackLayout { Padding = new Thickness(20, 0, 20, 0), Children = { digitSl } }, 0, 4);
+
             grid.Children.Add(new StackLayout { Padding = new Thickness(20, 0, 20, 0), Children = { listView } }, 0, 4);
 
             grid.Children.Add(new StackLayout { VerticalOptions = LayoutOptions.End, Padding = new Thickness(20, 0, 0, 20), Children = { btnMainMenu } }, 0, 4);
@@ -208,6 +240,5 @@ namespace AppointMaster.Pages
 
             //Device.StartTimer(new TimeSpan(0,0,15), () => { CheckInViewModel.GetAppointmentIDs(); return true; });
         }
-
     }
 }

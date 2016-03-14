@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XLabs.Ioc;
+using XLabs.Platform.Services;
 
 namespace AppointMaster.Services
 {
@@ -12,9 +14,16 @@ namespace AppointMaster.Services
         static DataHelper me;
 
         string authorization;
+
         DisplayAppointmentModel model;
 
+        public Xamarin.Forms.Color SecondaryColor { get; set; }
+
+        public Xamarin.Forms.Color PrimaryColor { get; set; }
+
         public string BaseAPI { get; set; }
+
+        public ISecureStorage SecureStorage { get; set; }
 
         public ClinicModel Clinic { get; set; }
 
@@ -41,6 +50,7 @@ namespace AppointMaster.Services
         public DataHelper()
         {
             Clinic = new ClinicModel();
+            SecureStorage = Resolver.Resolve<ISecureStorage>();
         }
 
         public static DataHelper GetInstance()

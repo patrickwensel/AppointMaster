@@ -24,8 +24,8 @@ namespace AppointMaster.Pages
                 Aspect = Aspect.AspectFit,
                 Source = "logo.png",
                 VerticalOptions = LayoutOptions.Start,
-                HeightRequest = 100,
-                WidthRequest = 207
+                HeightRequest = 216,
+                WidthRequest = 300
             };
 
             var userEntry = new MyEntry
@@ -89,24 +89,39 @@ namespace AppointMaster.Pages
                 TextColor = Color.Black,
             };
 
+            Button btnSettings = new Button
+            {
+                Text = AppResources.Settings,
+                WidthRequest = 470,
+                HeightRequest = 50,
+                BorderColor = Color.Black,
+                BorderRadius = 1,
+                BorderWidth = 2,
+                BackgroundColor = Color.Transparent,
+                TextColor = Color.Black,
+            };
+            btnSettings.SetBinding(Button.CommandProperty, "ShowSettingsCommand");
+
             var loadingGrid = new Grid();
             loadingGrid.BackgroundColor = Color.Black;
             loadingGrid.Opacity = 0.5;
             loadingGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
             loadingGrid.Children.Add(new ActivityIndicator()
             {
-                Color = Color.Blue,
                 IsRunning = true,
+                Color = Color.Blue,
+                WidthRequest = 50,
+                HeightRequest = 50,
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.Center
             });
-
             loadingGrid.SetBinding(Grid.IsVisibleProperty, new Binding("IsBusy"));
 
             var grid = new Grid();
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(150) });
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(120) });
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(130) });
+            grid.RowDefinitions.Add(new RowDefinition { Height = 266 });
+            grid.RowDefinitions.Add(new RowDefinition { Height = 120 });
+            grid.RowDefinitions.Add(new RowDefinition { Height = 130 });
+            grid.RowDefinitions.Add(new RowDefinition { Height = 100 });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
             grid.Children.Add(new StackLayout { Padding = new Thickness(0, Device.OnPlatform(40, 20, 20), 0, 0), Children = { logoImage } }, 0, 0);
@@ -115,10 +130,12 @@ namespace AppointMaster.Pages
 
             grid.Children.Add(passwordSl, 0, 2);
 
-            grid.Children.Add(loadingGrid, 0, 0);
-            Grid.SetRowSpan(loadingGrid, 4);
-
             grid.Children.Add(new StackLayout { HeightRequest = 50, HorizontalOptions = LayoutOptions.Center, Children = { btnLogin } }, 0, 3);
+
+            grid.Children.Add(new StackLayout { HeightRequest = 50, HorizontalOptions = LayoutOptions.Center, Children = { btnSettings } }, 0, 4);
+
+            grid.Children.Add(loadingGrid, 0, 0);
+            Grid.SetRowSpan(loadingGrid, 5);
 
             userEntry.SetBinding(Entry.TextProperty, new Binding("UserName"));
             passwordEntry.SetBinding(Entry.TextProperty, new Binding("Password"));

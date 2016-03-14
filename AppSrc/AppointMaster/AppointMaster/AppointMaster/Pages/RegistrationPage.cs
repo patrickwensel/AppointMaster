@@ -13,6 +13,7 @@ using System.Runtime.CompilerServices;
 using System.Globalization;
 using AppointMaster.Models;
 using AppointMaster.Services;
+using AppointMaster.Converters;
 
 namespace AppointMaster.Pages
 {
@@ -37,11 +38,23 @@ namespace AppointMaster.Pages
 
         DisplayPatientModel selectPatientToCheckInItem;
 
-        Style buttonStyle = new Style(typeof(Button))
+        Style buttonNextStyle = new Style(typeof(Button))
         {
             Setters = {
-              //new Setter { Property = Button.BackgroundColorProperty, Value = Color.FromHex ("#eee") },
-              new Setter { Property = Button.BackgroundColorProperty, Value = Color.Transparent },
+              new Setter { Property = Button.BackgroundColorProperty, Value = DataHelper.GetInstance().PrimaryColor},
+              new Setter { Property = Button.TextColorProperty, Value = Color.Black },
+              new Setter { Property = Button.BorderRadiusProperty, Value = 1 },
+              new Setter { Property = Button.BorderWidthProperty, Value = 2 },
+              new Setter { Property = Button.BorderColorProperty, Value = Color.Black },
+              new Setter { Property = Button.WidthRequestProperty, Value = 120 },
+              new Setter { Property = Button.HeightRequestProperty, Value = 50 },
+            }
+        };
+
+        Style buttonBackStyle = new Style(typeof(Button))
+        {
+            Setters = {
+              new Setter { Property = Button.BackgroundColorProperty, Value = DataHelper.GetInstance().SecondaryColor },
               new Setter { Property = Button.TextColorProperty, Value = Color.Black },
               new Setter { Property = Button.BorderRadiusProperty, Value = 1 },
               new Setter { Property = Button.BorderWidthProperty, Value = 2 },
@@ -54,7 +67,6 @@ namespace AppointMaster.Pages
         Style entryStyle = new Style(typeof(Entry))
         {
             Setters = {
-              //new Setter { Property = Button.BackgroundColorProperty, Value = Color.FromHex ("#eee") },
               new Setter { Property = Entry.TextColorProperty, Value = Color.Black },
               new Setter { Property = Entry.FontSizeProperty, Value = 20 },
               new Setter { Property = Entry.WidthRequestProperty, Value = 470 },
@@ -74,12 +86,11 @@ namespace AppointMaster.Pages
         {
             BackgroundColor = Color.White;
             NavigationPage.SetHasNavigationBar(this, false);
-            Padding = new Thickness(20, Device.OnPlatform(40, 20, 20), 20, 20);
+            var padding = new Thickness(20, Device.OnPlatform(40, 20, 20), 20, 20);
 
             Image imgLogo = new Image
             {
                 Aspect = Aspect.AspectFit,
-                VerticalOptions = LayoutOptions.Start,
                 HorizontalOptions = LayoutOptions.End,
                 HeightRequest = 100,
                 WidthRequest = 207
@@ -91,11 +102,9 @@ namespace AppointMaster.Pages
 
             labStep = new Label
             {
-                VerticalOptions = LayoutOptions.Start,
                 HorizontalOptions = LayoutOptions.Start,
                 Text = AppResources.Registration_Step1,
-                TextColor = Color.Black,
-                FontSize = 20
+                Style = labStyle
             };
 
             Step1();
@@ -106,12 +115,27 @@ namespace AppointMaster.Pages
             Step4AddPatient();
             Step5();
 
+            var loadingGrid = new Grid();
+            loadingGrid.BackgroundColor = Color.Black;
+            loadingGrid.Opacity = 0.5;
+            loadingGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            loadingGrid.Children.Add(new ActivityIndicator()
+            {
+                IsRunning = true,
+                WidthRequest = 50,
+                HeightRequest = 50,
+                Color = Color.Blue,
+                VerticalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Center
+            });
+            loadingGrid.SetBinding(Grid.IsVisibleProperty, new Binding("IsBusy"));
+
             var grid = new Grid();
             grid.RowDefinitions.Add(new RowDefinition { Height = 150 });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
 
-            grid.Children.Add(imgLogo, 0, 0);
-            grid.Children.Add(labStep, 0, 0);
+            grid.Children.Add(new StackLayout { Padding = padding, Children = { imgLogo } }, 0, 0);
+            grid.Children.Add(new StackLayout { Padding = padding, Children = { labStep } }, 0, 0);
 
             grid.Children.Add(grid1, 0, 1);
             grid.Children.Add(grid2, 0, 1);
@@ -120,6 +144,9 @@ namespace AppointMaster.Pages
             grid.Children.Add(grid4Add, 0, 1);
             grid.Children.Add(grid4Breed, 0, 1);
             grid.Children.Add(grid5, 0, 1);
+
+            grid.Children.Add(loadingGrid, 0, 0);
+            Grid.SetRowSpan(loadingGrid, 2);
 
             grid1.IsVisible = true;
             grid2.IsVisible = false;
@@ -157,7 +184,7 @@ namespace AppointMaster.Pages
             var titleSl = new StackLayout
             {
                 HorizontalOptions = LayoutOptions.Start,
-                Padding = new Thickness(Device.OnPlatform(130, 145, 0), 0, 0, 0),
+                Padding = new Thickness(Device.OnPlatform(150, 165, 0), 0, 0, 0),
                 Children =
                 {
                     new Label
@@ -200,21 +227,21 @@ namespace AppointMaster.Pages
             Button btnStep1Back = new Button
             {
                 Text = AppResources.Back,
-                Style = buttonStyle,
+                Style = buttonBackStyle,
                 HorizontalOptions = LayoutOptions.Start,
             };
 
             Button btnStep1Cancel = new Button
             {
                 Text = AppResources.Cancel,
-                Style = buttonStyle,
+                Style = buttonBackStyle,
                 HorizontalOptions = LayoutOptions.Center,
             };
 
             Button btnStep1Next = new Button
             {
                 Text = AppResources.Next,
-                Style = buttonStyle,
+                Style = buttonNextStyle,
                 HorizontalOptions = LayoutOptions.End,
             };
 
@@ -368,7 +395,7 @@ namespace AppointMaster.Pages
             Button btnStep2Back = new Button
             {
                 Text = AppResources.Back,
-                Style = buttonStyle,
+                Style = buttonBackStyle,
                 HorizontalOptions = LayoutOptions.Start,
 
             };
@@ -376,7 +403,7 @@ namespace AppointMaster.Pages
             Button btnStep2Cancel = new Button
             {
                 Text = AppResources.Cancel,
-                Style = buttonStyle,
+                Style = buttonBackStyle,
                 HorizontalOptions = LayoutOptions.Center,
             };
             btnStep2Cancel.SetBinding(Button.CommandProperty, new Binding("ShowCancelCommand"));
@@ -384,7 +411,7 @@ namespace AppointMaster.Pages
             Button btnStep2Next = new Button
             {
                 Text = AppResources.Next,
-                Style = buttonStyle,
+                Style = buttonNextStyle,
                 HorizontalOptions = LayoutOptions.End,
             };
 
@@ -491,13 +518,13 @@ namespace AppointMaster.Pages
             Button btnStep3Back = new Button
             {
                 Text = AppResources.Back,
-                Style = buttonStyle,
+                Style = buttonBackStyle,
             };
 
             Button btnStep3Cancel = new Button
             {
                 Text = AppResources.Cancel,
-                Style = buttonStyle,
+                Style = buttonBackStyle,
                 HorizontalOptions = LayoutOptions.Center,
             };
             btnStep3Cancel.SetBinding(Button.CommandProperty, new Binding("ShowCancelCommand"));
@@ -505,7 +532,7 @@ namespace AppointMaster.Pages
             Button btnStep3Next = new Button
             {
                 Text = AppResources.Next,
-                Style = buttonStyle,
+                Style = buttonNextStyle,
                 HorizontalOptions = LayoutOptions.End,
             };
 
@@ -560,6 +587,8 @@ namespace AppointMaster.Pages
 
         private void Step4()
         {
+            var padding = new Thickness(20, 0, 20, 0);
+
             BoxView line = new BoxView
             {
                 WidthRequest = 1,
@@ -571,13 +600,13 @@ namespace AppointMaster.Pages
             Button btnStep4Back = new Button
             {
                 Text = AppResources.Back,
-                Style = buttonStyle,
+                Style = buttonBackStyle,
             };
 
             Button btnStep4Cancel = new Button
             {
                 Text = AppResources.Cancel,
-                Style = buttonStyle,
+                Style = buttonBackStyle,
                 HorizontalOptions = LayoutOptions.Center,
             };
             btnStep4Cancel.SetBinding(Button.CommandProperty, new Binding("ShowCancelCommand"));
@@ -585,7 +614,7 @@ namespace AppointMaster.Pages
             Button btnStep4Next = new Button
             {
                 Text = AppResources.Next,
-                Style = buttonStyle,
+                Style = buttonNextStyle,
                 HorizontalOptions = LayoutOptions.End,
             };
 
@@ -608,8 +637,7 @@ namespace AppointMaster.Pages
                    new Label
                    {
                         Text = AppResources.Who_Is_With,
-                        TextColor = Color.Black,
-                        FontSize = 20
+                        Style=labStyle
                    },
                    line
                 }
@@ -644,7 +672,7 @@ namespace AppointMaster.Pages
                 BorderColor = Color.Black,
                 BorderWidth = 2,
                 BorderRadius = 10,
-                BackgroundColor = Color.Transparent,
+                BackgroundColor = DataHelper.GetInstance().SecondaryColor
             }, 0, 0);
             addAnotherGrid.Children.Add(addAnotherSl, 0, 0);
 
@@ -658,7 +686,7 @@ namespace AppointMaster.Pages
                         BorderColor = Color.Black,
                         WidthRequest = 100,
                         HeightRequest = 40,
-                        BackgroundColor = Color.Transparent,
+                        BackgroundColor = DataHelper.GetInstance().PrimaryColor,
                         BorderRadius = 1,
                         Text = AppResources.Check_In,
                         VerticalOptions = LayoutOptions.Center,
@@ -685,7 +713,7 @@ namespace AppointMaster.Pages
                             RegistrationViewModel.NotPrimarySpeciesName = selectedItem.Name;
 
                         RegistrationViewModel.Breed = selectPatientToCheckInItem.Breed;
-                        RegistrationViewModel.PatientGender = selectPatientToCheckInItem.Gender;
+                        RegistrationViewModel.PatientGender = RegistrationViewModel.GenderList.Where(x => x == selectPatientToCheckInItem.Gender).FirstOrDefault();
                         RegistrationViewModel.PatientBirth = selectPatientToCheckInItem.Birthdate;
 
                         grid4.IsVisible = false;
@@ -701,7 +729,7 @@ namespace AppointMaster.Pages
                     imgPatient.HeightRequest = 60;
                     imgPatient.WidthRequest = 61;
                     imgPatient.VerticalOptions = LayoutOptions.Center;
-                    imgPatient.SetBinding(Image.SourceProperty, new Binding("ImgLogo"));
+                    imgPatient.SetBinding(Image.SourceProperty, "Logo", BindingMode.Default, converter: new ByteToSourceConverter());
 
                     Label labName = new Label();
                     labName.TextColor = Color.Black;
@@ -743,6 +771,7 @@ namespace AppointMaster.Pages
             {
                 grid4.IsVisible = false;
                 grid4Add.IsVisible = true;
+                DataHelper.GetInstance().SetSelectedAppointment(null);
             };
             addAnotherSl.GestureRecognizers.Add(addAnotherSlClick);
 
@@ -785,6 +814,7 @@ namespace AppointMaster.Pages
             labCheckIn.SetBinding(ListView.IsVisibleProperty, "IsCheckeInOrAdd");//, BindingMode.Default, converter: new TrueToFalseConverter()
 
             grid4 = new Grid();
+            grid4.Padding = padding;
             grid4.RowDefinitions.Add(new RowDefinition { Height = 80 });
             grid4.RowDefinitions.Add(new RowDefinition { Height = 40 });
             grid4.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -826,13 +856,13 @@ namespace AppointMaster.Pages
             Button btnStep4AddBack = new Button
             {
                 Text = AppResources.Back,
-                Style = buttonStyle,
+                Style = buttonBackStyle,
             };
 
             Button btnStep4AddCancel = new Button
             {
                 Text = AppResources.Cancel,
-                Style = buttonStyle,
+                Style = buttonBackStyle,
                 HorizontalOptions = LayoutOptions.Center,
             };
             btnStep4AddCancel.SetBinding(Button.CommandProperty, new Binding("ShowCancelCommand"));
@@ -840,7 +870,7 @@ namespace AppointMaster.Pages
             Button btnStep4AddNext = new Button
             {
                 Text = AppResources.Next,
-                Style = buttonStyle,
+                Style = buttonNextStyle,
                 HorizontalOptions = LayoutOptions.End,
             };
 
@@ -895,11 +925,11 @@ namespace AppointMaster.Pages
                     imgUnChecked.Source = "unchecked_checkbox.png";
                     imgUnChecked.SetBinding(Image.IsVisibleProperty, "IsChecked", BindingMode.Default, new TrueToFalseConverter());
 
-                    Image imgPatient = new Image();
-                    imgPatient.HeightRequest = 60;
-                    imgPatient.WidthRequest = 61;
-                    imgPatient.VerticalOptions = LayoutOptions.Center;
-                    imgPatient.SetBinding(Image.SourceProperty, new Binding("ImgLogo"));
+                    Image imgSpecies = new Image();
+                    imgSpecies.HeightRequest = 60;
+                    imgSpecies.WidthRequest = 61;
+                    imgSpecies.VerticalOptions = LayoutOptions.Center;
+                    imgSpecies.SetBinding(Image.SourceProperty, "Logo", BindingMode.Default, converter: new ByteToSourceConverter());
 
                     return new MyViewCell
                     {
@@ -911,7 +941,7 @@ namespace AppointMaster.Pages
                             {
                                imgChecked,
                                imgUnChecked,
-                               imgPatient
+                               imgSpecies
                             }
                         }
                     };
@@ -933,11 +963,11 @@ namespace AppointMaster.Pages
                     imgUnChecked.Source = "unchecked_checkbox.png";
                     imgUnChecked.SetBinding(Image.IsVisibleProperty, "IsChecked", BindingMode.Default, new TrueToFalseConverter());
 
-                    Image imgPatient = new Image();
-                    imgPatient.HeightRequest = 60;
-                    imgPatient.WidthRequest = 61;
-                    imgPatient.VerticalOptions = LayoutOptions.Center;
-                    imgPatient.SetBinding(Image.SourceProperty, new Binding("ImgLogo"));
+                    Image imgSpecies = new Image();
+                    imgSpecies.HeightRequest = 60;
+                    imgSpecies.WidthRequest = 61;
+                    imgSpecies.VerticalOptions = LayoutOptions.Center;
+                    imgSpecies.SetBinding(Image.SourceProperty, "Logo", BindingMode.Default, converter: new ByteToSourceConverter());
 
                     return new MyViewCell
                     {
@@ -949,7 +979,7 @@ namespace AppointMaster.Pages
                             {
                                imgChecked,
                                imgUnChecked,
-                               imgPatient
+                               imgSpecies
                             }
                         }
                     };
@@ -995,6 +1025,8 @@ namespace AppointMaster.Pages
                     lstBreedNotPrimary
                 }
             };
+            if (RegistrationViewModel.SpeciesNotPrimaryList.Count == 0)
+                notPrimarySl.IsVisible = false;
 
             grid4Add = new Grid();
             grid4Add.RowDefinitions.Add(new RowDefinition { Height = 100 });
@@ -1047,14 +1079,14 @@ namespace AppointMaster.Pages
             Button btnStep4OtherBack = new Button
             {
                 Text = AppResources.Back,
-                Style = buttonStyle,
+                Style = buttonBackStyle,
                 HorizontalOptions = LayoutOptions.Start,
             };
 
             Button btnStep4OtherCancel = new Button
             {
                 Text = AppResources.Cancel,
-                Style = buttonStyle,
+                Style = buttonBackStyle,
                 HorizontalOptions = LayoutOptions.Center,
             };
             btnStep4OtherCancel.SetBinding(Button.CommandProperty, new Binding("ShowCancelCommand"));
@@ -1062,7 +1094,7 @@ namespace AppointMaster.Pages
             Button btnStep4OtherNext = new Button
             {
                 Text = AppResources.Next,
-                Style = buttonStyle,
+                Style = buttonNextStyle,
                 WidthRequest = 120,
             };
 
@@ -1164,13 +1196,13 @@ namespace AppointMaster.Pages
 
                     DisplayPatientModel patientInfo = new DisplayPatientModel
                     {
-                        IsChecked = true,
+                        IsChecked = false,
                         Name = RegistrationViewModel.PatientName,
                         Breed = RegistrationViewModel.Breed,
                         Gender = RegistrationViewModel.PatientGender,
                         Birthdate = RegistrationViewModel.PatientBirth,
                         SpeciesID = RegistrationViewModel.SelectedSpecies.ID,
-                        ImgLogo = RegistrationViewModel.SelectedSpecies.ImgLogo,
+                        Logo = RegistrationViewModel.SelectedSpecies.Logo,
                         Species = RegistrationViewModel.SelectedSpecies.Name
                     };
                     RegistrationViewModel.PatientList.Add(patientInfo);
@@ -1283,7 +1315,7 @@ namespace AppointMaster.Pages
                 BorderColor = Color.Black,
                 BorderRadius = 1,
                 BorderWidth = 2,
-                BackgroundColor = Color.Transparent,
+                BackgroundColor = DataHelper.GetInstance().SecondaryColor,
                 HeightRequest = 40,
                 TextColor = Color.Black
             };
@@ -1314,7 +1346,7 @@ namespace AppointMaster.Pages
                 BorderColor = Color.Black,
                 BorderRadius = 1,
                 BorderWidth = 2,
-                BackgroundColor = Color.Transparent,
+                BackgroundColor = DataHelper.GetInstance().SecondaryColor,
                 HeightRequest = 40,
                 TextColor = Color.Black
             };
@@ -1331,11 +1363,11 @@ namespace AppointMaster.Pages
                 BorderColor = Color.Black,
                 BorderRadius = 1,
                 BorderWidth = 2,
-                BackgroundColor = Color.Transparent,
+                BackgroundColor = DataHelper.GetInstance().PrimaryColor,
                 HeightRequest = 50,
                 TextColor = Color.Black
             };
-            btnComplete.SetBinding(Button.CommandProperty, new Binding("ShowCheckInCommand"));
+            btnComplete.SetBinding(Button.CommandProperty, new Binding("CompleteCommand"));
 
             Grid patientInfoGrid = new Grid();
             patientInfoGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -1459,6 +1491,7 @@ namespace AppointMaster.Pages
             };
 
             grid5 = new Grid();
+            grid5.Padding = new Thickness(20, 0, 20, 0);
             grid5.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid5.RowDefinitions.Add(new RowDefinition { Height = 400 });
             grid5.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -1516,19 +1549,6 @@ namespace AppointMaster.Pages
 
             if (selectPatientToCheckInItem != null)
                 RegistrationViewModel.PatientList.Where(x => x.ID == selectPatientToCheckInItem.ID).FirstOrDefault().SpeciesID = model.ID;
-        }
-
-        class TrueToFalseConverter : IValueConverter
-        {
-            public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-            {
-                return !(bool)value;
-            }
-
-            public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-            {
-                return null;
-            }
         }
     }
 }

@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace AppointMaster.ViewModels
@@ -46,6 +47,13 @@ namespace AppointMaster.ViewModels
                 _selectedSpecies = value;
                 RaisePropertyChanged(() => SelectedSpecies);
             }
+        }
+
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set { _isBusy = value; RaisePropertyChanged(() => IsBusy); }
         }
 
         private bool _isCheckeInOrAdd;
@@ -132,6 +140,10 @@ namespace AppointMaster.ViewModels
             set
             {
                 _phone = value;
+                if (value.Length == 10)
+                {
+                    _phone = string.Format("({0}) {1}-{2}", value.Substring(0, 3),value.Substring(3, 3), value.Substring(6, 4));
+                }
                 RaisePropertyChanged(() => Phone);
             }
         }
@@ -191,18 +203,6 @@ namespace AppointMaster.ViewModels
             }
         }
 
-        public ObservableCollection<string> GenderList { get; set; }
-
-        public ObservableCollection<string> TitleList { get; set; }
-
-        public ObservableCollection<string> StateList { get; set; }
-
-        public ObservableCollection<DisplayPatientModel> PatientList { get; set; }
-        public ObservableCollection<DisplayPatientModel> CheckedPatientList { get; set; }
-        public ObservableCollection<DisplaySpeciesModel> SpeciesList { get; set; }
-        public ObservableCollection<DisplaySpeciesModel> SpeciesPrimaryList { get; set; }
-        public ObservableCollection<DisplaySpeciesModel> SpeciesNotPrimaryList { get; set; }
-
         public MvxCommand ShowCheckInCommand
         {
             get
@@ -218,6 +218,26 @@ namespace AppointMaster.ViewModels
                 return new MvxCommand(() => ShowViewModel<RegistrationCancelViewModel>());
             }
         }
+
+        public MvxCommand CompleteCommand
+        {
+            get
+            {
+                return new MvxCommand(() => Complete());
+            }
+        }
+
+        public ObservableCollection<string> GenderList { get; set; }
+
+        public ObservableCollection<string> TitleList { get; set; }
+
+        public ObservableCollection<string> StateList { get; set; }
+
+        public ObservableCollection<DisplayPatientModel> PatientList { get; set; }
+        public ObservableCollection<PatientModel> CheckedPatientList { get; set; }
+        public ObservableCollection<DisplaySpeciesModel> SpeciesList { get; set; }
+        public ObservableCollection<DisplaySpeciesModel> SpeciesPrimaryList { get; set; }
+        public ObservableCollection<DisplaySpeciesModel> SpeciesNotPrimaryList { get; set; }
 
         public RegistrationViewModel()
         {
@@ -238,13 +258,15 @@ namespace AppointMaster.ViewModels
             StateList.Add("AK");
 
             PatientList = new ObservableCollection<DisplayPatientModel>();
-            CheckedPatientList = new ObservableCollection<DisplayPatientModel>();
+            CheckedPatientList = new ObservableCollection<PatientModel>();
 
             SpeciesList = new ObservableCollection<DisplaySpeciesModel>();
             SpeciesPrimaryList = new ObservableCollection<DisplaySpeciesModel>();
             SpeciesNotPrimaryList = new ObservableCollection<DisplaySpeciesModel>();
 
-            if (Services.DataHelper.GetInstance().GetSelectedAppointment() != null)
+            GetAllSpecies();
+
+            if (DataHelper.GetInstance().GetSelectedAppointment() != null)
             {
                 IsCheckeInOrAdd = false;
 
@@ -260,56 +282,48 @@ namespace AppointMaster.ViewModels
                 SelectedState = "MD";
                 PatientGender = "Male";
             }
-
-            GetAllSpecies();
-            foreach (var item in SpeciesList)
-            {
-                if (item.PrimaryDisplay)
-
-                    SpeciesPrimaryList.Add(item);
-                else
-                    SpeciesNotPrimaryList.Add(item);
-            }
         }
 
         private async void GetAllPatients()
         {
-            PatientList.Add(new DisplayPatientModel
-            {
-                ID = 1,
-                IsChecked = false,
-                Name = "Fido",
-                SpeciesID = 1,
-                Gender = "Male",
-                Breed = "Mutt",
-                Birthdate = DateTime.Now.Date.AddDays(-2),
-                ImgLogo = "dog.png"
-            });
-            PatientList.Add(new DisplayPatientModel
-            {
-                ID = 2,
-                IsChecked = false,
-                Name = "Buddy",
-                SpeciesID = 2,
-                Gender = "Female",
-                Breed = "Mutt",
-                Birthdate = DateTime.Now.Date.AddDays(-1),
-                ImgLogo = "cat.png"
-            });
-            PatientList.Add(new DisplayPatientModel
-            {
-                ID = 3,
-                IsChecked = false,
-                Name = "Tabitha",
-                SpeciesID = 5,
-                Gender = "Female",
-                Breed = "Mutt",
-                Birthdate = DateTime.Now.Date.AddDays(-1),
-                ImgLogo = "other.png"
-            });
+            //PatientList.Add(new DisplayPatientModel
+            //{
+            //    ID = 1,
+            //    IsChecked = false,
+            //    Name = "Fido",
+            //    SpeciesID = 1,
+            //    Gender = "Male",
+            //    Breed = "Mutt",
+            //    Birthdate = DateTime.Now.Date.AddDays(-2),
+            //    ImgLogo = "dog.png"
+            //});
+            //PatientList.Add(new DisplayPatientModel
+            //{
+            //    ID = 2,
+            //    IsChecked = false,
+            //    Name = "Buddy",
+            //    SpeciesID = 2,
+            //    Gender = "Female",
+            //    Breed = "Mutt",
+            //    Birthdate = DateTime.Now.Date.AddDays(-1),
+            //    ImgLogo = "cat.png"
+            //});
+            //PatientList.Add(new DisplayPatientModel
+            //{
+            //    ID = 3,
+            //    IsChecked = false,
+            //    Name = "Tabitha",
+            //    SpeciesID = 5,
+            //    Gender = "Female",
+            //    Breed = "Mutt",
+            //    Birthdate = DateTime.Now.Date.AddDays(-1),
+            //    ImgLogo = "other.png"
+            //});
 
             try
             {
+                IsBusy = true;
+
                 string url = DataHelper.GetInstance().BaseAPI + "VetPatient/" + DataHelper.GetInstance().GetSelectedAppointment().ClientID;
                 HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", DataHelper.GetInstance().GetAuthorization());
@@ -327,7 +341,7 @@ namespace AppointMaster.ViewModels
                             SpeciesID = item.SpeciesID,
                             Breed = item.Breed,
                             Gender = item.Gender,
-                            Logo = item.Logo,
+                            Logo = SpeciesList.Where(x => x.ID == item.SpeciesID).FirstOrDefault().Logo,
                             Birthdate = item.Birthdate
                         });
                     }
@@ -336,20 +350,24 @@ namespace AppointMaster.ViewModels
             catch (Exception ex)
             {
             }
+            finally
+            {
+                IsBusy = false;
+            }
         }
         private void GetAllSpecies()
         {
-            SpeciesList.Add(new DisplaySpeciesModel { ID = 1, IsChecked = false, Name = "Dog", PrimaryDisplay = true, ImgLogo = "dog.png" });
-            SpeciesList.Add(new DisplaySpeciesModel { ID = 2, IsChecked = false, Name = "Cat", PrimaryDisplay = true, ImgLogo = "cat.png" });
-            SpeciesList.Add(new DisplaySpeciesModel { ID = 3, IsChecked = false, Name = "Bird", PrimaryDisplay = true, ImgLogo = "bird.png" });
-            SpeciesList.Add(new DisplaySpeciesModel { ID = 4, IsChecked = false, Name = "Fish", PrimaryDisplay = false, ImgLogo = "fish.png" });
-            SpeciesList.Add(new DisplaySpeciesModel { ID = 5, IsChecked = false, Name = "Other", PrimaryDisplay = false, ImgLogo = "other.png" });
+            //SpeciesList.Add(new DisplaySpeciesModel { ID = 1, IsChecked = false, Name = "Dog", PrimaryDisplay = true, ImgLogo = "dog.png" });
+            //SpeciesList.Add(new DisplaySpeciesModel { ID = 2, IsChecked = false, Name = "Cat", PrimaryDisplay = true, ImgLogo = "cat.png" });
+            //SpeciesList.Add(new DisplaySpeciesModel { ID = 3, IsChecked = false, Name = "Bird", PrimaryDisplay = true, ImgLogo = "bird.png" });
+            //SpeciesList.Add(new DisplaySpeciesModel { ID = 4, IsChecked = false, Name = "Fish", PrimaryDisplay = false, ImgLogo = "fish.png" });
+            //SpeciesList.Add(new DisplaySpeciesModel { ID = 5, IsChecked = false, Name = "Other", PrimaryDisplay = false, ImgLogo = "other.png" });
 
             try
             {
                 foreach (var item in DataHelper.GetInstance().Clinic.SpeciesSupported)
                 {
-                    SpeciesList.Add(new DisplaySpeciesModel
+                    var model = new DisplaySpeciesModel
                     {
                         ID = item.ID,
                         Name = item.Name,
@@ -358,7 +376,14 @@ namespace AppointMaster.ViewModels
                         PrimaryDisplay = item.PrimaryDisplay,
                         Logo = item.Logo,
                         IsChecked = false
-                    });
+                    };
+
+                    SpeciesList.Add(model);
+
+                    if (model.PrimaryDisplay)
+                        SpeciesPrimaryList.Add(model);
+                    else
+                        SpeciesNotPrimaryList.Add(model);
                 }
             }
             catch (Exception ex)
@@ -370,8 +395,8 @@ namespace AppointMaster.ViewModels
         {
             DisplayAppointmentModel model = DataHelper.GetInstance().GetSelectedAppointment();
 
-            SelectedTitle = model.Client.Title;
-            SelectedState = model.Client.StateProvince;
+            SelectedTitle = TitleList.Where(x => x == model.Client.Title).FirstOrDefault();
+            SelectedState = StateList.Where(x => x == model.Client.StateProvince).FirstOrDefault();
 
             FirstName = model.Client.FirstName;
             LastName = model.Client.LastName;
@@ -380,18 +405,107 @@ namespace AppointMaster.ViewModels
             PostalCode = model.Client.PostalCode;
             Phone = model.Client.Phone;
             Email = model.Client.Email;
-
-            Services.DataHelper.GetInstance().SetSelectedAppointment(null);
         }
 
-        private void Complete()
+        private async void Complete()
         {
+            try
+            {
+                IsBusy = true;
 
+                List<PatientModel> lstPatient = new List<PatientModel>();
+
+                //if (CheckedPatientList.Count == 0)
+                //{
+                    
+                //}
+                //else
+                //{
+                //    lstPatient = CheckedPatientList.Select(x => new PatientModel
+                //    {
+                //        ID = x.ID,
+                //        Name = x.Name,
+                //        Breed = x.Breed,
+                //        Gender = x.Gender,
+                //        ClientID = x.ClientID,
+                //        SpeciesID = x.SpeciesID,
+                //        Birthdate = x.Birthdate
+
+                //    }).ToList()
+                //}
+
+                var appointment = DataHelper.GetInstance().GetSelectedAppointment();
+
+                PostModel model = new PostModel
+                {
+                    ClientModel = new ClientModel
+                    {
+                        ID = appointment != null ? appointment.ClientID : 0,
+                        Title = SelectedTitle,
+                        FirstName = FirstName,
+                        LastName = LastName,
+                        Address = StreetAddress,
+                        City = City,
+                        StateProvince = SelectedState,
+                        PostalCode = PostalCode,
+                        Phone = Phone,
+                        Email = Email,
+                        DefaultCultureCode = appointment != null ? appointment.Client.DefaultCultureCode : "en-US",
+                    },
+                    AppointmentModel = new AppointmentModel
+                    {
+                        ID = appointment != null ? appointment.ID : 0,
+                        ClientID = appointment != null ? appointment.ClientID : 0,
+                        ClinicID = DataHelper.GetInstance().Clinic.ID,
+                        Time = PatientBirth,
+                        CheckedIn = false,
+                    },
+
+                    PatientList = CheckedPatientList.Select(x => new PatientModel
+                    {
+                        ID = x.ID,
+                        Name = x.Name,
+                        Breed = x.Breed,
+                        Gender = x.Gender,
+                        ClientID = x.ClientID,
+                        SpeciesID = x.SpeciesID,
+                        Birthdate = x.Birthdate
+
+                    }).ToList()
+                };
+
+
+                string p = JsonConvert.SerializeObject(model);
+
+                string url = DataHelper.GetInstance().BaseAPI + "VetAppointment";
+                HttpClient client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", DataHelper.GetInstance().GetAuthorization());
+                HttpResponseMessage response = await client.PostAsync(url, new StringContent(p, Encoding.UTF8, "application/json"));
+                if (response.IsSuccessStatusCode)
+                {
+                    ShowViewModel<CheckedInViewModel>();
+                }
+                else
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
-        //public void ShowCheckInPage()
-        //{
-        //    ShowViewModel<CheckInViewModel>();
-        //}
+        public class PostModel
+        {
+            public ClientModel ClientModel { get; set; }
+
+            public AppointmentModel AppointmentModel { get; set; }
+
+            public List<PatientModel> PatientList { get; set; }
+        }
     }
 }

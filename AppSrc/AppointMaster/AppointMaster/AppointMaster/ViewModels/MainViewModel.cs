@@ -1,4 +1,5 @@
 ﻿using AppointMaster.Resources;
+using AppointMaster.Services;
 using MvvmCross.Core.ViewModels;
 using PCLCrypto;
 using System;
@@ -16,11 +17,6 @@ namespace AppointMaster.ViewModels
 {
     public class MainViewModel:MvxViewModel
     {
-        public MainViewModel()
-        {
-            //GetClinicInfo();
-        }
-
         public MvxCommand ShowCheckInCommand
         {
             get
@@ -51,7 +47,7 @@ namespace AppointMaster.ViewModels
             {
                 string url = "http://ppgservices-001-site6.ctempurl.com/api/v1/ClinicProperties";
                 HttpClient client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", Services.DataHelper.GetInstance().GetAuthorization());
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", DataHelper.GetInstance().GetAuthorization());
                 HttpResponseMessage response = await client.GetAsync(url);
                 if (response.IsSuccessStatusCode)
                 {
@@ -66,10 +62,19 @@ namespace AppointMaster.ViewModels
 
         private void Logout()
         {
-            //var secureStorage = Resolver.Resolve<ISecureStorage>();
-            //secureStorage.Delete("UserName");
-            //secureStorage.Delete("BaseAPI");
-            ShowViewModel<LoginViewModel>();
+            try
+            {
+                DataHelper.GetInstance().BaseAPI = null;
+                //var secureStorage = Resolver.Resolve<ISecureStorage>();
+                //secureStorage.Delete("BaseAPI");
+            }
+            catch (Exception ex)
+            {
+            }
+            finally
+            {
+                ShowViewModel<LoginViewModel>();
+            }
         }
 
         private void DisplayAlert(string message)

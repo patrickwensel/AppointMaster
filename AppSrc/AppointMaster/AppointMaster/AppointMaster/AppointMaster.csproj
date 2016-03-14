@@ -43,6 +43,8 @@
     <Compile Include="Controls\MyEntry.cs" />
     <Compile Include="Controls\MyListView.cs" />
     <Compile Include="Controls\MyPicker.cs" />
+    <Compile Include="Converters\ByteToSourceConverter.cs" />
+    <Compile Include="Converters\TrueToFalseConverter.cs" />
     <Compile Include="Models\AppointmentModel.cs" />
     <Compile Include="Models\CheckInInfoModel.cs" />
     <Compile Include="Models\ClientModel.cs" />
