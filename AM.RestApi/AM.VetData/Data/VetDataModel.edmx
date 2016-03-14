@@ -23,6 +23,7 @@
           <Property Name="ClientID" Type="int" Nullable="false" />
           <Property Name="Time" Type="datetime" Nullable="false" />
           <Property Name="CheckedIn" Type="bit" />
+          <Property Name="Code" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="VetAppointmentPatient">
           <Key>
@@ -310,6 +311,7 @@
           <NavigationProperty Name="AppointmentPatients" Relationship="Self.FK_VetAppointmentPatient_VetAppointment" FromRole="VetAppointment" ToRole="VetAppointmentPatient" />
           <NavigationProperty Name="Client" Relationship="VetDataModel.FK_VetAppointment_VetClient" FromRole="Appointment" ToRole="Client" />
           <NavigationProperty Name="Clinic" Relationship="VetDataModel.FK_VetAppointment_VetClinic" FromRole="Appointment" ToRole="Clinic" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="AppointmentPatient">
           <Key>
@@ -618,6 +620,7 @@
           <EntitySetMapping Name="Appointments">
             <EntityTypeMapping TypeName="VetDataModel.Appointment">
               <MappingFragment StoreEntitySet="VetAppointment">
+                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ClinicID" ColumnName="ClinicID" />
                 <ScalarProperty Name="ClientID" ColumnName="ClientID" />

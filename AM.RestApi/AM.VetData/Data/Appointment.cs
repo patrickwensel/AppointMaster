@@ -24,6 +24,7 @@ namespace AM.VetData.Data
         public int ClientID { get; set; }
         public System.DateTime Time { get; set; }
         public Nullable<bool> CheckedIn { get; set; }
+        public string Code { get; set; }
     
         public virtual ICollection<AppointmentPatient> AppointmentPatients { get; set; }
         public virtual Client Client { get; set; }

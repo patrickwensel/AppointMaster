@@ -102,28 +102,49 @@ namespace AM.RestApi.Controllers
                 Time = value.AppointmentModel.Time,
                 CheckedIn = value.AppointmentModel.CheckedIn
             };
-            List<Patient> lstPatient = new List<Patient>();
-            lstPatient = value.PatientList.Select(x => new Patient
-            {
-                ID = x.ID,
-                ClientID = client.ID,
-                SpeciesID = x.SpeciesID,
-                Name = x.Name,
-                Breed = x.Breed,
-                Gender = x.Gender,
-                Birthdate = x.Birthdate
-
-            }).ToList();
 
             if (value.ClientModel.ID > 0)
             {
                 appointment.CheckedIn = true;
-                context.Entry(client).State = EntityState.Modified;
                 context.Entry(appointment).State = EntityState.Modified;
-                foreach (var item in lstPatient)
+                context.Entry(client).State = EntityState.Modified;
+
+                foreach (var item in value.PatientList)
                 {
-                    context.Entry(item).State = EntityState.Modified;
+                    var patientItem = new Patient
+                    {
+                        ID = item.ID,
+                        ClientID = client.ID,
+                        SpeciesID = item.SpeciesID,
+                        Name = item.Name,
+                        Breed = item.Breed,
+                        Gender = item.Gender,
+                        Birthdate = item.Birthdate
+                    };
+                    if (item.ID == 0)
+                    {
+                        context.Patients.Add(patientItem);
+                    }
+                    else
+                    {
+                        context.Entry(patientItem).State = EntityState.Modified;
+                        var appointmentPatients = context.AppointmentPatients.Where(x => x.PatientID == item.ID && x.AppointmentID == appointment.ID).FirstOrDefault();
+                        if (appointmentPatients != null)
+                            context.AppointmentPatients.Remove(appointmentPatients);
+                    }
+
                     context.SaveChanges();
+
+                    if (item.IsChecked)
+                    {
+                        context.AppointmentPatients.Add(new AppointmentPatient
+                        {
+                            AppointmentID = appointment.ID,
+                            PatientID = patientItem.ID
+                        });
+
+                        context.SaveChanges();
+                    }
                 }
             }
             else
@@ -134,17 +155,30 @@ namespace AM.RestApi.Controllers
                 context.Appointments.Add(appointment);
                 context.SaveChanges();
 
-                foreach (var item in lstPatient)
+                foreach (var item in value.PatientList)
                 {
-                    context.Patients.Add(item);
+                    var patientItem = new Patient
+                    {
+                        ID = item.ID,
+                        ClientID = client.ID,
+                        SpeciesID = item.SpeciesID,
+                        Name = item.Name,
+                        Breed = item.Breed,
+                        Gender = item.Gender,
+                        Birthdate = item.Birthdate
+                    };
+                    context.Patients.Add(patientItem);
                     context.SaveChanges();
 
-                    context.AppointmentPatients.Add(new AppointmentPatient
+                    if (item.IsChecked)
                     {
-                        AppointmentID = appointment.ID,
-                        PatientID = item.ID
-                    });
-                    context.SaveChanges();
+                        context.AppointmentPatients.Add(new AppointmentPatient
+                        {
+                            AppointmentID = appointment.ID,
+                            PatientID = patientItem.ID
+                        });
+                        context.SaveChanges();
+                    }
                 }
             }
         }
@@ -166,6 +200,6 @@ namespace AM.RestApi.Controllers
 
         public AppointmentModel AppointmentModel { get; set; }
 
-        public List<PatientModel> PatientList { get; set; }
+        public List<DisplayPatientModel> PatientList { get; set; }
     }
 }
