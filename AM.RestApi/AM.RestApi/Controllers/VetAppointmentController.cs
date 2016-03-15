@@ -152,6 +152,7 @@ namespace AM.RestApi.Controllers
                 context.Clients.Add(client);
                 context.SaveChanges();
 
+                appointment.ClientID = client.ID;
                 context.Appointments.Add(appointment);
                 context.SaveChanges();
 
