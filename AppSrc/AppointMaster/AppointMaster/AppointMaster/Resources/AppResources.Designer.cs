@@ -143,7 +143,7 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check In a new Patient.
+        ///   Looks up a localized string similar to check in a new patient.
         /// </summary>
         public static string Check_In_A_New_Patient {
             get {
@@ -215,11 +215,11 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Demo Model.
+        ///   Looks up a localized string similar to Demo Mode.
         /// </summary>
-        public static string Demo_Model {
+        public static string Demo_Mode {
             get {
-                return ResourceManager.GetString("Demo_Model", resourceCulture);
+                return ResourceManager.GetString("Demo_Mode", resourceCulture);
             }
         }
         
@@ -674,7 +674,7 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Walk - In New Registration.
+        ///   Looks up a localized string similar to Walk-In New Registration.
         /// </summary>
         public static string Walk_In {
             get {

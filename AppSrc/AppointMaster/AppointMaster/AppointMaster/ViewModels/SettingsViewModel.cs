@@ -64,6 +64,14 @@ namespace AppointMaster.ViewModels
             }
         }
 
+        public MvxCommand BackCommand
+        {
+            get
+            {
+                return new MvxCommand(() => Back());
+            }
+        }
+
         public ObservableCollection<CheckInModel> Items { get; set; }
 
         public SettingsViewModel()
@@ -107,6 +115,17 @@ namespace AppointMaster.ViewModels
                 DataHelper.GetInstance().SecureStorage.Store("BaseAPI", Encoding.UTF8.GetBytes(BaseAPIAddress));
                 DataHelper.GetInstance().SecureStorage.Store("CheckInModel", Encoding.UTF8.GetBytes(SelectedCheckInModel.Name));
 
+                Back();
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private void Back()
+        {
+            try
+            {
                 DataHelper.GetInstance().SecureStorage.Retrieve("UserName");
 
                 ShowViewModel<MainViewModel>();

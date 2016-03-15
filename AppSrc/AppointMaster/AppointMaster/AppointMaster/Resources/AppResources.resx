@@ -148,7 +148,7 @@
     <value>Check In</value>
   </data>
   <data name="Check_In_A_New_Patient" xml:space="preserve">
-    <value>Check In a new Patient</value>
+    <value>check in a new patient</value>
   </data>
   <data name="Choose_Patient" xml:space="preserve">
     <value>Please select a patient to check in</value>
@@ -168,8 +168,8 @@
   <data name="Complete" xml:space="preserve">
     <value>Complete</value>
   </data>
-  <data name="Demo_Model" xml:space="preserve">
-    <value>Demo Model</value>
+  <data name="Demo_Mode" xml:space="preserve">
+    <value>Demo Mode</value>
   </data>
   <data name="Digit_Selection" xml:space="preserve">
     <value>4 digit Selection</value>
@@ -322,7 +322,7 @@
     <value>Title</value>
   </data>
   <data name="Walk_In" xml:space="preserve">
-    <value>Walk - In New Registration</value>
+    <value>Walk-In New Registration</value>
   </data>
   <data name="Who_Is_With" xml:space="preserve">
     <value>Who is with you today?</value>

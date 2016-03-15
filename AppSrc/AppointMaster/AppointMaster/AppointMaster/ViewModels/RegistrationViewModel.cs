@@ -63,16 +63,16 @@ namespace AppointMaster.ViewModels
             set { _isBusy = value; RaisePropertyChanged(() => IsBusy); }
         }
 
-        private bool _isCheckeInOrAdd;
-        public bool IsCheckeInOrAdd
-        {
-            get { return _isCheckeInOrAdd; }
-            set
-            {
-                _isCheckeInOrAdd = value;
-                RaisePropertyChanged(() => IsCheckeInOrAdd);
-            }
-        }
+        //private bool _isCheckeInOrAdd;
+        //public bool IsCheckeInOrAdd
+        //{
+        //    get { return _isCheckeInOrAdd; }
+        //    set
+        //    {
+        //        _isCheckeInOrAdd = value;
+        //        RaisePropertyChanged(() => IsCheckeInOrAdd);
+        //    }
+        //}
 
         private string _notPrimarySpeciesName;
         public string NotPrimarySpeciesName
@@ -276,7 +276,7 @@ namespace AppointMaster.ViewModels
 
             if (DataHelper.GetInstance().GetSelectedAppointment() != null)
             {
-                IsCheckeInOrAdd = false;
+                //IsCheckeInOrAdd = false;
 
                 CheckedAppointment();
 
@@ -284,7 +284,7 @@ namespace AppointMaster.ViewModels
             }
             else
             {
-                IsCheckeInOrAdd = true;
+                //IsCheckeInOrAdd = true;
 
                 SelectedTitle = "Mr.";
                 SelectedState = "MD";

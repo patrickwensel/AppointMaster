@@ -33,7 +33,7 @@ namespace AppointMaster.Pages
         Grid grid5;
 
         Label labStep;
-        Label labCheckIn;
+        //Label labCheckIn;
         MyListView lstBreedNotPrimary;
 
         DisplayPatientModel selectPatientToCheckInItem;
@@ -777,12 +777,12 @@ namespace AppointMaster.Pages
 
             btnStep4Next.Clicked += delegate
             {
-                var item = RegistrationViewModel.PatientList.Where(x => x.IsChecked == true).FirstOrDefault();
-                if (item == null)
-                {
-                    DisplayAlert(AppResources.Error, AppResources.Choose_Patient, AppResources.OK);
-                    return;
-                }
+                //var item = RegistrationViewModel.PatientList.Where(x => x.IsChecked == true).FirstOrDefault();
+                //if (item == null)
+                //{
+                //    DisplayAlert(AppResources.Error, AppResources.Choose_Patient, AppResources.OK);
+                //    return;
+                //}
 
                 RegistrationViewModel.CheckedPatientList.Clear();
                 var patients = RegistrationViewModel.PatientList.Where(x => x.IsChecked == true).ToList();
@@ -803,15 +803,15 @@ namespace AppointMaster.Pages
                 labStep.Text = AppResources.Registration_Step3;
             };
 
-            labCheckIn = new Label
-            {
-                Text = AppResources.Check_In_A_New_Patient,
-                FontSize = 20,
-                TextColor = Color.Black,
-                IsVisible = false,
-                HeightRequest = 300
-            };
-            labCheckIn.SetBinding(ListView.IsVisibleProperty, "IsCheckeInOrAdd");//, BindingMode.Default, converter: new TrueToFalseConverter()
+            //labCheckIn = new Label
+            //{
+            //    Text = AppResources.Check_In_A_New_Patient,
+            //    FontSize = 20,
+            //    TextColor = Color.Black,
+            //    IsVisible = false,
+            //    HeightRequest = 300
+            //};
+            //labCheckIn.SetBinding(ListView.IsVisibleProperty, "IsCheckeInOrAdd");
 
             grid4 = new Grid();
             grid4.Padding = padding;
@@ -824,7 +824,7 @@ namespace AppointMaster.Pages
 
             grid4.Children.Add(whoIsSl, 0, 1);
 
-            grid4.Children.Add(labCheckIn, 0, 2);
+            //grid4.Children.Add(labCheckIn, 0, 2);
             grid4.Children.Add(lstPatient, 0, 2);
 
             grid4.Children.Add(btnStep4Sl, 0, 3);
@@ -1190,8 +1190,14 @@ namespace AppointMaster.Pages
 
                 if (selectPatientToCheckInItem == null)
                 {
-                    if (RegistrationViewModel.IsCheckeInOrAdd)
-                        RegistrationViewModel.IsCheckeInOrAdd = false;
+                    //if (RegistrationViewModel.IsCheckeInOrAdd)
+                    //    RegistrationViewModel.IsCheckeInOrAdd = false;
+
+                    int id = 1;
+                    if (RegistrationViewModel.PatientList.Count != 0)
+                    {
+                        id = RegistrationViewModel.PatientList.Select(x => x.RegistrationID).Max() + 1;
+                    }
 
                     DisplayPatientModel patientInfo = new DisplayPatientModel
                     {
@@ -1203,7 +1209,7 @@ namespace AppointMaster.Pages
                         SpeciesID = RegistrationViewModel.SelectedSpecies.ID,
                         Logo = RegistrationViewModel.SelectedSpecies.Logo,
                         Species = RegistrationViewModel.SelectedSpecies.Name,
-                        RegistrationID = RegistrationViewModel.PatientList.Select(x => x.RegistrationID).Max() + 1
+                        RegistrationID = id
                     };
                     RegistrationViewModel.PatientList.Add(patientInfo);
                 }

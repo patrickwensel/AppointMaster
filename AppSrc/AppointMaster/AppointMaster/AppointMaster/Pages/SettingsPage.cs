@@ -49,6 +49,22 @@ namespace AppointMaster.Pages
             };
             btnSave.SetBinding(Button.CommandProperty, new Binding("SaveCommand"));
 
+
+            Button btnBack = new Button
+            {
+                WidthRequest = 200,
+                VerticalOptions = LayoutOptions.End,
+                HorizontalOptions = LayoutOptions.Start,
+                Text = string.Format("< {0}", AppResources.Main_Menu),
+                TextColor = Color.Black,
+                FontSize = 20,
+                BackgroundColor = DataHelper.GetInstance().SecondaryColor,
+                BorderColor = Color.Black,
+                BorderRadius = 1,
+                BorderWidth = 2
+            };
+            btnBack.SetBinding(Button.CommandProperty, new Binding("BackCommand"));
+
             Image imgChecked = new Image();
             imgChecked.VerticalOptions = LayoutOptions.Center;
             imgChecked.Source = "checked_checkbox.png";
@@ -150,6 +166,7 @@ namespace AppointMaster.Pages
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.RowDefinitions.Add(new RowDefinition { Height = 50 });
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1,GridUnitType.Star) });
 
             grid.Children.Add(new Label { Text = AppResources.Settings, TextColor = Color.Black, FontSize = 30, FontFamily = "Bold" }, 0, 1);
 
@@ -160,7 +177,7 @@ namespace AppointMaster.Pages
                 Padding = new Thickness(0, 30, 0, 0),
                 Children =
                 {
-                   new Label { Text=AppResources.Demo_Model,TextColor=Color.Black,FontSize=20},
+                   new Label { Text=AppResources.Demo_Mode,TextColor=Color.Black,FontSize=20},
                    demoSL
                 }
             }, 0, 3);
@@ -176,6 +193,8 @@ namespace AppointMaster.Pages
             }, 0, 4);
 
             grid.Children.Add(btnSave, 0, 5);
+
+            grid.Children.Add(new StackLayout { VerticalOptions = LayoutOptions.End, Padding = new Thickness(0, 0, 0, 20), Children = { btnBack } }, 0, 6);
 
             Content = grid;
 

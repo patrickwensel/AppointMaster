@@ -17,6 +17,72 @@ namespace AppointMaster.ViewModels
 {
     public class MainViewModel:MvxViewModel
     {
+        private string _name;
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                _name = value; RaisePropertyChanged(() => Name);
+            }
+
+        }
+
+        private string _address;
+        public string Address
+        {
+            get
+            {
+                return _address;
+            }
+            set
+            {
+                _address = value; RaisePropertyChanged(() => Address);
+            }
+        }
+
+        private string _city;
+        public string City
+        {
+            get
+            {
+                return _city;
+            }
+            set
+            {
+                _city = value;RaisePropertyChanged(() => City);
+            }
+        }
+
+        private string _stateProvince;
+        public string StateProvince
+        {
+            get
+            {
+                return _stateProvince;
+            }
+            set
+            {
+                _stateProvince = value; RaisePropertyChanged(() => StateProvince);
+            }
+        }
+
+        private string _postalCode;
+        public string PostalCode
+        {
+            get
+            {
+                return _postalCode;
+            }
+            set
+            {
+                _postalCode = value; RaisePropertyChanged(() => PostalCode);
+            }
+        }
+
         public MvxCommand ShowCheckInCommand
         {
             get
@@ -41,32 +107,11 @@ namespace AppointMaster.ViewModels
             }
         }
 
-        private async void GetClinicInfo()
-        {
-            try
-            {
-                string url = "http://ppgservices-001-site6.ctempurl.com/api/v1/ClinicProperties";
-                HttpClient client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", DataHelper.GetInstance().GetAuthorization());
-                HttpResponseMessage response = await client.GetAsync(url);
-                if (response.IsSuccessStatusCode)
-                {
-                    string responseBody = await response.Content.ReadAsStringAsync();
-                }
-            }
-            catch (Exception)
-            {
-
-            }
-        }
-
         private void Logout()
         {
             try
             {
                 DataHelper.GetInstance().BaseAPI = null;
-                //var secureStorage = Resolver.Resolve<ISecureStorage>();
-                //secureStorage.Delete("BaseAPI");
             }
             catch (Exception ex)
             {
@@ -74,6 +119,18 @@ namespace AppointMaster.ViewModels
             finally
             {
                 ShowViewModel<LoginViewModel>();
+            }
+        }
+
+        public MainViewModel()
+        {
+            if (DataHelper.GetInstance().Clinic != null)
+            {
+                Name= DataHelper.GetInstance().Clinic.Name;
+                Address = DataHelper.GetInstance().Clinic.Address1;
+                City = DataHelper.GetInstance().Clinic.City;
+                StateProvince = DataHelper.GetInstance().Clinic.StateProvince;
+                PostalCode = DataHelper.GetInstance().Clinic.PostalCode;
             }
         }
 

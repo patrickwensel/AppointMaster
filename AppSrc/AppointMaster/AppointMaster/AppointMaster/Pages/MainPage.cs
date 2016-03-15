@@ -34,11 +34,13 @@ namespace AppointMaster.Pages
             {
                 Style = labStyle
             };
+            labName.SetBinding(Label.TextProperty, new Binding("Name"));
 
             Label labAddress = new Label
             {
                 Style = labStyle
             };
+            labAddress.SetBinding(Label.TextProperty, new Binding("Address"));
 
             Label labCity = new Label
             {
