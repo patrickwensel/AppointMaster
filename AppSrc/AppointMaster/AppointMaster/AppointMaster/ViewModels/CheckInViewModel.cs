@@ -16,6 +16,8 @@ namespace AppointMaster.ViewModels
 {
     public class CheckInViewModel : MvxViewModel
     {
+        public bool IsStopTimer { get; set; }
+
         private bool _isDigit;
         public bool IsDigit
         {
@@ -36,7 +38,7 @@ namespace AppointMaster.ViewModels
             get { return _appointmentCode; }
             set
             {
-                if (value != null && System.Text.RegularExpressions.Regex.IsMatch(value, @"^[a-zA-Z0-9-]{1,4}$"))
+                if (string.IsNullOrEmpty(value) || (value != null && System.Text.RegularExpressions.Regex.IsMatch(value, @"^[a-zA-Z0-9-]{1,4}$")))
                 {
                     _appointmentCode = value;
                 }
@@ -70,36 +72,19 @@ namespace AppointMaster.ViewModels
 
         public ObservableCollection<DisplayAppointmentModel> Items { get; set; }
 
+        public event EventHandler<string> SendMessage;
+
         public CheckInViewModel()
         {
             Items = new ObservableCollection<DisplayAppointmentModel>();
-            //Items.Add(new DisplayAppointmentModel
-            //{
-            //    ID = 1000,
-            //    Time = DateTime.Now,
-            //    PatientName = "Fido",
-            //    Client = new ClientModel
-            //    {
-            //        Title = "Mr.",
-            //        FirstName = "first",
-            //        LastName = "last",
-            //        Phone = "(410)555-1212",
-            //        Email = "sameone@gmail.com",
-            //        Address = "123 Some Road",
-            //        City = "Somewhereville",
-            //        StateProvince = "MD",
-            //        PostalCode = "12345",
-            //    }
-            //});
-
             try
             {
                 var bytes = DataHelper.GetInstance().SecureStorage.Retrieve("CheckInModel");
-                if (Encoding.UTF8.GetString(bytes, 0, bytes.Length) == AppResources.Appointment_List)
+                string isDigit = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+
+                if (isDigit == AppResources.Appointment_List)
                 {
                     IsDigit = false;
-                    GetAppointmentIDs();
-                    Device.StartTimer(new TimeSpan(0, 0, 15), () => { GetAppointmentIDs(); return true; });
                 }
                 else
                 {
@@ -109,94 +94,64 @@ namespace AppointMaster.ViewModels
             catch (Exception ex)
             {
             }
+
+            //Appointment List Model
+            if (!IsDigit)
+            {
+                IsStopTimer = false;
+                GetAppointments();
+                Device.StartTimer(new TimeSpan(0, 0, 15), () =>
+                {
+                    if (!IsStopTimer)
+                        GetAppointments();
+                    return true;
+                });
+            }
         }
 
-        public async void GetAppointmentIDs()
+        private async void CheckIn()
         {
             IsBusy = true;
-            try
+
+            string msg = await DataProvider.GetDataProvider().CheckInWithCode(AppointmentCode);
+
+            IsBusy = false;
+
+            if (msg == AppResources.OK)
             {
-                string url = DataHelper.GetInstance().BaseAPI + "VetAppointment";
-                HttpClient client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", DataHelper.GetInstance().GetAuthorization());
-                HttpResponseMessage response = await client.GetAsync(url);
-                if (response.IsSuccessStatusCode)
-                {
-                    string responseBody = await response.Content.ReadAsStringAsync();
-                    List<int> appointmentIDs = JsonConvert.DeserializeObject<List<int>>(responseBody);
-
-                    if (appointmentIDs != null)
-                    {
-                        foreach (var appointmentItem in Items)
-                        {
-                            if (!appointmentIDs.Contains(appointmentItem.ID))
-                            {
-                                Items.Remove(appointmentItem);
-                            }
-                        }
-
-                        foreach (var itemID in appointmentIDs)
-                        {
-                            if (Items.Select(x => x.ID).Contains(itemID))
-                                continue;
-
-                            string appointmentUrl = DataHelper.GetInstance().BaseAPI + "VetAppointment/" + itemID + "";
-                            var appointment = await GetAppointmentByUrl(appointmentUrl);
-                            if (appointment != null)
-                            {
-                                string patientName = null;
-                                foreach (var patientItem in appointment.Patients)
-                                {
-                                    patientName += string.Format("{0} and ", patientItem.Name);
-                                }
-                                Items.Add(new DisplayAppointmentModel
-                                {
-                                    ID = appointment.ID,
-                                    ClientID = appointment.ClientID,
-                                    ClinicID = appointment.ClinicID,
-                                    Time = appointment.Time,
-                                    CheckedIn = appointment.CheckedIn,
-                                    Client = appointment.Client,
-                                    Clinic = appointment.Clinic,
-                                    Patients = appointment.Patients,
-                                    PatientName = string.IsNullOrEmpty(patientName) ? null : string.Format("with {0}", patientName.Substring(0, patientName.Length - 4)),
-                                });
-                            }
-                        }
-                    }
-                }
+                ShowViewModel<RegistrationViewModel>();
+                return;
             }
-            catch (Exception ex)
-            {
 
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            DisplayAlert(msg);
         }
 
-        public async Task<AppointmentModel> GetAppointmentByUrl(string url)
+        public async void GetAppointments()
         {
-            try
+            IsBusy = true;
+
+            string msg = await DataProvider.GetDataProvider().GetAppointments();
+
+            if (msg == AppResources.OK)
             {
-                HttpClient client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", DataHelper.GetInstance().GetAuthorization());
-                HttpResponseMessage response = await client.GetAsync(url);
-                if (response.IsSuccessStatusCode)
+                Items.Clear();
+                foreach (var item in DataHelper.GetInstance().Appointments)
                 {
-                    string responseBody = await response.Content.ReadAsStringAsync();
-
-                    var appointment = JsonConvert.DeserializeObject<AppointmentModel>(responseBody);
-
-                    return appointment;
+                    Items.Add(item);
                 }
             }
-            catch (Exception ex)
-            {
+            else
+                DisplayAlert(msg);
 
+            IsBusy = false;
+        }
+
+        public void DisplayAlert(string message)
+        {
+            if (SendMessage != null)
+            {
+                SendMessage(this, message);
             }
-            return null;
         }
 
         public void ShowCheckedIn(DisplayAppointmentModel model)
@@ -204,63 +159,6 @@ namespace AppointMaster.ViewModels
             DataHelper.GetInstance().SetSelectedAppointment(model);
 
             ShowViewModel<RegistrationViewModel>();
-        }
-
-        private async void CheckIn()
-        {
-            if (string.IsNullOrEmpty(AppointmentCode))
-            {
-                DisplayAlert(AppResources.Enter_Code);
-                return;
-            }
-            try
-            {
-                IsBusy = true;
-
-                string url = DataHelper.GetInstance().BaseAPI + "VetTestAppointment/" + AppointmentCode + "";
-                var appointment = await GetAppointmentByUrl(url);
-
-                if (appointment != null)
-                {
-                    string patientName = null;
-                    foreach (var patientItem in appointment.Patients)
-                    {
-                        patientName += string.Format("{0} and ", patientItem.Name);
-                    }
-
-                    DataHelper.GetInstance().SetSelectedAppointment(new DisplayAppointmentModel
-                    {
-                        ID = appointment.ID,
-                        ClientID = appointment.ClientID,
-                        ClinicID = appointment.ClinicID,
-                        Time = appointment.Time,
-                        CheckedIn = appointment.CheckedIn,
-                        Client = appointment.Client,
-                        Clinic = appointment.Clinic,
-                        Patients = appointment.Patients,
-                        PatientName = string.IsNullOrEmpty(patientName) ? null : string.Format("with {0}", patientName.Substring(0, patientName.Length - 4)),
-                    });
-
-                    ShowViewModel<RegistrationViewModel>();
-                }
-                else
-                {
-                    DisplayAlert(AppResources.Invalid_Appointment_Code);
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
-        public void DisplayAlert(string message)
-        {
-            MessagingCenter.Send<CheckInViewModel, string>(this, "DisplayAlert", message);
         }
     }
 }

@@ -51,6 +51,7 @@
     <Compile Include="Models\ClinicModel.cs" />
     <Compile Include="Models\CultureModel.cs" />
     <Compile Include="Models\PatientModel.cs" />
+    <Compile Include="Models\PostModel.cs" />
     <Compile Include="Models\SpeciesModel.cs" />
     <Compile Include="Pages\CheckedInPage.cs" />
     <Compile Include="Pages\CheckInPage.cs" />
@@ -71,6 +72,10 @@
       <DependentUpon>AppResources.fr.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\DataHelper.cs" />
+    <Compile Include="Services\DataProvider.cs" />
+    <Compile Include="Services\IDataProvider.cs" />
+    <Compile Include="Services\LoadDataProvider.cs" />
+    <Compile Include="Services\ServerDataProvider.cs" />
     <Compile Include="ViewModels\CheckedInViewModel.cs" />
     <Compile Include="ViewModels\CheckInViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />

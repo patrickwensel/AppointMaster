@@ -5023,8 +5023,8 @@ namespace AppointMaster.Droid
 			// aapt resource value: 0x7f02006f
 			public const int mr_ic_settings_light = 2130837615;
 			
-			// aapt resource value: 0x7f020074
-			public const int notification_template_icon_bg = 2130837620;
+			// aapt resource value: 0x7f020075
+			public const int notification_template_icon_bg = 2130837621;
 			
 			// aapt resource value: 0x7f020070
 			public const int other = 2130837616;
@@ -5036,7 +5036,10 @@ namespace AppointMaster.Droid
 			public const int splash = 2130837618;
 			
 			// aapt resource value: 0x7f020073
-			public const int unchecked_checkbox = 2130837619;
+			public const int svc_logo = 2130837619;
+			
+			// aapt resource value: 0x7f020074
+			public const int unchecked_checkbox = 2130837620;
 			
 			static Drawable()
 			{

@@ -58,7 +58,7 @@ namespace AppointMaster.Pages
                 Text = string.Format("< {0}", AppResources.Main_Menu),
                 TextColor = Color.Black,
                 FontSize = 20,
-                BackgroundColor = DataHelper.GetInstance().SecondaryColor,
+                BackgroundColor = DataHelper.GetInstance().BaseAPI == null ? Color.Transparent : DataHelper.GetInstance().SecondaryColor,
                 BorderColor = Color.Black,
                 BorderRadius = 1,
                 BorderWidth = 2
@@ -197,11 +197,6 @@ namespace AppointMaster.Pages
             grid.Children.Add(new StackLayout { VerticalOptions = LayoutOptions.End, Padding = new Thickness(0, 0, 0, 20), Children = { btnBack } }, 0, 6);
 
             Content = grid;
-
-            MessagingCenter.Subscribe<SettingsViewModel, string>(this, "DisplayAlert", (sender, value) =>
-            {
-                DisplayAlert(AppResources.Error, AppResources.Enter_BaseAPI, AppResources.OK);
-            });
         }
 
         private void List_ItemTapped(object sender, ItemTappedEventArgs e)
@@ -211,6 +206,17 @@ namespace AppointMaster.Pages
                 return;
             SettingsViewModel.Items.Where(x => x.IsDigitModel).FirstOrDefault().IsDigitModel = false;
             model.IsDigitModel = true;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            SettingsViewModel.SendMessage += SettingsViewModel_SendMessage;
+        }
+
+        private void SettingsViewModel_SendMessage(object sender, string e)
+        {
+            DisplayAlert(AppResources.Error, AppResources.Enter_BaseAPI, AppResources.OK);
         }
     }
 }

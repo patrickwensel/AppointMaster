@@ -38,5 +38,7 @@ namespace AppointMaster.Models
                 OnPropertyChanged("IsChecked");
             }
         }
+
+        public string ImgLogo { get; set; }
     }
 }

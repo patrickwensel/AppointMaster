@@ -440,7 +440,7 @@ namespace AppointMaster.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid appointment code.
+        ///   Looks up a localized string similar to check-in code doesn’t exist.
         /// </summary>
         public static string Invalid_Appointment_Code {
             get {
@@ -634,6 +634,15 @@ namespace AppointMaster.Resources {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server error.
+        /// </summary>
+        public static string Server_Error {
+            get {
+                return ResourceManager.GetString("Server_Error", resourceCulture);
             }
         }
         

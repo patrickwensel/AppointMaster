@@ -12,6 +12,7 @@ namespace AppointMaster.Models
         public int ClinicID { get; set; }
         public int ClientID { get; set; }
         public DateTime? Time { get; set; }
+        public string Code { get; set; }
         public bool CheckedIn { get; set; }
         public ClientModel Client { get; set; }
         public ClinicModel Clinic { get; set; }

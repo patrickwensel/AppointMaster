@@ -244,7 +244,7 @@
     <value>Gender</value>
   </data>
   <data name="Invalid_Appointment_Code" xml:space="preserve">
-    <value>Invalid appointment code</value>
+    <value>check-in code doesn’t exist</value>
   </data>
   <data name="Invalid_User" xml:space="preserve">
     <value>Invalid user name or password.</value>
@@ -308,6 +308,9 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="Server_Error" xml:space="preserve">
+    <value>Server error</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>

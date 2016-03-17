@@ -55,84 +55,43 @@ namespace AppointMaster.ViewModels
             }
         }
 
+        ISecureStorage secureStorage;
 
         public LoginViewModel()
         {
+            secureStorage = DataHelper.GetInstance().SecureStorage;
+
             UserName = "c0a0f76d-261c-474a-8db9-d5f815e40958";
             Password = "K!ll3r";
+
+            try
+            {
+                byte[] bytes = secureStorage.Retrieve("DemoMode");
+                bool isDemoMode = Convert.ToBoolean(Encoding.UTF8.GetString(bytes, 0, bytes.Length));
+                DataHelper.GetInstance().IsDemoMode = isDemoMode;
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         private async void Login()
         {
             IsBusy = true;
 
-            if (string.IsNullOrEmpty(UserName))
+            string msg =await DataProvider.GetDataProvider().Login(Password,UserName);
+
+            if (msg == AppResources.OK)
             {
-                DisplayAlert(AppResources.Enter_Clinic_ID);
-                return;
+                ShowViewModel<MainViewModel>();
             }
-            if (string.IsNullOrEmpty(Password))
+            else
             {
-                DisplayAlert(AppResources.Enter_Password);
-                return;
+                DisplayAlert(msg);
             }
 
-            var secureStorage = DataHelper.GetInstance().SecureStorage;
-
-            //secureStorage.Store("UserName", Encoding.UTF8.GetBytes(UserName));
-            //ShowViewModel<MainViewModel>();
-            //return;
-
-            try
-            {
-                byte[] bytes = secureStorage.Retrieve("BaseAPI");
-
-                DataHelper.GetInstance().BaseAPI = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
-
-                byte[] inputBytes = Encoding.UTF8.GetBytes(Password);
-                var hasher = WinRTCrypto.HashAlgorithmProvider.OpenAlgorithm(HashAlgorithm.Sha1);
-                byte[] hash = hasher.HashData(inputBytes);
-                string hashPass = Convert.ToBase64String(hash);
-
-                string authorization = string.Format("{0}|{1}|{2}", "VetMobile", UserName, hashPass);
-                string authorizationBase64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(authorization));
-
-                DataHelper.GetInstance().SetAuthorization(authorizationBase64);
-
-                //DataHelper.GetInstance().SetAuthorization("VmV0TW9iaWxlfGMwYTBmNzZkLTI2MWMtNDc0YS04ZGI5LWQ1ZjgxNWU0MDk1OHxxMzhDbXVZNWk2ZjFyZDRxUnRVdWx1UW1YT1U9");
-
-                string url = DataHelper.GetInstance().BaseAPI + "VetClinic";
-                HttpClient client = new HttpClient();
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", DataHelper.GetInstance().GetAuthorization());
-                HttpResponseMessage response = await client.GetAsync(url);
-                if (response.IsSuccessStatusCode)
-                {
-                    string responseBody = await response.Content.ReadAsStringAsync();
-
-                    var clinicItem = JsonConvert.DeserializeObject<ClinicModel>(responseBody);
-
-                    DataHelper.GetInstance().Clinic = clinicItem;
-
-                    DataHelper.GetInstance().PrimaryColor = Color.FromHex(string.Format("#{0}", clinicItem.PrimaryColor));
-                    DataHelper.GetInstance().SecondaryColor = Color.FromHex(string.Format("#{0}", clinicItem.SecondaryColor));
-
-                    secureStorage.Store("UserName", Encoding.UTF8.GetBytes(UserName));
-
-                    ShowViewModel<MainViewModel>();
-                }
-                else
-                {
-                    DisplayAlert(AppResources.Invalid_User);
-                }
-            }
-            catch (Exception ex)
-            {
-               
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+            IsBusy = false;
         }
 
         public void DisplayAlert(string message)
@@ -144,8 +103,7 @@ namespace AppointMaster.ViewModels
         {
             try
             {
-                var secureStorage = Resolver.Resolve<ISecureStorage>();
-                secureStorage.Delete("UserName");
+                DataHelper.GetInstance().SecureStorage.Delete("UserName");
             }
             catch (Exception ex)
             {

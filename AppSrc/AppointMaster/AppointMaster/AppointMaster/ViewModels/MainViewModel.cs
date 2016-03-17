@@ -133,10 +133,5 @@ namespace AppointMaster.ViewModels
                 PostalCode = DataHelper.GetInstance().Clinic.PostalCode;
             }
         }
-
-        private void DisplayAlert(string message)
-        {
-            MessagingCenter.Send<MainViewModel, string>(this, "DisplayAlert", message);
-        }
     }
 }

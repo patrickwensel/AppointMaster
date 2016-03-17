@@ -73,10 +73,11 @@ namespace AppointMaster.Pages
 
             Image logoImage = new Image
             {
+                Source = "svc_logo.png",
                 VerticalOptions = LayoutOptions.Start,
                 HorizontalOptions = LayoutOptions.End,
                 HeightRequest = 100,
-                WidthRequest = 207
+                WidthRequest = 207,
             };
             if (DataHelper.GetInstance().Clinic.Logo != null)
             {
@@ -193,11 +194,6 @@ namespace AppointMaster.Pages
             popupLayout.GestureRecognizers.Add(tr);
 
             Content = grid;
-
-            MessagingCenter.Subscribe<MainViewModel, string>(this, "DisplayAlert", (sender, value) =>
-            {
-                DisplayAlert(AppResources.Error, value, AppResources.OK);
-            });
         }
 
         private void ShowCheckInView()

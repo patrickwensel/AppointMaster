@@ -108,7 +108,7 @@ namespace AppointMaster.Pages
                 HeightRequest = 50,
                 FontSize = 20
             };
-           
+
             entryDigit.SetBinding(Entry.TextProperty, "AppointmentCode");
 
             StackLayout digitSl = new StackLayout
@@ -199,7 +199,7 @@ namespace AppointMaster.Pages
             listView.SetBinding(ListView.ItemsSourceProperty, new Binding("Items"));
 
             StackLayout lstSl = new StackLayout { Padding = new Thickness(20, 0, 20, 0), Children = { listView } };
-            lstSl.SetBinding(ListView.IsVisibleProperty, "IsDigit",BindingMode.Default,converter:new TrueToFalseConverter());
+            lstSl.SetBinding(ListView.IsVisibleProperty, "IsDigit", BindingMode.Default, converter: new TrueToFalseConverter());
 
             var boxView = new BoxView { WidthRequest = 1, HeightRequest = 1, BackgroundColor = Color.Black, VerticalOptions = LayoutOptions.Start };
 
@@ -242,6 +242,24 @@ namespace AppointMaster.Pages
             Grid.SetRowSpan(loadingGrid, 5);
 
             Content = grid;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            CheckInViewModel.SendMessage += CheckInViewModel_SendMessage;
+        }
+
+        private void CheckInViewModel_SendMessage(object sender, string e)
+        {
+            DisplayAlert(AppResources.Error, e, AppResources.OK);
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            CheckInViewModel.IsStopTimer = true;
         }
     }
 }

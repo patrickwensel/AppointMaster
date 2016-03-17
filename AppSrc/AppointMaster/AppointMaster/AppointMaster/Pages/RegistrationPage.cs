@@ -785,8 +785,7 @@ namespace AppointMaster.Pages
                 //}
 
                 RegistrationViewModel.CheckedPatientList.Clear();
-                var patients = RegistrationViewModel.PatientList.Where(x => x.IsChecked == true).ToList();
-                foreach (var patientItem in patients)
+                foreach (var patientItem in RegistrationViewModel.PatientList)
                 {
                     RegistrationViewModel.CheckedPatientList.Add(patientItem);
                 }
@@ -1190,9 +1189,6 @@ namespace AppointMaster.Pages
 
                 if (selectPatientToCheckInItem == null)
                 {
-                    //if (RegistrationViewModel.IsCheckeInOrAdd)
-                    //    RegistrationViewModel.IsCheckeInOrAdd = false;
-
                     int id = 1;
                     if (RegistrationViewModel.PatientList.Count != 0)
                     {
@@ -1556,6 +1552,18 @@ namespace AppointMaster.Pages
 
             if (selectPatientToCheckInItem != null)
                 RegistrationViewModel.PatientList.Where(x => x.ID == selectPatientToCheckInItem.ID).FirstOrDefault().SpeciesID = model.ID;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            RegistrationViewModel.SendMessage += RegistrationViewModel_SendMessage;
+        }
+
+        private void RegistrationViewModel_SendMessage(object sender, string e)
+        {
+            DisplayAlert(AppResources.Error, e, AppResources.OK);
         }
     }
 }

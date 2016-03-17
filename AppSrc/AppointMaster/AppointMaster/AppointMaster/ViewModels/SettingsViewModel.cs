@@ -74,6 +74,8 @@ namespace AppointMaster.ViewModels
 
         public ObservableCollection<CheckInModel> Items { get; set; }
 
+        public event EventHandler<string> SendMessage;
+
         public SettingsViewModel()
         {
             try
@@ -86,6 +88,10 @@ namespace AppointMaster.ViewModels
 
                 SelectedCheckInModel = Items.Where(x => x.Name == AppResources.Appointment_List).FirstOrDefault();
                 SelectedCheckInModel.IsDigitModel = true;
+
+                byte[] bytesDemo = DataHelper.GetInstance().SecureStorage.Retrieve("DemoMode");
+                bool isDemoMode = Convert.ToBoolean(Encoding.UTF8.GetString(bytesDemo, 0, bytesDemo.Length));
+                IsChecked = isDemoMode;
 
                 var bytes = DataHelper.GetInstance().SecureStorage.Retrieve("BaseAPI");
 
@@ -106,12 +112,18 @@ namespace AppointMaster.ViewModels
         {
             if (string.IsNullOrEmpty(BaseAPIAddress))
             {
-                MessagingCenter.Send<SettingsViewModel, string>(this, "DisplayAlert", "");
+                if (SendMessage != null)
+                {
+                    SendMessage(null, null);
+                }
                 return;
             }
 
             try
             {
+                DataHelper.GetInstance().IsDemoMode = IsChecked;
+
+                DataHelper.GetInstance().SecureStorage.Store("DemoMode", Encoding.UTF8.GetBytes(IsChecked.ToString()));
                 DataHelper.GetInstance().SecureStorage.Store("BaseAPI", Encoding.UTF8.GetBytes(BaseAPIAddress));
                 DataHelper.GetInstance().SecureStorage.Store("CheckInModel", Encoding.UTF8.GetBytes(SelectedCheckInModel.Name));
 

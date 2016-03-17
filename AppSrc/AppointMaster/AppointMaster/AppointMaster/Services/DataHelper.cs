@@ -1,6 +1,7 @@
 ﻿using AppointMaster.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,8 @@ namespace AppointMaster.Services
         string authorization;
 
         DisplayAppointmentModel model;
+
+        public bool IsDemoMode { get; set; }
 
         public Xamarin.Forms.Color SecondaryColor { get; set; }
 
@@ -51,6 +54,10 @@ namespace AppointMaster.Services
         {
             Clinic = new ClinicModel();
             SecureStorage = Resolver.Resolve<ISecureStorage>();
+
+            Species = new ObservableCollection<DisplaySpeciesModel>();
+            Patients = new ObservableCollection<DisplayPatientModel>();
+            Appointments = new ObservableCollection<DisplayAppointmentModel>();
         }
 
         public static DataHelper GetInstance()
@@ -62,5 +69,11 @@ namespace AppointMaster.Services
             }
             return me;
         }
+
+        //Demo Mode
+        public ObservableCollection<DisplayAppointmentModel> Appointments { get; set; }
+
+        public ObservableCollection<DisplaySpeciesModel> Species { get; set; }
+        public ObservableCollection<DisplayPatientModel> Patients { get; set; }
     }
 }
