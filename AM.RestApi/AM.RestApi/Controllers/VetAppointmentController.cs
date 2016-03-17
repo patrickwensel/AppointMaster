@@ -29,7 +29,7 @@ namespace AM.RestApi.Controllers
             string date = DateTime.UtcNow.ToShortDateString();
             DateTime start = Convert.ToDateTime(string.Format("{0} 0:00:00", date));
             DateTime end = Convert.ToDateTime(string.Format("{0} 23:59:59", date));
-            var appointmentIDs = context.Appointments.Where(x => x.ClinicID == clinicID && x.Time >= start && x.Time <= end && x.CheckedIn == false).Select(x => x.ID);
+            var appointmentIDs = context.Appointments.Where(x => x.ClinicID == clinicID && x.Time >= start && x.Time <= end && x.CheckedIn == false).Select(x => x.ID).ToList();
             return appointmentIDs;
         }
 
@@ -79,6 +79,10 @@ namespace AM.RestApi.Controllers
         [Route("")]
         public void Post([FromBody]PostModel value)
         {
+            var chars = "ABCDEFGHIJKLMNPQRSTUVWXYZO0123456789";
+            var random = new Random();
+            var result = new string(Enumerable.Repeat(chars, 4).Select(s => s[random.Next(s.Length)]).ToArray());
+
             Client client = new Client
             {
                 ID = value.ClientModel.ID,
@@ -152,6 +156,7 @@ namespace AM.RestApi.Controllers
                 context.Clients.Add(client);
                 context.SaveChanges();
 
+                appointment.Code = result;
                 appointment.ClientID = client.ID;
                 context.Appointments.Add(appointment);
                 context.SaveChanges();
@@ -194,6 +199,15 @@ namespace AM.RestApi.Controllers
         //{
         //}
     }
+
+    //internal string GeneratePassword()
+    //{
+    //    var chars = "ABCDEFGHIJKLMNPQRSTUVWXYZ123456789"; //remove O and 0
+    //    var random = new Random();
+    //    var result = new string(
+    //    Enumerable.Repeat(chars, 6).Select(s => s[random.Next(s.Length)]).ToArray());
+    //    return result;
+    //}
 
     public class PostModel
     {
