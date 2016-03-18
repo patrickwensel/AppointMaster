@@ -93,7 +93,8 @@ namespace AppointMaster.Pages
                 Aspect = Aspect.AspectFit,
                 HorizontalOptions = LayoutOptions.End,
                 HeightRequest = 100,
-                WidthRequest = 207
+                WidthRequest = 207,
+                Source="svc_logo.png"
             };
             if (DataHelper.GetInstance().Clinic.Logo != null)
             {
@@ -758,7 +759,7 @@ namespace AppointMaster.Pages
                                },
                                imgPatient,
                                labName
-                        }
+                            }
                         }
                     };
                 })
@@ -1191,10 +1192,8 @@ namespace AppointMaster.Pages
                 {
                     int id = 1;
                     if (RegistrationViewModel.PatientList.Count != 0)
-                    {
                         id = RegistrationViewModel.PatientList.Select(x => x.RegistrationID).Max() + 1;
-                    }
-
+                    
                     DisplayPatientModel patientInfo = new DisplayPatientModel
                     {
                         IsChecked = false,

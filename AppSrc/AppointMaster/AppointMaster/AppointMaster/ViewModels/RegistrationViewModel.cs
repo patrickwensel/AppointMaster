@@ -313,7 +313,11 @@ namespace AppointMaster.ViewModels
             {
                 foreach (var item in DataHelper.GetInstance().Patients)
                 {
-                    PatientList.Add(item);
+                    if (item.ClientID == DataHelper.GetInstance().GetSelectedAppointment().ClientID)
+                    {
+                        item.RegistrationID = item.ID;
+                        PatientList.Add(item);
+                    }
                 }
                 return;
             }
@@ -415,7 +419,6 @@ namespace AppointMaster.ViewModels
 
         private void Cancel()
         {
-            DataHelper.GetInstance().SetSelectedAppointment(null);
             ShowViewModel<RegistrationCancelViewModel>();
         }
     }

@@ -99,6 +99,8 @@ namespace AppointMaster.Services
         {
             try
             {
+                DataHelper.GetInstance().Appointments.Clear();
+
                 string url = DataHelper.GetInstance().BaseAPI + "VetAppointment";
                 HttpClient client = new HttpClient();
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Basic", DataHelper.GetInstance().GetAuthorization());
@@ -108,7 +110,7 @@ namespace AppointMaster.Services
                     string responseBody = await response.Content.ReadAsStringAsync();
                     List<int> appointmentIDs = JsonConvert.DeserializeObject<List<int>>(responseBody);
 
-                    if (appointmentIDs == null)
+                    if (appointmentIDs == null || appointmentIDs.Count == 0)
                     {
                         return AppResources.OK;
                     }
@@ -257,6 +259,7 @@ namespace AppointMaster.Services
                         Logo = DataHelper.GetInstance().Species.Where(x => x.ID == item.SpeciesID).FirstOrDefault().Logo,
                         Birthdate = item.Birthdate,
                         RegistrationID = i,
+                        ClientID = item.ClientID,
                         Species = DataHelper.GetInstance().Species.Where(x => x.ID == item.SpeciesID).FirstOrDefault().Name
                     });
                 }

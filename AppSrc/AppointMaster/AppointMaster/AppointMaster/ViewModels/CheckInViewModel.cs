@@ -58,7 +58,7 @@ namespace AppointMaster.ViewModels
         {
             get
             {
-                return new MvxCommand(() => ShowViewModel<RegistrationViewModel>());
+                return new MvxCommand(() => ShowRegistration());
             }
         }
 
@@ -158,6 +158,12 @@ namespace AppointMaster.ViewModels
         {
             DataHelper.GetInstance().SetSelectedAppointment(model);
 
+            ShowViewModel<RegistrationViewModel>();
+        }
+
+        private void ShowRegistration()
+        {
+            DataHelper.GetInstance().SetSelectedAppointment(null);
             ShowViewModel<RegistrationViewModel>();
         }
     }

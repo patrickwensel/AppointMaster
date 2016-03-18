@@ -121,7 +121,12 @@ namespace AppointMaster.ViewModels
 
             try
             {
+                DataHelper.GetInstance().BaseAPI = BaseAPIAddress;
                 DataHelper.GetInstance().IsDemoMode = IsChecked;
+
+                DataHelper.GetInstance().Appointments.Clear();
+                DataHelper.GetInstance().Patients.Clear();
+                DataHelper.GetInstance().Species.Clear();
 
                 DataHelper.GetInstance().SecureStorage.Store("DemoMode", Encoding.UTF8.GetBytes(IsChecked.ToString()));
                 DataHelper.GetInstance().SecureStorage.Store("BaseAPI", Encoding.UTF8.GetBytes(BaseAPIAddress));
@@ -139,6 +144,13 @@ namespace AppointMaster.ViewModels
             try
             {
                 DataHelper.GetInstance().SecureStorage.Retrieve("UserName");
+
+                if (string.IsNullOrEmpty(DataHelper.GetInstance().GetAuthorization()))
+                {
+                    ShowViewModel<LoginViewModel>();
+
+                    return;
+                }
 
                 ShowViewModel<MainViewModel>();
             }

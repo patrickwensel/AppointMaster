@@ -18,17 +18,17 @@ namespace AppointMaster.Services
 
         DisplayAppointmentModel model;
 
-        public bool IsDemoMode { get; set; }
+        public string BaseAPI { get; set; }
 
-        public Xamarin.Forms.Color SecondaryColor { get; set; }
+        public bool IsDemoMode { get; set; }
 
         public Xamarin.Forms.Color PrimaryColor { get; set; }
 
-        public string BaseAPI { get; set; }
-
-        public ISecureStorage SecureStorage { get; set; }
+        public Xamarin.Forms.Color SecondaryColor { get; set; }
 
         public ClinicModel Clinic { get; set; }
+
+        public ISecureStorage SecureStorage { get; set; }
 
         public string GetAuthorization()
         {

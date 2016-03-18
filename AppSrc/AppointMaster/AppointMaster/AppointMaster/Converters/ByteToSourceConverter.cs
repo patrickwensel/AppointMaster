@@ -14,6 +14,11 @@ namespace AppointMaster.Converters
         {
             if (value == null)
                 return null;
+
+            var bytes = (byte[])value;
+            if (bytes.Length < 50)
+                return Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+
             return ImageSource.FromStream(() => new System.IO.MemoryStream((byte[])value));
         }
 

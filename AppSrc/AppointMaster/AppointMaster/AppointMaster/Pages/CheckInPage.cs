@@ -20,6 +20,7 @@ namespace AppointMaster.Pages
         {
             get { return BindingContext as CheckInViewModel; }
         }
+
         public CheckInPage()
         {
             BackgroundColor = Color.White;

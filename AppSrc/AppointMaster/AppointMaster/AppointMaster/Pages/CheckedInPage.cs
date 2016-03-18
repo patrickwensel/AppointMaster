@@ -21,7 +21,7 @@ namespace AppointMaster.Pages
             Image imgLogo = new Image
             {
                 Aspect = Aspect.AspectFit,
-                Source = "logo.png",
+                Source = "svc_logo.png",
                 VerticalOptions = LayoutOptions.Start,
                 HorizontalOptions = LayoutOptions.End,
                 HeightRequest = 100,

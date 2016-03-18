@@ -112,6 +112,9 @@ namespace AppointMaster.ViewModels
             try
             {
                 DataHelper.GetInstance().BaseAPI = null;
+                DataHelper.GetInstance().Appointments.Clear();
+                DataHelper.GetInstance().Species.Clear();
+                DataHelper.GetInstance().Patients.Clear();
             }
             catch (Exception ex)
             {
