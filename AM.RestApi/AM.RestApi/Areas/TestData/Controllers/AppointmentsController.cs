@@ -57,7 +57,7 @@ namespace AM.RestApi.Areas.TestData.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ClinicID,ClientID,Time,CheckedIn")] Appointment appointment)
+        public ActionResult Create([Bind(Include = "ID,ClinicID,ClientID,Time,CheckedIn,Code")] Appointment appointment)
         {
             if (ModelState.IsValid)
             {
@@ -112,7 +112,7 @@ namespace AM.RestApi.Areas.TestData.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ClinicID,ClientID,Time,CheckedIn")] Appointment appointment)
+        public ActionResult Edit([Bind(Include = "ID,ClinicID,ClientID,Time,CheckedIn,Code")] Appointment appointment)
         {
             if (ModelState.IsValid)
             {

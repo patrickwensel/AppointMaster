@@ -9,40 +9,48 @@
 <div>
     <h4>Appointment</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Time)
-        </dt>
+	<dl class="dl-horizontal">
 
-        <dd>
-            @Html.DisplayFor(model => model.Time)
-        </dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Code)
+		</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CheckedIn)
-        </dt>
+		<dd>
+			@Html.DisplayFor(model => model.Code)
+		</dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.Time)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CheckedIn)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.Time)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Client.Title)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.CheckedIn)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Client.Title)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.CheckedIn)
+		</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Clinic.Name)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.Client.Title)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Clinic.Name)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.Client.Title)
+		</dd>
 
-    </dl>
+		<dt>
+			@Html.DisplayNameFor(model => model.Clinic.Name)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Clinic.Name)
+		</dd>
+
+	</dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |

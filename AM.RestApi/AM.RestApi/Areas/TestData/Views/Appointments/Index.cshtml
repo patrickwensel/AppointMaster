@@ -10,24 +10,30 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Time)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CheckedIn)
-        </th>
-        <th>
-            Name
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Clinic.Name)
-        </th>
-        <th></th>
-    </tr>
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.Code)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Time)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.CheckedIn)
+		</th>
+		<th>
+			Name
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Clinic.Name)
+		</th>
+		<th></th>
+	</tr>
 
 @foreach (var item in Model) {
-    <tr>
+	<tr>
+		<td>
+			@Html.DisplayFor(modelItem => item.Code)
+		</td>
         <td>
             @Html.DisplayFor(modelItem => item.Time)
         </td>

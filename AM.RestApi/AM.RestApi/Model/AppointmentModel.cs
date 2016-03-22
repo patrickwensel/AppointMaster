@@ -14,6 +14,8 @@ namespace AM.RestApi.Model
         public DateTime Time { get; set; }
         public bool CheckedIn { get; set; }
         public ClientModel Client { get; set; }
-        public List<PatientModel> Patients { get; set; }
+
+		public string Code { get; set; }
+		public List<PatientModel> Patients { get; set; }
     }
 }
